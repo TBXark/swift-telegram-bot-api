@@ -358,7 +358,8 @@ class ParsingController {
             }
         }
         telegramRequest += "}"
-        return (type: telegramModel, method: telegramRequest)
+        return (type: telegramModel.replacingOccurrences(of: "\t", with: "    "),
+                method: telegramRequest.replacingOccurrences(of: "\t", with: "    "))
     }
     
     
