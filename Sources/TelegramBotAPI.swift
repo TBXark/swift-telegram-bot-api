@@ -7,7 +7,6 @@ public struct TelegramAPI {
         public let body: [String: Any]
     }
 
-
     /// Use this method to receive incoming updates using long polling ([wiki](http://en.wikipedia.org/wiki/Push_technology#Long_polling)). An Array of Update objects is returned.
     ///
     /// - parameter offset:  Identifier of the first update to be returned. Must be greater by one than the highest among the identifiers of previously received updates. By default, updates starting with the earliest unconfirmed update are returned. An update is considered confirmed as soon as getUpdates is called with an offset higher than its update_id. The negative offset can be specified to retrieve updates starting from -offset update from the end of the updates queue. All previous updates will forgotten.
@@ -25,7 +24,6 @@ public struct TelegramAPI {
         parameters["allowed_updates"] = allowedUpdates
         return Request(method: "getUpdates", body: parameters)
     }
-
 
     /// If you&#39;d like to make sure that the Webhook request comes from Telegram, we recommend using a secret path in the URL, e.g. https://www.example.com/&lt;token&gt;. Since nobody else knows your bot‘s token, you can be pretty sure it’s us.
     ///
@@ -45,7 +43,6 @@ public struct TelegramAPI {
         return Request(method: "setWebhook", body: parameters)
     }
 
-
     /// Use this method to remove webhook integration if you decide to switch back to getUpdates. Returns True on success. Requires no parameters.
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
@@ -53,7 +50,6 @@ public struct TelegramAPI {
     func deleteWebhook() -> Request {
         return Request(method: "deleteWebhook", body: [:])
     }
-
 
     /// Use this method to get current webhook status. Requires no parameters. On success, returns a WebhookInfo object. If the bot is using getUpdates, will return an object with the url field empty.
     ///
@@ -63,7 +59,6 @@ public struct TelegramAPI {
         return Request(method: "getWebhookInfo", body: [:])
     }
 
-
     /// A simple method for testing your bot&#39;s auth token. Requires no parameters. Returns basic information about the bot in form of a User object.
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
@@ -71,7 +66,6 @@ public struct TelegramAPI {
     func getMe() -> Request {
         return Request(method: "getMe", body: [:])
     }
-
 
     /// Use this method to send text messages. On success, the sent Message is returned.
     ///
@@ -97,7 +91,6 @@ public struct TelegramAPI {
         return Request(method: "sendMessage", body: parameters)
     }
 
-
     /// Use this method to forward messages of any kind. On success, the sent Message is returned.
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
@@ -115,7 +108,6 @@ public struct TelegramAPI {
         parameters["message_id"] = messageId
         return Request(method: "forwardMessage", body: parameters)
     }
-
 
     /// Use this method to send photos. On success, the sent Message is returned.
     ///
@@ -140,7 +132,6 @@ public struct TelegramAPI {
         parameters["reply_markup"] = replyMarkup
         return Request(method: "sendPhoto", body: parameters)
     }
-
 
     /// For sending voice messages, use the sendVoice method instead.
     ///
@@ -174,7 +165,6 @@ public struct TelegramAPI {
         return Request(method: "sendAudio", body: parameters)
     }
 
-
     /// Use this method to send general files. On success, the sent Message is returned. Bots can currently send files of any type of up to 50 MB in size, this limit may be changed in the future.
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
@@ -200,7 +190,6 @@ public struct TelegramAPI {
         parameters["reply_markup"] = replyMarkup
         return Request(method: "sendDocument", body: parameters)
     }
-
 
     /// Use this method to send video files, Telegram clients support mp4 videos (other formats may be sent as Document). On success, the sent Message is returned. Bots can currently send video files of up to 50 MB in size, this limit may be changed in the future.
     ///
@@ -236,7 +225,6 @@ public struct TelegramAPI {
         return Request(method: "sendVideo", body: parameters)
     }
 
-
     /// Use this method to send animation files (GIF or H.264/MPEG-4 AVC video without sound). On success, the sent Message is returned. Bots can currently send animation files of up to 50 MB in size, this limit may be changed in the future.
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
@@ -269,7 +257,6 @@ public struct TelegramAPI {
         return Request(method: "sendAnimation", body: parameters)
     }
 
-
     /// Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. For this to work, your audio must be in an .ogg file encoded with OPUS (other formats may be sent as Audio or Document). On success, the sent Message is returned. Bots can currently send voice messages of up to 50 MB in size, this limit may be changed in the future.
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
@@ -295,7 +282,6 @@ public struct TelegramAPI {
         parameters["reply_markup"] = replyMarkup
         return Request(method: "sendVoice", body: parameters)
     }
-
 
     /// As of [v.4.0](https://telegram.org/blog/video-messages-and-telescope), Telegram clients support rounded square mp4 videos of up to 1 minute long. Use this method to send video messages. On success, the sent Message is returned.
     ///
@@ -323,7 +309,6 @@ public struct TelegramAPI {
         return Request(method: "sendVideoNote", body: parameters)
     }
 
-
     /// Use this method to send a group of photos or videos as an album. On success, an array of the sent Messages is returned.
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
@@ -341,7 +326,6 @@ public struct TelegramAPI {
         parameters["reply_to_message_id"] = replyToMessageId
         return Request(method: "sendMediaGroup", body: parameters)
     }
-
 
     /// Use this method to send point on the map. On success, the sent Message is returned.
     ///
@@ -367,7 +351,6 @@ public struct TelegramAPI {
         return Request(method: "sendLocation", body: parameters)
     }
 
-
     /// Use this method to edit live location messages sent by the bot or via the bot (for inline bots). A location can be edited until its live_period expires or editing is explicitly disabled by a call to stopMessageLiveLocation. On success, if the edited message was sent by the bot, the edited Message is returned, otherwise True is returned.
     ///
     /// - parameter chatId:  Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
@@ -390,7 +373,6 @@ public struct TelegramAPI {
         return Request(method: "editMessageLiveLocation", body: parameters)
     }
 
-
     /// Use this method to stop updating a live location message sent by the bot or via the bot (for inline bots) before live_period expires. On success, if the message was sent by the bot, the sent Message is returned, otherwise True is returned.
     ///
     /// - parameter chatId:  Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
@@ -408,7 +390,6 @@ public struct TelegramAPI {
         parameters["reply_markup"] = replyMarkup
         return Request(method: "stopMessageLiveLocation", body: parameters)
     }
-
 
     /// Use this method to send information about a venue. On success, the sent Message is returned.
     ///
@@ -440,7 +421,6 @@ public struct TelegramAPI {
         return Request(method: "sendVenue", body: parameters)
     }
 
-
     /// Use this method to send phone contacts. On success, the sent Message is returned.
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
@@ -467,7 +447,6 @@ public struct TelegramAPI {
         return Request(method: "sendContact", body: parameters)
     }
 
-
     /// We only recommend using this method when a response from the bot will take a noticeable amount of time to arrive.
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
@@ -481,7 +460,6 @@ public struct TelegramAPI {
         parameters["action"] = action
         return Request(method: "sendChatAction", body: parameters)
     }
-
 
     /// Use this method to get a list of profile pictures for a user. Returns a UserProfilePhotos object.
     ///
@@ -499,7 +477,6 @@ public struct TelegramAPI {
         return Request(method: "getUserProfilePhotos", body: parameters)
     }
 
-
     /// Use this method to get basic info about a file and prepare it for downloading. For the moment, bots can download files of up to 20MB in size. On success, a File object is returned. The file can then be downloaded via the link https://api.telegram.org/file/bot&lt;token&gt;/&lt;file_path&gt;, where &lt;file_path&gt; is taken from the response. It is guaranteed that the link will be valid for at least 1 hour. When the link expires, a new one can be requested by calling getFile again.
     ///
     /// - parameter fileId:  File identifier to get info about
@@ -511,7 +488,6 @@ public struct TelegramAPI {
         parameters["file_id"] = fileId
         return Request(method: "getFile", body: parameters)
     }
-
 
     /// Note: In regular groups (non-supergroups), this method will only work if the ‘All Members Are Admins’ setting is off in the target group. Otherwise members may only be removed by the group&#39;s creator or by the member that added them.
     ///
@@ -529,7 +505,6 @@ public struct TelegramAPI {
         return Request(method: "kickChatMember", body: parameters)
     }
 
-
     /// Use this method to unban a previously kicked user in a supergroup or channel. The user will not return to the group or channel automatically, but will be able to join via link, etc. The bot must be an administrator for this to work. Returns True on success.
     ///
     /// - parameter chatId:  Unique identifier for the target group or username of the target supergroup or channel (in the format @username)
@@ -543,7 +518,6 @@ public struct TelegramAPI {
         parameters["user_id"] = userId
         return Request(method: "unbanChatMember", body: parameters)
     }
-
 
     /// Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for this to work and must have the appropriate admin rights. Pass True for all boolean parameters to lift restrictions from a user. Returns True on success.
     ///
@@ -568,7 +542,6 @@ public struct TelegramAPI {
         parameters["can_add_web_page_previews"] = canAddWebPagePreviews
         return Request(method: "restrictChatMember", body: parameters)
     }
-
 
     /// Use this method to promote or demote a user in a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Pass False for all boolean parameters to demote a user. Returns True on success.
     ///
@@ -600,7 +573,6 @@ public struct TelegramAPI {
         return Request(method: "promoteChatMember", body: parameters)
     }
 
-
     /// Use this method to generate a new invite link for a chat; any previously generated link is revoked. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns the new invite link as String on success.
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
@@ -612,7 +584,6 @@ public struct TelegramAPI {
         parameters["chat_id"] = chatId
         return Request(method: "exportChatInviteLink", body: parameters)
     }
-
 
     /// Note: In regular groups (non-supergroups), this method will only work if the ‘All Members Are Admins’ setting is off in the target group.
     ///
@@ -628,7 +599,6 @@ public struct TelegramAPI {
         return Request(method: "setChatPhoto", body: parameters)
     }
 
-
     /// Note: In regular groups (non-supergroups), this method will only work if the ‘All Members Are Admins’ setting is off in the target group.
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
@@ -640,7 +610,6 @@ public struct TelegramAPI {
         parameters["chat_id"] = chatId
         return Request(method: "deleteChatPhoto", body: parameters)
     }
-
 
     /// Note: In regular groups (non-supergroups), this method will only work if the ‘All Members Are Admins’ setting is off in the target group.
     ///
@@ -656,7 +625,6 @@ public struct TelegramAPI {
         return Request(method: "setChatTitle", body: parameters)
     }
 
-
     /// Use this method to change the description of a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success. 
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
@@ -670,7 +638,6 @@ public struct TelegramAPI {
         parameters["description"] = description
         return Request(method: "setChatDescription", body: parameters)
     }
-
 
     /// Use this method to pin a message in a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the ‘can_pin_messages’ admin right in the supergroup or ‘can_edit_messages’ admin right in the channel. Returns True on success.
     ///
@@ -688,7 +655,6 @@ public struct TelegramAPI {
         return Request(method: "pinChatMessage", body: parameters)
     }
 
-
     /// Use this method to unpin a message in a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the ‘can_pin_messages’ admin right in the supergroup or ‘can_edit_messages’ admin right in the channel. Returns True on success. 
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
@@ -700,7 +666,6 @@ public struct TelegramAPI {
         parameters["chat_id"] = chatId
         return Request(method: "unpinChatMessage", body: parameters)
     }
-
 
     /// Use this method for your bot to leave a group, supergroup or channel. Returns True on success.
     ///
@@ -714,7 +679,6 @@ public struct TelegramAPI {
         return Request(method: "leaveChat", body: parameters)
     }
 
-
     /// Use this method to get up to date information about the chat (current name of the user for one-on-one conversations, current username of a user, group or channel, etc.). Returns a Chat object on success.
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
@@ -726,7 +690,6 @@ public struct TelegramAPI {
         parameters["chat_id"] = chatId
         return Request(method: "getChat", body: parameters)
     }
-
 
     /// Use this method to get a list of administrators in a chat. On success, returns an Array of ChatMember objects that contains information about all chat administrators except other bots. If the chat is a group or a supergroup and no administrators were appointed, only the creator will be returned.
     ///
@@ -740,7 +703,6 @@ public struct TelegramAPI {
         return Request(method: "getChatAdministrators", body: parameters)
     }
 
-
     /// Use this method to get the number of members in a chat. Returns Int on success.
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
@@ -752,7 +714,6 @@ public struct TelegramAPI {
         parameters["chat_id"] = chatId
         return Request(method: "getChatMembersCount", body: parameters)
     }
-
 
     /// Use this method to get information about a member of a chat. Returns a ChatMember object on success.
     ///
@@ -768,7 +729,6 @@ public struct TelegramAPI {
         return Request(method: "getChatMember", body: parameters)
     }
 
-
     /// Use this method to set a new group sticker set for a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Use the field can_set_sticker_set optionally returned in getChat requests to check if the bot can use this method. Returns True on success.
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
@@ -783,7 +743,6 @@ public struct TelegramAPI {
         return Request(method: "setChatStickerSet", body: parameters)
     }
 
-
     /// Use this method to delete a group sticker set from a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Use the field can_set_sticker_set optionally returned in getChat requests to check if the bot can use this method. Returns True on success.
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
@@ -795,7 +754,6 @@ public struct TelegramAPI {
         parameters["chat_id"] = chatId
         return Request(method: "deleteChatStickerSet", body: parameters)
     }
-
 
     /// Alternatively, the user can be redirected to the specified Game URL. For this option to work, you must first create a game for your bot via [@Botfather](https://t.me/botfather) and accept the terms. Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter.
     ///
@@ -816,7 +774,6 @@ public struct TelegramAPI {
         parameters["cache_time"] = cacheTime
         return Request(method: "answerCallbackQuery", body: parameters)
     }
-
 
     /// Use this method to edit text and game messages sent by the bot or via the bot (for inline bots). On success, if edited message is sent by the bot, the edited Message is returned, otherwise True is returned.
     ///
@@ -842,7 +799,6 @@ public struct TelegramAPI {
         return Request(method: "editMessageText", body: parameters)
     }
 
-
     /// Use this method to edit captions of messages sent by the bot or via the bot (for inline bots). On success, if edited message is sent by the bot, the edited Message is returned, otherwise True is returned.
     ///
     /// - parameter chatId:  Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
@@ -865,7 +821,6 @@ public struct TelegramAPI {
         return Request(method: "editMessageCaption", body: parameters)
     }
 
-
     /// Use this method to edit audio, document, photo, or video messages. If a message is a part of a message album, then it can be edited only to a photo or a video. Otherwise, message type can be changed arbitrarily. When inline message is edited, new file can&#39;t be uploaded. Use previously uploaded file via its file_id or specify a URL. On success, if the edited message was sent by the bot, the edited Message is returned, otherwise True is returned.
     ///
     /// - parameter chatId:  Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
@@ -886,7 +841,6 @@ public struct TelegramAPI {
         return Request(method: "editMessageMedia", body: parameters)
     }
 
-
     /// Use this method to edit only the reply markup of messages sent by the bot or via the bot (for inline bots).  On success, if edited message is sent by the bot, the edited Message is returned, otherwise True is returned.
     ///
     /// - parameter chatId:  Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
@@ -905,7 +859,6 @@ public struct TelegramAPI {
         return Request(method: "editMessageReplyMarkup", body: parameters)
     }
 
-
     /// Use this method to delete a message, including service messages, with the following limitations:- A message can only be deleted if it was sent less than 48 hours ago.- Bots can delete outgoing messages in private chats, groups, and supergroups.- Bots granted can_post_messages permissions can delete outgoing messages in channels.- If the bot is an administrator of a group, it can delete any message there.- If the bot has can_delete_messages permission in a supergroup or a channel, it can delete any message there.Returns True on success.
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
@@ -919,7 +872,6 @@ public struct TelegramAPI {
         parameters["message_id"] = messageId
         return Request(method: "deleteMessage", body: parameters)
     }
-
 
     /// Use this method to send .webp stickers. On success, the sent Message is returned.
     ///
@@ -941,7 +893,6 @@ public struct TelegramAPI {
         return Request(method: "sendSticker", body: parameters)
     }
 
-
     /// Use this method to get a sticker set. On success, a StickerSet object is returned.
     ///
     /// - parameter name:  Name of the sticker set
@@ -953,7 +904,6 @@ public struct TelegramAPI {
         parameters["name"] = name
         return Request(method: "getStickerSet", body: parameters)
     }
-
 
     /// Use this method to upload a .png file with a sticker for later use in createNewStickerSet and addStickerToSet methods (can be used multiple times). Returns the uploaded File on success.
     ///
@@ -968,7 +918,6 @@ public struct TelegramAPI {
         parameters["png_sticker"] = pngSticker
         return Request(method: "uploadStickerFile", body: parameters)
     }
-
 
     /// Use this method to create new sticker set owned by a user. The bot will be able to edit the created sticker set. Returns True on success.
     ///
@@ -994,7 +943,6 @@ public struct TelegramAPI {
         return Request(method: "createNewStickerSet", body: parameters)
     }
 
-
     /// Use this method to add a new sticker to a set created by the bot. Returns True on success.
     ///
     /// - parameter userId:  User identifier of sticker set owner
@@ -1015,7 +963,6 @@ public struct TelegramAPI {
         return Request(method: "addStickerToSet", body: parameters)
     }
 
-
     /// Use this method to move a sticker in a set created by the bot to a specific position . Returns True on success.
     ///
     /// - parameter sticker:  File identifier of the sticker
@@ -1030,7 +977,6 @@ public struct TelegramAPI {
         return Request(method: "setStickerPositionInSet", body: parameters)
     }
 
-
     /// Use this method to delete a sticker from a set created by the bot. Returns True on success.
     ///
     /// - parameter sticker:  File identifier of the sticker
@@ -1042,7 +988,6 @@ public struct TelegramAPI {
         parameters["sticker"] = sticker
         return Request(method: "deleteStickerFromSet", body: parameters)
     }
-
 
     /// Use this method to send answers to an inline query. On success, True is returned.No more than 50 results per query are allowed.
     ///
@@ -1067,7 +1012,6 @@ public struct TelegramAPI {
         parameters["switch_pm_parameter"] = switchPmParameter
         return Request(method: "answerInlineQuery", body: parameters)
     }
-
 
     /// Use this method to send invoices. On success, the sent Message is returned.
     ///
@@ -1125,7 +1069,6 @@ public struct TelegramAPI {
         return Request(method: "sendInvoice", body: parameters)
     }
 
-
     /// If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the Bot API will send an Update with a shipping_query field to the bot. Use this method to reply to shipping queries. On success, True is returned.
     ///
     /// - parameter shippingQueryId:  Unique identifier for the query to be answered
@@ -1144,7 +1087,6 @@ public struct TelegramAPI {
         return Request(method: "answerShippingQuery", body: parameters)
     }
 
-
     /// Once the user has confirmed their payment and shipping details, the Bot API sends the final confirmation in the form of an Update with the field pre_checkout_query. Use this method to respond to such pre-checkout queries. On success, True is returned. Note: The Bot API must receive an answer within 10 seconds after the pre-checkout query was sent.
     ///
     /// - parameter preCheckoutQueryId:  Unique identifier for the query to be answered
@@ -1161,7 +1103,6 @@ public struct TelegramAPI {
         return Request(method: "answerPreCheckoutQuery", body: parameters)
     }
 
-
     /// Use this if the data submitted by the user doesn&#39;t satisfy the standards your service requires for any reason. For example, if a birthday date seems invalid, a submitted document is blurry, a scan shows evidence of tampering, etc. Supply some details in the error message to make sure the user knows how to correct the issues.
     ///
     /// - parameter userId:  User identifier
@@ -1175,7 +1116,6 @@ public struct TelegramAPI {
         parameters["errors"] = errors
         return Request(method: "setPassportDataErrors", body: parameters)
     }
-
 
     /// Use this method to send a game. On success, the sent Message is returned.
     ///
@@ -1196,7 +1136,6 @@ public struct TelegramAPI {
         parameters["reply_markup"] = replyMarkup
         return Request(method: "sendGame", body: parameters)
     }
-
 
     /// Use this method to set the score of the specified user in a game. On success, if the message was sent by the bot, returns the edited Message, otherwise returns True. Returns an error, if the new score is not greater than the user&#39;s current score in the chat and force is False.
     ///
@@ -1221,7 +1160,6 @@ public struct TelegramAPI {
         parameters["inline_message_id"] = inlineMessageId
         return Request(method: "setGameScore", body: parameters)
     }
-
 
     /// This method will currently return scores for the target user, plus two of his closest neighbors on each side. Will also return the top three users if the user and his neighbors are not among them. Please note that this behavior is subject to change.
     ///

@@ -90,9 +90,6 @@ public enum ReplyMarkup: Codable {
         }
 }
 
-
-
-
 /// This object represents an incoming update.At most one of the optional parameters can be present in any given update.
 public class Update: Codable {
 
@@ -1712,7 +1709,6 @@ public enum InputMedia: Codable {
         }
 }
 
-
 /// Represents a photo to be sent.
 public class InputMediaPhoto: Codable {
 
@@ -2309,7 +2305,6 @@ public enum InlineQueryResult: Codable {
             }
         }
 }
-
 
 /// Represents a link to an article or web page.
 public class InlineQueryResultArticle: Codable {
@@ -3839,7 +3834,6 @@ public enum InputMessageContent: Codable {
         }
 }
 
-
 /// Represents the content of a text message to be sent as the result of an inline query. 
 public class InputTextMessageContent: Codable {
 
@@ -4637,7 +4631,6 @@ public enum PassportElementError: Codable {
         }
 }
 
-
 /// Represents an issue in one of the data fields that was provided by the user. The error is considered resolved when the field&#39;s value changes.
 public class PassportElementErrorDataField: Codable {
 
@@ -5094,4 +5087,3 @@ public class GameHighScore: Codable {
     }
 
 }
-

@@ -130,7 +130,7 @@ class ParsingController {
         encode += "\n\t\t\t}\n\t\t}\n}"
         code += decoder
         code += encode
-        code += "\n\n\n"
+        code += "\n\n"
         return code
     }
 
