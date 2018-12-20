@@ -311,7 +311,7 @@ class ParsingController {
                             propertyList += "\t/// \(note)\n"
                             propertyList += "\tpublic var \(f): \(t)\(pro.isOptional ? "?" : "")\n\n"
                             
-                            initMethod += "\(f): \(t)\(pro.isOptional ? "?" : ""), "
+                            initMethod += "\(f): \(t)\(pro.isOptional ? "? = nil" : ""), "
                             
                             initBody += "\t\tself.\(f) = \(f) \n"
                             
