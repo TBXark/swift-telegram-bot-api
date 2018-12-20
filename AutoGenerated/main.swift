@@ -130,7 +130,7 @@ class ParsingController {
         encode += "\n\t\t\t}\n\t\t}\n}"
         code += decoder
         code += encode
-        code += "\n\n"
+        code += "\n"
         return code
     }
 
@@ -217,7 +217,6 @@ class ParsingController {
                 public let body: [String: Any]
             }
 
-
         """
 
         telegramModel += ("""
@@ -282,18 +281,17 @@ class ParsingController {
             let replyMarkup = ["InlineKeyboardMarkup", "ReplyKeyboardMarkup", "ReplyKeyboardRemove", "ForceReply"]
             telegramModel += "/// ReplyMarkup: \(replyMarkup.joined(separator: " or "))\n"
             telegramModel += unionBuilder(name: "ReplyMarkup", cases: replyMarkup)
-            telegramModel += "\n\n"
         }
 
         for item in tables {
             if let title = item.title, let char = title.first {
                 if let unions = item.unions {
-                    telegramModel += "/// \(item.note ?? "")\n"
+                    telegramModel += "\n/// \(item.note ?? "")\n"
                     telegramModel += unionBuilder(name: title, cases: unions)
                 } else if uppercaseLetters.contains(char) {
-                    telegramModel += "/// \(item.note ?? "")\n"
+                    telegramModel += "\n/// \(item.note ?? "")\n"
                     if item.list.isEmpty {
-                        telegramModel += "public struct \(title): \(superClass[title] ?? "Codable") {\n\n}\n\n"
+                        telegramModel += "public struct \(title): \(superClass[title] ?? "Codable") {\n\n}\n"
                         continue
                     } else {
                         telegramModel += "public class \(title): \(superClass[title] ?? "Codable") {\n\n"
@@ -328,7 +326,7 @@ class ParsingController {
                     telegramModel += comment
                     telegramModel += initMethod + "\n"
                     telegramModel += codingKeys + "\n"
-                    telegramModel += "}\n\n"
+                    telegramModel += "}\n"
 
                 } else {
 
@@ -351,13 +349,13 @@ class ParsingController {
                     method += ") -> Request {\n\(item.list.isEmpty ? "" : "\t\tvar parameters = [String: Any]()\n")"
                     method += body
                     method += "\t\treturn Request(method: \"\(title)\", body: \(item.list.isEmpty ? "[:]" : "parameters"))\n"
-                    method += "\t}\n\n"
+                    method += "\t}\n"
                     telegramRequest += comment
                     telegramRequest += method
                 }
             }
         }
-        telegramRequest += "}"
+        telegramRequest += "\n}\n"
         return (type: telegramModel.replacingOccurrences(of: "\t", with: "    "),
                 method: telegramRequest.replacingOccurrences(of: "\t", with: "    "))
     }
