@@ -30,7 +30,6 @@ public enum Either<A: Codable, B: Codable>: Codable {
             return b
         }
     }
-
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
@@ -123,7 +122,6 @@ public class Update: Codable {
     /// Optional. New incoming pre-checkout query. Contains full information about checkout
     public var preCheckoutQuery: PreCheckoutQuery?
 
-
     public init(updateId: Int, message: Message? = nil, editedMessage: Message? = nil, channelPost: Message? = nil, editedChannelPost: Message? = nil, inlineQuery: InlineQuery? = nil, chosenInlineResult: ChosenInlineResult? = nil, callbackQuery: CallbackQuery? = nil, shippingQuery: ShippingQuery? = nil, preCheckoutQuery: PreCheckoutQuery? = nil) {
         self.updateId = updateId 
         self.message = message 
@@ -178,7 +176,6 @@ public class WebhookInfo: Codable {
     /// Optional. A list of update types the bot is subscribed to. Defaults to all update types
     public var allowedUpdates: [String]?
 
-
     public init(url: String, hasCustomCertificate: Bool, pendingUpdateCount: Int, lastErrorDate: Int? = nil, lastErrorMessage: String? = nil, maxConnections: Int? = nil, allowedUpdates: [String]? = nil) {
         self.url = url 
         self.hasCustomCertificate = hasCustomCertificate 
@@ -223,7 +220,6 @@ public class User: Codable {
 
     /// Optional. [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag) of the user&#39;s language
     public var languageCode: String?
-
 
     public init(id: Int, isBot: Bool, firstName: String, lastName: String? = nil, username: String? = nil, languageCode: String? = nil) {
         self.id = id 
@@ -288,7 +284,6 @@ public class Chat: Codable {
 
     /// Optional. True, if the bot can change the group sticker set. Returned only in getChat.
     public var canSetStickerSet: Bool?
-
 
     public init(id: Int, type: String, title: String? = nil, username: String? = nil, firstName: String? = nil, lastName: String? = nil, allMembersAreAdministrators: Bool? = nil, photo: ChatPhoto? = nil, description: String? = nil, inviteLink: String? = nil, pinnedMessage: Message? = nil, stickerSetName: String? = nil, canSetStickerSet: Bool? = nil) {
         self.id = id 
@@ -461,7 +456,6 @@ public class Message: Codable {
     /// Optional. Telegram Passport data
     public var passportData: PassportData?
 
-
     public init(messageId: Int, from: User? = nil, date: Int, chat: Chat, forwardFrom: User? = nil, forwardFromChat: Chat? = nil, forwardFromMessageId: Int? = nil, forwardSignature: String? = nil, forwardDate: Int? = nil, replyToMessage: Message? = nil, editDate: Int? = nil, mediaGroupId: String? = nil, authorSignature: String? = nil, text: String? = nil, entities: [MessageEntity]? = nil, captionEntities: [MessageEntity]? = nil, audio: Audio? = nil, document: Document? = nil, animation: Animation? = nil, game: Game? = nil, photo: [PhotoSize]? = nil, sticker: Sticker? = nil, video: Video? = nil, voice: Voice? = nil, videoNote: VideoNote? = nil, caption: String? = nil, contact: Contact? = nil, location: Location? = nil, venue: Venue? = nil, newChatMembers: [User]? = nil, leftChatMember: User? = nil, newChatTitle: String? = nil, newChatPhoto: [PhotoSize]? = nil, deleteChatPhoto: Bool? = nil, groupChatCreated: Bool? = nil, supergroupChatCreated: Bool? = nil, channelChatCreated: Bool? = nil, migrateToChatId: Int? = nil, migrateFromChatId: Int? = nil, pinnedMessage: Message? = nil, invoice: Invoice? = nil, successfulPayment: SuccessfulPayment? = nil, connectedWebsite: String? = nil, passportData: PassportData? = nil) {
         self.messageId = messageId 
         self.from = from 
@@ -578,7 +572,6 @@ public class MessageEntity: Codable {
     /// Optional. For “text_mention” only, the mentioned user
     public var user: User?
 
-
     public init(type: String, offset: Int, length: Int, url: String? = nil, user: User? = nil) {
         self.type = type 
         self.offset = offset 
@@ -613,7 +606,6 @@ public class PhotoSize: Codable {
 
     /// Optional. File size
     public var fileSize: Int?
-
 
     public init(fileId: String, width: Int, height: Int, fileSize: Int? = nil) {
         self.fileId = fileId 
@@ -657,7 +649,6 @@ public class Audio: Codable {
     /// Optional. Thumbnail of the album cover to which the music file belongs
     public var thumb: PhotoSize?
 
-
     public init(fileId: String, duration: Int, performer: String? = nil, title: String? = nil, mimeType: String? = nil, fileSize: Int? = nil, thumb: PhotoSize? = nil) {
         self.fileId = fileId 
         self.duration = duration 
@@ -699,7 +690,6 @@ public class Document: Codable {
 
     /// Optional. File size
     public var fileSize: Int?
-
 
     public init(fileId: String, thumb: PhotoSize? = nil, fileName: String? = nil, mimeType: String? = nil, fileSize: Int? = nil) {
         self.fileId = fileId 
@@ -744,7 +734,6 @@ public class Video: Codable {
 
     /// Optional. File size
     public var fileSize: Int?
-
 
     public init(fileId: String, width: Int, height: Int, duration: Int, thumb: PhotoSize? = nil, mimeType: String? = nil, fileSize: Int? = nil) {
         self.fileId = fileId 
@@ -797,7 +786,6 @@ public class Animation: Codable {
     /// Optional. File size
     public var fileSize: Int?
 
-
     public init(fileId: String, width: Int, height: Int, duration: Int, thumb: PhotoSize? = nil, fileName: String? = nil, mimeType: String? = nil, fileSize: Int? = nil) {
         self.fileId = fileId 
         self.width = width 
@@ -839,7 +827,6 @@ public class Voice: Codable {
     /// Optional. File size
     public var fileSize: Int?
 
-
     public init(fileId: String, duration: Int, mimeType: String? = nil, fileSize: Int? = nil) {
         self.fileId = fileId 
         self.duration = duration 
@@ -875,7 +862,6 @@ public class VideoNote: Codable {
 
     /// Optional. File size
     public var fileSize: Int?
-
 
     public init(fileId: String, length: Int, duration: Int, thumb: PhotoSize? = nil, fileSize: Int? = nil) {
         self.fileId = fileId 
@@ -915,7 +901,6 @@ public class Contact: Codable {
     /// Optional. Additional data about the contact in the form of a [vCard](https://en.wikipedia.org/wiki/VCard)
     public var vcard: String?
 
-
     public init(phoneNumber: String, firstName: String, lastName: String? = nil, userId: Int? = nil, vcard: String? = nil) {
         self.phoneNumber = phoneNumber 
         self.firstName = firstName 
@@ -944,7 +929,6 @@ public class Location: Codable {
 
     /// Latitude as defined by sender
     public var latitude: Float
-
 
     public init(longitude: Float, latitude: Float) {
         self.longitude = longitude 
@@ -978,7 +962,6 @@ public class Venue: Codable {
     /// Optional. Foursquare type of the venue. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
     public var foursquareType: String?
 
-
     public init(location: Location, title: String, address: String, foursquareId: String? = nil, foursquareType: String? = nil) {
         self.location = location 
         self.title = title 
@@ -1008,7 +991,6 @@ public class UserProfilePhotos: Codable {
     /// Requested profile pictures (in up to 4 sizes each)
     public var photos: [PhotoSize]
 
-
     public init(totalCount: Int, photos: [PhotoSize]) {
         self.totalCount = totalCount 
         self.photos = photos 
@@ -1034,7 +1016,6 @@ public class File: Codable {
 
     /// Optional. File path. Use https://api.telegram.org/file/bot&lt;token&gt;/&lt;file_path&gt; to get the file.
     public var filePath: String?
-
 
     public init(fileId: String, fileSize: Int? = nil, filePath: String? = nil) {
         self.fileId = fileId 
@@ -1067,7 +1048,6 @@ public class ReplyKeyboardMarkup: Codable {
     /// Optional. Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot&#39;s message is a reply (has reply_to_message_id), sender of the original message.Example: A user requests to change the bot‘s language, bot replies to the request with a keyboard to select the new language. Other users in the group don’t see the keyboard.
     public var selective: Bool?
 
-
     public init(keyboard: [KeyboardButton], resizeKeyboard: Bool? = nil, oneTimeKeyboard: Bool? = nil, selective: Bool? = nil) {
         self.keyboard = keyboard 
         self.resizeKeyboard = resizeKeyboard 
@@ -1098,7 +1078,6 @@ public class KeyboardButton: Codable {
     /// Optional. If True, the user&#39;s current location will be sent when the button is pressed. Available in private chats only
     public var requestLocation: Bool?
 
-
     public init(text: String, requestContact: Bool? = nil, requestLocation: Bool? = nil) {
         self.text = text 
         self.requestContact = requestContact 
@@ -1124,7 +1103,6 @@ public class ReplyKeyboardRemove: Codable {
     /// Optional. Use this parameter if you want to remove the keyboard for specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot&#39;s message is a reply (has reply_to_message_id), sender of the original message.Example: A user votes in a poll, bot returns confirmation message in reply to the vote and removes the keyboard for that user, while still showing the keyboard with poll options to users who haven&#39;t voted yet.
     public var selective: Bool?
 
-
     public init(removeKeyboard: Bool, selective: Bool? = nil) {
         self.removeKeyboard = removeKeyboard 
         self.selective = selective 
@@ -1144,7 +1122,6 @@ public class InlineKeyboardMarkup: Codable {
 
     /// Array of button rows, each represented by an Array of InlineKeyboardButton objects
     public var inlineKeyboard: [InlineKeyboardButton]
-
 
     public init(inlineKeyboard: [InlineKeyboardButton]) {
         self.inlineKeyboard = inlineKeyboard 
@@ -1181,7 +1158,6 @@ public class InlineKeyboardButton: Codable {
 
     /// Optional. Specify True, to send a Pay button.NOTE: This type of button must always be the first button in the first row.
     public var pay: Bool?
-
 
     public init(text: String, url: String? = nil, callbackData: String? = nil, switchInlineQuery: String? = nil, switchInlineQueryCurrentChat: String? = nil, callbackGame: CallbackGame? = nil, pay: Bool? = nil) {
         self.text = text 
@@ -1231,7 +1207,6 @@ public class CallbackQuery: Codable {
     /// Optional. Short name of a Game to be returned, serves as the unique identifier for the game
     public var gameShortName: String?
 
-
     public init(id: String, from: User, message: Message? = nil, inlineMessageId: String? = nil, chatInstance: String, data: String? = nil, gameShortName: String? = nil) {
         self.id = id 
         self.from = from 
@@ -1265,7 +1240,6 @@ public class ForceReply: Codable {
     /// Optional. Use this parameter if you want to force reply from specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot&#39;s message is a reply (has reply_to_message_id), sender of the original message.
     public var selective: Bool?
 
-
     public init(forceReply: Bool, selective: Bool? = nil) {
         self.forceReply = forceReply 
         self.selective = selective 
@@ -1288,7 +1262,6 @@ public class ChatPhoto: Codable {
 
     /// Unique file identifier of big (640x640) chat photo. This file_id can be used only for photo download.
     public var bigFileId: String
-
 
     public init(smallFileId: String, bigFileId: String) {
         self.smallFileId = smallFileId 
@@ -1355,7 +1328,6 @@ public class ChatMember: Codable {
     /// Optional. Restricted only. True, if user may add web page previews to his messages, implies can_send_media_messages
     public var canAddWebPagePreviews: Bool?
 
-
     public init(user: User, status: String, untilDate: Int? = nil, canBeEdited: Bool? = nil, canChangeInfo: Bool? = nil, canPostMessages: Bool? = nil, canEditMessages: Bool? = nil, canDeleteMessages: Bool? = nil, canInviteUsers: Bool? = nil, canRestrictMembers: Bool? = nil, canPinMessages: Bool? = nil, canPromoteMembers: Bool? = nil, canSendMessages: Bool? = nil, canSendMediaMessages: Bool? = nil, canSendOtherMessages: Bool? = nil, canAddWebPagePreviews: Bool? = nil) {
         self.user = user 
         self.status = status 
@@ -1406,7 +1378,6 @@ public class ResponseParameters: Codable {
 
     /// Optional. In case of exceeding flood control, the number of seconds left to wait before the request can be repeated
     public var retryAfter: Int?
-
 
     public init(migrateToChatId: Int? = nil, retryAfter: Int? = nil) {
         self.migrateToChatId = migrateToChatId 
@@ -1477,7 +1448,6 @@ public class InputMediaPhoto: Codable {
     /// Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
     public var parseMode: String?
 
-
     public init(type: String, media: String, caption: String? = nil, parseMode: String? = nil) {
         self.type = type 
         self.media = media 
@@ -1525,7 +1495,6 @@ public class InputMediaVideo: Codable {
 
     /// Optional. Pass True, if the uploaded video is suitable for streaming
     public var supportsStreaming: Bool?
-
 
     public init(type: String, media: String, thumb: Either<InputFile, String>? = nil, caption: String? = nil, parseMode: String? = nil, width: Int? = nil, height: Int? = nil, duration: Int? = nil, supportsStreaming: Bool? = nil) {
         self.type = type 
@@ -1582,7 +1551,6 @@ public class InputMediaAnimation: Codable {
     /// Optional. Animation duration
     public var duration: Int?
 
-
     public init(type: String, media: String, thumb: Either<InputFile, String>? = nil, caption: String? = nil, parseMode: String? = nil, width: Int? = nil, height: Int? = nil, duration: Int? = nil) {
         self.type = type 
         self.media = media 
@@ -1636,7 +1604,6 @@ public class InputMediaAudio: Codable {
     /// Optional. Title of the audio
     public var title: String?
 
-
     public init(type: String, media: String, thumb: Either<InputFile, String>? = nil, caption: String? = nil, parseMode: String? = nil, duration: Int? = nil, performer: String? = nil, title: String? = nil) {
         self.type = type 
         self.media = media 
@@ -1680,7 +1647,6 @@ public class InputMediaDocument: Codable {
 
     /// Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
     public var parseMode: String?
-
 
     public init(type: String, media: String, thumb: Either<InputFile, String>? = nil, caption: String? = nil, parseMode: String? = nil) {
         self.type = type 
@@ -1734,7 +1700,6 @@ public class Sticker: Codable {
     /// Optional. File size
     public var fileSize: Int?
 
-
     public init(fileId: String, width: Int, height: Int, thumb: PhotoSize? = nil, emoji: String? = nil, setName: String? = nil, maskPosition: MaskPosition? = nil, fileSize: Int? = nil) {
         self.fileId = fileId 
         self.width = width 
@@ -1776,7 +1741,6 @@ public class StickerSet: Codable {
     /// List of all set stickers
     public var stickers: [Sticker]
 
-
     public init(name: String, title: String, containsMasks: Bool, stickers: [Sticker]) {
         self.name = name 
         self.title = title 
@@ -1809,7 +1773,6 @@ public class MaskPosition: Codable {
 
     /// Mask scaling coefficient. For example, 2.0 means double size.
     public var scale: Float
-
 
     public init(point: String, xShift: Float, yShift: Float, scale: Float) {
         self.point = point 
@@ -1846,7 +1809,6 @@ public class InlineQuery: Codable {
 
     /// Offset of the results to be returned, can be controlled by the bot
     public var offset: String
-
 
     public init(id: String, from: User, location: Location? = nil, query: String, offset: String) {
         self.id = id 
@@ -2019,7 +1981,6 @@ public class InlineQueryResultArticle: Codable {
     /// Optional. Thumbnail height
     public var thumbHeight: Int?
 
-
     public init(type: String, id: String, title: String, inputMessageContent: InputMessageContent, replyMarkup: InlineKeyboardMarkup? = nil, url: String? = nil, hideUrl: Bool? = nil, description: String? = nil, thumbUrl: String? = nil, thumbWidth: Int? = nil, thumbHeight: Int? = nil) {
         self.type = type 
         self.id = id 
@@ -2090,7 +2051,6 @@ public class InlineQueryResultPhoto: Codable {
 
     /// Optional. Content of the message to be sent instead of the photo
     public var inputMessageContent: InputMessageContent?
-
 
     public init(type: String, id: String, photoUrl: String, thumbUrl: String, photoWidth: Int? = nil, photoHeight: Int? = nil, title: String? = nil, description: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type 
@@ -2165,7 +2125,6 @@ public class InlineQueryResultGif: Codable {
     /// Optional. Content of the message to be sent instead of the GIF animation
     public var inputMessageContent: InputMessageContent?
 
-
     public init(type: String, id: String, gifUrl: String, gifWidth: Int? = nil, gifHeight: Int? = nil, gifDuration: Int? = nil, thumbUrl: String, title: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type 
         self.id = id 
@@ -2238,7 +2197,6 @@ public class InlineQueryResultMpeg4Gif: Codable {
 
     /// Optional. Content of the message to be sent instead of the video animation
     public var inputMessageContent: InputMessageContent?
-
 
     public init(type: String, id: String, mpeg4Url: String, mpeg4Width: Int? = nil, mpeg4Height: Int? = nil, mpeg4Duration: Int? = nil, thumbUrl: String, title: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type 
@@ -2319,7 +2277,6 @@ public class InlineQueryResultVideo: Codable {
     /// Optional. Content of the message to be sent instead of the video. This field is required if InlineQueryResultVideo is used to send an HTML-page as a result (e.g., a YouTube video).
     public var inputMessageContent: InputMessageContent?
 
-
     public init(type: String, id: String, videoUrl: String, mimeType: String, thumbUrl: String, title: String, caption: String? = nil, parseMode: String? = nil, videoWidth: Int? = nil, videoHeight: Int? = nil, videoDuration: Int? = nil, description: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type 
         self.id = id 
@@ -2391,7 +2348,6 @@ public class InlineQueryResultAudio: Codable {
     /// Optional. Content of the message to be sent instead of the audio
     public var inputMessageContent: InputMessageContent?
 
-
     public init(type: String, id: String, audioUrl: String, title: String, caption: String? = nil, parseMode: String? = nil, performer: String? = nil, audioDuration: Int? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type 
         self.id = id 
@@ -2451,7 +2407,6 @@ public class InlineQueryResultVoice: Codable {
 
     /// Optional. Content of the message to be sent instead of the voice recording
     public var inputMessageContent: InputMessageContent?
-
 
     public init(type: String, id: String, voiceUrl: String, title: String, caption: String? = nil, parseMode: String? = nil, voiceDuration: Int? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type 
@@ -2522,7 +2477,6 @@ public class InlineQueryResultDocument: Codable {
 
     /// Optional. Thumbnail height
     public var thumbHeight: Int?
-
 
     public init(type: String, id: String, title: String, caption: String? = nil, parseMode: String? = nil, documentUrl: String, mimeType: String, description: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil, thumbUrl: String? = nil, thumbWidth: Int? = nil, thumbHeight: Int? = nil) {
         self.type = type 
@@ -2595,7 +2549,6 @@ public class InlineQueryResultLocation: Codable {
 
     /// Optional. Thumbnail height
     public var thumbHeight: Int?
-
 
     public init(type: String, id: String, latitude: Float, longitude: Float, title: String, livePeriod: Int? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil, thumbUrl: String? = nil, thumbWidth: Int? = nil, thumbHeight: Int? = nil) {
         self.type = type 
@@ -2671,7 +2624,6 @@ public class InlineQueryResultVenue: Codable {
     /// Optional. Thumbnail height
     public var thumbHeight: Int?
 
-
     public init(type: String, id: String, latitude: Float, longitude: Float, title: String, address: String, foursquareId: String? = nil, foursquareType: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil, thumbUrl: String? = nil, thumbWidth: Int? = nil, thumbHeight: Int? = nil) {
         self.type = type 
         self.id = id 
@@ -2744,7 +2696,6 @@ public class InlineQueryResultContact: Codable {
     /// Optional. Thumbnail height
     public var thumbHeight: Int?
 
-
     public init(type: String, id: String, phoneNumber: String, firstName: String, lastName: String? = nil, vcard: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil, thumbUrl: String? = nil, thumbWidth: Int? = nil, thumbHeight: Int? = nil) {
         self.type = type 
         self.id = id 
@@ -2791,7 +2742,6 @@ public class InlineQueryResultGame: Codable {
 
     /// Optional. Inline keyboard attached to the message
     public var replyMarkup: InlineKeyboardMarkup?
-
 
     public init(type: String, id: String, gameShortName: String, replyMarkup: InlineKeyboardMarkup? = nil) {
         self.type = type 
@@ -2840,7 +2790,6 @@ public class InlineQueryResultCachedPhoto: Codable {
 
     /// Optional. Content of the message to be sent instead of the photo
     public var inputMessageContent: InputMessageContent?
-
 
     public init(type: String, id: String, photoFileId: String, title: String? = nil, description: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type 
@@ -2897,7 +2846,6 @@ public class InlineQueryResultCachedGif: Codable {
     /// Optional. Content of the message to be sent instead of the GIF animation
     public var inputMessageContent: InputMessageContent?
 
-
     public init(type: String, id: String, gifFileId: String, title: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type 
         self.id = id 
@@ -2951,7 +2899,6 @@ public class InlineQueryResultCachedMpeg4Gif: Codable {
     /// Optional. Content of the message to be sent instead of the video animation
     public var inputMessageContent: InputMessageContent?
 
-
     public init(type: String, id: String, mpeg4FileId: String, title: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type 
         self.id = id 
@@ -2995,7 +2942,6 @@ public class InlineQueryResultCachedSticker: Codable {
 
     /// Optional. Content of the message to be sent instead of the sticker
     public var inputMessageContent: InputMessageContent?
-
 
     public init(type: String, id: String, stickerFileId: String, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type 
@@ -3046,7 +2992,6 @@ public class InlineQueryResultCachedDocument: Codable {
 
     /// Optional. Content of the message to be sent instead of the file
     public var inputMessageContent: InputMessageContent?
-
 
     public init(type: String, id: String, title: String, documentFileId: String, description: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type 
@@ -3106,7 +3051,6 @@ public class InlineQueryResultCachedVideo: Codable {
     /// Optional. Content of the message to be sent instead of the video
     public var inputMessageContent: InputMessageContent?
 
-
     public init(type: String, id: String, videoFileId: String, title: String, description: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type 
         self.id = id 
@@ -3162,7 +3106,6 @@ public class InlineQueryResultCachedVoice: Codable {
     /// Optional. Content of the message to be sent instead of the voice message
     public var inputMessageContent: InputMessageContent?
 
-
     public init(type: String, id: String, voiceFileId: String, title: String, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type 
         self.id = id 
@@ -3212,7 +3155,6 @@ public class InlineQueryResultCachedAudio: Codable {
 
     /// Optional. Content of the message to be sent instead of the audio
     public var inputMessageContent: InputMessageContent?
-
 
     public init(type: String, id: String, audioFileId: String, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type 
@@ -3285,7 +3227,6 @@ public class InputTextMessageContent: Codable {
     /// Optional. Disables link previews for links in the sent message
     public var disableWebPagePreview: Bool?
 
-
     public init(messageText: String, parseMode: String? = nil, disableWebPagePreview: Bool? = nil) {
         self.messageText = messageText 
         self.parseMode = parseMode 
@@ -3313,7 +3254,6 @@ public class InputLocationMessageContent: Codable {
 
     /// Optional. Period in seconds for which the location can be updated, should be between 60 and 86400.
     public var livePeriod: Int?
-
 
     public init(latitude: Float, longitude: Float, livePeriod: Int? = nil) {
         self.latitude = latitude 
@@ -3352,7 +3292,6 @@ public class InputVenueMessageContent: Codable {
     /// Optional. Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
     public var foursquareType: String?
 
-
     public init(latitude: Float, longitude: Float, title: String, address: String, foursquareId: String? = nil, foursquareType: String? = nil) {
         self.latitude = latitude 
         self.longitude = longitude 
@@ -3390,7 +3329,6 @@ public class InputContactMessageContent: Codable {
     /// Optional. Additional data about the contact in the form of a [vCard](https://en.wikipedia.org/wiki/VCard), 0-2048 bytes
     public var vcard: String?
 
-
     public init(phoneNumber: String, firstName: String, lastName: String? = nil, vcard: String? = nil) {
         self.phoneNumber = phoneNumber 
         self.firstName = firstName 
@@ -3427,7 +3365,6 @@ public class ChosenInlineResult: Codable {
     /// The query that was used to obtain the result
     public var query: String
 
-
     public init(resultId: String, from: User, location: Location? = nil, inlineMessageId: String? = nil, query: String) {
         self.resultId = resultId 
         self.from = from 
@@ -3456,7 +3393,6 @@ public class LabeledPrice: Codable {
 
     /// Price of the product in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in [currencies.json](https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
     public var amount: Int
-
 
     public init(label: String, amount: Int) {
         self.label = label 
@@ -3489,7 +3425,6 @@ public class Invoice: Codable {
 
     /// Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in [currencies.json](https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
     public var totalAmount: Int
-
 
     public init(title: String, description: String, startParameter: String, currency: String, totalAmount: Int) {
         self.title = title 
@@ -3532,7 +3467,6 @@ public class ShippingAddress: Codable {
     /// Address post code
     public var postCode: String
 
-
     public init(countryCode: String, state: String, city: String, streetLine1: String, streetLine2: String, postCode: String) {
         self.countryCode = countryCode 
         self.state = state 
@@ -3570,7 +3504,6 @@ public class OrderInfo: Codable {
     /// Optional. User shipping address
     public var shippingAddress: ShippingAddress?
 
-
     public init(name: String? = nil, phoneNumber: String? = nil, email: String? = nil, shippingAddress: ShippingAddress? = nil) {
         self.name = name 
         self.phoneNumber = phoneNumber 
@@ -3600,7 +3533,6 @@ public class ShippingOption: Codable {
 
     /// List of price portions
     public var prices: [LabeledPrice]
-
 
     public init(id: String, title: String, prices: [LabeledPrice]) {
         self.id = id 
@@ -3642,7 +3574,6 @@ public class SuccessfulPayment: Codable {
     /// Provider payment identifier
     public var providerPaymentChargeId: String
 
-
     public init(currency: String, totalAmount: Int, invoicePayload: String, shippingOptionId: String? = nil, orderInfo: OrderInfo? = nil, telegramPaymentChargeId: String, providerPaymentChargeId: String) {
         self.currency = currency 
         self.totalAmount = totalAmount 
@@ -3681,7 +3612,6 @@ public class ShippingQuery: Codable {
 
     /// User specified shipping address
     public var shippingAddress: ShippingAddress
-
 
     public init(id: String, from: User, invoicePayload: String, shippingAddress: ShippingAddress) {
         self.id = id 
@@ -3725,7 +3655,6 @@ public class PreCheckoutQuery: Codable {
     /// Optional. Order info provided by the user
     public var orderInfo: OrderInfo?
 
-
     public init(id: String, from: User, currency: String, totalAmount: Int, invoicePayload: String, shippingOptionId: String? = nil, orderInfo: OrderInfo? = nil) {
         self.id = id 
         self.from = from 
@@ -3759,7 +3688,6 @@ public class PassportData: Codable {
     /// Encrypted credentials required to decrypt the data
     public var credentials: EncryptedCredentials
 
-
     public init(data: [EncryptedPassportElement], credentials: EncryptedCredentials) {
         self.data = data 
         self.credentials = credentials 
@@ -3785,7 +3713,6 @@ public class PassportFile: Codable {
 
     /// Unix time when the file was uploaded
     public var fileDate: Int
-
 
     public init(fileId: String, fileSize: Int, fileDate: Int) {
         self.fileId = fileId 
@@ -3836,7 +3763,6 @@ public class EncryptedPassportElement: Codable {
     /// Base64-encoded element hash for using in PassportElementErrorUnspecified
     public var hash: String
 
-
     public init(type: String, data: String? = nil, phoneNumber: String? = nil, email: String? = nil, files: [PassportFile]? = nil, frontSide: PassportFile? = nil, reverseSide: PassportFile? = nil, selfie: PassportFile? = nil, translation: [PassportFile]? = nil, hash: String) {
         self.type = type 
         self.data = data 
@@ -3878,7 +3804,6 @@ public class EncryptedCredentials: Codable {
 
     /// Base64-encoded secret, encrypted with the bot&#39;s public RSA key, required for data decryption
     public var secret: String
-
 
     public init(data: String, hash: String, secret: String) {
         self.data = data 
@@ -3974,7 +3899,6 @@ public class PassportElementErrorDataField: Codable {
     /// Error message
     public var message: String
 
-
     public init(source: String, type: String, fieldName: String, dataHash: String, message: String) {
         self.source = source 
         self.type = type 
@@ -4010,7 +3934,6 @@ public class PassportElementErrorFrontSide: Codable {
     /// Error message
     public var message: String
 
-
     public init(source: String, type: String, fileHash: String, message: String) {
         self.source = source 
         self.type = type 
@@ -4043,7 +3966,6 @@ public class PassportElementErrorReverseSide: Codable {
 
     /// Error message
     public var message: String
-
 
     public init(source: String, type: String, fileHash: String, message: String) {
         self.source = source 
@@ -4078,7 +4000,6 @@ public class PassportElementErrorSelfie: Codable {
     /// Error message
     public var message: String
 
-
     public init(source: String, type: String, fileHash: String, message: String) {
         self.source = source 
         self.type = type 
@@ -4111,7 +4032,6 @@ public class PassportElementErrorFile: Codable {
 
     /// Error message
     public var message: String
-
 
     public init(source: String, type: String, fileHash: String, message: String) {
         self.source = source 
@@ -4146,7 +4066,6 @@ public class PassportElementErrorFiles: Codable {
     /// Error message
     public var message: String
 
-
     public init(source: String, type: String, fileHashes: [String], message: String) {
         self.source = source 
         self.type = type 
@@ -4179,7 +4098,6 @@ public class PassportElementErrorTranslationFile: Codable {
 
     /// Error message
     public var message: String
-
 
     public init(source: String, type: String, fileHash: String, message: String) {
         self.source = source 
@@ -4214,7 +4132,6 @@ public class PassportElementErrorTranslationFiles: Codable {
     /// Error message
     public var message: String
 
-
     public init(source: String, type: String, fileHashes: [String], message: String) {
         self.source = source 
         self.type = type 
@@ -4247,7 +4164,6 @@ public class PassportElementErrorUnspecified: Codable {
 
     /// Error message
     public var message: String
-
 
     public init(source: String, type: String, elementHash: String, message: String) {
         self.source = source 
@@ -4288,7 +4204,6 @@ public class Game: Codable {
     /// Optional. Animation that will be displayed in the game message in chats. Upload via [BotFather](https://t.me/botfather)
     public var animation: Animation?
 
-
     public init(title: String, description: String, photo: [PhotoSize], text: String? = nil, textEntities: [MessageEntity]? = nil, animation: Animation? = nil) {
         self.title = title 
         self.description = description 
@@ -4327,7 +4242,6 @@ public class GameHighScore: Codable {
 
     /// Score
     public var score: Int
-
 
     public init(position: Int, user: User, score: Int) {
         self.position = position 

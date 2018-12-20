@@ -253,7 +253,6 @@ class ParsingController {
                     return b
                 }
             }
-
             
             public init(from decoder: Decoder) throws {
                 let container = try decoder.singleValueContainer()
@@ -325,10 +324,10 @@ class ParsingController {
                     initMethod += initBody
                     initMethod += "\t}\n"
                     codingKeys += "\t}\n"
-                    telegramModel += (propertyList) + "\n"
-                    telegramModel += (initMethod) + "\n"
-                    telegramModel += (codingKeys) + "\n"
-                    telegramModel += ("}\n\n\n") + "\n"
+                    telegramModel += propertyList
+                    telegramModel += initMethod + "\n"
+                    telegramModel += codingKeys + "\n"
+                    telegramModel += "}\n\n\n\n"
                     
                 } else {
                     
@@ -348,7 +347,7 @@ class ParsingController {
                     if item.list.count > 0 {
                         method.removeLast(2)
                     }
-                    method += ") -> Request {\n\t\t\(item.list.isEmpty ? "" : "var parameters = [String: Any]()")\n"
+                    method += ") -> Request {\n\(item.list.isEmpty ? "" : "\t\tvar parameters = [String: Any]()\n")"
                     method += body
                     method += "\t\treturn Request(method: \"\(title)\", body: \(item.list.isEmpty ? "[:]" : "parameters"))\n"
                     method += "\t}\n\n"

@@ -52,7 +52,6 @@ public struct TelegramAPI {
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
     func deleteWebhook() -> Request {
-        
         return Request(method: "deleteWebhook", body: [:])
     }
 
@@ -63,7 +62,6 @@ public struct TelegramAPI {
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
     func getWebhookInfo() -> Request {
-        
         return Request(method: "getWebhookInfo", body: [:])
     }
 
@@ -74,7 +72,6 @@ public struct TelegramAPI {
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
     func getMe() -> Request {
-        
         return Request(method: "getMe", body: [:])
     }
 
