@@ -91,7 +91,7 @@ public struct TelegramAPI {
 	///
 	/// - returns: The new `TelegramAPI.Request` instance.
 	///
-	func sendMessage(chatId: Either<Int, String>, text: String, parseMode: String? = nil, disableWebPagePreview: Bool? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: Either<InlineKeyboardMarkup, Either<ReplyKeyboardMarkup, Either<ReplyKeyboardRemove, ForceReply>>>? = nil) -> Request {
+	func sendMessage(chatId: Either<Int, String>, text: String, parseMode: String? = nil, disableWebPagePreview: Bool? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
 		var parameters = [String: Any]()
 		parameters["chat_id"] = chatId
 		parameters["text"] = text
@@ -135,7 +135,7 @@ public struct TelegramAPI {
 	///
 	/// - returns: The new `TelegramAPI.Request` instance.
 	///
-	func sendPhoto(chatId: Either<Int, String>, photo: Either<InputFile, String>, caption: String? = nil, parseMode: String? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: Either<InlineKeyboardMarkup, Either<ReplyKeyboardMarkup, Either<ReplyKeyboardRemove, ForceReply>>>? = nil) -> Request {
+	func sendPhoto(chatId: Either<Int, String>, photo: Either<InputFile, String>, caption: String? = nil, parseMode: String? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
 		var parameters = [String: Any]()
 		parameters["chat_id"] = chatId
 		parameters["photo"] = photo
@@ -164,7 +164,7 @@ public struct TelegramAPI {
 	///
 	/// - returns: The new `TelegramAPI.Request` instance.
 	///
-	func sendAudio(chatId: Either<Int, String>, audio: Either<InputFile, String>, caption: String? = nil, parseMode: String? = nil, duration: Int? = nil, performer: String? = nil, title: String? = nil, thumb: Either<InputFile, String>? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: Either<InlineKeyboardMarkup, Either<ReplyKeyboardMarkup, Either<ReplyKeyboardRemove, ForceReply>>>? = nil) -> Request {
+	func sendAudio(chatId: Either<Int, String>, audio: Either<InputFile, String>, caption: String? = nil, parseMode: String? = nil, duration: Int? = nil, performer: String? = nil, title: String? = nil, thumb: Either<InputFile, String>? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
 		var parameters = [String: Any]()
 		parameters["chat_id"] = chatId
 		parameters["audio"] = audio
@@ -194,7 +194,7 @@ public struct TelegramAPI {
 	///
 	/// - returns: The new `TelegramAPI.Request` instance.
 	///
-	func sendDocument(chatId: Either<Int, String>, document: Either<InputFile, String>, thumb: Either<InputFile, String>? = nil, caption: String? = nil, parseMode: String? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: Either<InlineKeyboardMarkup, Either<ReplyKeyboardMarkup, Either<ReplyKeyboardRemove, ForceReply>>>? = nil) -> Request {
+	func sendDocument(chatId: Either<Int, String>, document: Either<InputFile, String>, thumb: Either<InputFile, String>? = nil, caption: String? = nil, parseMode: String? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
 		var parameters = [String: Any]()
 		parameters["chat_id"] = chatId
 		parameters["document"] = document
@@ -225,7 +225,7 @@ public struct TelegramAPI {
 	///
 	/// - returns: The new `TelegramAPI.Request` instance.
 	///
-	func sendVideo(chatId: Either<Int, String>, video: Either<InputFile, String>, duration: Int? = nil, width: Int? = nil, height: Int? = nil, thumb: Either<InputFile, String>? = nil, caption: String? = nil, parseMode: String? = nil, supportsStreaming: Bool? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: Either<InlineKeyboardMarkup, Either<ReplyKeyboardMarkup, Either<ReplyKeyboardRemove, ForceReply>>>? = nil) -> Request {
+	func sendVideo(chatId: Either<Int, String>, video: Either<InputFile, String>, duration: Int? = nil, width: Int? = nil, height: Int? = nil, thumb: Either<InputFile, String>? = nil, caption: String? = nil, parseMode: String? = nil, supportsStreaming: Bool? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
 		var parameters = [String: Any]()
 		parameters["chat_id"] = chatId
 		parameters["video"] = video
@@ -259,7 +259,7 @@ public struct TelegramAPI {
 	///
 	/// - returns: The new `TelegramAPI.Request` instance.
 	///
-	func sendAnimation(chatId: Either<Int, String>, animation: Either<InputFile, String>, duration: Int? = nil, width: Int? = nil, height: Int? = nil, thumb: Either<InputFile, String>? = nil, caption: String? = nil, parseMode: String? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: Either<InlineKeyboardMarkup, Either<ReplyKeyboardMarkup, Either<ReplyKeyboardRemove, ForceReply>>>? = nil) -> Request {
+	func sendAnimation(chatId: Either<Int, String>, animation: Either<InputFile, String>, duration: Int? = nil, width: Int? = nil, height: Int? = nil, thumb: Either<InputFile, String>? = nil, caption: String? = nil, parseMode: String? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
 		var parameters = [String: Any]()
 		parameters["chat_id"] = chatId
 		parameters["animation"] = animation
@@ -289,7 +289,7 @@ public struct TelegramAPI {
 	///
 	/// - returns: The new `TelegramAPI.Request` instance.
 	///
-	func sendVoice(chatId: Either<Int, String>, voice: Either<InputFile, String>, caption: String? = nil, parseMode: String? = nil, duration: Int? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: Either<InlineKeyboardMarkup, Either<ReplyKeyboardMarkup, Either<ReplyKeyboardRemove, ForceReply>>>? = nil) -> Request {
+	func sendVoice(chatId: Either<Int, String>, voice: Either<InputFile, String>, caption: String? = nil, parseMode: String? = nil, duration: Int? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
 		var parameters = [String: Any]()
 		parameters["chat_id"] = chatId
 		parameters["voice"] = voice
@@ -316,7 +316,7 @@ public struct TelegramAPI {
 	///
 	/// - returns: The new `TelegramAPI.Request` instance.
 	///
-	func sendVideoNote(chatId: Either<Int, String>, videoNote: Either<InputFile, String>, duration: Int? = nil, length: Int? = nil, thumb: Either<InputFile, String>? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: Either<InlineKeyboardMarkup, Either<ReplyKeyboardMarkup, Either<ReplyKeyboardRemove, ForceReply>>>? = nil) -> Request {
+	func sendVideoNote(chatId: Either<Int, String>, videoNote: Either<InputFile, String>, duration: Int? = nil, length: Int? = nil, thumb: Either<InputFile, String>? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
 		var parameters = [String: Any]()
 		parameters["chat_id"] = chatId
 		parameters["video_note"] = videoNote
@@ -361,7 +361,7 @@ public struct TelegramAPI {
 	///
 	/// - returns: The new `TelegramAPI.Request` instance.
 	///
-	func sendLocation(chatId: Either<Int, String>, latitude: Float, longitude: Float, livePeriod: Int? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: Either<InlineKeyboardMarkup, Either<ReplyKeyboardMarkup, Either<ReplyKeyboardRemove, ForceReply>>>? = nil) -> Request {
+	func sendLocation(chatId: Either<Int, String>, latitude: Float, longitude: Float, livePeriod: Int? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
 		var parameters = [String: Any]()
 		parameters["chat_id"] = chatId
 		parameters["latitude"] = latitude
@@ -431,7 +431,7 @@ public struct TelegramAPI {
 	///
 	/// - returns: The new `TelegramAPI.Request` instance.
 	///
-	func sendVenue(chatId: Either<Int, String>, latitude: Float, longitude: Float, title: String, address: String, foursquareId: String? = nil, foursquareType: String? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: Either<InlineKeyboardMarkup, Either<ReplyKeyboardMarkup, Either<ReplyKeyboardRemove, ForceReply>>>? = nil) -> Request {
+	func sendVenue(chatId: Either<Int, String>, latitude: Float, longitude: Float, title: String, address: String, foursquareId: String? = nil, foursquareType: String? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
 		var parameters = [String: Any]()
 		parameters["chat_id"] = chatId
 		parameters["latitude"] = latitude
@@ -460,7 +460,7 @@ public struct TelegramAPI {
 	///
 	/// - returns: The new `TelegramAPI.Request` instance.
 	///
-	func sendContact(chatId: Either<Int, String>, phoneNumber: String, firstName: String, lastName: String? = nil, vcard: String? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: Either<InlineKeyboardMarkup, Either<ReplyKeyboardMarkup, Either<ReplyKeyboardRemove, ForceReply>>>? = nil) -> Request {
+	func sendContact(chatId: Either<Int, String>, phoneNumber: String, firstName: String, lastName: String? = nil, vcard: String? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
 		var parameters = [String: Any]()
 		parameters["chat_id"] = chatId
 		parameters["phone_number"] = phoneNumber
@@ -937,7 +937,7 @@ public struct TelegramAPI {
 	///
 	/// - returns: The new `TelegramAPI.Request` instance.
 	///
-	func sendSticker(chatId: Either<Int, String>, sticker: Either<InputFile, String>, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: Either<InlineKeyboardMarkup, Either<ReplyKeyboardMarkup, Either<ReplyKeyboardRemove, ForceReply>>>? = nil) -> Request {
+	func sendSticker(chatId: Either<Int, String>, sticker: Either<InputFile, String>, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
 		var parameters = [String: Any]()
 		parameters["chat_id"] = chatId
 		parameters["sticker"] = sticker

@@ -34,12 +34,13 @@ class ParsingController {
         var unions: [String]?
     }
     
-    let aTagRegex = try! NSRegularExpression(pattern: "<a href=\"[^>]*\">[^>^<]*</a>", options: .caseInsensitive)
-    let hrefRegex =  try! NSRegularExpression(pattern: "href=\"http[^>]*\"", options: .caseInsensitive)
+    private let aTagRegex = try! NSRegularExpression(pattern: "<a href=\"[^>]*\">[^>^<]*</a>", options: .caseInsensitive)
+    private let hrefRegex =  try! NSRegularExpression(pattern: "href=\"http[^>]*\"", options: .caseInsensitive)
     var typeMap = ["Integer": "Int",
                    "Float number": "Float",
                    "Boolean": "Bool",
-                   "True": "Bool"]
+                   "True": "Bool",
+                   "InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply": "ReplyMarkup"]
     var superClass = [String: String]()
     
     private func parseHTML(_ raw: String, keepLink: Bool = true) -> String {
@@ -63,7 +64,7 @@ class ParsingController {
         return removeTag((result as String))
     }
     
-    func eitherBuilder(_ raw: [String]) -> String {
+    private func eitherBuilder(_ raw: [String]) -> String {
         var className = ""
         var temp = raw
         guard raw.count >= 2 else {
@@ -77,7 +78,7 @@ class ParsingController {
         return className
     }
     
-    func unionBuilder(name: String, cases: [String]) -> String {
+    private func unionBuilder(name: String, cases: [String]) -> String {
         var code = "public enum \(name): Codable {\n"
         var prefix = ""
         var suffix = ""
@@ -121,8 +122,8 @@ class ParsingController {
             code += "\tcase \(name)(\(caseValue))\n"
             decoder += "\n\t\t\(i > 0 ? "} else " : "")if let \(name) = try? container.decode(\(caseValue).self) {\n"
             decoder += "\t\t\tself = .\(name)(\(name))"
-            encode  += "\n\t\t\tcase .\(name)(let \(name)):\n"
-            encode  += "\t\t\t\ttry container.encode(\(name))"
+            encode  += "\n\t\tcase .\(name)(let \(name)):\n"
+            encode  += "\t\t\ttry container.encode(\(name))"
         }
         
         decoder += "\n\t\t}else {\n\t\t\tthrow NSError(domain: \"\(name)\", code: -1, userInfo: nil)\n\t\t}\n\t}\n"
@@ -132,7 +133,7 @@ class ParsingController {
         return code
     }
     
-    func fixType(_ raw: String) -> String {
+    private func fixType(_ raw: String) -> String {
         if let mapType = typeMap[raw] {
             return mapType
         } else if raw.starts(with: "Array of ") {
@@ -202,8 +203,9 @@ class ParsingController {
                 currentTable = nil
             }
         }
-        let uppercaseLetters: Set<Character> = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
         
+        
+        let uppercaseLetters: Set<Character> = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
         var telegramModel = ""
         var telegramRequest = """
         import Foundation
@@ -233,6 +235,25 @@ class ParsingController {
                     return b
                 }
             }
+
+            public var left: A? {
+                switch self {
+                case .left(let a):
+                    return a
+                case .right:
+                    return nil
+                }
+            }
+
+            public var right: B? {
+                switch self {
+                case .left:
+                    return nil
+                case .right(let b):
+                    return b
+                }
+            }
+
             
             public init(from decoder: Decoder) throws {
                 let container = try decoder.singleValueContainer()
@@ -257,6 +278,13 @@ class ParsingController {
 
 
         """)
+        
+        do {
+            let replyMarkup = ["InlineKeyboardMarkup", "ReplyKeyboardMarkup", "ReplyKeyboardRemove", "ForceReply"]
+            telegramModel += "/// ReplyMarkup: \(replyMarkup.joined(separator: " or "))\n"
+            telegramModel += unionBuilder(name: "ReplyMarkup", cases: replyMarkup)
+            telegramModel += "\n\n"
+        }
         
         for item in tables {
             if let title = item.title, let char = title.first {

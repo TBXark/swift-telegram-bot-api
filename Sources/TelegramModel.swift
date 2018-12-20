@@ -12,6 +12,25 @@ public enum Either<A: Codable, B: Codable>: Codable {
             return b
         }
     }
+
+    public var left: A? {
+        switch self {
+        case .left(let a):
+            return a
+        case .right:
+            return nil
+        }
+    }
+
+    public var right: B? {
+        switch self {
+        case .left:
+            return nil
+        case .right(let b):
+            return b
+        }
+    }
+
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
@@ -32,6 +51,43 @@ public enum Either<A: Codable, B: Codable>: Codable {
                 try container.encode(b)
         }
     }
+}
+
+/// ReplyMarkup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply
+public enum ReplyMarkup: Codable {
+	case inlineKeyboardMarkup(InlineKeyboardMarkup)
+	case replyKeyboardMarkup(ReplyKeyboardMarkup)
+	case replyKeyboardRemove(ReplyKeyboardRemove)
+	case forceReply(ForceReply)
+
+	public init(from decoder: Decoder) throws {
+		let container = try decoder.singleValueContainer()
+		if let inlineKeyboardMarkup = try? container.decode(InlineKeyboardMarkup.self) {
+			self = .inlineKeyboardMarkup(inlineKeyboardMarkup)
+		} else if let replyKeyboardMarkup = try? container.decode(ReplyKeyboardMarkup.self) {
+			self = .replyKeyboardMarkup(replyKeyboardMarkup)
+		} else if let replyKeyboardRemove = try? container.decode(ReplyKeyboardRemove.self) {
+			self = .replyKeyboardRemove(replyKeyboardRemove)
+		} else if let forceReply = try? container.decode(ForceReply.self) {
+			self = .forceReply(forceReply)
+		}else {
+			throw NSError(domain: "ReplyMarkup", code: -1, userInfo: nil)
+		}
+	}
+
+	public func encode(to encoder: Encoder) throws {
+		var container = encoder.singleValueContainer()
+		switch self {
+		case .inlineKeyboardMarkup(let inlineKeyboardMarkup):
+			try container.encode(inlineKeyboardMarkup)
+		case .replyKeyboardMarkup(let replyKeyboardMarkup):
+			try container.encode(replyKeyboardMarkup)
+		case .replyKeyboardRemove(let replyKeyboardRemove):
+			try container.encode(replyKeyboardRemove)
+		case .forceReply(let forceReply):
+			try container.encode(forceReply)
+			}
+		}
 }
 
 /// This object represents an incoming update.At most one of the optional parameters can be present in any given update.
@@ -1394,16 +1450,16 @@ public enum InputMedia: Codable {
 	public func encode(to encoder: Encoder) throws {
 		var container = encoder.singleValueContainer()
 		switch self {
-			case .animation(let animation):
-				try container.encode(animation)
-			case .document(let document):
-				try container.encode(document)
-			case .audio(let audio):
-				try container.encode(audio)
-			case .photo(let photo):
-				try container.encode(photo)
-			case .video(let video):
-				try container.encode(video)
+		case .animation(let animation):
+			try container.encode(animation)
+		case .document(let document):
+			try container.encode(document)
+		case .audio(let audio):
+			try container.encode(audio)
+		case .photo(let photo):
+			try container.encode(photo)
+		case .video(let video):
+			try container.encode(video)
 			}
 		}
 }/// Represents a photo to be sent.
@@ -1885,46 +1941,46 @@ public enum InlineQueryResult: Codable {
 	public func encode(to encoder: Encoder) throws {
 		var container = encoder.singleValueContainer()
 		switch self {
-			case .cachedAudio(let cachedAudio):
-				try container.encode(cachedAudio)
-			case .cachedDocument(let cachedDocument):
-				try container.encode(cachedDocument)
-			case .cachedGif(let cachedGif):
-				try container.encode(cachedGif)
-			case .cachedMpeg4Gif(let cachedMpeg4Gif):
-				try container.encode(cachedMpeg4Gif)
-			case .cachedPhoto(let cachedPhoto):
-				try container.encode(cachedPhoto)
-			case .cachedSticker(let cachedSticker):
-				try container.encode(cachedSticker)
-			case .cachedVideo(let cachedVideo):
-				try container.encode(cachedVideo)
-			case .cachedVoice(let cachedVoice):
-				try container.encode(cachedVoice)
-			case .article(let article):
-				try container.encode(article)
-			case .audio(let audio):
-				try container.encode(audio)
-			case .contact(let contact):
-				try container.encode(contact)
-			case .game(let game):
-				try container.encode(game)
-			case .document(let document):
-				try container.encode(document)
-			case .gif(let gif):
-				try container.encode(gif)
-			case .location(let location):
-				try container.encode(location)
-			case .mpeg4Gif(let mpeg4Gif):
-				try container.encode(mpeg4Gif)
-			case .photo(let photo):
-				try container.encode(photo)
-			case .venue(let venue):
-				try container.encode(venue)
-			case .video(let video):
-				try container.encode(video)
-			case .voice(let voice):
-				try container.encode(voice)
+		case .cachedAudio(let cachedAudio):
+			try container.encode(cachedAudio)
+		case .cachedDocument(let cachedDocument):
+			try container.encode(cachedDocument)
+		case .cachedGif(let cachedGif):
+			try container.encode(cachedGif)
+		case .cachedMpeg4Gif(let cachedMpeg4Gif):
+			try container.encode(cachedMpeg4Gif)
+		case .cachedPhoto(let cachedPhoto):
+			try container.encode(cachedPhoto)
+		case .cachedSticker(let cachedSticker):
+			try container.encode(cachedSticker)
+		case .cachedVideo(let cachedVideo):
+			try container.encode(cachedVideo)
+		case .cachedVoice(let cachedVoice):
+			try container.encode(cachedVoice)
+		case .article(let article):
+			try container.encode(article)
+		case .audio(let audio):
+			try container.encode(audio)
+		case .contact(let contact):
+			try container.encode(contact)
+		case .game(let game):
+			try container.encode(game)
+		case .document(let document):
+			try container.encode(document)
+		case .gif(let gif):
+			try container.encode(gif)
+		case .location(let location):
+			try container.encode(location)
+		case .mpeg4Gif(let mpeg4Gif):
+			try container.encode(mpeg4Gif)
+		case .photo(let photo):
+			try container.encode(photo)
+		case .venue(let venue):
+			try container.encode(venue)
+		case .video(let video):
+			try container.encode(video)
+		case .voice(let voice):
+			try container.encode(voice)
 			}
 		}
 }/// Represents a link to an article or web page.
@@ -3207,14 +3263,14 @@ public enum InputMessageContent: Codable {
 	public func encode(to encoder: Encoder) throws {
 		var container = encoder.singleValueContainer()
 		switch self {
-			case .text(let text):
-				try container.encode(text)
-			case .location(let location):
-				try container.encode(location)
-			case .venue(let venue):
-				try container.encode(venue)
-			case .contact(let contact):
-				try container.encode(contact)
+		case .text(let text):
+			try container.encode(text)
+		case .location(let location):
+			try container.encode(location)
+		case .venue(let venue):
+			try container.encode(venue)
+		case .contact(let contact):
+			try container.encode(contact)
 			}
 		}
 }/// Represents the content of a text message to be sent as the result of an inline query. 
@@ -3880,24 +3936,24 @@ public enum PassportElementError: Codable {
 	public func encode(to encoder: Encoder) throws {
 		var container = encoder.singleValueContainer()
 		switch self {
-			case .dataField(let dataField):
-				try container.encode(dataField)
-			case .frontSide(let frontSide):
-				try container.encode(frontSide)
-			case .reverseSide(let reverseSide):
-				try container.encode(reverseSide)
-			case .selfie(let selfie):
-				try container.encode(selfie)
-			case .file(let file):
-				try container.encode(file)
-			case .files(let files):
-				try container.encode(files)
-			case .translationFile(let translationFile):
-				try container.encode(translationFile)
-			case .translationFiles(let translationFiles):
-				try container.encode(translationFiles)
-			case .unspecified(let unspecified):
-				try container.encode(unspecified)
+		case .dataField(let dataField):
+			try container.encode(dataField)
+		case .frontSide(let frontSide):
+			try container.encode(frontSide)
+		case .reverseSide(let reverseSide):
+			try container.encode(reverseSide)
+		case .selfie(let selfie):
+			try container.encode(selfie)
+		case .file(let file):
+			try container.encode(file)
+		case .files(let files):
+			try container.encode(files)
+		case .translationFile(let translationFile):
+			try container.encode(translationFile)
+		case .translationFiles(let translationFiles):
+			try container.encode(translationFiles)
+		case .unspecified(let unspecified):
+			try container.encode(unspecified)
 			}
 		}
 }/// Represents an issue in one of the data fields that was provided by the user. The error is considered resolved when the field&#39;s value changes.
