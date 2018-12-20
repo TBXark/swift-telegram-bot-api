@@ -209,10 +209,13 @@ class ParsingController {
         import Foundation
         
         public struct TelegramAPI {
+
             public struct Request {
                 public let method: String
                 public let body: [String: Any]
             }
+
+
         """
         
         telegramModel += ("""
@@ -251,6 +254,8 @@ class ParsingController {
                 }
             }
         }
+
+
         """)
         
         for item in tables {
@@ -315,9 +320,9 @@ class ParsingController {
                     if item.list.count > 0 {
                         method.removeLast(2)
                     }
-                    method += ") -> Request {\n\t\tvar parameters = [String: Any]()\n"
+                    method += ") -> Request {\n\t\t\(item.list.isEmpty ? "" : "var parameters = [String: Any]()")\n"
                     method += body
-                    method += "\t\treturn Request(method: \"\(title)\", body: parameters)\n"
+                    method += "\t\treturn Request(method: \"\(title)\", body: \(item.list.isEmpty ? "[:]" : "parameters"))\n"
                     method += "\t}\n\n"
                     telegramRequest += comment
                     telegramRequest += method
@@ -347,6 +352,7 @@ do {
     }
     try value.type.write(toFile: modelPath, atomically: true, encoding: .utf8)
     try value.method.write(toFile: apiPath, atomically: true, encoding: .utf8)
+    print("Success!")
 } catch {
     print(error)
 }
