@@ -54,6 +54,7 @@ public enum Either<A: Codable, B: Codable>: Codable {
 
 /// ReplyMarkup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply
 public enum ReplyMarkup: Codable {
+
     case inlineKeyboardMarkup(InlineKeyboardMarkup)
     case replyKeyboardMarkup(ReplyKeyboardMarkup)
     case replyKeyboardRemove(ReplyKeyboardRemove)
@@ -89,6 +90,9 @@ public enum ReplyMarkup: Codable {
         }
 }
 
+
+
+
 /// This object represents an incoming update.At most one of the optional parameters can be present in any given update.
 public class Update: Codable {
 
@@ -122,6 +126,22 @@ public class Update: Codable {
     /// Optional. New incoming pre-checkout query. Contains full information about checkout
     public var preCheckoutQuery: PreCheckoutQuery?
 
+
+    /// Update initialization
+    ///
+    /// - parameter updateId:  The update‘s unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you’re using Webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially.
+    /// - parameter message:  Optional. New incoming message of any kind — text, photo, sticker, etc.
+    /// - parameter editedMessage:  Optional. New version of a message that is known to the bot and was edited
+    /// - parameter channelPost:  Optional. New incoming channel post of any kind — text, photo, sticker, etc.
+    /// - parameter editedChannelPost:  Optional. New version of a channel post that is known to the bot and was edited
+    /// - parameter inlineQuery:  Optional. New incoming inline query
+    /// - parameter chosenInlineResult:  Optional. The result of an inline query that was chosen by a user and sent to their chat partner. Please see our documentation on the feedback collecting for details on how to enable these updates for your bot.
+    /// - parameter callbackQuery:  Optional. New incoming callback query
+    /// - parameter shippingQuery:  Optional. New incoming shipping query. Only for invoices with flexible price
+    /// - parameter preCheckoutQuery:  Optional. New incoming pre-checkout query. Contains full information about checkout
+    ///
+    /// - returns: The new `Update` instance.
+    ///
     public init(updateId: Int, message: Message? = nil, editedMessage: Message? = nil, channelPost: Message? = nil, editedChannelPost: Message? = nil, inlineQuery: InlineQuery? = nil, chosenInlineResult: ChosenInlineResult? = nil, callbackQuery: CallbackQuery? = nil, shippingQuery: ShippingQuery? = nil, preCheckoutQuery: PreCheckoutQuery? = nil) {
         self.updateId = updateId 
         self.message = message 
@@ -176,6 +196,19 @@ public class WebhookInfo: Codable {
     /// Optional. A list of update types the bot is subscribed to. Defaults to all update types
     public var allowedUpdates: [String]?
 
+
+    /// WebhookInfo initialization
+    ///
+    /// - parameter url:  Webhook URL, may be empty if webhook is not set up
+    /// - parameter hasCustomCertificate:  True, if a custom certificate was provided for webhook certificate checks
+    /// - parameter pendingUpdateCount:  Number of updates awaiting delivery
+    /// - parameter lastErrorDate:  Optional. Unix time for the most recent error that happened when trying to deliver an update via webhook
+    /// - parameter lastErrorMessage:  Optional. Error message in human-readable format for the most recent error that happened when trying to deliver an update via webhook
+    /// - parameter maxConnections:  Optional. Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery
+    /// - parameter allowedUpdates:  Optional. A list of update types the bot is subscribed to. Defaults to all update types
+    ///
+    /// - returns: The new `WebhookInfo` instance.
+    ///
     public init(url: String, hasCustomCertificate: Bool, pendingUpdateCount: Int, lastErrorDate: Int? = nil, lastErrorMessage: String? = nil, maxConnections: Int? = nil, allowedUpdates: [String]? = nil) {
         self.url = url 
         self.hasCustomCertificate = hasCustomCertificate 
@@ -221,6 +254,18 @@ public class User: Codable {
     /// Optional. [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag) of the user&#39;s language
     public var languageCode: String?
 
+
+    /// User initialization
+    ///
+    /// - parameter id:  Unique identifier for this user or bot
+    /// - parameter isBot:  True, if this user is a bot
+    /// - parameter firstName:  User‘s or bot’s first name
+    /// - parameter lastName:  Optional. User‘s or bot’s last name
+    /// - parameter username:  Optional. User‘s or bot’s username
+    /// - parameter languageCode:  Optional. [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag) of the user&#39;s language
+    ///
+    /// - returns: The new `User` instance.
+    ///
     public init(id: Int, isBot: Bool, firstName: String, lastName: String? = nil, username: String? = nil, languageCode: String? = nil) {
         self.id = id 
         self.isBot = isBot 
@@ -285,6 +330,25 @@ public class Chat: Codable {
     /// Optional. True, if the bot can change the group sticker set. Returned only in getChat.
     public var canSetStickerSet: Bool?
 
+
+    /// Chat initialization
+    ///
+    /// - parameter id:  Unique identifier for this chat. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier.
+    /// - parameter type:  Type of chat, can be either “private”, “group”, “supergroup” or “channel”
+    /// - parameter title:  Optional. Title, for supergroups, channels and group chats
+    /// - parameter username:  Optional. Username, for private chats, supergroups and channels if available
+    /// - parameter firstName:  Optional. First name of the other party in a private chat
+    /// - parameter lastName:  Optional. Last name of the other party in a private chat
+    /// - parameter allMembersAreAdministrators:  Optional. True if a group has ‘All Members Are Admins’ enabled.
+    /// - parameter photo:  Optional. Chat photo. Returned only in getChat.
+    /// - parameter description:  Optional. Description, for supergroups and channel chats. Returned only in getChat.
+    /// - parameter inviteLink:  Optional. Chat invite link, for supergroups and channel chats. Returned only in getChat.
+    /// - parameter pinnedMessage:  Optional. Pinned message, for supergroups and channel chats. Returned only in getChat.
+    /// - parameter stickerSetName:  Optional. For supergroups, name of group sticker set. Returned only in getChat.
+    /// - parameter canSetStickerSet:  Optional. True, if the bot can change the group sticker set. Returned only in getChat.
+    ///
+    /// - returns: The new `Chat` instance.
+    ///
     public init(id: Int, type: String, title: String? = nil, username: String? = nil, firstName: String? = nil, lastName: String? = nil, allMembersAreAdministrators: Bool? = nil, photo: ChatPhoto? = nil, description: String? = nil, inviteLink: String? = nil, pinnedMessage: Message? = nil, stickerSetName: String? = nil, canSetStickerSet: Bool? = nil) {
         self.id = id 
         self.type = type 
@@ -456,6 +520,56 @@ public class Message: Codable {
     /// Optional. Telegram Passport data
     public var passportData: PassportData?
 
+
+    /// Message initialization
+    ///
+    /// - parameter messageId:  Unique message identifier inside this chat
+    /// - parameter from:  Optional. Sender, empty for messages sent to channels
+    /// - parameter date:  Date the message was sent in Unix time
+    /// - parameter chat:  Conversation the message belongs to
+    /// - parameter forwardFrom:  Optional. For forwarded messages, sender of the original message
+    /// - parameter forwardFromChat:  Optional. For messages forwarded from channels, information about the original channel
+    /// - parameter forwardFromMessageId:  Optional. For messages forwarded from channels, identifier of the original message in the channel
+    /// - parameter forwardSignature:  Optional. For messages forwarded from channels, signature of the post author if present
+    /// - parameter forwardDate:  Optional. For forwarded messages, date the original message was sent in Unix time
+    /// - parameter replyToMessage:  Optional. For replies, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+    /// - parameter editDate:  Optional. Date the message was last edited in Unix time
+    /// - parameter mediaGroupId:  Optional. The unique identifier of a media message group this message belongs to
+    /// - parameter authorSignature:  Optional. Signature of the post author for messages in channels
+    /// - parameter text:  Optional. For text messages, the actual UTF-8 text of the message, 0-4096 characters.
+    /// - parameter entities:  Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
+    /// - parameter captionEntities:  Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
+    /// - parameter audio:  Optional. Message is an audio file, information about the file
+    /// - parameter document:  Optional. Message is a general file, information about the file
+    /// - parameter animation:  Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+    /// - parameter game:  Optional. Message is a game, information about the game. More about games »
+    /// - parameter photo:  Optional. Message is a photo, available sizes of the photo
+    /// - parameter sticker:  Optional. Message is a sticker, information about the sticker
+    /// - parameter video:  Optional. Message is a video, information about the video
+    /// - parameter voice:  Optional. Message is a voice message, information about the file
+    /// - parameter videoNote:  Optional. Message is a [video note](https://telegram.org/blog/video-messages-and-telescope), information about the video message
+    /// - parameter caption:  Optional. Caption for the audio, document, photo, video or voice, 0-1024 characters
+    /// - parameter contact:  Optional. Message is a shared contact, information about the contact
+    /// - parameter location:  Optional. Message is a shared location, information about the location
+    /// - parameter venue:  Optional. Message is a venue, information about the venue
+    /// - parameter newChatMembers:  Optional. New members that were added to the group or supergroup and information about them (the bot itself may be one of these members)
+    /// - parameter leftChatMember:  Optional. A member was removed from the group, information about them (this member may be the bot itself)
+    /// - parameter newChatTitle:  Optional. A chat title was changed to this value
+    /// - parameter newChatPhoto:  Optional. A chat photo was change to this value
+    /// - parameter deleteChatPhoto:  Optional. Service message: the chat photo was deleted
+    /// - parameter groupChatCreated:  Optional. Service message: the group has been created
+    /// - parameter supergroupChatCreated:  Optional. Service message: the supergroup has been created. This field can‘t be received in a message coming through updates, because bot can’t be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+    /// - parameter channelChatCreated:  Optional. Service message: the channel has been created. This field can‘t be received in a message coming through updates, because bot can’t be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+    /// - parameter migrateToChatId:  Optional. The group has been migrated to a supergroup with the specified identifier. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier.
+    /// - parameter migrateFromChatId:  Optional. The supergroup has been migrated from a group with the specified identifier. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier.
+    /// - parameter pinnedMessage:  Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it is itself a reply.
+    /// - parameter invoice:  Optional. Message is an invoice for a payment, information about the invoice. More about payments »
+    /// - parameter successfulPayment:  Optional. Message is a service message about a successful payment, information about the payment. More about payments »
+    /// - parameter connectedWebsite:  Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+    /// - parameter passportData:  Optional. Telegram Passport data
+    ///
+    /// - returns: The new `Message` instance.
+    ///
     public init(messageId: Int, from: User? = nil, date: Int, chat: Chat, forwardFrom: User? = nil, forwardFromChat: Chat? = nil, forwardFromMessageId: Int? = nil, forwardSignature: String? = nil, forwardDate: Int? = nil, replyToMessage: Message? = nil, editDate: Int? = nil, mediaGroupId: String? = nil, authorSignature: String? = nil, text: String? = nil, entities: [MessageEntity]? = nil, captionEntities: [MessageEntity]? = nil, audio: Audio? = nil, document: Document? = nil, animation: Animation? = nil, game: Game? = nil, photo: [PhotoSize]? = nil, sticker: Sticker? = nil, video: Video? = nil, voice: Voice? = nil, videoNote: VideoNote? = nil, caption: String? = nil, contact: Contact? = nil, location: Location? = nil, venue: Venue? = nil, newChatMembers: [User]? = nil, leftChatMember: User? = nil, newChatTitle: String? = nil, newChatPhoto: [PhotoSize]? = nil, deleteChatPhoto: Bool? = nil, groupChatCreated: Bool? = nil, supergroupChatCreated: Bool? = nil, channelChatCreated: Bool? = nil, migrateToChatId: Int? = nil, migrateFromChatId: Int? = nil, pinnedMessage: Message? = nil, invoice: Invoice? = nil, successfulPayment: SuccessfulPayment? = nil, connectedWebsite: String? = nil, passportData: PassportData? = nil) {
         self.messageId = messageId 
         self.from = from 
@@ -572,6 +686,17 @@ public class MessageEntity: Codable {
     /// Optional. For “text_mention” only, the mentioned user
     public var user: User?
 
+
+    /// MessageEntity initialization
+    ///
+    /// - parameter type:  Type of the entity. Can be mention (@username), hashtag, cashtag, bot_command, url, email, phone_number, bold (bold text), italic (italic text), code (monowidth string), pre (monowidth block), text_link (for clickable text URLs), text_mention (for users [without usernames](https://telegram.org/blog/edit#new-mentions))
+    /// - parameter offset:  Offset in UTF-16 code units to the start of the entity
+    /// - parameter length:  Length of the entity in UTF-16 code units
+    /// - parameter url:  Optional. For “text_link” only, url that will be opened after user taps on the text
+    /// - parameter user:  Optional. For “text_mention” only, the mentioned user
+    ///
+    /// - returns: The new `MessageEntity` instance.
+    ///
     public init(type: String, offset: Int, length: Int, url: String? = nil, user: User? = nil) {
         self.type = type 
         self.offset = offset 
@@ -607,6 +732,16 @@ public class PhotoSize: Codable {
     /// Optional. File size
     public var fileSize: Int?
 
+
+    /// PhotoSize initialization
+    ///
+    /// - parameter fileId:  Unique identifier for this file
+    /// - parameter width:  Photo width
+    /// - parameter height:  Photo height
+    /// - parameter fileSize:  Optional. File size
+    ///
+    /// - returns: The new `PhotoSize` instance.
+    ///
     public init(fileId: String, width: Int, height: Int, fileSize: Int? = nil) {
         self.fileId = fileId 
         self.width = width 
@@ -649,6 +784,19 @@ public class Audio: Codable {
     /// Optional. Thumbnail of the album cover to which the music file belongs
     public var thumb: PhotoSize?
 
+
+    /// Audio initialization
+    ///
+    /// - parameter fileId:  Unique identifier for this file
+    /// - parameter duration:  Duration of the audio in seconds as defined by sender
+    /// - parameter performer:  Optional. Performer of the audio as defined by sender or by audio tags
+    /// - parameter title:  Optional. Title of the audio as defined by sender or by audio tags
+    /// - parameter mimeType:  Optional. MIME type of the file as defined by sender
+    /// - parameter fileSize:  Optional. File size
+    /// - parameter thumb:  Optional. Thumbnail of the album cover to which the music file belongs
+    ///
+    /// - returns: The new `Audio` instance.
+    ///
     public init(fileId: String, duration: Int, performer: String? = nil, title: String? = nil, mimeType: String? = nil, fileSize: Int? = nil, thumb: PhotoSize? = nil) {
         self.fileId = fileId 
         self.duration = duration 
@@ -691,6 +839,17 @@ public class Document: Codable {
     /// Optional. File size
     public var fileSize: Int?
 
+
+    /// Document initialization
+    ///
+    /// - parameter fileId:  Unique file identifier
+    /// - parameter thumb:  Optional. Document thumbnail as defined by sender
+    /// - parameter fileName:  Optional. Original filename as defined by sender
+    /// - parameter mimeType:  Optional. MIME type of the file as defined by sender
+    /// - parameter fileSize:  Optional. File size
+    ///
+    /// - returns: The new `Document` instance.
+    ///
     public init(fileId: String, thumb: PhotoSize? = nil, fileName: String? = nil, mimeType: String? = nil, fileSize: Int? = nil) {
         self.fileId = fileId 
         self.thumb = thumb 
@@ -735,6 +894,19 @@ public class Video: Codable {
     /// Optional. File size
     public var fileSize: Int?
 
+
+    /// Video initialization
+    ///
+    /// - parameter fileId:  Unique identifier for this file
+    /// - parameter width:  Video width as defined by sender
+    /// - parameter height:  Video height as defined by sender
+    /// - parameter duration:  Duration of the video in seconds as defined by sender
+    /// - parameter thumb:  Optional. Video thumbnail
+    /// - parameter mimeType:  Optional. Mime type of a file as defined by sender
+    /// - parameter fileSize:  Optional. File size
+    ///
+    /// - returns: The new `Video` instance.
+    ///
     public init(fileId: String, width: Int, height: Int, duration: Int, thumb: PhotoSize? = nil, mimeType: String? = nil, fileSize: Int? = nil) {
         self.fileId = fileId 
         self.width = width 
@@ -786,6 +958,20 @@ public class Animation: Codable {
     /// Optional. File size
     public var fileSize: Int?
 
+
+    /// Animation initialization
+    ///
+    /// - parameter fileId:  Unique file identifier
+    /// - parameter width:  Video width as defined by sender
+    /// - parameter height:  Video height as defined by sender
+    /// - parameter duration:  Duration of the video in seconds as defined by sender
+    /// - parameter thumb:  Optional. Animation thumbnail as defined by sender
+    /// - parameter fileName:  Optional. Original animation filename as defined by sender
+    /// - parameter mimeType:  Optional. MIME type of the file as defined by sender
+    /// - parameter fileSize:  Optional. File size
+    ///
+    /// - returns: The new `Animation` instance.
+    ///
     public init(fileId: String, width: Int, height: Int, duration: Int, thumb: PhotoSize? = nil, fileName: String? = nil, mimeType: String? = nil, fileSize: Int? = nil) {
         self.fileId = fileId 
         self.width = width 
@@ -827,6 +1013,16 @@ public class Voice: Codable {
     /// Optional. File size
     public var fileSize: Int?
 
+
+    /// Voice initialization
+    ///
+    /// - parameter fileId:  Unique identifier for this file
+    /// - parameter duration:  Duration of the audio in seconds as defined by sender
+    /// - parameter mimeType:  Optional. MIME type of the file as defined by sender
+    /// - parameter fileSize:  Optional. File size
+    ///
+    /// - returns: The new `Voice` instance.
+    ///
     public init(fileId: String, duration: Int, mimeType: String? = nil, fileSize: Int? = nil) {
         self.fileId = fileId 
         self.duration = duration 
@@ -863,6 +1059,17 @@ public class VideoNote: Codable {
     /// Optional. File size
     public var fileSize: Int?
 
+
+    /// VideoNote initialization
+    ///
+    /// - parameter fileId:  Unique identifier for this file
+    /// - parameter length:  Video width and height (diameter of the video message) as defined by sender
+    /// - parameter duration:  Duration of the video in seconds as defined by sender
+    /// - parameter thumb:  Optional. Video thumbnail
+    /// - parameter fileSize:  Optional. File size
+    ///
+    /// - returns: The new `VideoNote` instance.
+    ///
     public init(fileId: String, length: Int, duration: Int, thumb: PhotoSize? = nil, fileSize: Int? = nil) {
         self.fileId = fileId 
         self.length = length 
@@ -901,6 +1108,17 @@ public class Contact: Codable {
     /// Optional. Additional data about the contact in the form of a [vCard](https://en.wikipedia.org/wiki/VCard)
     public var vcard: String?
 
+
+    /// Contact initialization
+    ///
+    /// - parameter phoneNumber:  Contact&#39;s phone number
+    /// - parameter firstName:  Contact&#39;s first name
+    /// - parameter lastName:  Optional. Contact&#39;s last name
+    /// - parameter userId:  Optional. Contact&#39;s user identifier in Telegram
+    /// - parameter vcard:  Optional. Additional data about the contact in the form of a [vCard](https://en.wikipedia.org/wiki/VCard)
+    ///
+    /// - returns: The new `Contact` instance.
+    ///
     public init(phoneNumber: String, firstName: String, lastName: String? = nil, userId: Int? = nil, vcard: String? = nil) {
         self.phoneNumber = phoneNumber 
         self.firstName = firstName 
@@ -930,6 +1148,14 @@ public class Location: Codable {
     /// Latitude as defined by sender
     public var latitude: Float
 
+
+    /// Location initialization
+    ///
+    /// - parameter longitude:  Longitude as defined by sender
+    /// - parameter latitude:  Latitude as defined by sender
+    ///
+    /// - returns: The new `Location` instance.
+    ///
     public init(longitude: Float, latitude: Float) {
         self.longitude = longitude 
         self.latitude = latitude 
@@ -962,6 +1188,17 @@ public class Venue: Codable {
     /// Optional. Foursquare type of the venue. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
     public var foursquareType: String?
 
+
+    /// Venue initialization
+    ///
+    /// - parameter location:  Venue location
+    /// - parameter title:  Name of the venue
+    /// - parameter address:  Address of the venue
+    /// - parameter foursquareId:  Optional. Foursquare identifier of the venue
+    /// - parameter foursquareType:  Optional. Foursquare type of the venue. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
+    ///
+    /// - returns: The new `Venue` instance.
+    ///
     public init(location: Location, title: String, address: String, foursquareId: String? = nil, foursquareType: String? = nil) {
         self.location = location 
         self.title = title 
@@ -991,6 +1228,14 @@ public class UserProfilePhotos: Codable {
     /// Requested profile pictures (in up to 4 sizes each)
     public var photos: [PhotoSize]
 
+
+    /// UserProfilePhotos initialization
+    ///
+    /// - parameter totalCount:  Total number of profile pictures the target user has
+    /// - parameter photos:  Requested profile pictures (in up to 4 sizes each)
+    ///
+    /// - returns: The new `UserProfilePhotos` instance.
+    ///
     public init(totalCount: Int, photos: [PhotoSize]) {
         self.totalCount = totalCount 
         self.photos = photos 
@@ -1017,6 +1262,15 @@ public class File: Codable {
     /// Optional. File path. Use https://api.telegram.org/file/bot&lt;token&gt;/&lt;file_path&gt; to get the file.
     public var filePath: String?
 
+
+    /// File initialization
+    ///
+    /// - parameter fileId:  Unique identifier for this file
+    /// - parameter fileSize:  Optional. File size, if known
+    /// - parameter filePath:  Optional. File path. Use https://api.telegram.org/file/bot&lt;token&gt;/&lt;file_path&gt; to get the file.
+    ///
+    /// - returns: The new `File` instance.
+    ///
     public init(fileId: String, fileSize: Int? = nil, filePath: String? = nil) {
         self.fileId = fileId 
         self.fileSize = fileSize 
@@ -1048,6 +1302,16 @@ public class ReplyKeyboardMarkup: Codable {
     /// Optional. Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot&#39;s message is a reply (has reply_to_message_id), sender of the original message.Example: A user requests to change the bot‘s language, bot replies to the request with a keyboard to select the new language. Other users in the group don’t see the keyboard.
     public var selective: Bool?
 
+
+    /// ReplyKeyboardMarkup initialization
+    ///
+    /// - parameter keyboard:  Array of button rows, each represented by an Array of KeyboardButton objects
+    /// - parameter resizeKeyboard:  Optional. Requests clients to resize the keyboard vertically for optimal fit (e.g., make the keyboard smaller if there are just two rows of buttons). Defaults to false, in which case the custom keyboard is always of the same height as the app&#39;s standard keyboard.
+    /// - parameter oneTimeKeyboard:  Optional. Requests clients to hide the keyboard as soon as it&#39;s been used. The keyboard will still be available, but clients will automatically display the usual letter-keyboard in the chat – the user can press a special button in the input field to see the custom keyboard again. Defaults to false.
+    /// - parameter selective:  Optional. Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot&#39;s message is a reply (has reply_to_message_id), sender of the original message.Example: A user requests to change the bot‘s language, bot replies to the request with a keyboard to select the new language. Other users in the group don’t see the keyboard.
+    ///
+    /// - returns: The new `ReplyKeyboardMarkup` instance.
+    ///
     public init(keyboard: [KeyboardButton], resizeKeyboard: Bool? = nil, oneTimeKeyboard: Bool? = nil, selective: Bool? = nil) {
         self.keyboard = keyboard 
         self.resizeKeyboard = resizeKeyboard 
@@ -1078,6 +1342,15 @@ public class KeyboardButton: Codable {
     /// Optional. If True, the user&#39;s current location will be sent when the button is pressed. Available in private chats only
     public var requestLocation: Bool?
 
+
+    /// KeyboardButton initialization
+    ///
+    /// - parameter text:  Text of the button. If none of the optional fields are used, it will be sent as a message when the button is pressed
+    /// - parameter requestContact:  Optional. If True, the user&#39;s phone number will be sent as a contact when the button is pressed. Available in private chats only
+    /// - parameter requestLocation:  Optional. If True, the user&#39;s current location will be sent when the button is pressed. Available in private chats only
+    ///
+    /// - returns: The new `KeyboardButton` instance.
+    ///
     public init(text: String, requestContact: Bool? = nil, requestLocation: Bool? = nil) {
         self.text = text 
         self.requestContact = requestContact 
@@ -1103,6 +1376,14 @@ public class ReplyKeyboardRemove: Codable {
     /// Optional. Use this parameter if you want to remove the keyboard for specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot&#39;s message is a reply (has reply_to_message_id), sender of the original message.Example: A user votes in a poll, bot returns confirmation message in reply to the vote and removes the keyboard for that user, while still showing the keyboard with poll options to users who haven&#39;t voted yet.
     public var selective: Bool?
 
+
+    /// ReplyKeyboardRemove initialization
+    ///
+    /// - parameter removeKeyboard:  Requests clients to remove the custom keyboard (user will not be able to summon this keyboard; if you want to hide the keyboard from sight but keep it accessible, use one_time_keyboard in ReplyKeyboardMarkup)
+    /// - parameter selective:  Optional. Use this parameter if you want to remove the keyboard for specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot&#39;s message is a reply (has reply_to_message_id), sender of the original message.Example: A user votes in a poll, bot returns confirmation message in reply to the vote and removes the keyboard for that user, while still showing the keyboard with poll options to users who haven&#39;t voted yet.
+    ///
+    /// - returns: The new `ReplyKeyboardRemove` instance.
+    ///
     public init(removeKeyboard: Bool, selective: Bool? = nil) {
         self.removeKeyboard = removeKeyboard 
         self.selective = selective 
@@ -1123,6 +1404,13 @@ public class InlineKeyboardMarkup: Codable {
     /// Array of button rows, each represented by an Array of InlineKeyboardButton objects
     public var inlineKeyboard: [InlineKeyboardButton]
 
+
+    /// InlineKeyboardMarkup initialization
+    ///
+    /// - parameter inlineKeyboard:  Array of button rows, each represented by an Array of InlineKeyboardButton objects
+    ///
+    /// - returns: The new `InlineKeyboardMarkup` instance.
+    ///
     public init(inlineKeyboard: [InlineKeyboardButton]) {
         self.inlineKeyboard = inlineKeyboard 
     }
@@ -1159,6 +1447,19 @@ public class InlineKeyboardButton: Codable {
     /// Optional. Specify True, to send a Pay button.NOTE: This type of button must always be the first button in the first row.
     public var pay: Bool?
 
+
+    /// InlineKeyboardButton initialization
+    ///
+    /// - parameter text:  Label text on the button
+    /// - parameter url:  Optional. HTTP or tg:// url to be opened when button is pressed
+    /// - parameter callbackData:  Optional. Data to be sent in a callback query to the bot when button is pressed, 1-64 bytes
+    /// - parameter switchInlineQuery:  Optional. If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot‘s username and the specified inline query in the input field. Can be empty, in which case just the bot’s username will be inserted.Note: This offers an easy way for users to start using your bot in inline mode when they are currently in a private chat with it. Especially useful when combined with switch_pm… actions – in this case the user will be automatically returned to the chat they switched from, skipping the chat selection screen.
+    /// - parameter switchInlineQueryCurrentChat:  Optional. If set, pressing the button will insert the bot‘s username and the specified inline query in the current chat&#39;s input field. Can be empty, in which case only the bot’s username will be inserted.This offers a quick way for the user to open your bot in inline mode in the same chat – good for selecting something from multiple options.
+    /// - parameter callbackGame:  Optional. Description of the game that will be launched when the user presses the button.NOTE: This type of button must always be the first button in the first row.
+    /// - parameter pay:  Optional. Specify True, to send a Pay button.NOTE: This type of button must always be the first button in the first row.
+    ///
+    /// - returns: The new `InlineKeyboardButton` instance.
+    ///
     public init(text: String, url: String? = nil, callbackData: String? = nil, switchInlineQuery: String? = nil, switchInlineQueryCurrentChat: String? = nil, callbackGame: CallbackGame? = nil, pay: Bool? = nil) {
         self.text = text 
         self.url = url 
@@ -1207,6 +1508,19 @@ public class CallbackQuery: Codable {
     /// Optional. Short name of a Game to be returned, serves as the unique identifier for the game
     public var gameShortName: String?
 
+
+    /// CallbackQuery initialization
+    ///
+    /// - parameter id:  Unique identifier for this query
+    /// - parameter from:  Sender
+    /// - parameter message:  Optional. Message with the callback button that originated the query. Note that message content and message date will not be available if the message is too old
+    /// - parameter inlineMessageId:  Optional. Identifier of the message sent via the bot in inline mode, that originated the query.
+    /// - parameter chatInstance:  Global identifier, uniquely corresponding to the chat to which the message with the callback button was sent. Useful for high scores in games.
+    /// - parameter data:  Optional. Data associated with the callback button. Be aware that a bad client can send arbitrary data in this field.
+    /// - parameter gameShortName:  Optional. Short name of a Game to be returned, serves as the unique identifier for the game
+    ///
+    /// - returns: The new `CallbackQuery` instance.
+    ///
     public init(id: String, from: User, message: Message? = nil, inlineMessageId: String? = nil, chatInstance: String, data: String? = nil, gameShortName: String? = nil) {
         self.id = id 
         self.from = from 
@@ -1240,6 +1554,14 @@ public class ForceReply: Codable {
     /// Optional. Use this parameter if you want to force reply from specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot&#39;s message is a reply (has reply_to_message_id), sender of the original message.
     public var selective: Bool?
 
+
+    /// ForceReply initialization
+    ///
+    /// - parameter forceReply:  Shows reply interface to the user, as if they manually selected the bot‘s message and tapped ’Reply&#39;
+    /// - parameter selective:  Optional. Use this parameter if you want to force reply from specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot&#39;s message is a reply (has reply_to_message_id), sender of the original message.
+    ///
+    /// - returns: The new `ForceReply` instance.
+    ///
     public init(forceReply: Bool, selective: Bool? = nil) {
         self.forceReply = forceReply 
         self.selective = selective 
@@ -1263,6 +1585,14 @@ public class ChatPhoto: Codable {
     /// Unique file identifier of big (640x640) chat photo. This file_id can be used only for photo download.
     public var bigFileId: String
 
+
+    /// ChatPhoto initialization
+    ///
+    /// - parameter smallFileId:  Unique file identifier of small (160x160) chat photo. This file_id can be used only for photo download.
+    /// - parameter bigFileId:  Unique file identifier of big (640x640) chat photo. This file_id can be used only for photo download.
+    ///
+    /// - returns: The new `ChatPhoto` instance.
+    ///
     public init(smallFileId: String, bigFileId: String) {
         self.smallFileId = smallFileId 
         self.bigFileId = bigFileId 
@@ -1328,6 +1658,28 @@ public class ChatMember: Codable {
     /// Optional. Restricted only. True, if user may add web page previews to his messages, implies can_send_media_messages
     public var canAddWebPagePreviews: Bool?
 
+
+    /// ChatMember initialization
+    ///
+    /// - parameter user:  Information about the user
+    /// - parameter status:  The member&#39;s status in the chat. Can be “creator”, “administrator”, “member”, “restricted”, “left” or “kicked”
+    /// - parameter untilDate:  Optional. Restricted and kicked only. Date when restrictions will be lifted for this user, unix time
+    /// - parameter canBeEdited:  Optional. Administrators only. True, if the bot is allowed to edit administrator privileges of that user
+    /// - parameter canChangeInfo:  Optional. Administrators only. True, if the administrator can change the chat title, photo and other settings
+    /// - parameter canPostMessages:  Optional. Administrators only. True, if the administrator can post in the channel, channels only
+    /// - parameter canEditMessages:  Optional. Administrators only. True, if the administrator can edit messages of other users and can pin messages, channels only
+    /// - parameter canDeleteMessages:  Optional. Administrators only. True, if the administrator can delete messages of other users
+    /// - parameter canInviteUsers:  Optional. Administrators only. True, if the administrator can invite new users to the chat
+    /// - parameter canRestrictMembers:  Optional. Administrators only. True, if the administrator can restrict, ban or unban chat members
+    /// - parameter canPinMessages:  Optional. Administrators only. True, if the administrator can pin messages, supergroups only
+    /// - parameter canPromoteMembers:  Optional. Administrators only. True, if the administrator can add new administrators with a subset of his own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by the user)
+    /// - parameter canSendMessages:  Optional. Restricted only. True, if the user can send text messages, contacts, locations and venues
+    /// - parameter canSendMediaMessages:  Optional. Restricted only. True, if the user can send audios, documents, photos, videos, video notes and voice notes, implies can_send_messages
+    /// - parameter canSendOtherMessages:  Optional. Restricted only. True, if the user can send animations, games, stickers and use inline bots, implies can_send_media_messages
+    /// - parameter canAddWebPagePreviews:  Optional. Restricted only. True, if user may add web page previews to his messages, implies can_send_media_messages
+    ///
+    /// - returns: The new `ChatMember` instance.
+    ///
     public init(user: User, status: String, untilDate: Int? = nil, canBeEdited: Bool? = nil, canChangeInfo: Bool? = nil, canPostMessages: Bool? = nil, canEditMessages: Bool? = nil, canDeleteMessages: Bool? = nil, canInviteUsers: Bool? = nil, canRestrictMembers: Bool? = nil, canPinMessages: Bool? = nil, canPromoteMembers: Bool? = nil, canSendMessages: Bool? = nil, canSendMediaMessages: Bool? = nil, canSendOtherMessages: Bool? = nil, canAddWebPagePreviews: Bool? = nil) {
         self.user = user 
         self.status = status 
@@ -1379,6 +1731,14 @@ public class ResponseParameters: Codable {
     /// Optional. In case of exceeding flood control, the number of seconds left to wait before the request can be repeated
     public var retryAfter: Int?
 
+
+    /// ResponseParameters initialization
+    ///
+    /// - parameter migrateToChatId:  Optional. The group has been migrated to a supergroup with the specified identifier. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier.
+    /// - parameter retryAfter:  Optional. In case of exceeding flood control, the number of seconds left to wait before the request can be repeated
+    ///
+    /// - returns: The new `ResponseParameters` instance.
+    ///
     public init(migrateToChatId: Int? = nil, retryAfter: Int? = nil) {
         self.migrateToChatId = migrateToChatId 
         self.retryAfter = retryAfter 
@@ -1395,6 +1755,7 @@ public class ResponseParameters: Codable {
 
 /// This object represents the content of a media message to be sent. It should be one of
 public enum InputMedia: Codable {
+
     case animation(InputMediaAnimation)
     case document(InputMediaDocument)
     case audio(InputMediaAudio)
@@ -1433,7 +1794,10 @@ public enum InputMedia: Codable {
             try container.encode(video)
             }
         }
-}/// Represents a photo to be sent.
+}
+
+
+/// Represents a photo to be sent.
 public class InputMediaPhoto: Codable {
 
     /// Type of the result, must be photo
@@ -1448,6 +1812,16 @@ public class InputMediaPhoto: Codable {
     /// Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
     public var parseMode: String?
 
+
+    /// InputMediaPhoto initialization
+    ///
+    /// - parameter type:  Type of the result, must be photo
+    /// - parameter media:  File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. More info on Sending Files »
+    /// - parameter caption:  Optional. Caption of the photo to be sent, 0-1024 characters
+    /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+    ///
+    /// - returns: The new `InputMediaPhoto` instance.
+    ///
     public init(type: String, media: String, caption: String? = nil, parseMode: String? = nil) {
         self.type = type 
         self.media = media 
@@ -1496,6 +1870,21 @@ public class InputMediaVideo: Codable {
     /// Optional. Pass True, if the uploaded video is suitable for streaming
     public var supportsStreaming: Bool?
 
+
+    /// InputMediaVideo initialization
+    ///
+    /// - parameter type:  Type of the result, must be video
+    /// - parameter media:  File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. More info on Sending Files »
+    /// - parameter thumb:  Optional. Thumbnail of the file sent. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
+    /// - parameter caption:  Optional. Caption of the video to be sent, 0-1024 characters
+    /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+    /// - parameter width:  Optional. Video width
+    /// - parameter height:  Optional. Video height
+    /// - parameter duration:  Optional. Video duration
+    /// - parameter supportsStreaming:  Optional. Pass True, if the uploaded video is suitable for streaming
+    ///
+    /// - returns: The new `InputMediaVideo` instance.
+    ///
     public init(type: String, media: String, thumb: Either<InputFile, String>? = nil, caption: String? = nil, parseMode: String? = nil, width: Int? = nil, height: Int? = nil, duration: Int? = nil, supportsStreaming: Bool? = nil) {
         self.type = type 
         self.media = media 
@@ -1551,6 +1940,20 @@ public class InputMediaAnimation: Codable {
     /// Optional. Animation duration
     public var duration: Int?
 
+
+    /// InputMediaAnimation initialization
+    ///
+    /// - parameter type:  Type of the result, must be animation
+    /// - parameter media:  File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. More info on Sending Files »
+    /// - parameter thumb:  Optional. Thumbnail of the file sent. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
+    /// - parameter caption:  Optional. Caption of the animation to be sent, 0-1024 characters
+    /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+    /// - parameter width:  Optional. Animation width
+    /// - parameter height:  Optional. Animation height
+    /// - parameter duration:  Optional. Animation duration
+    ///
+    /// - returns: The new `InputMediaAnimation` instance.
+    ///
     public init(type: String, media: String, thumb: Either<InputFile, String>? = nil, caption: String? = nil, parseMode: String? = nil, width: Int? = nil, height: Int? = nil, duration: Int? = nil) {
         self.type = type 
         self.media = media 
@@ -1604,6 +2007,20 @@ public class InputMediaAudio: Codable {
     /// Optional. Title of the audio
     public var title: String?
 
+
+    /// InputMediaAudio initialization
+    ///
+    /// - parameter type:  Type of the result, must be audio
+    /// - parameter media:  File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. More info on Sending Files »
+    /// - parameter thumb:  Optional. Thumbnail of the file sent. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
+    /// - parameter caption:  Optional. Caption of the audio to be sent, 0-1024 characters
+    /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+    /// - parameter duration:  Optional. Duration of the audio in seconds
+    /// - parameter performer:  Optional. Performer of the audio
+    /// - parameter title:  Optional. Title of the audio
+    ///
+    /// - returns: The new `InputMediaAudio` instance.
+    ///
     public init(type: String, media: String, thumb: Either<InputFile, String>? = nil, caption: String? = nil, parseMode: String? = nil, duration: Int? = nil, performer: String? = nil, title: String? = nil) {
         self.type = type 
         self.media = media 
@@ -1648,6 +2065,17 @@ public class InputMediaDocument: Codable {
     /// Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
     public var parseMode: String?
 
+
+    /// InputMediaDocument initialization
+    ///
+    /// - parameter type:  Type of the result, must be document
+    /// - parameter media:  File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. More info on Sending Files »
+    /// - parameter thumb:  Optional. Thumbnail of the file sent. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
+    /// - parameter caption:  Optional. Caption of the document to be sent, 0-1024 characters
+    /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+    ///
+    /// - returns: The new `InputMediaDocument` instance.
+    ///
     public init(type: String, media: String, thumb: Either<InputFile, String>? = nil, caption: String? = nil, parseMode: String? = nil) {
         self.type = type 
         self.media = media 
@@ -1700,6 +2128,20 @@ public class Sticker: Codable {
     /// Optional. File size
     public var fileSize: Int?
 
+
+    /// Sticker initialization
+    ///
+    /// - parameter fileId:  Unique identifier for this file
+    /// - parameter width:  Sticker width
+    /// - parameter height:  Sticker height
+    /// - parameter thumb:  Optional. Sticker thumbnail in the .webp or .jpg format
+    /// - parameter emoji:  Optional. Emoji associated with the sticker
+    /// - parameter setName:  Optional. Name of the sticker set to which the sticker belongs
+    /// - parameter maskPosition:  Optional. For mask stickers, the position where the mask should be placed
+    /// - parameter fileSize:  Optional. File size
+    ///
+    /// - returns: The new `Sticker` instance.
+    ///
     public init(fileId: String, width: Int, height: Int, thumb: PhotoSize? = nil, emoji: String? = nil, setName: String? = nil, maskPosition: MaskPosition? = nil, fileSize: Int? = nil) {
         self.fileId = fileId 
         self.width = width 
@@ -1741,6 +2183,16 @@ public class StickerSet: Codable {
     /// List of all set stickers
     public var stickers: [Sticker]
 
+
+    /// StickerSet initialization
+    ///
+    /// - parameter name:  Sticker set name
+    /// - parameter title:  Sticker set title
+    /// - parameter containsMasks:  True, if the sticker set contains masks
+    /// - parameter stickers:  List of all set stickers
+    ///
+    /// - returns: The new `StickerSet` instance.
+    ///
     public init(name: String, title: String, containsMasks: Bool, stickers: [Sticker]) {
         self.name = name 
         self.title = title 
@@ -1774,6 +2226,16 @@ public class MaskPosition: Codable {
     /// Mask scaling coefficient. For example, 2.0 means double size.
     public var scale: Float
 
+
+    /// MaskPosition initialization
+    ///
+    /// - parameter point:  The part of the face relative to which the mask should be placed. One of “forehead”, “eyes”, “mouth”, or “chin”.
+    /// - parameter xShift:  Shift by X-axis measured in widths of the mask scaled to the face size, from left to right. For example, choosing -1.0 will place mask just to the left of the default mask position.
+    /// - parameter yShift:  Shift by Y-axis measured in heights of the mask scaled to the face size, from top to bottom. For example, 1.0 will place the mask just below the default mask position.
+    /// - parameter scale:  Mask scaling coefficient. For example, 2.0 means double size.
+    ///
+    /// - returns: The new `MaskPosition` instance.
+    ///
     public init(point: String, xShift: Float, yShift: Float, scale: Float) {
         self.point = point 
         self.xShift = xShift 
@@ -1810,6 +2272,17 @@ public class InlineQuery: Codable {
     /// Offset of the results to be returned, can be controlled by the bot
     public var offset: String
 
+
+    /// InlineQuery initialization
+    ///
+    /// - parameter id:  Unique identifier for this query
+    /// - parameter from:  Sender
+    /// - parameter location:  Optional. Sender location, only for bots that request user location
+    /// - parameter query:  Text of the query (up to 512 characters)
+    /// - parameter offset:  Offset of the results to be returned, can be controlled by the bot
+    ///
+    /// - returns: The new `InlineQuery` instance.
+    ///
     public init(id: String, from: User, location: Location? = nil, query: String, offset: String) {
         self.id = id 
         self.from = from 
@@ -1832,6 +2305,7 @@ public class InlineQuery: Codable {
 
 /// This object represents one result of an inline query. Telegram clients currently support results of the following 20 types:
 public enum InlineQueryResult: Codable {
+
     case cachedAudio(InlineQueryResultCachedAudio)
     case cachedDocument(InlineQueryResultCachedDocument)
     case cachedGif(InlineQueryResultCachedGif)
@@ -1945,7 +2419,10 @@ public enum InlineQueryResult: Codable {
             try container.encode(voice)
             }
         }
-}/// Represents a link to an article or web page.
+}
+
+
+/// Represents a link to an article or web page.
 public class InlineQueryResultArticle: Codable {
 
     /// Type of the result, must be article
@@ -1981,6 +2458,23 @@ public class InlineQueryResultArticle: Codable {
     /// Optional. Thumbnail height
     public var thumbHeight: Int?
 
+
+    /// InlineQueryResultArticle initialization
+    ///
+    /// - parameter type:  Type of the result, must be article
+    /// - parameter id:  Unique identifier for this result, 1-64 Bytes
+    /// - parameter title:  Title of the result
+    /// - parameter inputMessageContent:  Content of the message to be sent
+    /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
+    /// - parameter url:  Optional. URL of the result
+    /// - parameter hideUrl:  Optional. Pass True, if you don&#39;t want the URL to be shown in the message
+    /// - parameter description:  Optional. Short description of the result
+    /// - parameter thumbUrl:  Optional. Url of the thumbnail for the result
+    /// - parameter thumbWidth:  Optional. Thumbnail width
+    /// - parameter thumbHeight:  Optional. Thumbnail height
+    ///
+    /// - returns: The new `InlineQueryResultArticle` instance.
+    ///
     public init(type: String, id: String, title: String, inputMessageContent: InputMessageContent, replyMarkup: InlineKeyboardMarkup? = nil, url: String? = nil, hideUrl: Bool? = nil, description: String? = nil, thumbUrl: String? = nil, thumbWidth: Int? = nil, thumbHeight: Int? = nil) {
         self.type = type 
         self.id = id 
@@ -2052,6 +2546,24 @@ public class InlineQueryResultPhoto: Codable {
     /// Optional. Content of the message to be sent instead of the photo
     public var inputMessageContent: InputMessageContent?
 
+
+    /// InlineQueryResultPhoto initialization
+    ///
+    /// - parameter type:  Type of the result, must be photo
+    /// - parameter id:  Unique identifier for this result, 1-64 bytes
+    /// - parameter photoUrl:  A valid URL of the photo. Photo must be in jpeg format. Photo size must not exceed 5MB
+    /// - parameter thumbUrl:  URL of the thumbnail for the photo
+    /// - parameter photoWidth:  Optional. Width of the photo
+    /// - parameter photoHeight:  Optional. Height of the photo
+    /// - parameter title:  Optional. Title for the result
+    /// - parameter description:  Optional. Short description of the result
+    /// - parameter caption:  Optional. Caption of the photo to be sent, 0-1024 characters
+    /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+    /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
+    /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the photo
+    ///
+    /// - returns: The new `InlineQueryResultPhoto` instance.
+    ///
     public init(type: String, id: String, photoUrl: String, thumbUrl: String, photoWidth: Int? = nil, photoHeight: Int? = nil, title: String? = nil, description: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type 
         self.id = id 
@@ -2125,6 +2637,24 @@ public class InlineQueryResultGif: Codable {
     /// Optional. Content of the message to be sent instead of the GIF animation
     public var inputMessageContent: InputMessageContent?
 
+
+    /// InlineQueryResultGif initialization
+    ///
+    /// - parameter type:  Type of the result, must be gif
+    /// - parameter id:  Unique identifier for this result, 1-64 bytes
+    /// - parameter gifUrl:  A valid URL for the GIF file. File size must not exceed 1MB
+    /// - parameter gifWidth:  Optional. Width of the GIF
+    /// - parameter gifHeight:  Optional. Height of the GIF
+    /// - parameter gifDuration:  Optional. Duration of the GIF
+    /// - parameter thumbUrl:  URL of the static thumbnail for the result (jpeg or gif)
+    /// - parameter title:  Optional. Title for the result
+    /// - parameter caption:  Optional. Caption of the GIF file to be sent, 0-1024 characters
+    /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+    /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
+    /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the GIF animation
+    ///
+    /// - returns: The new `InlineQueryResultGif` instance.
+    ///
     public init(type: String, id: String, gifUrl: String, gifWidth: Int? = nil, gifHeight: Int? = nil, gifDuration: Int? = nil, thumbUrl: String, title: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type 
         self.id = id 
@@ -2198,6 +2728,24 @@ public class InlineQueryResultMpeg4Gif: Codable {
     /// Optional. Content of the message to be sent instead of the video animation
     public var inputMessageContent: InputMessageContent?
 
+
+    /// InlineQueryResultMpeg4Gif initialization
+    ///
+    /// - parameter type:  Type of the result, must be mpeg4_gif
+    /// - parameter id:  Unique identifier for this result, 1-64 bytes
+    /// - parameter mpeg4Url:  A valid URL for the MP4 file. File size must not exceed 1MB
+    /// - parameter mpeg4Width:  Optional. Video width
+    /// - parameter mpeg4Height:  Optional. Video height
+    /// - parameter mpeg4Duration:  Optional. Video duration
+    /// - parameter thumbUrl:  URL of the static thumbnail (jpeg or gif) for the result
+    /// - parameter title:  Optional. Title for the result
+    /// - parameter caption:  Optional. Caption of the MPEG-4 file to be sent, 0-1024 characters
+    /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+    /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
+    /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the video animation
+    ///
+    /// - returns: The new `InlineQueryResultMpeg4Gif` instance.
+    ///
     public init(type: String, id: String, mpeg4Url: String, mpeg4Width: Int? = nil, mpeg4Height: Int? = nil, mpeg4Duration: Int? = nil, thumbUrl: String, title: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type 
         self.id = id 
@@ -2277,6 +2825,26 @@ public class InlineQueryResultVideo: Codable {
     /// Optional. Content of the message to be sent instead of the video. This field is required if InlineQueryResultVideo is used to send an HTML-page as a result (e.g., a YouTube video).
     public var inputMessageContent: InputMessageContent?
 
+
+    /// InlineQueryResultVideo initialization
+    ///
+    /// - parameter type:  Type of the result, must be video
+    /// - parameter id:  Unique identifier for this result, 1-64 bytes
+    /// - parameter videoUrl:  A valid URL for the embedded video player or video file
+    /// - parameter mimeType:  Mime type of the content of video url, “text/html” or “video/mp4”
+    /// - parameter thumbUrl:  URL of the thumbnail (jpeg only) for the video
+    /// - parameter title:  Title for the result
+    /// - parameter caption:  Optional. Caption of the video to be sent, 0-1024 characters
+    /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+    /// - parameter videoWidth:  Optional. Video width
+    /// - parameter videoHeight:  Optional. Video height
+    /// - parameter videoDuration:  Optional. Video duration in seconds
+    /// - parameter description:  Optional. Short description of the result
+    /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
+    /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the video. This field is required if InlineQueryResultVideo is used to send an HTML-page as a result (e.g., a YouTube video).
+    ///
+    /// - returns: The new `InlineQueryResultVideo` instance.
+    ///
     public init(type: String, id: String, videoUrl: String, mimeType: String, thumbUrl: String, title: String, caption: String? = nil, parseMode: String? = nil, videoWidth: Int? = nil, videoHeight: Int? = nil, videoDuration: Int? = nil, description: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type 
         self.id = id 
@@ -2348,6 +2916,22 @@ public class InlineQueryResultAudio: Codable {
     /// Optional. Content of the message to be sent instead of the audio
     public var inputMessageContent: InputMessageContent?
 
+
+    /// InlineQueryResultAudio initialization
+    ///
+    /// - parameter type:  Type of the result, must be audio
+    /// - parameter id:  Unique identifier for this result, 1-64 bytes
+    /// - parameter audioUrl:  A valid URL for the audio file
+    /// - parameter title:  Title
+    /// - parameter caption:  Optional. Caption, 0-1024 characters
+    /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+    /// - parameter performer:  Optional. Performer
+    /// - parameter audioDuration:  Optional. Audio duration in seconds
+    /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
+    /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the audio
+    ///
+    /// - returns: The new `InlineQueryResultAudio` instance.
+    ///
     public init(type: String, id: String, audioUrl: String, title: String, caption: String? = nil, parseMode: String? = nil, performer: String? = nil, audioDuration: Int? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type 
         self.id = id 
@@ -2408,6 +2992,21 @@ public class InlineQueryResultVoice: Codable {
     /// Optional. Content of the message to be sent instead of the voice recording
     public var inputMessageContent: InputMessageContent?
 
+
+    /// InlineQueryResultVoice initialization
+    ///
+    /// - parameter type:  Type of the result, must be voice
+    /// - parameter id:  Unique identifier for this result, 1-64 bytes
+    /// - parameter voiceUrl:  A valid URL for the voice recording
+    /// - parameter title:  Recording title
+    /// - parameter caption:  Optional. Caption, 0-1024 characters
+    /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+    /// - parameter voiceDuration:  Optional. Recording duration in seconds
+    /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
+    /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the voice recording
+    ///
+    /// - returns: The new `InlineQueryResultVoice` instance.
+    ///
     public init(type: String, id: String, voiceUrl: String, title: String, caption: String? = nil, parseMode: String? = nil, voiceDuration: Int? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type 
         self.id = id 
@@ -2478,6 +3077,25 @@ public class InlineQueryResultDocument: Codable {
     /// Optional. Thumbnail height
     public var thumbHeight: Int?
 
+
+    /// InlineQueryResultDocument initialization
+    ///
+    /// - parameter type:  Type of the result, must be document
+    /// - parameter id:  Unique identifier for this result, 1-64 bytes
+    /// - parameter title:  Title for the result
+    /// - parameter caption:  Optional. Caption of the document to be sent, 0-1024 characters
+    /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+    /// - parameter documentUrl:  A valid URL for the file
+    /// - parameter mimeType:  Mime type of the content of the file, either “application/pdf” or “application/zip”
+    /// - parameter description:  Optional. Short description of the result
+    /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
+    /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the file
+    /// - parameter thumbUrl:  Optional. URL of the thumbnail (jpeg only) for the file
+    /// - parameter thumbWidth:  Optional. Thumbnail width
+    /// - parameter thumbHeight:  Optional. Thumbnail height
+    ///
+    /// - returns: The new `InlineQueryResultDocument` instance.
+    ///
     public init(type: String, id: String, title: String, caption: String? = nil, parseMode: String? = nil, documentUrl: String, mimeType: String, description: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil, thumbUrl: String? = nil, thumbWidth: Int? = nil, thumbHeight: Int? = nil) {
         self.type = type 
         self.id = id 
@@ -2550,6 +3168,23 @@ public class InlineQueryResultLocation: Codable {
     /// Optional. Thumbnail height
     public var thumbHeight: Int?
 
+
+    /// InlineQueryResultLocation initialization
+    ///
+    /// - parameter type:  Type of the result, must be location
+    /// - parameter id:  Unique identifier for this result, 1-64 Bytes
+    /// - parameter latitude:  Location latitude in degrees
+    /// - parameter longitude:  Location longitude in degrees
+    /// - parameter title:  Location title
+    /// - parameter livePeriod:  Optional. Period in seconds for which the location can be updated, should be between 60 and 86400.
+    /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
+    /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the location
+    /// - parameter thumbUrl:  Optional. Url of the thumbnail for the result
+    /// - parameter thumbWidth:  Optional. Thumbnail width
+    /// - parameter thumbHeight:  Optional. Thumbnail height
+    ///
+    /// - returns: The new `InlineQueryResultLocation` instance.
+    ///
     public init(type: String, id: String, latitude: Float, longitude: Float, title: String, livePeriod: Int? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil, thumbUrl: String? = nil, thumbWidth: Int? = nil, thumbHeight: Int? = nil) {
         self.type = type 
         self.id = id 
@@ -2624,6 +3259,25 @@ public class InlineQueryResultVenue: Codable {
     /// Optional. Thumbnail height
     public var thumbHeight: Int?
 
+
+    /// InlineQueryResultVenue initialization
+    ///
+    /// - parameter type:  Type of the result, must be venue
+    /// - parameter id:  Unique identifier for this result, 1-64 Bytes
+    /// - parameter latitude:  Latitude of the venue location in degrees
+    /// - parameter longitude:  Longitude of the venue location in degrees
+    /// - parameter title:  Title of the venue
+    /// - parameter address:  Address of the venue
+    /// - parameter foursquareId:  Optional. Foursquare identifier of the venue if known
+    /// - parameter foursquareType:  Optional. Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
+    /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
+    /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the venue
+    /// - parameter thumbUrl:  Optional. Url of the thumbnail for the result
+    /// - parameter thumbWidth:  Optional. Thumbnail width
+    /// - parameter thumbHeight:  Optional. Thumbnail height
+    ///
+    /// - returns: The new `InlineQueryResultVenue` instance.
+    ///
     public init(type: String, id: String, latitude: Float, longitude: Float, title: String, address: String, foursquareId: String? = nil, foursquareType: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil, thumbUrl: String? = nil, thumbWidth: Int? = nil, thumbHeight: Int? = nil) {
         self.type = type 
         self.id = id 
@@ -2696,6 +3350,23 @@ public class InlineQueryResultContact: Codable {
     /// Optional. Thumbnail height
     public var thumbHeight: Int?
 
+
+    /// InlineQueryResultContact initialization
+    ///
+    /// - parameter type:  Type of the result, must be contact
+    /// - parameter id:  Unique identifier for this result, 1-64 Bytes
+    /// - parameter phoneNumber:  Contact&#39;s phone number
+    /// - parameter firstName:  Contact&#39;s first name
+    /// - parameter lastName:  Optional. Contact&#39;s last name
+    /// - parameter vcard:  Optional. Additional data about the contact in the form of a [vCard](https://en.wikipedia.org/wiki/VCard), 0-2048 bytes
+    /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
+    /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the contact
+    /// - parameter thumbUrl:  Optional. Url of the thumbnail for the result
+    /// - parameter thumbWidth:  Optional. Thumbnail width
+    /// - parameter thumbHeight:  Optional. Thumbnail height
+    ///
+    /// - returns: The new `InlineQueryResultContact` instance.
+    ///
     public init(type: String, id: String, phoneNumber: String, firstName: String, lastName: String? = nil, vcard: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil, thumbUrl: String? = nil, thumbWidth: Int? = nil, thumbHeight: Int? = nil) {
         self.type = type 
         self.id = id 
@@ -2743,6 +3414,16 @@ public class InlineQueryResultGame: Codable {
     /// Optional. Inline keyboard attached to the message
     public var replyMarkup: InlineKeyboardMarkup?
 
+
+    /// InlineQueryResultGame initialization
+    ///
+    /// - parameter type:  Type of the result, must be game
+    /// - parameter id:  Unique identifier for this result, 1-64 bytes
+    /// - parameter gameShortName:  Short name of the game
+    /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
+    ///
+    /// - returns: The new `InlineQueryResultGame` instance.
+    ///
     public init(type: String, id: String, gameShortName: String, replyMarkup: InlineKeyboardMarkup? = nil) {
         self.type = type 
         self.id = id 
@@ -2791,6 +3472,21 @@ public class InlineQueryResultCachedPhoto: Codable {
     /// Optional. Content of the message to be sent instead of the photo
     public var inputMessageContent: InputMessageContent?
 
+
+    /// InlineQueryResultCachedPhoto initialization
+    ///
+    /// - parameter type:  Type of the result, must be photo
+    /// - parameter id:  Unique identifier for this result, 1-64 bytes
+    /// - parameter photoFileId:  A valid file identifier of the photo
+    /// - parameter title:  Optional. Title for the result
+    /// - parameter description:  Optional. Short description of the result
+    /// - parameter caption:  Optional. Caption of the photo to be sent, 0-1024 characters
+    /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+    /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
+    /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the photo
+    ///
+    /// - returns: The new `InlineQueryResultCachedPhoto` instance.
+    ///
     public init(type: String, id: String, photoFileId: String, title: String? = nil, description: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type 
         self.id = id 
@@ -2846,6 +3542,20 @@ public class InlineQueryResultCachedGif: Codable {
     /// Optional. Content of the message to be sent instead of the GIF animation
     public var inputMessageContent: InputMessageContent?
 
+
+    /// InlineQueryResultCachedGif initialization
+    ///
+    /// - parameter type:  Type of the result, must be gif
+    /// - parameter id:  Unique identifier for this result, 1-64 bytes
+    /// - parameter gifFileId:  A valid file identifier for the GIF file
+    /// - parameter title:  Optional. Title for the result
+    /// - parameter caption:  Optional. Caption of the GIF file to be sent, 0-1024 characters
+    /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+    /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
+    /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the GIF animation
+    ///
+    /// - returns: The new `InlineQueryResultCachedGif` instance.
+    ///
     public init(type: String, id: String, gifFileId: String, title: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type 
         self.id = id 
@@ -2899,6 +3609,20 @@ public class InlineQueryResultCachedMpeg4Gif: Codable {
     /// Optional. Content of the message to be sent instead of the video animation
     public var inputMessageContent: InputMessageContent?
 
+
+    /// InlineQueryResultCachedMpeg4Gif initialization
+    ///
+    /// - parameter type:  Type of the result, must be mpeg4_gif
+    /// - parameter id:  Unique identifier for this result, 1-64 bytes
+    /// - parameter mpeg4FileId:  A valid file identifier for the MP4 file
+    /// - parameter title:  Optional. Title for the result
+    /// - parameter caption:  Optional. Caption of the MPEG-4 file to be sent, 0-1024 characters
+    /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+    /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
+    /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the video animation
+    ///
+    /// - returns: The new `InlineQueryResultCachedMpeg4Gif` instance.
+    ///
     public init(type: String, id: String, mpeg4FileId: String, title: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type 
         self.id = id 
@@ -2943,6 +3667,17 @@ public class InlineQueryResultCachedSticker: Codable {
     /// Optional. Content of the message to be sent instead of the sticker
     public var inputMessageContent: InputMessageContent?
 
+
+    /// InlineQueryResultCachedSticker initialization
+    ///
+    /// - parameter type:  Type of the result, must be sticker
+    /// - parameter id:  Unique identifier for this result, 1-64 bytes
+    /// - parameter stickerFileId:  A valid file identifier of the sticker
+    /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
+    /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the sticker
+    ///
+    /// - returns: The new `InlineQueryResultCachedSticker` instance.
+    ///
     public init(type: String, id: String, stickerFileId: String, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type 
         self.id = id 
@@ -2993,6 +3728,21 @@ public class InlineQueryResultCachedDocument: Codable {
     /// Optional. Content of the message to be sent instead of the file
     public var inputMessageContent: InputMessageContent?
 
+
+    /// InlineQueryResultCachedDocument initialization
+    ///
+    /// - parameter type:  Type of the result, must be document
+    /// - parameter id:  Unique identifier for this result, 1-64 bytes
+    /// - parameter title:  Title for the result
+    /// - parameter documentFileId:  A valid file identifier for the file
+    /// - parameter description:  Optional. Short description of the result
+    /// - parameter caption:  Optional. Caption of the document to be sent, 0-1024 characters
+    /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+    /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
+    /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the file
+    ///
+    /// - returns: The new `InlineQueryResultCachedDocument` instance.
+    ///
     public init(type: String, id: String, title: String, documentFileId: String, description: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type 
         self.id = id 
@@ -3051,6 +3801,21 @@ public class InlineQueryResultCachedVideo: Codable {
     /// Optional. Content of the message to be sent instead of the video
     public var inputMessageContent: InputMessageContent?
 
+
+    /// InlineQueryResultCachedVideo initialization
+    ///
+    /// - parameter type:  Type of the result, must be video
+    /// - parameter id:  Unique identifier for this result, 1-64 bytes
+    /// - parameter videoFileId:  A valid file identifier for the video file
+    /// - parameter title:  Title for the result
+    /// - parameter description:  Optional. Short description of the result
+    /// - parameter caption:  Optional. Caption of the video to be sent, 0-1024 characters
+    /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+    /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
+    /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the video
+    ///
+    /// - returns: The new `InlineQueryResultCachedVideo` instance.
+    ///
     public init(type: String, id: String, videoFileId: String, title: String, description: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type 
         self.id = id 
@@ -3106,6 +3871,20 @@ public class InlineQueryResultCachedVoice: Codable {
     /// Optional. Content of the message to be sent instead of the voice message
     public var inputMessageContent: InputMessageContent?
 
+
+    /// InlineQueryResultCachedVoice initialization
+    ///
+    /// - parameter type:  Type of the result, must be voice
+    /// - parameter id:  Unique identifier for this result, 1-64 bytes
+    /// - parameter voiceFileId:  A valid file identifier for the voice message
+    /// - parameter title:  Voice message title
+    /// - parameter caption:  Optional. Caption, 0-1024 characters
+    /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+    /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
+    /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the voice message
+    ///
+    /// - returns: The new `InlineQueryResultCachedVoice` instance.
+    ///
     public init(type: String, id: String, voiceFileId: String, title: String, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type 
         self.id = id 
@@ -3156,6 +3935,19 @@ public class InlineQueryResultCachedAudio: Codable {
     /// Optional. Content of the message to be sent instead of the audio
     public var inputMessageContent: InputMessageContent?
 
+
+    /// InlineQueryResultCachedAudio initialization
+    ///
+    /// - parameter type:  Type of the result, must be audio
+    /// - parameter id:  Unique identifier for this result, 1-64 bytes
+    /// - parameter audioFileId:  A valid file identifier for the audio file
+    /// - parameter caption:  Optional. Caption, 0-1024 characters
+    /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+    /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
+    /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the audio
+    ///
+    /// - returns: The new `InlineQueryResultCachedAudio` instance.
+    ///
     public init(type: String, id: String, audioFileId: String, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type 
         self.id = id 
@@ -3182,6 +3974,7 @@ public class InlineQueryResultCachedAudio: Codable {
 
 /// This object represents the content of a message to be sent as a result of an inline query. Telegram clients currently support the following 4 types:
 public enum InputMessageContent: Codable {
+
     case text(InputTextMessageContent)
     case location(InputLocationMessageContent)
     case venue(InputVenueMessageContent)
@@ -3215,7 +4008,10 @@ public enum InputMessageContent: Codable {
             try container.encode(contact)
             }
         }
-}/// Represents the content of a text message to be sent as the result of an inline query. 
+}
+
+
+/// Represents the content of a text message to be sent as the result of an inline query. 
 public class InputTextMessageContent: Codable {
 
     /// Text of the message to be sent, 1-4096 characters
@@ -3227,6 +4023,15 @@ public class InputTextMessageContent: Codable {
     /// Optional. Disables link previews for links in the sent message
     public var disableWebPagePreview: Bool?
 
+
+    /// InputTextMessageContent initialization
+    ///
+    /// - parameter messageText:  Text of the message to be sent, 1-4096 characters
+    /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in your bot&#39;s message.
+    /// - parameter disableWebPagePreview:  Optional. Disables link previews for links in the sent message
+    ///
+    /// - returns: The new `InputTextMessageContent` instance.
+    ///
     public init(messageText: String, parseMode: String? = nil, disableWebPagePreview: Bool? = nil) {
         self.messageText = messageText 
         self.parseMode = parseMode 
@@ -3255,6 +4060,15 @@ public class InputLocationMessageContent: Codable {
     /// Optional. Period in seconds for which the location can be updated, should be between 60 and 86400.
     public var livePeriod: Int?
 
+
+    /// InputLocationMessageContent initialization
+    ///
+    /// - parameter latitude:  Latitude of the location in degrees
+    /// - parameter longitude:  Longitude of the location in degrees
+    /// - parameter livePeriod:  Optional. Period in seconds for which the location can be updated, should be between 60 and 86400.
+    ///
+    /// - returns: The new `InputLocationMessageContent` instance.
+    ///
     public init(latitude: Float, longitude: Float, livePeriod: Int? = nil) {
         self.latitude = latitude 
         self.longitude = longitude 
@@ -3292,6 +4106,18 @@ public class InputVenueMessageContent: Codable {
     /// Optional. Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
     public var foursquareType: String?
 
+
+    /// InputVenueMessageContent initialization
+    ///
+    /// - parameter latitude:  Latitude of the venue in degrees
+    /// - parameter longitude:  Longitude of the venue in degrees
+    /// - parameter title:  Name of the venue
+    /// - parameter address:  Address of the venue
+    /// - parameter foursquareId:  Optional. Foursquare identifier of the venue, if known
+    /// - parameter foursquareType:  Optional. Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
+    ///
+    /// - returns: The new `InputVenueMessageContent` instance.
+    ///
     public init(latitude: Float, longitude: Float, title: String, address: String, foursquareId: String? = nil, foursquareType: String? = nil) {
         self.latitude = latitude 
         self.longitude = longitude 
@@ -3329,6 +4155,16 @@ public class InputContactMessageContent: Codable {
     /// Optional. Additional data about the contact in the form of a [vCard](https://en.wikipedia.org/wiki/VCard), 0-2048 bytes
     public var vcard: String?
 
+
+    /// InputContactMessageContent initialization
+    ///
+    /// - parameter phoneNumber:  Contact&#39;s phone number
+    /// - parameter firstName:  Contact&#39;s first name
+    /// - parameter lastName:  Optional. Contact&#39;s last name
+    /// - parameter vcard:  Optional. Additional data about the contact in the form of a [vCard](https://en.wikipedia.org/wiki/VCard), 0-2048 bytes
+    ///
+    /// - returns: The new `InputContactMessageContent` instance.
+    ///
     public init(phoneNumber: String, firstName: String, lastName: String? = nil, vcard: String? = nil) {
         self.phoneNumber = phoneNumber 
         self.firstName = firstName 
@@ -3365,6 +4201,17 @@ public class ChosenInlineResult: Codable {
     /// The query that was used to obtain the result
     public var query: String
 
+
+    /// ChosenInlineResult initialization
+    ///
+    /// - parameter resultId:  The unique identifier for the result that was chosen
+    /// - parameter from:  The user that chose the result
+    /// - parameter location:  Optional. Sender location, only for bots that require user location
+    /// - parameter inlineMessageId:  Optional. Identifier of the sent inline message. Available only if there is an inline keyboard attached to the message. Will be also received in callback queries and can be used to edit the message.
+    /// - parameter query:  The query that was used to obtain the result
+    ///
+    /// - returns: The new `ChosenInlineResult` instance.
+    ///
     public init(resultId: String, from: User, location: Location? = nil, inlineMessageId: String? = nil, query: String) {
         self.resultId = resultId 
         self.from = from 
@@ -3394,6 +4241,14 @@ public class LabeledPrice: Codable {
     /// Price of the product in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in [currencies.json](https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
     public var amount: Int
 
+
+    /// LabeledPrice initialization
+    ///
+    /// - parameter label:  Portion label
+    /// - parameter amount:  Price of the product in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in [currencies.json](https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+    ///
+    /// - returns: The new `LabeledPrice` instance.
+    ///
     public init(label: String, amount: Int) {
         self.label = label 
         self.amount = amount 
@@ -3426,6 +4281,17 @@ public class Invoice: Codable {
     /// Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in [currencies.json](https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
     public var totalAmount: Int
 
+
+    /// Invoice initialization
+    ///
+    /// - parameter title:  Product name
+    /// - parameter description:  Product description
+    /// - parameter startParameter:  Unique bot deep-linking parameter that can be used to generate this invoice
+    /// - parameter currency:  Three-letter ISO 4217 currency code
+    /// - parameter totalAmount:  Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in [currencies.json](https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+    ///
+    /// - returns: The new `Invoice` instance.
+    ///
     public init(title: String, description: String, startParameter: String, currency: String, totalAmount: Int) {
         self.title = title 
         self.description = description 
@@ -3467,6 +4333,18 @@ public class ShippingAddress: Codable {
     /// Address post code
     public var postCode: String
 
+
+    /// ShippingAddress initialization
+    ///
+    /// - parameter countryCode:  ISO 3166-1 alpha-2 country code
+    /// - parameter state:  State, if applicable
+    /// - parameter city:  City
+    /// - parameter streetLine1:  First line for the address
+    /// - parameter streetLine2:  Second line for the address
+    /// - parameter postCode:  Address post code
+    ///
+    /// - returns: The new `ShippingAddress` instance.
+    ///
     public init(countryCode: String, state: String, city: String, streetLine1: String, streetLine2: String, postCode: String) {
         self.countryCode = countryCode 
         self.state = state 
@@ -3504,6 +4382,16 @@ public class OrderInfo: Codable {
     /// Optional. User shipping address
     public var shippingAddress: ShippingAddress?
 
+
+    /// OrderInfo initialization
+    ///
+    /// - parameter name:  Optional. User name
+    /// - parameter phoneNumber:  Optional. User&#39;s phone number
+    /// - parameter email:  Optional. User email
+    /// - parameter shippingAddress:  Optional. User shipping address
+    ///
+    /// - returns: The new `OrderInfo` instance.
+    ///
     public init(name: String? = nil, phoneNumber: String? = nil, email: String? = nil, shippingAddress: ShippingAddress? = nil) {
         self.name = name 
         self.phoneNumber = phoneNumber 
@@ -3534,6 +4422,15 @@ public class ShippingOption: Codable {
     /// List of price portions
     public var prices: [LabeledPrice]
 
+
+    /// ShippingOption initialization
+    ///
+    /// - parameter id:  Shipping option identifier
+    /// - parameter title:  Option title
+    /// - parameter prices:  List of price portions
+    ///
+    /// - returns: The new `ShippingOption` instance.
+    ///
     public init(id: String, title: String, prices: [LabeledPrice]) {
         self.id = id 
         self.title = title 
@@ -3574,6 +4471,19 @@ public class SuccessfulPayment: Codable {
     /// Provider payment identifier
     public var providerPaymentChargeId: String
 
+
+    /// SuccessfulPayment initialization
+    ///
+    /// - parameter currency:  Three-letter ISO 4217 currency code
+    /// - parameter totalAmount:  Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in [currencies.json](https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+    /// - parameter invoicePayload:  Bot specified invoice payload
+    /// - parameter shippingOptionId:  Optional. Identifier of the shipping option chosen by the user
+    /// - parameter orderInfo:  Optional. Order info provided by the user
+    /// - parameter telegramPaymentChargeId:  Telegram payment identifier
+    /// - parameter providerPaymentChargeId:  Provider payment identifier
+    ///
+    /// - returns: The new `SuccessfulPayment` instance.
+    ///
     public init(currency: String, totalAmount: Int, invoicePayload: String, shippingOptionId: String? = nil, orderInfo: OrderInfo? = nil, telegramPaymentChargeId: String, providerPaymentChargeId: String) {
         self.currency = currency 
         self.totalAmount = totalAmount 
@@ -3613,6 +4523,16 @@ public class ShippingQuery: Codable {
     /// User specified shipping address
     public var shippingAddress: ShippingAddress
 
+
+    /// ShippingQuery initialization
+    ///
+    /// - parameter id:  Unique query identifier
+    /// - parameter from:  User who sent the query
+    /// - parameter invoicePayload:  Bot specified invoice payload
+    /// - parameter shippingAddress:  User specified shipping address
+    ///
+    /// - returns: The new `ShippingQuery` instance.
+    ///
     public init(id: String, from: User, invoicePayload: String, shippingAddress: ShippingAddress) {
         self.id = id 
         self.from = from 
@@ -3655,6 +4575,19 @@ public class PreCheckoutQuery: Codable {
     /// Optional. Order info provided by the user
     public var orderInfo: OrderInfo?
 
+
+    /// PreCheckoutQuery initialization
+    ///
+    /// - parameter id:  Unique query identifier
+    /// - parameter from:  User who sent the query
+    /// - parameter currency:  Three-letter ISO 4217 currency code
+    /// - parameter totalAmount:  Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in [currencies.json](https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+    /// - parameter invoicePayload:  Bot specified invoice payload
+    /// - parameter shippingOptionId:  Optional. Identifier of the shipping option chosen by the user
+    /// - parameter orderInfo:  Optional. Order info provided by the user
+    ///
+    /// - returns: The new `PreCheckoutQuery` instance.
+    ///
     public init(id: String, from: User, currency: String, totalAmount: Int, invoicePayload: String, shippingOptionId: String? = nil, orderInfo: OrderInfo? = nil) {
         self.id = id 
         self.from = from 
@@ -3688,6 +4621,14 @@ public class PassportData: Codable {
     /// Encrypted credentials required to decrypt the data
     public var credentials: EncryptedCredentials
 
+
+    /// PassportData initialization
+    ///
+    /// - parameter data:  Array with information about documents and other Telegram Passport elements that was shared with the bot
+    /// - parameter credentials:  Encrypted credentials required to decrypt the data
+    ///
+    /// - returns: The new `PassportData` instance.
+    ///
     public init(data: [EncryptedPassportElement], credentials: EncryptedCredentials) {
         self.data = data 
         self.credentials = credentials 
@@ -3714,6 +4655,15 @@ public class PassportFile: Codable {
     /// Unix time when the file was uploaded
     public var fileDate: Int
 
+
+    /// PassportFile initialization
+    ///
+    /// - parameter fileId:  Unique identifier for this file
+    /// - parameter fileSize:  File size
+    /// - parameter fileDate:  Unix time when the file was uploaded
+    ///
+    /// - returns: The new `PassportFile` instance.
+    ///
     public init(fileId: String, fileSize: Int, fileDate: Int) {
         self.fileId = fileId 
         self.fileSize = fileSize 
@@ -3763,6 +4713,22 @@ public class EncryptedPassportElement: Codable {
     /// Base64-encoded element hash for using in PassportElementErrorUnspecified
     public var hash: String
 
+
+    /// EncryptedPassportElement initialization
+    ///
+    /// - parameter type:  Element type. One of “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport”, “address”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”, “phone_number”, “email”.
+    /// - parameter data:  Optional. Base64-encoded encrypted Telegram Passport element data provided by the user, available for “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport” and “address” types. Can be decrypted and verified using the accompanying EncryptedCredentials.
+    /// - parameter phoneNumber:  Optional. User&#39;s verified phone number, available only for “phone_number” type
+    /// - parameter email:  Optional. User&#39;s verified email address, available only for “email” type
+    /// - parameter files:  Optional. Array of encrypted files with documents provided by the user, available for “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration” and “temporary_registration” types. Files can be decrypted and verified using the accompanying EncryptedCredentials.
+    /// - parameter frontSide:  Optional. Encrypted file with the front side of the document, provided by the user. Available for “passport”, “driver_license”, “identity_card” and “internal_passport”. The file can be decrypted and verified using the accompanying EncryptedCredentials.
+    /// - parameter reverseSide:  Optional. Encrypted file with the reverse side of the document, provided by the user. Available for “driver_license” and “identity_card”. The file can be decrypted and verified using the accompanying EncryptedCredentials.
+    /// - parameter selfie:  Optional. Encrypted file with the selfie of the user holding a document, provided by the user; available for “passport”, “driver_license”, “identity_card” and “internal_passport”. The file can be decrypted and verified using the accompanying EncryptedCredentials.
+    /// - parameter translation:  Optional. Array of encrypted files with translated versions of documents provided by the user. Available if requested for “passport”, “driver_license”, “identity_card”, “internal_passport”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration” and “temporary_registration” types. Files can be decrypted and verified using the accompanying EncryptedCredentials.
+    /// - parameter hash:  Base64-encoded element hash for using in PassportElementErrorUnspecified
+    ///
+    /// - returns: The new `EncryptedPassportElement` instance.
+    ///
     public init(type: String, data: String? = nil, phoneNumber: String? = nil, email: String? = nil, files: [PassportFile]? = nil, frontSide: PassportFile? = nil, reverseSide: PassportFile? = nil, selfie: PassportFile? = nil, translation: [PassportFile]? = nil, hash: String) {
         self.type = type 
         self.data = data 
@@ -3805,6 +4771,15 @@ public class EncryptedCredentials: Codable {
     /// Base64-encoded secret, encrypted with the bot&#39;s public RSA key, required for data decryption
     public var secret: String
 
+
+    /// EncryptedCredentials initialization
+    ///
+    /// - parameter data:  Base64-encoded encrypted JSON-serialized data with unique user&#39;s payload, data hashes and secrets required for EncryptedPassportElement decryption and authentication
+    /// - parameter hash:  Base64-encoded data hash for data authentication
+    /// - parameter secret:  Base64-encoded secret, encrypted with the bot&#39;s public RSA key, required for data decryption
+    ///
+    /// - returns: The new `EncryptedCredentials` instance.
+    ///
     public init(data: String, hash: String, secret: String) {
         self.data = data 
         self.hash = hash 
@@ -3823,6 +4798,7 @@ public class EncryptedCredentials: Codable {
 
 /// This object represents an error in the Telegram Passport element which was submitted that should be resolved by the user. It should be one of:
 public enum PassportElementError: Codable {
+
     case dataField(PassportElementErrorDataField)
     case frontSide(PassportElementErrorFrontSide)
     case reverseSide(PassportElementErrorReverseSide)
@@ -3881,7 +4857,10 @@ public enum PassportElementError: Codable {
             try container.encode(unspecified)
             }
         }
-}/// Represents an issue in one of the data fields that was provided by the user. The error is considered resolved when the field&#39;s value changes.
+}
+
+
+/// Represents an issue in one of the data fields that was provided by the user. The error is considered resolved when the field&#39;s value changes.
 public class PassportElementErrorDataField: Codable {
 
     /// Error source, must be data
@@ -3899,6 +4878,17 @@ public class PassportElementErrorDataField: Codable {
     /// Error message
     public var message: String
 
+
+    /// PassportElementErrorDataField initialization
+    ///
+    /// - parameter source:  Error source, must be data
+    /// - parameter type:  The section of the user&#39;s Telegram Passport which has the error, one of “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport”, “address”
+    /// - parameter fieldName:  Name of the data field which has the error
+    /// - parameter dataHash:  Base64-encoded data hash
+    /// - parameter message:  Error message
+    ///
+    /// - returns: The new `PassportElementErrorDataField` instance.
+    ///
     public init(source: String, type: String, fieldName: String, dataHash: String, message: String) {
         self.source = source 
         self.type = type 
@@ -3934,6 +4924,16 @@ public class PassportElementErrorFrontSide: Codable {
     /// Error message
     public var message: String
 
+
+    /// PassportElementErrorFrontSide initialization
+    ///
+    /// - parameter source:  Error source, must be front_side
+    /// - parameter type:  The section of the user&#39;s Telegram Passport which has the issue, one of “passport”, “driver_license”, “identity_card”, “internal_passport”
+    /// - parameter fileHash:  Base64-encoded hash of the file with the front side of the document
+    /// - parameter message:  Error message
+    ///
+    /// - returns: The new `PassportElementErrorFrontSide` instance.
+    ///
     public init(source: String, type: String, fileHash: String, message: String) {
         self.source = source 
         self.type = type 
@@ -3967,6 +4967,16 @@ public class PassportElementErrorReverseSide: Codable {
     /// Error message
     public var message: String
 
+
+    /// PassportElementErrorReverseSide initialization
+    ///
+    /// - parameter source:  Error source, must be reverse_side
+    /// - parameter type:  The section of the user&#39;s Telegram Passport which has the issue, one of “driver_license”, “identity_card”
+    /// - parameter fileHash:  Base64-encoded hash of the file with the reverse side of the document
+    /// - parameter message:  Error message
+    ///
+    /// - returns: The new `PassportElementErrorReverseSide` instance.
+    ///
     public init(source: String, type: String, fileHash: String, message: String) {
         self.source = source 
         self.type = type 
@@ -4000,6 +5010,16 @@ public class PassportElementErrorSelfie: Codable {
     /// Error message
     public var message: String
 
+
+    /// PassportElementErrorSelfie initialization
+    ///
+    /// - parameter source:  Error source, must be selfie
+    /// - parameter type:  The section of the user&#39;s Telegram Passport which has the issue, one of “passport”, “driver_license”, “identity_card”, “internal_passport”
+    /// - parameter fileHash:  Base64-encoded hash of the file with the selfie
+    /// - parameter message:  Error message
+    ///
+    /// - returns: The new `PassportElementErrorSelfie` instance.
+    ///
     public init(source: String, type: String, fileHash: String, message: String) {
         self.source = source 
         self.type = type 
@@ -4033,6 +5053,16 @@ public class PassportElementErrorFile: Codable {
     /// Error message
     public var message: String
 
+
+    /// PassportElementErrorFile initialization
+    ///
+    /// - parameter source:  Error source, must be file
+    /// - parameter type:  The section of the user&#39;s Telegram Passport which has the issue, one of “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”
+    /// - parameter fileHash:  Base64-encoded file hash
+    /// - parameter message:  Error message
+    ///
+    /// - returns: The new `PassportElementErrorFile` instance.
+    ///
     public init(source: String, type: String, fileHash: String, message: String) {
         self.source = source 
         self.type = type 
@@ -4066,6 +5096,16 @@ public class PassportElementErrorFiles: Codable {
     /// Error message
     public var message: String
 
+
+    /// PassportElementErrorFiles initialization
+    ///
+    /// - parameter source:  Error source, must be files
+    /// - parameter type:  The section of the user&#39;s Telegram Passport which has the issue, one of “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”
+    /// - parameter fileHashes:  List of base64-encoded file hashes
+    /// - parameter message:  Error message
+    ///
+    /// - returns: The new `PassportElementErrorFiles` instance.
+    ///
     public init(source: String, type: String, fileHashes: [String], message: String) {
         self.source = source 
         self.type = type 
@@ -4099,6 +5139,16 @@ public class PassportElementErrorTranslationFile: Codable {
     /// Error message
     public var message: String
 
+
+    /// PassportElementErrorTranslationFile initialization
+    ///
+    /// - parameter source:  Error source, must be translation_file
+    /// - parameter type:  Type of element of the user&#39;s Telegram Passport which has the issue, one of “passport”, “driver_license”, “identity_card”, “internal_passport”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”
+    /// - parameter fileHash:  Base64-encoded file hash
+    /// - parameter message:  Error message
+    ///
+    /// - returns: The new `PassportElementErrorTranslationFile` instance.
+    ///
     public init(source: String, type: String, fileHash: String, message: String) {
         self.source = source 
         self.type = type 
@@ -4132,6 +5182,16 @@ public class PassportElementErrorTranslationFiles: Codable {
     /// Error message
     public var message: String
 
+
+    /// PassportElementErrorTranslationFiles initialization
+    ///
+    /// - parameter source:  Error source, must be translation_files
+    /// - parameter type:  Type of element of the user&#39;s Telegram Passport which has the issue, one of “passport”, “driver_license”, “identity_card”, “internal_passport”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”
+    /// - parameter fileHashes:  List of base64-encoded file hashes
+    /// - parameter message:  Error message
+    ///
+    /// - returns: The new `PassportElementErrorTranslationFiles` instance.
+    ///
     public init(source: String, type: String, fileHashes: [String], message: String) {
         self.source = source 
         self.type = type 
@@ -4165,6 +5225,16 @@ public class PassportElementErrorUnspecified: Codable {
     /// Error message
     public var message: String
 
+
+    /// PassportElementErrorUnspecified initialization
+    ///
+    /// - parameter source:  Error source, must be unspecified
+    /// - parameter type:  Type of element of the user&#39;s Telegram Passport which has the issue
+    /// - parameter elementHash:  Base64-encoded element hash
+    /// - parameter message:  Error message
+    ///
+    /// - returns: The new `PassportElementErrorUnspecified` instance.
+    ///
     public init(source: String, type: String, elementHash: String, message: String) {
         self.source = source 
         self.type = type 
@@ -4204,6 +5274,18 @@ public class Game: Codable {
     /// Optional. Animation that will be displayed in the game message in chats. Upload via [BotFather](https://t.me/botfather)
     public var animation: Animation?
 
+
+    /// Game initialization
+    ///
+    /// - parameter title:  Title of the game
+    /// - parameter description:  Description of the game
+    /// - parameter photo:  Photo that will be displayed in the game message in chats.
+    /// - parameter text:  Optional. Brief description of the game or high scores included in the game message. Can be automatically edited to include current high scores for the game when the bot calls setGameScore, or manually edited using editMessageText. 0-4096 characters.
+    /// - parameter textEntities:  Optional. Special entities that appear in text, such as usernames, URLs, bot commands, etc.
+    /// - parameter animation:  Optional. Animation that will be displayed in the game message in chats. Upload via [BotFather](https://t.me/botfather)
+    ///
+    /// - returns: The new `Game` instance.
+    ///
     public init(title: String, description: String, photo: [PhotoSize], text: String? = nil, textEntities: [MessageEntity]? = nil, animation: Animation? = nil) {
         self.title = title 
         self.description = description 
@@ -4243,6 +5325,15 @@ public class GameHighScore: Codable {
     /// Score
     public var score: Int
 
+
+    /// GameHighScore initialization
+    ///
+    /// - parameter position:  Position in high score table for the game
+    /// - parameter user:  User
+    /// - parameter score:  Score
+    ///
+    /// - returns: The new `GameHighScore` instance.
+    ///
     public init(position: Int, user: User, score: Int) {
         self.position = position 
         self.user = user 

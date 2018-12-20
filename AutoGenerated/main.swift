@@ -79,7 +79,7 @@ class ParsingController {
     }
     
     private func unionBuilder(name: String, cases: [String]) -> String {
-        var code = "public enum \(name): Codable {\n"
+        var code = "public enum \(name): Codable {\n\n"
         var prefix = ""
         var suffix = ""
         var findPrefix = true
@@ -130,6 +130,7 @@ class ParsingController {
         encode += "\n\t\t\t}\n\t\t}\n}"
         code += decoder
         code += encode
+        code += "\n\n\n"
         return code
     }
     
@@ -303,20 +304,20 @@ class ParsingController {
                     var initMethod   = "\tpublic init("
                     var initBody     = ""
                     var codingKeys   = "\tprivate enum CodingKeys: String, CodingKey {\n"
-                    
+                    var comment = "\n\t/// \(title) initialization\n\(item.list.isEmpty ? "" : "\t///\n")"
                     for pro in item.list {
                         if let f = pro.camelCaseField, let t =  pro.type, let realField = pro.field {
                             let note = pro.note ?? ""
                             propertyList += "\t/// \(note)\n"
                             propertyList += "\tpublic var \(f): \(t)\(pro.isOptional ? "?" : "")\n\n"
-                            
                             initMethod += "\(f): \(t)\(pro.isOptional ? "? = nil" : ""), "
-                            
                             initBody += "\t\tself.\(f) = \(f) \n"
-                            
+                            comment += "\t/// - parameter \(f):  \(pro.note ?? "")\n"
                             codingKeys += "\t\tcase \(f) = \"\(realField)\"\n"
                         }
                     }
+                    comment += "\t///\n\t/// - returns: The new `\(title)` instance.\n"
+                    comment += "\t///\n"
                     if item.list.count > 0 {
                         initMethod.removeLast(2)
                     }
@@ -325,13 +326,14 @@ class ParsingController {
                     initMethod += "\t}\n"
                     codingKeys += "\t}\n"
                     telegramModel += propertyList
+                    telegramModel += comment
                     telegramModel += initMethod + "\n"
                     telegramModel += codingKeys + "\n"
                     telegramModel += "}\n\n\n\n"
                     
                 } else {
                     
-                    var comment = "\n\t/// \(item.note ?? "")\n\t///\n"
+                    var comment = "\n\t/// \(item.note ?? "")\n\(item.list.isEmpty ? "" : "\t///\n")"
                     var method = "\tfunc \(title)("
                     var body = ""
                     for pro in item.list {
