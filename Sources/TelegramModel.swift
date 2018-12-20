@@ -30,7 +30,7 @@ public enum Either<A: Codable, B: Codable>: Codable {
             return b
         }
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         if let a = try? container.decode(A.self) {
@@ -40,7 +40,7 @@ public enum Either<A: Codable, B: Codable>: Codable {
             self = .right(b)
         }
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         switch self {
@@ -70,7 +70,7 @@ public enum ReplyMarkup: Codable {
             self = .replyKeyboardRemove(replyKeyboardRemove)
         } else if let forceReply = try? container.decode(ForceReply.self) {
             self = .forceReply(forceReply)
-        }else {
+        } else {
             throw NSError(domain: "ReplyMarkup", code: -1, userInfo: nil)
         }
     }
@@ -126,7 +126,6 @@ public class Update: Codable {
     /// Optional. New incoming pre-checkout query. Contains full information about checkout
     public var preCheckoutQuery: PreCheckoutQuery?
 
-
     /// Update initialization
     ///
     /// - parameter updateId:  The update‘s unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you’re using Webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially.
@@ -143,16 +142,16 @@ public class Update: Codable {
     /// - returns: The new `Update` instance.
     ///
     public init(updateId: Int, message: Message? = nil, editedMessage: Message? = nil, channelPost: Message? = nil, editedChannelPost: Message? = nil, inlineQuery: InlineQuery? = nil, chosenInlineResult: ChosenInlineResult? = nil, callbackQuery: CallbackQuery? = nil, shippingQuery: ShippingQuery? = nil, preCheckoutQuery: PreCheckoutQuery? = nil) {
-        self.updateId = updateId 
-        self.message = message 
-        self.editedMessage = editedMessage 
-        self.channelPost = channelPost 
-        self.editedChannelPost = editedChannelPost 
-        self.inlineQuery = inlineQuery 
-        self.chosenInlineResult = chosenInlineResult 
-        self.callbackQuery = callbackQuery 
-        self.shippingQuery = shippingQuery 
-        self.preCheckoutQuery = preCheckoutQuery 
+        self.updateId = updateId
+        self.message = message
+        self.editedMessage = editedMessage
+        self.channelPost = channelPost
+        self.editedChannelPost = editedChannelPost
+        self.inlineQuery = inlineQuery
+        self.chosenInlineResult = chosenInlineResult
+        self.callbackQuery = callbackQuery
+        self.shippingQuery = shippingQuery
+        self.preCheckoutQuery = preCheckoutQuery
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -169,8 +168,6 @@ public class Update: Codable {
     }
 
 }
-
-
 
 /// Contains information about the current status of a webhook.
 public class WebhookInfo: Codable {
@@ -196,7 +193,6 @@ public class WebhookInfo: Codable {
     /// Optional. A list of update types the bot is subscribed to. Defaults to all update types
     public var allowedUpdates: [String]?
 
-
     /// WebhookInfo initialization
     ///
     /// - parameter url:  Webhook URL, may be empty if webhook is not set up
@@ -210,13 +206,13 @@ public class WebhookInfo: Codable {
     /// - returns: The new `WebhookInfo` instance.
     ///
     public init(url: String, hasCustomCertificate: Bool, pendingUpdateCount: Int, lastErrorDate: Int? = nil, lastErrorMessage: String? = nil, maxConnections: Int? = nil, allowedUpdates: [String]? = nil) {
-        self.url = url 
-        self.hasCustomCertificate = hasCustomCertificate 
-        self.pendingUpdateCount = pendingUpdateCount 
-        self.lastErrorDate = lastErrorDate 
-        self.lastErrorMessage = lastErrorMessage 
-        self.maxConnections = maxConnections 
-        self.allowedUpdates = allowedUpdates 
+        self.url = url
+        self.hasCustomCertificate = hasCustomCertificate
+        self.pendingUpdateCount = pendingUpdateCount
+        self.lastErrorDate = lastErrorDate
+        self.lastErrorMessage = lastErrorMessage
+        self.maxConnections = maxConnections
+        self.allowedUpdates = allowedUpdates
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -230,8 +226,6 @@ public class WebhookInfo: Codable {
     }
 
 }
-
-
 
 /// This object represents a Telegram user or bot.
 public class User: Codable {
@@ -254,7 +248,6 @@ public class User: Codable {
     /// Optional. [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag) of the user&#39;s language
     public var languageCode: String?
 
-
     /// User initialization
     ///
     /// - parameter id:  Unique identifier for this user or bot
@@ -267,12 +260,12 @@ public class User: Codable {
     /// - returns: The new `User` instance.
     ///
     public init(id: Int, isBot: Bool, firstName: String, lastName: String? = nil, username: String? = nil, languageCode: String? = nil) {
-        self.id = id 
-        self.isBot = isBot 
-        self.firstName = firstName 
-        self.lastName = lastName 
-        self.username = username 
-        self.languageCode = languageCode 
+        self.id = id
+        self.isBot = isBot
+        self.firstName = firstName
+        self.lastName = lastName
+        self.username = username
+        self.languageCode = languageCode
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -285,8 +278,6 @@ public class User: Codable {
     }
 
 }
-
-
 
 /// This object represents a chat.
 public class Chat: Codable {
@@ -330,7 +321,6 @@ public class Chat: Codable {
     /// Optional. True, if the bot can change the group sticker set. Returned only in getChat.
     public var canSetStickerSet: Bool?
 
-
     /// Chat initialization
     ///
     /// - parameter id:  Unique identifier for this chat. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier.
@@ -350,19 +340,19 @@ public class Chat: Codable {
     /// - returns: The new `Chat` instance.
     ///
     public init(id: Int, type: String, title: String? = nil, username: String? = nil, firstName: String? = nil, lastName: String? = nil, allMembersAreAdministrators: Bool? = nil, photo: ChatPhoto? = nil, description: String? = nil, inviteLink: String? = nil, pinnedMessage: Message? = nil, stickerSetName: String? = nil, canSetStickerSet: Bool? = nil) {
-        self.id = id 
-        self.type = type 
-        self.title = title 
-        self.username = username 
-        self.firstName = firstName 
-        self.lastName = lastName 
-        self.allMembersAreAdministrators = allMembersAreAdministrators 
-        self.photo = photo 
-        self.description = description 
-        self.inviteLink = inviteLink 
-        self.pinnedMessage = pinnedMessage 
-        self.stickerSetName = stickerSetName 
-        self.canSetStickerSet = canSetStickerSet 
+        self.id = id
+        self.type = type
+        self.title = title
+        self.username = username
+        self.firstName = firstName
+        self.lastName = lastName
+        self.allMembersAreAdministrators = allMembersAreAdministrators
+        self.photo = photo
+        self.description = description
+        self.inviteLink = inviteLink
+        self.pinnedMessage = pinnedMessage
+        self.stickerSetName = stickerSetName
+        self.canSetStickerSet = canSetStickerSet
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -382,8 +372,6 @@ public class Chat: Codable {
     }
 
 }
-
-
 
 /// This object represents a message.
 public class Message: Codable {
@@ -520,7 +508,6 @@ public class Message: Codable {
     /// Optional. Telegram Passport data
     public var passportData: PassportData?
 
-
     /// Message initialization
     ///
     /// - parameter messageId:  Unique message identifier inside this chat
@@ -571,50 +558,50 @@ public class Message: Codable {
     /// - returns: The new `Message` instance.
     ///
     public init(messageId: Int, from: User? = nil, date: Int, chat: Chat, forwardFrom: User? = nil, forwardFromChat: Chat? = nil, forwardFromMessageId: Int? = nil, forwardSignature: String? = nil, forwardDate: Int? = nil, replyToMessage: Message? = nil, editDate: Int? = nil, mediaGroupId: String? = nil, authorSignature: String? = nil, text: String? = nil, entities: [MessageEntity]? = nil, captionEntities: [MessageEntity]? = nil, audio: Audio? = nil, document: Document? = nil, animation: Animation? = nil, game: Game? = nil, photo: [PhotoSize]? = nil, sticker: Sticker? = nil, video: Video? = nil, voice: Voice? = nil, videoNote: VideoNote? = nil, caption: String? = nil, contact: Contact? = nil, location: Location? = nil, venue: Venue? = nil, newChatMembers: [User]? = nil, leftChatMember: User? = nil, newChatTitle: String? = nil, newChatPhoto: [PhotoSize]? = nil, deleteChatPhoto: Bool? = nil, groupChatCreated: Bool? = nil, supergroupChatCreated: Bool? = nil, channelChatCreated: Bool? = nil, migrateToChatId: Int? = nil, migrateFromChatId: Int? = nil, pinnedMessage: Message? = nil, invoice: Invoice? = nil, successfulPayment: SuccessfulPayment? = nil, connectedWebsite: String? = nil, passportData: PassportData? = nil) {
-        self.messageId = messageId 
-        self.from = from 
-        self.date = date 
-        self.chat = chat 
-        self.forwardFrom = forwardFrom 
-        self.forwardFromChat = forwardFromChat 
-        self.forwardFromMessageId = forwardFromMessageId 
-        self.forwardSignature = forwardSignature 
-        self.forwardDate = forwardDate 
-        self.replyToMessage = replyToMessage 
-        self.editDate = editDate 
-        self.mediaGroupId = mediaGroupId 
-        self.authorSignature = authorSignature 
-        self.text = text 
-        self.entities = entities 
-        self.captionEntities = captionEntities 
-        self.audio = audio 
-        self.document = document 
-        self.animation = animation 
-        self.game = game 
-        self.photo = photo 
-        self.sticker = sticker 
-        self.video = video 
-        self.voice = voice 
-        self.videoNote = videoNote 
-        self.caption = caption 
-        self.contact = contact 
-        self.location = location 
-        self.venue = venue 
-        self.newChatMembers = newChatMembers 
-        self.leftChatMember = leftChatMember 
-        self.newChatTitle = newChatTitle 
-        self.newChatPhoto = newChatPhoto 
-        self.deleteChatPhoto = deleteChatPhoto 
-        self.groupChatCreated = groupChatCreated 
-        self.supergroupChatCreated = supergroupChatCreated 
-        self.channelChatCreated = channelChatCreated 
-        self.migrateToChatId = migrateToChatId 
-        self.migrateFromChatId = migrateFromChatId 
-        self.pinnedMessage = pinnedMessage 
-        self.invoice = invoice 
-        self.successfulPayment = successfulPayment 
-        self.connectedWebsite = connectedWebsite 
-        self.passportData = passportData 
+        self.messageId = messageId
+        self.from = from
+        self.date = date
+        self.chat = chat
+        self.forwardFrom = forwardFrom
+        self.forwardFromChat = forwardFromChat
+        self.forwardFromMessageId = forwardFromMessageId
+        self.forwardSignature = forwardSignature
+        self.forwardDate = forwardDate
+        self.replyToMessage = replyToMessage
+        self.editDate = editDate
+        self.mediaGroupId = mediaGroupId
+        self.authorSignature = authorSignature
+        self.text = text
+        self.entities = entities
+        self.captionEntities = captionEntities
+        self.audio = audio
+        self.document = document
+        self.animation = animation
+        self.game = game
+        self.photo = photo
+        self.sticker = sticker
+        self.video = video
+        self.voice = voice
+        self.videoNote = videoNote
+        self.caption = caption
+        self.contact = contact
+        self.location = location
+        self.venue = venue
+        self.newChatMembers = newChatMembers
+        self.leftChatMember = leftChatMember
+        self.newChatTitle = newChatTitle
+        self.newChatPhoto = newChatPhoto
+        self.deleteChatPhoto = deleteChatPhoto
+        self.groupChatCreated = groupChatCreated
+        self.supergroupChatCreated = supergroupChatCreated
+        self.channelChatCreated = channelChatCreated
+        self.migrateToChatId = migrateToChatId
+        self.migrateFromChatId = migrateFromChatId
+        self.pinnedMessage = pinnedMessage
+        self.invoice = invoice
+        self.successfulPayment = successfulPayment
+        self.connectedWebsite = connectedWebsite
+        self.passportData = passportData
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -666,8 +653,6 @@ public class Message: Codable {
 
 }
 
-
-
 /// This object represents one special entity in a text message. For example, hashtags, usernames, URLs, etc. 
 public class MessageEntity: Codable {
 
@@ -686,7 +671,6 @@ public class MessageEntity: Codable {
     /// Optional. For “text_mention” only, the mentioned user
     public var user: User?
 
-
     /// MessageEntity initialization
     ///
     /// - parameter type:  Type of the entity. Can be mention (@username), hashtag, cashtag, bot_command, url, email, phone_number, bold (bold text), italic (italic text), code (monowidth string), pre (monowidth block), text_link (for clickable text URLs), text_mention (for users [without usernames](https://telegram.org/blog/edit#new-mentions))
@@ -698,11 +682,11 @@ public class MessageEntity: Codable {
     /// - returns: The new `MessageEntity` instance.
     ///
     public init(type: String, offset: Int, length: Int, url: String? = nil, user: User? = nil) {
-        self.type = type 
-        self.offset = offset 
-        self.length = length 
-        self.url = url 
-        self.user = user 
+        self.type = type
+        self.offset = offset
+        self.length = length
+        self.url = url
+        self.user = user
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -714,8 +698,6 @@ public class MessageEntity: Codable {
     }
 
 }
-
-
 
 /// This object represents one size of a photo or a file / sticker thumbnail.
 public class PhotoSize: Codable {
@@ -732,7 +714,6 @@ public class PhotoSize: Codable {
     /// Optional. File size
     public var fileSize: Int?
 
-
     /// PhotoSize initialization
     ///
     /// - parameter fileId:  Unique identifier for this file
@@ -743,10 +724,10 @@ public class PhotoSize: Codable {
     /// - returns: The new `PhotoSize` instance.
     ///
     public init(fileId: String, width: Int, height: Int, fileSize: Int? = nil) {
-        self.fileId = fileId 
-        self.width = width 
-        self.height = height 
-        self.fileSize = fileSize 
+        self.fileId = fileId
+        self.width = width
+        self.height = height
+        self.fileSize = fileSize
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -757,8 +738,6 @@ public class PhotoSize: Codable {
     }
 
 }
-
-
 
 /// This object represents an audio file to be treated as music by the Telegram clients.
 public class Audio: Codable {
@@ -784,7 +763,6 @@ public class Audio: Codable {
     /// Optional. Thumbnail of the album cover to which the music file belongs
     public var thumb: PhotoSize?
 
-
     /// Audio initialization
     ///
     /// - parameter fileId:  Unique identifier for this file
@@ -798,13 +776,13 @@ public class Audio: Codable {
     /// - returns: The new `Audio` instance.
     ///
     public init(fileId: String, duration: Int, performer: String? = nil, title: String? = nil, mimeType: String? = nil, fileSize: Int? = nil, thumb: PhotoSize? = nil) {
-        self.fileId = fileId 
-        self.duration = duration 
-        self.performer = performer 
-        self.title = title 
-        self.mimeType = mimeType 
-        self.fileSize = fileSize 
-        self.thumb = thumb 
+        self.fileId = fileId
+        self.duration = duration
+        self.performer = performer
+        self.title = title
+        self.mimeType = mimeType
+        self.fileSize = fileSize
+        self.thumb = thumb
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -818,8 +796,6 @@ public class Audio: Codable {
     }
 
 }
-
-
 
 /// This object represents a general file (as opposed to photos, voice messages and audio files).
 public class Document: Codable {
@@ -839,7 +815,6 @@ public class Document: Codable {
     /// Optional. File size
     public var fileSize: Int?
 
-
     /// Document initialization
     ///
     /// - parameter fileId:  Unique file identifier
@@ -851,11 +826,11 @@ public class Document: Codable {
     /// - returns: The new `Document` instance.
     ///
     public init(fileId: String, thumb: PhotoSize? = nil, fileName: String? = nil, mimeType: String? = nil, fileSize: Int? = nil) {
-        self.fileId = fileId 
-        self.thumb = thumb 
-        self.fileName = fileName 
-        self.mimeType = mimeType 
-        self.fileSize = fileSize 
+        self.fileId = fileId
+        self.thumb = thumb
+        self.fileName = fileName
+        self.mimeType = mimeType
+        self.fileSize = fileSize
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -867,8 +842,6 @@ public class Document: Codable {
     }
 
 }
-
-
 
 /// This object represents a video file.
 public class Video: Codable {
@@ -894,7 +867,6 @@ public class Video: Codable {
     /// Optional. File size
     public var fileSize: Int?
 
-
     /// Video initialization
     ///
     /// - parameter fileId:  Unique identifier for this file
@@ -908,13 +880,13 @@ public class Video: Codable {
     /// - returns: The new `Video` instance.
     ///
     public init(fileId: String, width: Int, height: Int, duration: Int, thumb: PhotoSize? = nil, mimeType: String? = nil, fileSize: Int? = nil) {
-        self.fileId = fileId 
-        self.width = width 
-        self.height = height 
-        self.duration = duration 
-        self.thumb = thumb 
-        self.mimeType = mimeType 
-        self.fileSize = fileSize 
+        self.fileId = fileId
+        self.width = width
+        self.height = height
+        self.duration = duration
+        self.thumb = thumb
+        self.mimeType = mimeType
+        self.fileSize = fileSize
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -928,8 +900,6 @@ public class Video: Codable {
     }
 
 }
-
-
 
 /// This object represents an animation file (GIF or H.264/MPEG-4 AVC video without sound).
 public class Animation: Codable {
@@ -958,7 +928,6 @@ public class Animation: Codable {
     /// Optional. File size
     public var fileSize: Int?
 
-
     /// Animation initialization
     ///
     /// - parameter fileId:  Unique file identifier
@@ -973,14 +942,14 @@ public class Animation: Codable {
     /// - returns: The new `Animation` instance.
     ///
     public init(fileId: String, width: Int, height: Int, duration: Int, thumb: PhotoSize? = nil, fileName: String? = nil, mimeType: String? = nil, fileSize: Int? = nil) {
-        self.fileId = fileId 
-        self.width = width 
-        self.height = height 
-        self.duration = duration 
-        self.thumb = thumb 
-        self.fileName = fileName 
-        self.mimeType = mimeType 
-        self.fileSize = fileSize 
+        self.fileId = fileId
+        self.width = width
+        self.height = height
+        self.duration = duration
+        self.thumb = thumb
+        self.fileName = fileName
+        self.mimeType = mimeType
+        self.fileSize = fileSize
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -995,8 +964,6 @@ public class Animation: Codable {
     }
 
 }
-
-
 
 /// This object represents a voice note.
 public class Voice: Codable {
@@ -1013,7 +980,6 @@ public class Voice: Codable {
     /// Optional. File size
     public var fileSize: Int?
 
-
     /// Voice initialization
     ///
     /// - parameter fileId:  Unique identifier for this file
@@ -1024,10 +990,10 @@ public class Voice: Codable {
     /// - returns: The new `Voice` instance.
     ///
     public init(fileId: String, duration: Int, mimeType: String? = nil, fileSize: Int? = nil) {
-        self.fileId = fileId 
-        self.duration = duration 
-        self.mimeType = mimeType 
-        self.fileSize = fileSize 
+        self.fileId = fileId
+        self.duration = duration
+        self.mimeType = mimeType
+        self.fileSize = fileSize
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -1038,8 +1004,6 @@ public class Voice: Codable {
     }
 
 }
-
-
 
 /// This object represents a [video message](https://telegram.org/blog/video-messages-and-telescope) (available in Telegram apps as of [v.4.0](https://telegram.org/blog/video-messages-and-telescope)).
 public class VideoNote: Codable {
@@ -1059,7 +1023,6 @@ public class VideoNote: Codable {
     /// Optional. File size
     public var fileSize: Int?
 
-
     /// VideoNote initialization
     ///
     /// - parameter fileId:  Unique identifier for this file
@@ -1071,11 +1034,11 @@ public class VideoNote: Codable {
     /// - returns: The new `VideoNote` instance.
     ///
     public init(fileId: String, length: Int, duration: Int, thumb: PhotoSize? = nil, fileSize: Int? = nil) {
-        self.fileId = fileId 
-        self.length = length 
-        self.duration = duration 
-        self.thumb = thumb 
-        self.fileSize = fileSize 
+        self.fileId = fileId
+        self.length = length
+        self.duration = duration
+        self.thumb = thumb
+        self.fileSize = fileSize
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -1087,8 +1050,6 @@ public class VideoNote: Codable {
     }
 
 }
-
-
 
 /// This object represents a phone contact.
 public class Contact: Codable {
@@ -1108,7 +1069,6 @@ public class Contact: Codable {
     /// Optional. Additional data about the contact in the form of a [vCard](https://en.wikipedia.org/wiki/VCard)
     public var vcard: String?
 
-
     /// Contact initialization
     ///
     /// - parameter phoneNumber:  Contact&#39;s phone number
@@ -1120,11 +1080,11 @@ public class Contact: Codable {
     /// - returns: The new `Contact` instance.
     ///
     public init(phoneNumber: String, firstName: String, lastName: String? = nil, userId: Int? = nil, vcard: String? = nil) {
-        self.phoneNumber = phoneNumber 
-        self.firstName = firstName 
-        self.lastName = lastName 
-        self.userId = userId 
-        self.vcard = vcard 
+        self.phoneNumber = phoneNumber
+        self.firstName = firstName
+        self.lastName = lastName
+        self.userId = userId
+        self.vcard = vcard
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -1137,8 +1097,6 @@ public class Contact: Codable {
 
 }
 
-
-
 /// This object represents a point on the map.
 public class Location: Codable {
 
@@ -1148,7 +1106,6 @@ public class Location: Codable {
     /// Latitude as defined by sender
     public var latitude: Float
 
-
     /// Location initialization
     ///
     /// - parameter longitude:  Longitude as defined by sender
@@ -1157,8 +1114,8 @@ public class Location: Codable {
     /// - returns: The new `Location` instance.
     ///
     public init(longitude: Float, latitude: Float) {
-        self.longitude = longitude 
-        self.latitude = latitude 
+        self.longitude = longitude
+        self.latitude = latitude
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -1167,8 +1124,6 @@ public class Location: Codable {
     }
 
 }
-
-
 
 /// This object represents a venue.
 public class Venue: Codable {
@@ -1188,7 +1143,6 @@ public class Venue: Codable {
     /// Optional. Foursquare type of the venue. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
     public var foursquareType: String?
 
-
     /// Venue initialization
     ///
     /// - parameter location:  Venue location
@@ -1200,11 +1154,11 @@ public class Venue: Codable {
     /// - returns: The new `Venue` instance.
     ///
     public init(location: Location, title: String, address: String, foursquareId: String? = nil, foursquareType: String? = nil) {
-        self.location = location 
-        self.title = title 
-        self.address = address 
-        self.foursquareId = foursquareId 
-        self.foursquareType = foursquareType 
+        self.location = location
+        self.title = title
+        self.address = address
+        self.foursquareId = foursquareId
+        self.foursquareType = foursquareType
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -1217,8 +1171,6 @@ public class Venue: Codable {
 
 }
 
-
-
 /// This object represent a user&#39;s profile pictures.
 public class UserProfilePhotos: Codable {
 
@@ -1228,7 +1180,6 @@ public class UserProfilePhotos: Codable {
     /// Requested profile pictures (in up to 4 sizes each)
     public var photos: [PhotoSize]
 
-
     /// UserProfilePhotos initialization
     ///
     /// - parameter totalCount:  Total number of profile pictures the target user has
@@ -1237,8 +1188,8 @@ public class UserProfilePhotos: Codable {
     /// - returns: The new `UserProfilePhotos` instance.
     ///
     public init(totalCount: Int, photos: [PhotoSize]) {
-        self.totalCount = totalCount 
-        self.photos = photos 
+        self.totalCount = totalCount
+        self.photos = photos
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -1247,8 +1198,6 @@ public class UserProfilePhotos: Codable {
     }
 
 }
-
-
 
 /// Maximum file size to download is 20 MB
 public class File: Codable {
@@ -1262,7 +1211,6 @@ public class File: Codable {
     /// Optional. File path. Use https://api.telegram.org/file/bot&lt;token&gt;/&lt;file_path&gt; to get the file.
     public var filePath: String?
 
-
     /// File initialization
     ///
     /// - parameter fileId:  Unique identifier for this file
@@ -1272,9 +1220,9 @@ public class File: Codable {
     /// - returns: The new `File` instance.
     ///
     public init(fileId: String, fileSize: Int? = nil, filePath: String? = nil) {
-        self.fileId = fileId 
-        self.fileSize = fileSize 
-        self.filePath = filePath 
+        self.fileId = fileId
+        self.fileSize = fileSize
+        self.filePath = filePath
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -1284,8 +1232,6 @@ public class File: Codable {
     }
 
 }
-
-
 
 /// This object represents a [custom keyboard](https://core.telegram.org/bots#keyboards) with reply options (see [Introduction to bots](https://core.telegram.org/bots#keyboards) for details and examples).
 public class ReplyKeyboardMarkup: Codable {
@@ -1302,7 +1248,6 @@ public class ReplyKeyboardMarkup: Codable {
     /// Optional. Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot&#39;s message is a reply (has reply_to_message_id), sender of the original message.Example: A user requests to change the bot‘s language, bot replies to the request with a keyboard to select the new language. Other users in the group don’t see the keyboard.
     public var selective: Bool?
 
-
     /// ReplyKeyboardMarkup initialization
     ///
     /// - parameter keyboard:  Array of button rows, each represented by an Array of KeyboardButton objects
@@ -1313,10 +1258,10 @@ public class ReplyKeyboardMarkup: Codable {
     /// - returns: The new `ReplyKeyboardMarkup` instance.
     ///
     public init(keyboard: [KeyboardButton], resizeKeyboard: Bool? = nil, oneTimeKeyboard: Bool? = nil, selective: Bool? = nil) {
-        self.keyboard = keyboard 
-        self.resizeKeyboard = resizeKeyboard 
-        self.oneTimeKeyboard = oneTimeKeyboard 
-        self.selective = selective 
+        self.keyboard = keyboard
+        self.resizeKeyboard = resizeKeyboard
+        self.oneTimeKeyboard = oneTimeKeyboard
+        self.selective = selective
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -1327,8 +1272,6 @@ public class ReplyKeyboardMarkup: Codable {
     }
 
 }
-
-
 
 /// This object represents one button of the reply keyboard. For simple text buttons String can be used instead of this object to specify text of the button. Optional fields are mutually exclusive.
 public class KeyboardButton: Codable {
@@ -1342,7 +1285,6 @@ public class KeyboardButton: Codable {
     /// Optional. If True, the user&#39;s current location will be sent when the button is pressed. Available in private chats only
     public var requestLocation: Bool?
 
-
     /// KeyboardButton initialization
     ///
     /// - parameter text:  Text of the button. If none of the optional fields are used, it will be sent as a message when the button is pressed
@@ -1352,9 +1294,9 @@ public class KeyboardButton: Codable {
     /// - returns: The new `KeyboardButton` instance.
     ///
     public init(text: String, requestContact: Bool? = nil, requestLocation: Bool? = nil) {
-        self.text = text 
-        self.requestContact = requestContact 
-        self.requestLocation = requestLocation 
+        self.text = text
+        self.requestContact = requestContact
+        self.requestLocation = requestLocation
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -1365,8 +1307,6 @@ public class KeyboardButton: Codable {
 
 }
 
-
-
 /// Upon receiving a message with this object, Telegram clients will remove the current custom keyboard and display the default letter-keyboard. By default, custom keyboards are displayed until a new keyboard is sent by a bot. An exception is made for one-time keyboards that are hidden immediately after the user presses a button (see ReplyKeyboardMarkup).
 public class ReplyKeyboardRemove: Codable {
 
@@ -1376,7 +1316,6 @@ public class ReplyKeyboardRemove: Codable {
     /// Optional. Use this parameter if you want to remove the keyboard for specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot&#39;s message is a reply (has reply_to_message_id), sender of the original message.Example: A user votes in a poll, bot returns confirmation message in reply to the vote and removes the keyboard for that user, while still showing the keyboard with poll options to users who haven&#39;t voted yet.
     public var selective: Bool?
 
-
     /// ReplyKeyboardRemove initialization
     ///
     /// - parameter removeKeyboard:  Requests clients to remove the custom keyboard (user will not be able to summon this keyboard; if you want to hide the keyboard from sight but keep it accessible, use one_time_keyboard in ReplyKeyboardMarkup)
@@ -1385,8 +1324,8 @@ public class ReplyKeyboardRemove: Codable {
     /// - returns: The new `ReplyKeyboardRemove` instance.
     ///
     public init(removeKeyboard: Bool, selective: Bool? = nil) {
-        self.removeKeyboard = removeKeyboard 
-        self.selective = selective 
+        self.removeKeyboard = removeKeyboard
+        self.selective = selective
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -1396,14 +1335,11 @@ public class ReplyKeyboardRemove: Codable {
 
 }
 
-
-
 /// This object represents an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) that appears right next to the message it belongs to.
 public class InlineKeyboardMarkup: Codable {
 
     /// Array of button rows, each represented by an Array of InlineKeyboardButton objects
     public var inlineKeyboard: [InlineKeyboardButton]
-
 
     /// InlineKeyboardMarkup initialization
     ///
@@ -1412,7 +1348,7 @@ public class InlineKeyboardMarkup: Codable {
     /// - returns: The new `InlineKeyboardMarkup` instance.
     ///
     public init(inlineKeyboard: [InlineKeyboardButton]) {
-        self.inlineKeyboard = inlineKeyboard 
+        self.inlineKeyboard = inlineKeyboard
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -1420,8 +1356,6 @@ public class InlineKeyboardMarkup: Codable {
     }
 
 }
-
-
 
 /// This object represents one button of an inline keyboard. You must use exactly one of the optional fields.
 public class InlineKeyboardButton: Codable {
@@ -1447,7 +1381,6 @@ public class InlineKeyboardButton: Codable {
     /// Optional. Specify True, to send a Pay button.NOTE: This type of button must always be the first button in the first row.
     public var pay: Bool?
 
-
     /// InlineKeyboardButton initialization
     ///
     /// - parameter text:  Label text on the button
@@ -1461,13 +1394,13 @@ public class InlineKeyboardButton: Codable {
     /// - returns: The new `InlineKeyboardButton` instance.
     ///
     public init(text: String, url: String? = nil, callbackData: String? = nil, switchInlineQuery: String? = nil, switchInlineQueryCurrentChat: String? = nil, callbackGame: CallbackGame? = nil, pay: Bool? = nil) {
-        self.text = text 
-        self.url = url 
-        self.callbackData = callbackData 
-        self.switchInlineQuery = switchInlineQuery 
-        self.switchInlineQueryCurrentChat = switchInlineQueryCurrentChat 
-        self.callbackGame = callbackGame 
-        self.pay = pay 
+        self.text = text
+        self.url = url
+        self.callbackData = callbackData
+        self.switchInlineQuery = switchInlineQuery
+        self.switchInlineQueryCurrentChat = switchInlineQueryCurrentChat
+        self.callbackGame = callbackGame
+        self.pay = pay
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -1481,8 +1414,6 @@ public class InlineKeyboardButton: Codable {
     }
 
 }
-
-
 
 /// This object represents an incoming callback query from a callback button in an inline keyboard. If the button that originated the query was attached to a message sent by the bot, the field message will be present. If the button was attached to a message sent via the bot (in inline mode), the field inline_message_id will be present. Exactly one of the fields data or game_short_name will be present.
 public class CallbackQuery: Codable {
@@ -1508,7 +1439,6 @@ public class CallbackQuery: Codable {
     /// Optional. Short name of a Game to be returned, serves as the unique identifier for the game
     public var gameShortName: String?
 
-
     /// CallbackQuery initialization
     ///
     /// - parameter id:  Unique identifier for this query
@@ -1522,13 +1452,13 @@ public class CallbackQuery: Codable {
     /// - returns: The new `CallbackQuery` instance.
     ///
     public init(id: String, from: User, message: Message? = nil, inlineMessageId: String? = nil, chatInstance: String, data: String? = nil, gameShortName: String? = nil) {
-        self.id = id 
-        self.from = from 
-        self.message = message 
-        self.inlineMessageId = inlineMessageId 
-        self.chatInstance = chatInstance 
-        self.data = data 
-        self.gameShortName = gameShortName 
+        self.id = id
+        self.from = from
+        self.message = message
+        self.inlineMessageId = inlineMessageId
+        self.chatInstance = chatInstance
+        self.data = data
+        self.gameShortName = gameShortName
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -1543,8 +1473,6 @@ public class CallbackQuery: Codable {
 
 }
 
-
-
 /// Upon receiving a message with this object, Telegram clients will display a reply interface to the user (act as if the user has selected the bot‘s message and tapped ’Reply&#39;). This can be extremely useful if you want to create user-friendly step-by-step interfaces without having to sacrifice privacy mode.
 public class ForceReply: Codable {
 
@@ -1554,7 +1482,6 @@ public class ForceReply: Codable {
     /// Optional. Use this parameter if you want to force reply from specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot&#39;s message is a reply (has reply_to_message_id), sender of the original message.
     public var selective: Bool?
 
-
     /// ForceReply initialization
     ///
     /// - parameter forceReply:  Shows reply interface to the user, as if they manually selected the bot‘s message and tapped ’Reply&#39;
@@ -1563,8 +1490,8 @@ public class ForceReply: Codable {
     /// - returns: The new `ForceReply` instance.
     ///
     public init(forceReply: Bool, selective: Bool? = nil) {
-        self.forceReply = forceReply 
-        self.selective = selective 
+        self.forceReply = forceReply
+        self.selective = selective
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -1573,8 +1500,6 @@ public class ForceReply: Codable {
     }
 
 }
-
-
 
 /// This object represents a chat photo.
 public class ChatPhoto: Codable {
@@ -1585,7 +1510,6 @@ public class ChatPhoto: Codable {
     /// Unique file identifier of big (640x640) chat photo. This file_id can be used only for photo download.
     public var bigFileId: String
 
-
     /// ChatPhoto initialization
     ///
     /// - parameter smallFileId:  Unique file identifier of small (160x160) chat photo. This file_id can be used only for photo download.
@@ -1594,8 +1518,8 @@ public class ChatPhoto: Codable {
     /// - returns: The new `ChatPhoto` instance.
     ///
     public init(smallFileId: String, bigFileId: String) {
-        self.smallFileId = smallFileId 
-        self.bigFileId = bigFileId 
+        self.smallFileId = smallFileId
+        self.bigFileId = bigFileId
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -1604,8 +1528,6 @@ public class ChatPhoto: Codable {
     }
 
 }
-
-
 
 /// This object contains information about one member of a chat.
 public class ChatMember: Codable {
@@ -1658,7 +1580,6 @@ public class ChatMember: Codable {
     /// Optional. Restricted only. True, if user may add web page previews to his messages, implies can_send_media_messages
     public var canAddWebPagePreviews: Bool?
 
-
     /// ChatMember initialization
     ///
     /// - parameter user:  Information about the user
@@ -1681,22 +1602,22 @@ public class ChatMember: Codable {
     /// - returns: The new `ChatMember` instance.
     ///
     public init(user: User, status: String, untilDate: Int? = nil, canBeEdited: Bool? = nil, canChangeInfo: Bool? = nil, canPostMessages: Bool? = nil, canEditMessages: Bool? = nil, canDeleteMessages: Bool? = nil, canInviteUsers: Bool? = nil, canRestrictMembers: Bool? = nil, canPinMessages: Bool? = nil, canPromoteMembers: Bool? = nil, canSendMessages: Bool? = nil, canSendMediaMessages: Bool? = nil, canSendOtherMessages: Bool? = nil, canAddWebPagePreviews: Bool? = nil) {
-        self.user = user 
-        self.status = status 
-        self.untilDate = untilDate 
-        self.canBeEdited = canBeEdited 
-        self.canChangeInfo = canChangeInfo 
-        self.canPostMessages = canPostMessages 
-        self.canEditMessages = canEditMessages 
-        self.canDeleteMessages = canDeleteMessages 
-        self.canInviteUsers = canInviteUsers 
-        self.canRestrictMembers = canRestrictMembers 
-        self.canPinMessages = canPinMessages 
-        self.canPromoteMembers = canPromoteMembers 
-        self.canSendMessages = canSendMessages 
-        self.canSendMediaMessages = canSendMediaMessages 
-        self.canSendOtherMessages = canSendOtherMessages 
-        self.canAddWebPagePreviews = canAddWebPagePreviews 
+        self.user = user
+        self.status = status
+        self.untilDate = untilDate
+        self.canBeEdited = canBeEdited
+        self.canChangeInfo = canChangeInfo
+        self.canPostMessages = canPostMessages
+        self.canEditMessages = canEditMessages
+        self.canDeleteMessages = canDeleteMessages
+        self.canInviteUsers = canInviteUsers
+        self.canRestrictMembers = canRestrictMembers
+        self.canPinMessages = canPinMessages
+        self.canPromoteMembers = canPromoteMembers
+        self.canSendMessages = canSendMessages
+        self.canSendMediaMessages = canSendMediaMessages
+        self.canSendOtherMessages = canSendOtherMessages
+        self.canAddWebPagePreviews = canAddWebPagePreviews
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -1720,8 +1641,6 @@ public class ChatMember: Codable {
 
 }
 
-
-
 /// Contains information about why a request was unsuccessful.
 public class ResponseParameters: Codable {
 
@@ -1731,7 +1650,6 @@ public class ResponseParameters: Codable {
     /// Optional. In case of exceeding flood control, the number of seconds left to wait before the request can be repeated
     public var retryAfter: Int?
 
-
     /// ResponseParameters initialization
     ///
     /// - parameter migrateToChatId:  Optional. The group has been migrated to a supergroup with the specified identifier. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier.
@@ -1740,8 +1658,8 @@ public class ResponseParameters: Codable {
     /// - returns: The new `ResponseParameters` instance.
     ///
     public init(migrateToChatId: Int? = nil, retryAfter: Int? = nil) {
-        self.migrateToChatId = migrateToChatId 
-        self.retryAfter = retryAfter 
+        self.migrateToChatId = migrateToChatId
+        self.retryAfter = retryAfter
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -1750,8 +1668,6 @@ public class ResponseParameters: Codable {
     }
 
 }
-
-
 
 /// This object represents the content of a media message to be sent. It should be one of
 public enum InputMedia: Codable {
@@ -1774,7 +1690,7 @@ public enum InputMedia: Codable {
             self = .photo(photo)
         } else if let video = try? container.decode(InputMediaVideo.self) {
             self = .video(video)
-        }else {
+        } else {
             throw NSError(domain: "InputMedia", code: -1, userInfo: nil)
         }
     }
@@ -1812,7 +1728,6 @@ public class InputMediaPhoto: Codable {
     /// Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
     public var parseMode: String?
 
-
     /// InputMediaPhoto initialization
     ///
     /// - parameter type:  Type of the result, must be photo
@@ -1823,10 +1738,10 @@ public class InputMediaPhoto: Codable {
     /// - returns: The new `InputMediaPhoto` instance.
     ///
     public init(type: String, media: String, caption: String? = nil, parseMode: String? = nil) {
-        self.type = type 
-        self.media = media 
-        self.caption = caption 
-        self.parseMode = parseMode 
+        self.type = type
+        self.media = media
+        self.caption = caption
+        self.parseMode = parseMode
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -1837,8 +1752,6 @@ public class InputMediaPhoto: Codable {
     }
 
 }
-
-
 
 /// Represents a video to be sent.
 public class InputMediaVideo: Codable {
@@ -1870,7 +1783,6 @@ public class InputMediaVideo: Codable {
     /// Optional. Pass True, if the uploaded video is suitable for streaming
     public var supportsStreaming: Bool?
 
-
     /// InputMediaVideo initialization
     ///
     /// - parameter type:  Type of the result, must be video
@@ -1886,15 +1798,15 @@ public class InputMediaVideo: Codable {
     /// - returns: The new `InputMediaVideo` instance.
     ///
     public init(type: String, media: String, thumb: Either<InputFile, String>? = nil, caption: String? = nil, parseMode: String? = nil, width: Int? = nil, height: Int? = nil, duration: Int? = nil, supportsStreaming: Bool? = nil) {
-        self.type = type 
-        self.media = media 
-        self.thumb = thumb 
-        self.caption = caption 
-        self.parseMode = parseMode 
-        self.width = width 
-        self.height = height 
-        self.duration = duration 
-        self.supportsStreaming = supportsStreaming 
+        self.type = type
+        self.media = media
+        self.thumb = thumb
+        self.caption = caption
+        self.parseMode = parseMode
+        self.width = width
+        self.height = height
+        self.duration = duration
+        self.supportsStreaming = supportsStreaming
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -1910,8 +1822,6 @@ public class InputMediaVideo: Codable {
     }
 
 }
-
-
 
 /// Represents an animation file (GIF or H.264/MPEG-4 AVC video without sound) to be sent.
 public class InputMediaAnimation: Codable {
@@ -1940,7 +1850,6 @@ public class InputMediaAnimation: Codable {
     /// Optional. Animation duration
     public var duration: Int?
 
-
     /// InputMediaAnimation initialization
     ///
     /// - parameter type:  Type of the result, must be animation
@@ -1955,14 +1864,14 @@ public class InputMediaAnimation: Codable {
     /// - returns: The new `InputMediaAnimation` instance.
     ///
     public init(type: String, media: String, thumb: Either<InputFile, String>? = nil, caption: String? = nil, parseMode: String? = nil, width: Int? = nil, height: Int? = nil, duration: Int? = nil) {
-        self.type = type 
-        self.media = media 
-        self.thumb = thumb 
-        self.caption = caption 
-        self.parseMode = parseMode 
-        self.width = width 
-        self.height = height 
-        self.duration = duration 
+        self.type = type
+        self.media = media
+        self.thumb = thumb
+        self.caption = caption
+        self.parseMode = parseMode
+        self.width = width
+        self.height = height
+        self.duration = duration
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -1977,8 +1886,6 @@ public class InputMediaAnimation: Codable {
     }
 
 }
-
-
 
 /// Represents an audio file to be treated as music to be sent.
 public class InputMediaAudio: Codable {
@@ -2007,7 +1914,6 @@ public class InputMediaAudio: Codable {
     /// Optional. Title of the audio
     public var title: String?
 
-
     /// InputMediaAudio initialization
     ///
     /// - parameter type:  Type of the result, must be audio
@@ -2022,14 +1928,14 @@ public class InputMediaAudio: Codable {
     /// - returns: The new `InputMediaAudio` instance.
     ///
     public init(type: String, media: String, thumb: Either<InputFile, String>? = nil, caption: String? = nil, parseMode: String? = nil, duration: Int? = nil, performer: String? = nil, title: String? = nil) {
-        self.type = type 
-        self.media = media 
-        self.thumb = thumb 
-        self.caption = caption 
-        self.parseMode = parseMode 
-        self.duration = duration 
-        self.performer = performer 
-        self.title = title 
+        self.type = type
+        self.media = media
+        self.thumb = thumb
+        self.caption = caption
+        self.parseMode = parseMode
+        self.duration = duration
+        self.performer = performer
+        self.title = title
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -2044,8 +1950,6 @@ public class InputMediaAudio: Codable {
     }
 
 }
-
-
 
 /// Represents a general file to be sent.
 public class InputMediaDocument: Codable {
@@ -2065,7 +1969,6 @@ public class InputMediaDocument: Codable {
     /// Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
     public var parseMode: String?
 
-
     /// InputMediaDocument initialization
     ///
     /// - parameter type:  Type of the result, must be document
@@ -2077,11 +1980,11 @@ public class InputMediaDocument: Codable {
     /// - returns: The new `InputMediaDocument` instance.
     ///
     public init(type: String, media: String, thumb: Either<InputFile, String>? = nil, caption: String? = nil, parseMode: String? = nil) {
-        self.type = type 
-        self.media = media 
-        self.thumb = thumb 
-        self.caption = caption 
-        self.parseMode = parseMode 
+        self.type = type
+        self.media = media
+        self.thumb = thumb
+        self.caption = caption
+        self.parseMode = parseMode
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -2093,8 +1996,6 @@ public class InputMediaDocument: Codable {
     }
 
 }
-
-
 
 /// This object represents the contents of a file to be uploaded. Must be posted using multipart/form-data in the usual way that files are uploaded via the browser.
 public struct InputFile: Codable {
@@ -2128,7 +2029,6 @@ public class Sticker: Codable {
     /// Optional. File size
     public var fileSize: Int?
 
-
     /// Sticker initialization
     ///
     /// - parameter fileId:  Unique identifier for this file
@@ -2143,14 +2043,14 @@ public class Sticker: Codable {
     /// - returns: The new `Sticker` instance.
     ///
     public init(fileId: String, width: Int, height: Int, thumb: PhotoSize? = nil, emoji: String? = nil, setName: String? = nil, maskPosition: MaskPosition? = nil, fileSize: Int? = nil) {
-        self.fileId = fileId 
-        self.width = width 
-        self.height = height 
-        self.thumb = thumb 
-        self.emoji = emoji 
-        self.setName = setName 
-        self.maskPosition = maskPosition 
-        self.fileSize = fileSize 
+        self.fileId = fileId
+        self.width = width
+        self.height = height
+        self.thumb = thumb
+        self.emoji = emoji
+        self.setName = setName
+        self.maskPosition = maskPosition
+        self.fileSize = fileSize
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -2165,8 +2065,6 @@ public class Sticker: Codable {
     }
 
 }
-
-
 
 /// This object represents a sticker set.
 public class StickerSet: Codable {
@@ -2183,7 +2081,6 @@ public class StickerSet: Codable {
     /// List of all set stickers
     public var stickers: [Sticker]
 
-
     /// StickerSet initialization
     ///
     /// - parameter name:  Sticker set name
@@ -2194,10 +2091,10 @@ public class StickerSet: Codable {
     /// - returns: The new `StickerSet` instance.
     ///
     public init(name: String, title: String, containsMasks: Bool, stickers: [Sticker]) {
-        self.name = name 
-        self.title = title 
-        self.containsMasks = containsMasks 
-        self.stickers = stickers 
+        self.name = name
+        self.title = title
+        self.containsMasks = containsMasks
+        self.stickers = stickers
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -2208,8 +2105,6 @@ public class StickerSet: Codable {
     }
 
 }
-
-
 
 /// This object describes the position on faces where a mask should be placed by default.
 public class MaskPosition: Codable {
@@ -2226,7 +2121,6 @@ public class MaskPosition: Codable {
     /// Mask scaling coefficient. For example, 2.0 means double size.
     public var scale: Float
 
-
     /// MaskPosition initialization
     ///
     /// - parameter point:  The part of the face relative to which the mask should be placed. One of “forehead”, “eyes”, “mouth”, or “chin”.
@@ -2237,10 +2131,10 @@ public class MaskPosition: Codable {
     /// - returns: The new `MaskPosition` instance.
     ///
     public init(point: String, xShift: Float, yShift: Float, scale: Float) {
-        self.point = point 
-        self.xShift = xShift 
-        self.yShift = yShift 
-        self.scale = scale 
+        self.point = point
+        self.xShift = xShift
+        self.yShift = yShift
+        self.scale = scale
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -2251,8 +2145,6 @@ public class MaskPosition: Codable {
     }
 
 }
-
-
 
 /// This object represents an incoming inline query. When the user sends an empty query, your bot could return some default or trending results.
 public class InlineQuery: Codable {
@@ -2272,7 +2164,6 @@ public class InlineQuery: Codable {
     /// Offset of the results to be returned, can be controlled by the bot
     public var offset: String
 
-
     /// InlineQuery initialization
     ///
     /// - parameter id:  Unique identifier for this query
@@ -2284,11 +2175,11 @@ public class InlineQuery: Codable {
     /// - returns: The new `InlineQuery` instance.
     ///
     public init(id: String, from: User, location: Location? = nil, query: String, offset: String) {
-        self.id = id 
-        self.from = from 
-        self.location = location 
-        self.query = query 
-        self.offset = offset 
+        self.id = id
+        self.from = from
+        self.location = location
+        self.query = query
+        self.offset = offset
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -2300,8 +2191,6 @@ public class InlineQuery: Codable {
     }
 
 }
-
-
 
 /// This object represents one result of an inline query. Telegram clients currently support results of the following 20 types:
 public enum InlineQueryResult: Codable {
@@ -2369,7 +2258,7 @@ public enum InlineQueryResult: Codable {
             self = .video(video)
         } else if let voice = try? container.decode(InlineQueryResultVoice.self) {
             self = .voice(voice)
-        }else {
+        } else {
             throw NSError(domain: "InlineQueryResult", code: -1, userInfo: nil)
         }
     }
@@ -2458,7 +2347,6 @@ public class InlineQueryResultArticle: Codable {
     /// Optional. Thumbnail height
     public var thumbHeight: Int?
 
-
     /// InlineQueryResultArticle initialization
     ///
     /// - parameter type:  Type of the result, must be article
@@ -2476,17 +2364,17 @@ public class InlineQueryResultArticle: Codable {
     /// - returns: The new `InlineQueryResultArticle` instance.
     ///
     public init(type: String, id: String, title: String, inputMessageContent: InputMessageContent, replyMarkup: InlineKeyboardMarkup? = nil, url: String? = nil, hideUrl: Bool? = nil, description: String? = nil, thumbUrl: String? = nil, thumbWidth: Int? = nil, thumbHeight: Int? = nil) {
-        self.type = type 
-        self.id = id 
-        self.title = title 
-        self.inputMessageContent = inputMessageContent 
-        self.replyMarkup = replyMarkup 
-        self.url = url 
-        self.hideUrl = hideUrl 
-        self.description = description 
-        self.thumbUrl = thumbUrl 
-        self.thumbWidth = thumbWidth 
-        self.thumbHeight = thumbHeight 
+        self.type = type
+        self.id = id
+        self.title = title
+        self.inputMessageContent = inputMessageContent
+        self.replyMarkup = replyMarkup
+        self.url = url
+        self.hideUrl = hideUrl
+        self.description = description
+        self.thumbUrl = thumbUrl
+        self.thumbWidth = thumbWidth
+        self.thumbHeight = thumbHeight
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -2504,8 +2392,6 @@ public class InlineQueryResultArticle: Codable {
     }
 
 }
-
-
 
 /// Represents a link to a photo. By default, this photo will be sent by the user with optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the photo.
 public class InlineQueryResultPhoto: Codable {
@@ -2546,7 +2432,6 @@ public class InlineQueryResultPhoto: Codable {
     /// Optional. Content of the message to be sent instead of the photo
     public var inputMessageContent: InputMessageContent?
 
-
     /// InlineQueryResultPhoto initialization
     ///
     /// - parameter type:  Type of the result, must be photo
@@ -2565,18 +2450,18 @@ public class InlineQueryResultPhoto: Codable {
     /// - returns: The new `InlineQueryResultPhoto` instance.
     ///
     public init(type: String, id: String, photoUrl: String, thumbUrl: String, photoWidth: Int? = nil, photoHeight: Int? = nil, title: String? = nil, description: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
-        self.type = type 
-        self.id = id 
-        self.photoUrl = photoUrl 
-        self.thumbUrl = thumbUrl 
-        self.photoWidth = photoWidth 
-        self.photoHeight = photoHeight 
-        self.title = title 
-        self.description = description 
-        self.caption = caption 
-        self.parseMode = parseMode 
-        self.replyMarkup = replyMarkup 
-        self.inputMessageContent = inputMessageContent 
+        self.type = type
+        self.id = id
+        self.photoUrl = photoUrl
+        self.thumbUrl = thumbUrl
+        self.photoWidth = photoWidth
+        self.photoHeight = photoHeight
+        self.title = title
+        self.description = description
+        self.caption = caption
+        self.parseMode = parseMode
+        self.replyMarkup = replyMarkup
+        self.inputMessageContent = inputMessageContent
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -2595,8 +2480,6 @@ public class InlineQueryResultPhoto: Codable {
     }
 
 }
-
-
 
 /// Represents a link to an animated GIF file. By default, this animated GIF file will be sent by the user with optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the animation.
 public class InlineQueryResultGif: Codable {
@@ -2637,7 +2520,6 @@ public class InlineQueryResultGif: Codable {
     /// Optional. Content of the message to be sent instead of the GIF animation
     public var inputMessageContent: InputMessageContent?
 
-
     /// InlineQueryResultGif initialization
     ///
     /// - parameter type:  Type of the result, must be gif
@@ -2656,18 +2538,18 @@ public class InlineQueryResultGif: Codable {
     /// - returns: The new `InlineQueryResultGif` instance.
     ///
     public init(type: String, id: String, gifUrl: String, gifWidth: Int? = nil, gifHeight: Int? = nil, gifDuration: Int? = nil, thumbUrl: String, title: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
-        self.type = type 
-        self.id = id 
-        self.gifUrl = gifUrl 
-        self.gifWidth = gifWidth 
-        self.gifHeight = gifHeight 
-        self.gifDuration = gifDuration 
-        self.thumbUrl = thumbUrl 
-        self.title = title 
-        self.caption = caption 
-        self.parseMode = parseMode 
-        self.replyMarkup = replyMarkup 
-        self.inputMessageContent = inputMessageContent 
+        self.type = type
+        self.id = id
+        self.gifUrl = gifUrl
+        self.gifWidth = gifWidth
+        self.gifHeight = gifHeight
+        self.gifDuration = gifDuration
+        self.thumbUrl = thumbUrl
+        self.title = title
+        self.caption = caption
+        self.parseMode = parseMode
+        self.replyMarkup = replyMarkup
+        self.inputMessageContent = inputMessageContent
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -2686,8 +2568,6 @@ public class InlineQueryResultGif: Codable {
     }
 
 }
-
-
 
 /// Represents a link to a video animation (H.264/MPEG-4 AVC video without sound). By default, this animated MPEG-4 file will be sent by the user with optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the animation.
 public class InlineQueryResultMpeg4Gif: Codable {
@@ -2728,7 +2608,6 @@ public class InlineQueryResultMpeg4Gif: Codable {
     /// Optional. Content of the message to be sent instead of the video animation
     public var inputMessageContent: InputMessageContent?
 
-
     /// InlineQueryResultMpeg4Gif initialization
     ///
     /// - parameter type:  Type of the result, must be mpeg4_gif
@@ -2747,18 +2626,18 @@ public class InlineQueryResultMpeg4Gif: Codable {
     /// - returns: The new `InlineQueryResultMpeg4Gif` instance.
     ///
     public init(type: String, id: String, mpeg4Url: String, mpeg4Width: Int? = nil, mpeg4Height: Int? = nil, mpeg4Duration: Int? = nil, thumbUrl: String, title: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
-        self.type = type 
-        self.id = id 
-        self.mpeg4Url = mpeg4Url 
-        self.mpeg4Width = mpeg4Width 
-        self.mpeg4Height = mpeg4Height 
-        self.mpeg4Duration = mpeg4Duration 
-        self.thumbUrl = thumbUrl 
-        self.title = title 
-        self.caption = caption 
-        self.parseMode = parseMode 
-        self.replyMarkup = replyMarkup 
-        self.inputMessageContent = inputMessageContent 
+        self.type = type
+        self.id = id
+        self.mpeg4Url = mpeg4Url
+        self.mpeg4Width = mpeg4Width
+        self.mpeg4Height = mpeg4Height
+        self.mpeg4Duration = mpeg4Duration
+        self.thumbUrl = thumbUrl
+        self.title = title
+        self.caption = caption
+        self.parseMode = parseMode
+        self.replyMarkup = replyMarkup
+        self.inputMessageContent = inputMessageContent
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -2777,8 +2656,6 @@ public class InlineQueryResultMpeg4Gif: Codable {
     }
 
 }
-
-
 
 /// If an InlineQueryResultVideo message contains an embedded video (e.g., YouTube), you must replace its content using input_message_content.
 public class InlineQueryResultVideo: Codable {
@@ -2825,7 +2702,6 @@ public class InlineQueryResultVideo: Codable {
     /// Optional. Content of the message to be sent instead of the video. This field is required if InlineQueryResultVideo is used to send an HTML-page as a result (e.g., a YouTube video).
     public var inputMessageContent: InputMessageContent?
 
-
     /// InlineQueryResultVideo initialization
     ///
     /// - parameter type:  Type of the result, must be video
@@ -2846,20 +2722,20 @@ public class InlineQueryResultVideo: Codable {
     /// - returns: The new `InlineQueryResultVideo` instance.
     ///
     public init(type: String, id: String, videoUrl: String, mimeType: String, thumbUrl: String, title: String, caption: String? = nil, parseMode: String? = nil, videoWidth: Int? = nil, videoHeight: Int? = nil, videoDuration: Int? = nil, description: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
-        self.type = type 
-        self.id = id 
-        self.videoUrl = videoUrl 
-        self.mimeType = mimeType 
-        self.thumbUrl = thumbUrl 
-        self.title = title 
-        self.caption = caption 
-        self.parseMode = parseMode 
-        self.videoWidth = videoWidth 
-        self.videoHeight = videoHeight 
-        self.videoDuration = videoDuration 
-        self.description = description 
-        self.replyMarkup = replyMarkup 
-        self.inputMessageContent = inputMessageContent 
+        self.type = type
+        self.id = id
+        self.videoUrl = videoUrl
+        self.mimeType = mimeType
+        self.thumbUrl = thumbUrl
+        self.title = title
+        self.caption = caption
+        self.parseMode = parseMode
+        self.videoWidth = videoWidth
+        self.videoHeight = videoHeight
+        self.videoDuration = videoDuration
+        self.description = description
+        self.replyMarkup = replyMarkup
+        self.inputMessageContent = inputMessageContent
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -2880,8 +2756,6 @@ public class InlineQueryResultVideo: Codable {
     }
 
 }
-
-
 
 /// Represents a link to an mp3 audio file. By default, this audio file will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the audio.
 public class InlineQueryResultAudio: Codable {
@@ -2916,7 +2790,6 @@ public class InlineQueryResultAudio: Codable {
     /// Optional. Content of the message to be sent instead of the audio
     public var inputMessageContent: InputMessageContent?
 
-
     /// InlineQueryResultAudio initialization
     ///
     /// - parameter type:  Type of the result, must be audio
@@ -2933,16 +2806,16 @@ public class InlineQueryResultAudio: Codable {
     /// - returns: The new `InlineQueryResultAudio` instance.
     ///
     public init(type: String, id: String, audioUrl: String, title: String, caption: String? = nil, parseMode: String? = nil, performer: String? = nil, audioDuration: Int? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
-        self.type = type 
-        self.id = id 
-        self.audioUrl = audioUrl 
-        self.title = title 
-        self.caption = caption 
-        self.parseMode = parseMode 
-        self.performer = performer 
-        self.audioDuration = audioDuration 
-        self.replyMarkup = replyMarkup 
-        self.inputMessageContent = inputMessageContent 
+        self.type = type
+        self.id = id
+        self.audioUrl = audioUrl
+        self.title = title
+        self.caption = caption
+        self.parseMode = parseMode
+        self.performer = performer
+        self.audioDuration = audioDuration
+        self.replyMarkup = replyMarkup
+        self.inputMessageContent = inputMessageContent
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -2959,8 +2832,6 @@ public class InlineQueryResultAudio: Codable {
     }
 
 }
-
-
 
 /// Represents a link to a voice recording in an .ogg container encoded with OPUS. By default, this voice recording will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the the voice message.
 public class InlineQueryResultVoice: Codable {
@@ -2992,7 +2863,6 @@ public class InlineQueryResultVoice: Codable {
     /// Optional. Content of the message to be sent instead of the voice recording
     public var inputMessageContent: InputMessageContent?
 
-
     /// InlineQueryResultVoice initialization
     ///
     /// - parameter type:  Type of the result, must be voice
@@ -3008,15 +2878,15 @@ public class InlineQueryResultVoice: Codable {
     /// - returns: The new `InlineQueryResultVoice` instance.
     ///
     public init(type: String, id: String, voiceUrl: String, title: String, caption: String? = nil, parseMode: String? = nil, voiceDuration: Int? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
-        self.type = type 
-        self.id = id 
-        self.voiceUrl = voiceUrl 
-        self.title = title 
-        self.caption = caption 
-        self.parseMode = parseMode 
-        self.voiceDuration = voiceDuration 
-        self.replyMarkup = replyMarkup 
-        self.inputMessageContent = inputMessageContent 
+        self.type = type
+        self.id = id
+        self.voiceUrl = voiceUrl
+        self.title = title
+        self.caption = caption
+        self.parseMode = parseMode
+        self.voiceDuration = voiceDuration
+        self.replyMarkup = replyMarkup
+        self.inputMessageContent = inputMessageContent
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -3032,8 +2902,6 @@ public class InlineQueryResultVoice: Codable {
     }
 
 }
-
-
 
 /// Represents a link to a file. By default, this file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the file. Currently, only .PDF and .ZIP files can be sent using this method.
 public class InlineQueryResultDocument: Codable {
@@ -3077,7 +2945,6 @@ public class InlineQueryResultDocument: Codable {
     /// Optional. Thumbnail height
     public var thumbHeight: Int?
 
-
     /// InlineQueryResultDocument initialization
     ///
     /// - parameter type:  Type of the result, must be document
@@ -3097,19 +2964,19 @@ public class InlineQueryResultDocument: Codable {
     /// - returns: The new `InlineQueryResultDocument` instance.
     ///
     public init(type: String, id: String, title: String, caption: String? = nil, parseMode: String? = nil, documentUrl: String, mimeType: String, description: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil, thumbUrl: String? = nil, thumbWidth: Int? = nil, thumbHeight: Int? = nil) {
-        self.type = type 
-        self.id = id 
-        self.title = title 
-        self.caption = caption 
-        self.parseMode = parseMode 
-        self.documentUrl = documentUrl 
-        self.mimeType = mimeType 
-        self.description = description 
-        self.replyMarkup = replyMarkup 
-        self.inputMessageContent = inputMessageContent 
-        self.thumbUrl = thumbUrl 
-        self.thumbWidth = thumbWidth 
-        self.thumbHeight = thumbHeight 
+        self.type = type
+        self.id = id
+        self.title = title
+        self.caption = caption
+        self.parseMode = parseMode
+        self.documentUrl = documentUrl
+        self.mimeType = mimeType
+        self.description = description
+        self.replyMarkup = replyMarkup
+        self.inputMessageContent = inputMessageContent
+        self.thumbUrl = thumbUrl
+        self.thumbWidth = thumbWidth
+        self.thumbHeight = thumbHeight
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -3129,8 +2996,6 @@ public class InlineQueryResultDocument: Codable {
     }
 
 }
-
-
 
 /// Represents a location on a map. By default, the location will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the location.
 public class InlineQueryResultLocation: Codable {
@@ -3168,7 +3033,6 @@ public class InlineQueryResultLocation: Codable {
     /// Optional. Thumbnail height
     public var thumbHeight: Int?
 
-
     /// InlineQueryResultLocation initialization
     ///
     /// - parameter type:  Type of the result, must be location
@@ -3186,17 +3050,17 @@ public class InlineQueryResultLocation: Codable {
     /// - returns: The new `InlineQueryResultLocation` instance.
     ///
     public init(type: String, id: String, latitude: Float, longitude: Float, title: String, livePeriod: Int? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil, thumbUrl: String? = nil, thumbWidth: Int? = nil, thumbHeight: Int? = nil) {
-        self.type = type 
-        self.id = id 
-        self.latitude = latitude 
-        self.longitude = longitude 
-        self.title = title 
-        self.livePeriod = livePeriod 
-        self.replyMarkup = replyMarkup 
-        self.inputMessageContent = inputMessageContent 
-        self.thumbUrl = thumbUrl 
-        self.thumbWidth = thumbWidth 
-        self.thumbHeight = thumbHeight 
+        self.type = type
+        self.id = id
+        self.latitude = latitude
+        self.longitude = longitude
+        self.title = title
+        self.livePeriod = livePeriod
+        self.replyMarkup = replyMarkup
+        self.inputMessageContent = inputMessageContent
+        self.thumbUrl = thumbUrl
+        self.thumbWidth = thumbWidth
+        self.thumbHeight = thumbHeight
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -3214,8 +3078,6 @@ public class InlineQueryResultLocation: Codable {
     }
 
 }
-
-
 
 /// Represents a venue. By default, the venue will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the venue.
 public class InlineQueryResultVenue: Codable {
@@ -3259,7 +3121,6 @@ public class InlineQueryResultVenue: Codable {
     /// Optional. Thumbnail height
     public var thumbHeight: Int?
 
-
     /// InlineQueryResultVenue initialization
     ///
     /// - parameter type:  Type of the result, must be venue
@@ -3279,19 +3140,19 @@ public class InlineQueryResultVenue: Codable {
     /// - returns: The new `InlineQueryResultVenue` instance.
     ///
     public init(type: String, id: String, latitude: Float, longitude: Float, title: String, address: String, foursquareId: String? = nil, foursquareType: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil, thumbUrl: String? = nil, thumbWidth: Int? = nil, thumbHeight: Int? = nil) {
-        self.type = type 
-        self.id = id 
-        self.latitude = latitude 
-        self.longitude = longitude 
-        self.title = title 
-        self.address = address 
-        self.foursquareId = foursquareId 
-        self.foursquareType = foursquareType 
-        self.replyMarkup = replyMarkup 
-        self.inputMessageContent = inputMessageContent 
-        self.thumbUrl = thumbUrl 
-        self.thumbWidth = thumbWidth 
-        self.thumbHeight = thumbHeight 
+        self.type = type
+        self.id = id
+        self.latitude = latitude
+        self.longitude = longitude
+        self.title = title
+        self.address = address
+        self.foursquareId = foursquareId
+        self.foursquareType = foursquareType
+        self.replyMarkup = replyMarkup
+        self.inputMessageContent = inputMessageContent
+        self.thumbUrl = thumbUrl
+        self.thumbWidth = thumbWidth
+        self.thumbHeight = thumbHeight
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -3311,8 +3172,6 @@ public class InlineQueryResultVenue: Codable {
     }
 
 }
-
-
 
 /// Represents a contact with a phone number. By default, this contact will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the contact.
 public class InlineQueryResultContact: Codable {
@@ -3350,7 +3209,6 @@ public class InlineQueryResultContact: Codable {
     /// Optional. Thumbnail height
     public var thumbHeight: Int?
 
-
     /// InlineQueryResultContact initialization
     ///
     /// - parameter type:  Type of the result, must be contact
@@ -3368,17 +3226,17 @@ public class InlineQueryResultContact: Codable {
     /// - returns: The new `InlineQueryResultContact` instance.
     ///
     public init(type: String, id: String, phoneNumber: String, firstName: String, lastName: String? = nil, vcard: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil, thumbUrl: String? = nil, thumbWidth: Int? = nil, thumbHeight: Int? = nil) {
-        self.type = type 
-        self.id = id 
-        self.phoneNumber = phoneNumber 
-        self.firstName = firstName 
-        self.lastName = lastName 
-        self.vcard = vcard 
-        self.replyMarkup = replyMarkup 
-        self.inputMessageContent = inputMessageContent 
-        self.thumbUrl = thumbUrl 
-        self.thumbWidth = thumbWidth 
-        self.thumbHeight = thumbHeight 
+        self.type = type
+        self.id = id
+        self.phoneNumber = phoneNumber
+        self.firstName = firstName
+        self.lastName = lastName
+        self.vcard = vcard
+        self.replyMarkup = replyMarkup
+        self.inputMessageContent = inputMessageContent
+        self.thumbUrl = thumbUrl
+        self.thumbWidth = thumbWidth
+        self.thumbHeight = thumbHeight
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -3397,8 +3255,6 @@ public class InlineQueryResultContact: Codable {
 
 }
 
-
-
 /// Represents a Game.
 public class InlineQueryResultGame: Codable {
 
@@ -3414,7 +3270,6 @@ public class InlineQueryResultGame: Codable {
     /// Optional. Inline keyboard attached to the message
     public var replyMarkup: InlineKeyboardMarkup?
 
-
     /// InlineQueryResultGame initialization
     ///
     /// - parameter type:  Type of the result, must be game
@@ -3425,10 +3280,10 @@ public class InlineQueryResultGame: Codable {
     /// - returns: The new `InlineQueryResultGame` instance.
     ///
     public init(type: String, id: String, gameShortName: String, replyMarkup: InlineKeyboardMarkup? = nil) {
-        self.type = type 
-        self.id = id 
-        self.gameShortName = gameShortName 
-        self.replyMarkup = replyMarkup 
+        self.type = type
+        self.id = id
+        self.gameShortName = gameShortName
+        self.replyMarkup = replyMarkup
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -3439,8 +3294,6 @@ public class InlineQueryResultGame: Codable {
     }
 
 }
-
-
 
 /// Represents a link to a photo stored on the Telegram servers. By default, this photo will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the photo.
 public class InlineQueryResultCachedPhoto: Codable {
@@ -3472,7 +3325,6 @@ public class InlineQueryResultCachedPhoto: Codable {
     /// Optional. Content of the message to be sent instead of the photo
     public var inputMessageContent: InputMessageContent?
 
-
     /// InlineQueryResultCachedPhoto initialization
     ///
     /// - parameter type:  Type of the result, must be photo
@@ -3488,15 +3340,15 @@ public class InlineQueryResultCachedPhoto: Codable {
     /// - returns: The new `InlineQueryResultCachedPhoto` instance.
     ///
     public init(type: String, id: String, photoFileId: String, title: String? = nil, description: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
-        self.type = type 
-        self.id = id 
-        self.photoFileId = photoFileId 
-        self.title = title 
-        self.description = description 
-        self.caption = caption 
-        self.parseMode = parseMode 
-        self.replyMarkup = replyMarkup 
-        self.inputMessageContent = inputMessageContent 
+        self.type = type
+        self.id = id
+        self.photoFileId = photoFileId
+        self.title = title
+        self.description = description
+        self.caption = caption
+        self.parseMode = parseMode
+        self.replyMarkup = replyMarkup
+        self.inputMessageContent = inputMessageContent
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -3512,8 +3364,6 @@ public class InlineQueryResultCachedPhoto: Codable {
     }
 
 }
-
-
 
 /// Represents a link to an animated GIF file stored on the Telegram servers. By default, this animated GIF file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with specified content instead of the animation.
 public class InlineQueryResultCachedGif: Codable {
@@ -3542,7 +3392,6 @@ public class InlineQueryResultCachedGif: Codable {
     /// Optional. Content of the message to be sent instead of the GIF animation
     public var inputMessageContent: InputMessageContent?
 
-
     /// InlineQueryResultCachedGif initialization
     ///
     /// - parameter type:  Type of the result, must be gif
@@ -3557,14 +3406,14 @@ public class InlineQueryResultCachedGif: Codable {
     /// - returns: The new `InlineQueryResultCachedGif` instance.
     ///
     public init(type: String, id: String, gifFileId: String, title: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
-        self.type = type 
-        self.id = id 
-        self.gifFileId = gifFileId 
-        self.title = title 
-        self.caption = caption 
-        self.parseMode = parseMode 
-        self.replyMarkup = replyMarkup 
-        self.inputMessageContent = inputMessageContent 
+        self.type = type
+        self.id = id
+        self.gifFileId = gifFileId
+        self.title = title
+        self.caption = caption
+        self.parseMode = parseMode
+        self.replyMarkup = replyMarkup
+        self.inputMessageContent = inputMessageContent
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -3579,8 +3428,6 @@ public class InlineQueryResultCachedGif: Codable {
     }
 
 }
-
-
 
 /// Represents a link to a video animation (H.264/MPEG-4 AVC video without sound) stored on the Telegram servers. By default, this animated MPEG-4 file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the animation.
 public class InlineQueryResultCachedMpeg4Gif: Codable {
@@ -3609,7 +3456,6 @@ public class InlineQueryResultCachedMpeg4Gif: Codable {
     /// Optional. Content of the message to be sent instead of the video animation
     public var inputMessageContent: InputMessageContent?
 
-
     /// InlineQueryResultCachedMpeg4Gif initialization
     ///
     /// - parameter type:  Type of the result, must be mpeg4_gif
@@ -3624,14 +3470,14 @@ public class InlineQueryResultCachedMpeg4Gif: Codable {
     /// - returns: The new `InlineQueryResultCachedMpeg4Gif` instance.
     ///
     public init(type: String, id: String, mpeg4FileId: String, title: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
-        self.type = type 
-        self.id = id 
-        self.mpeg4FileId = mpeg4FileId 
-        self.title = title 
-        self.caption = caption 
-        self.parseMode = parseMode 
-        self.replyMarkup = replyMarkup 
-        self.inputMessageContent = inputMessageContent 
+        self.type = type
+        self.id = id
+        self.mpeg4FileId = mpeg4FileId
+        self.title = title
+        self.caption = caption
+        self.parseMode = parseMode
+        self.replyMarkup = replyMarkup
+        self.inputMessageContent = inputMessageContent
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -3646,8 +3492,6 @@ public class InlineQueryResultCachedMpeg4Gif: Codable {
     }
 
 }
-
-
 
 /// Represents a link to a sticker stored on the Telegram servers. By default, this sticker will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the sticker.
 public class InlineQueryResultCachedSticker: Codable {
@@ -3667,7 +3511,6 @@ public class InlineQueryResultCachedSticker: Codable {
     /// Optional. Content of the message to be sent instead of the sticker
     public var inputMessageContent: InputMessageContent?
 
-
     /// InlineQueryResultCachedSticker initialization
     ///
     /// - parameter type:  Type of the result, must be sticker
@@ -3679,11 +3522,11 @@ public class InlineQueryResultCachedSticker: Codable {
     /// - returns: The new `InlineQueryResultCachedSticker` instance.
     ///
     public init(type: String, id: String, stickerFileId: String, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
-        self.type = type 
-        self.id = id 
-        self.stickerFileId = stickerFileId 
-        self.replyMarkup = replyMarkup 
-        self.inputMessageContent = inputMessageContent 
+        self.type = type
+        self.id = id
+        self.stickerFileId = stickerFileId
+        self.replyMarkup = replyMarkup
+        self.inputMessageContent = inputMessageContent
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -3695,8 +3538,6 @@ public class InlineQueryResultCachedSticker: Codable {
     }
 
 }
-
-
 
 /// Represents a link to a file stored on the Telegram servers. By default, this file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the file.
 public class InlineQueryResultCachedDocument: Codable {
@@ -3728,7 +3569,6 @@ public class InlineQueryResultCachedDocument: Codable {
     /// Optional. Content of the message to be sent instead of the file
     public var inputMessageContent: InputMessageContent?
 
-
     /// InlineQueryResultCachedDocument initialization
     ///
     /// - parameter type:  Type of the result, must be document
@@ -3744,15 +3584,15 @@ public class InlineQueryResultCachedDocument: Codable {
     /// - returns: The new `InlineQueryResultCachedDocument` instance.
     ///
     public init(type: String, id: String, title: String, documentFileId: String, description: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
-        self.type = type 
-        self.id = id 
-        self.title = title 
-        self.documentFileId = documentFileId 
-        self.description = description 
-        self.caption = caption 
-        self.parseMode = parseMode 
-        self.replyMarkup = replyMarkup 
-        self.inputMessageContent = inputMessageContent 
+        self.type = type
+        self.id = id
+        self.title = title
+        self.documentFileId = documentFileId
+        self.description = description
+        self.caption = caption
+        self.parseMode = parseMode
+        self.replyMarkup = replyMarkup
+        self.inputMessageContent = inputMessageContent
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -3768,8 +3608,6 @@ public class InlineQueryResultCachedDocument: Codable {
     }
 
 }
-
-
 
 /// Represents a link to a video file stored on the Telegram servers. By default, this video file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the video.
 public class InlineQueryResultCachedVideo: Codable {
@@ -3801,7 +3639,6 @@ public class InlineQueryResultCachedVideo: Codable {
     /// Optional. Content of the message to be sent instead of the video
     public var inputMessageContent: InputMessageContent?
 
-
     /// InlineQueryResultCachedVideo initialization
     ///
     /// - parameter type:  Type of the result, must be video
@@ -3817,15 +3654,15 @@ public class InlineQueryResultCachedVideo: Codable {
     /// - returns: The new `InlineQueryResultCachedVideo` instance.
     ///
     public init(type: String, id: String, videoFileId: String, title: String, description: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
-        self.type = type 
-        self.id = id 
-        self.videoFileId = videoFileId 
-        self.title = title 
-        self.description = description 
-        self.caption = caption 
-        self.parseMode = parseMode 
-        self.replyMarkup = replyMarkup 
-        self.inputMessageContent = inputMessageContent 
+        self.type = type
+        self.id = id
+        self.videoFileId = videoFileId
+        self.title = title
+        self.description = description
+        self.caption = caption
+        self.parseMode = parseMode
+        self.replyMarkup = replyMarkup
+        self.inputMessageContent = inputMessageContent
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -3841,8 +3678,6 @@ public class InlineQueryResultCachedVideo: Codable {
     }
 
 }
-
-
 
 /// Represents a link to a voice message stored on the Telegram servers. By default, this voice message will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the voice message.
 public class InlineQueryResultCachedVoice: Codable {
@@ -3871,7 +3706,6 @@ public class InlineQueryResultCachedVoice: Codable {
     /// Optional. Content of the message to be sent instead of the voice message
     public var inputMessageContent: InputMessageContent?
 
-
     /// InlineQueryResultCachedVoice initialization
     ///
     /// - parameter type:  Type of the result, must be voice
@@ -3886,14 +3720,14 @@ public class InlineQueryResultCachedVoice: Codable {
     /// - returns: The new `InlineQueryResultCachedVoice` instance.
     ///
     public init(type: String, id: String, voiceFileId: String, title: String, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
-        self.type = type 
-        self.id = id 
-        self.voiceFileId = voiceFileId 
-        self.title = title 
-        self.caption = caption 
-        self.parseMode = parseMode 
-        self.replyMarkup = replyMarkup 
-        self.inputMessageContent = inputMessageContent 
+        self.type = type
+        self.id = id
+        self.voiceFileId = voiceFileId
+        self.title = title
+        self.caption = caption
+        self.parseMode = parseMode
+        self.replyMarkup = replyMarkup
+        self.inputMessageContent = inputMessageContent
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -3908,8 +3742,6 @@ public class InlineQueryResultCachedVoice: Codable {
     }
 
 }
-
-
 
 /// Represents a link to an mp3 audio file stored on the Telegram servers. By default, this audio file will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the audio.
 public class InlineQueryResultCachedAudio: Codable {
@@ -3935,7 +3767,6 @@ public class InlineQueryResultCachedAudio: Codable {
     /// Optional. Content of the message to be sent instead of the audio
     public var inputMessageContent: InputMessageContent?
 
-
     /// InlineQueryResultCachedAudio initialization
     ///
     /// - parameter type:  Type of the result, must be audio
@@ -3949,13 +3780,13 @@ public class InlineQueryResultCachedAudio: Codable {
     /// - returns: The new `InlineQueryResultCachedAudio` instance.
     ///
     public init(type: String, id: String, audioFileId: String, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
-        self.type = type 
-        self.id = id 
-        self.audioFileId = audioFileId 
-        self.caption = caption 
-        self.parseMode = parseMode 
-        self.replyMarkup = replyMarkup 
-        self.inputMessageContent = inputMessageContent 
+        self.type = type
+        self.id = id
+        self.audioFileId = audioFileId
+        self.caption = caption
+        self.parseMode = parseMode
+        self.replyMarkup = replyMarkup
+        self.inputMessageContent = inputMessageContent
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -3969,8 +3800,6 @@ public class InlineQueryResultCachedAudio: Codable {
     }
 
 }
-
-
 
 /// This object represents the content of a message to be sent as a result of an inline query. Telegram clients currently support the following 4 types:
 public enum InputMessageContent: Codable {
@@ -3990,7 +3819,7 @@ public enum InputMessageContent: Codable {
             self = .venue(venue)
         } else if let contact = try? container.decode(InputContactMessageContent.self) {
             self = .contact(contact)
-        }else {
+        } else {
             throw NSError(domain: "InputMessageContent", code: -1, userInfo: nil)
         }
     }
@@ -4023,7 +3852,6 @@ public class InputTextMessageContent: Codable {
     /// Optional. Disables link previews for links in the sent message
     public var disableWebPagePreview: Bool?
 
-
     /// InputTextMessageContent initialization
     ///
     /// - parameter messageText:  Text of the message to be sent, 1-4096 characters
@@ -4033,9 +3861,9 @@ public class InputTextMessageContent: Codable {
     /// - returns: The new `InputTextMessageContent` instance.
     ///
     public init(messageText: String, parseMode: String? = nil, disableWebPagePreview: Bool? = nil) {
-        self.messageText = messageText 
-        self.parseMode = parseMode 
-        self.disableWebPagePreview = disableWebPagePreview 
+        self.messageText = messageText
+        self.parseMode = parseMode
+        self.disableWebPagePreview = disableWebPagePreview
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -4045,8 +3873,6 @@ public class InputTextMessageContent: Codable {
     }
 
 }
-
-
 
 /// Represents the content of a location message to be sent as the result of an inline query. 
 public class InputLocationMessageContent: Codable {
@@ -4060,7 +3886,6 @@ public class InputLocationMessageContent: Codable {
     /// Optional. Period in seconds for which the location can be updated, should be between 60 and 86400.
     public var livePeriod: Int?
 
-
     /// InputLocationMessageContent initialization
     ///
     /// - parameter latitude:  Latitude of the location in degrees
@@ -4070,9 +3895,9 @@ public class InputLocationMessageContent: Codable {
     /// - returns: The new `InputLocationMessageContent` instance.
     ///
     public init(latitude: Float, longitude: Float, livePeriod: Int? = nil) {
-        self.latitude = latitude 
-        self.longitude = longitude 
-        self.livePeriod = livePeriod 
+        self.latitude = latitude
+        self.longitude = longitude
+        self.livePeriod = livePeriod
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -4082,8 +3907,6 @@ public class InputLocationMessageContent: Codable {
     }
 
 }
-
-
 
 /// Represents the content of a venue message to be sent as the result of an inline query. 
 public class InputVenueMessageContent: Codable {
@@ -4106,7 +3929,6 @@ public class InputVenueMessageContent: Codable {
     /// Optional. Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
     public var foursquareType: String?
 
-
     /// InputVenueMessageContent initialization
     ///
     /// - parameter latitude:  Latitude of the venue in degrees
@@ -4119,12 +3941,12 @@ public class InputVenueMessageContent: Codable {
     /// - returns: The new `InputVenueMessageContent` instance.
     ///
     public init(latitude: Float, longitude: Float, title: String, address: String, foursquareId: String? = nil, foursquareType: String? = nil) {
-        self.latitude = latitude 
-        self.longitude = longitude 
-        self.title = title 
-        self.address = address 
-        self.foursquareId = foursquareId 
-        self.foursquareType = foursquareType 
+        self.latitude = latitude
+        self.longitude = longitude
+        self.title = title
+        self.address = address
+        self.foursquareId = foursquareId
+        self.foursquareType = foursquareType
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -4137,8 +3959,6 @@ public class InputVenueMessageContent: Codable {
     }
 
 }
-
-
 
 /// Represents the content of a contact message to be sent as the result of an inline query. 
 public class InputContactMessageContent: Codable {
@@ -4155,7 +3975,6 @@ public class InputContactMessageContent: Codable {
     /// Optional. Additional data about the contact in the form of a [vCard](https://en.wikipedia.org/wiki/VCard), 0-2048 bytes
     public var vcard: String?
 
-
     /// InputContactMessageContent initialization
     ///
     /// - parameter phoneNumber:  Contact&#39;s phone number
@@ -4166,10 +3985,10 @@ public class InputContactMessageContent: Codable {
     /// - returns: The new `InputContactMessageContent` instance.
     ///
     public init(phoneNumber: String, firstName: String, lastName: String? = nil, vcard: String? = nil) {
-        self.phoneNumber = phoneNumber 
-        self.firstName = firstName 
-        self.lastName = lastName 
-        self.vcard = vcard 
+        self.phoneNumber = phoneNumber
+        self.firstName = firstName
+        self.lastName = lastName
+        self.vcard = vcard
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -4180,8 +3999,6 @@ public class InputContactMessageContent: Codable {
     }
 
 }
-
-
 
 /// Represents a result of an inline query that was chosen by the user and sent to their chat partner. 
 public class ChosenInlineResult: Codable {
@@ -4201,7 +4018,6 @@ public class ChosenInlineResult: Codable {
     /// The query that was used to obtain the result
     public var query: String
 
-
     /// ChosenInlineResult initialization
     ///
     /// - parameter resultId:  The unique identifier for the result that was chosen
@@ -4213,11 +4029,11 @@ public class ChosenInlineResult: Codable {
     /// - returns: The new `ChosenInlineResult` instance.
     ///
     public init(resultId: String, from: User, location: Location? = nil, inlineMessageId: String? = nil, query: String) {
-        self.resultId = resultId 
-        self.from = from 
-        self.location = location 
-        self.inlineMessageId = inlineMessageId 
-        self.query = query 
+        self.resultId = resultId
+        self.from = from
+        self.location = location
+        self.inlineMessageId = inlineMessageId
+        self.query = query
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -4230,8 +4046,6 @@ public class ChosenInlineResult: Codable {
 
 }
 
-
-
 /// This object represents a portion of the price for goods or services.
 public class LabeledPrice: Codable {
 
@@ -4241,7 +4055,6 @@ public class LabeledPrice: Codable {
     /// Price of the product in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in [currencies.json](https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
     public var amount: Int
 
-
     /// LabeledPrice initialization
     ///
     /// - parameter label:  Portion label
@@ -4250,8 +4063,8 @@ public class LabeledPrice: Codable {
     /// - returns: The new `LabeledPrice` instance.
     ///
     public init(label: String, amount: Int) {
-        self.label = label 
-        self.amount = amount 
+        self.label = label
+        self.amount = amount
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -4260,8 +4073,6 @@ public class LabeledPrice: Codable {
     }
 
 }
-
-
 
 /// This object contains basic information about an invoice.
 public class Invoice: Codable {
@@ -4281,7 +4092,6 @@ public class Invoice: Codable {
     /// Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in [currencies.json](https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
     public var totalAmount: Int
 
-
     /// Invoice initialization
     ///
     /// - parameter title:  Product name
@@ -4293,11 +4103,11 @@ public class Invoice: Codable {
     /// - returns: The new `Invoice` instance.
     ///
     public init(title: String, description: String, startParameter: String, currency: String, totalAmount: Int) {
-        self.title = title 
-        self.description = description 
-        self.startParameter = startParameter 
-        self.currency = currency 
-        self.totalAmount = totalAmount 
+        self.title = title
+        self.description = description
+        self.startParameter = startParameter
+        self.currency = currency
+        self.totalAmount = totalAmount
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -4309,8 +4119,6 @@ public class Invoice: Codable {
     }
 
 }
-
-
 
 /// This object represents a shipping address.
 public class ShippingAddress: Codable {
@@ -4333,7 +4141,6 @@ public class ShippingAddress: Codable {
     /// Address post code
     public var postCode: String
 
-
     /// ShippingAddress initialization
     ///
     /// - parameter countryCode:  ISO 3166-1 alpha-2 country code
@@ -4346,12 +4153,12 @@ public class ShippingAddress: Codable {
     /// - returns: The new `ShippingAddress` instance.
     ///
     public init(countryCode: String, state: String, city: String, streetLine1: String, streetLine2: String, postCode: String) {
-        self.countryCode = countryCode 
-        self.state = state 
-        self.city = city 
-        self.streetLine1 = streetLine1 
-        self.streetLine2 = streetLine2 
-        self.postCode = postCode 
+        self.countryCode = countryCode
+        self.state = state
+        self.city = city
+        self.streetLine1 = streetLine1
+        self.streetLine2 = streetLine2
+        self.postCode = postCode
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -4364,8 +4171,6 @@ public class ShippingAddress: Codable {
     }
 
 }
-
-
 
 /// This object represents information about an order.
 public class OrderInfo: Codable {
@@ -4382,7 +4187,6 @@ public class OrderInfo: Codable {
     /// Optional. User shipping address
     public var shippingAddress: ShippingAddress?
 
-
     /// OrderInfo initialization
     ///
     /// - parameter name:  Optional. User name
@@ -4393,10 +4197,10 @@ public class OrderInfo: Codable {
     /// - returns: The new `OrderInfo` instance.
     ///
     public init(name: String? = nil, phoneNumber: String? = nil, email: String? = nil, shippingAddress: ShippingAddress? = nil) {
-        self.name = name 
-        self.phoneNumber = phoneNumber 
-        self.email = email 
-        self.shippingAddress = shippingAddress 
+        self.name = name
+        self.phoneNumber = phoneNumber
+        self.email = email
+        self.shippingAddress = shippingAddress
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -4407,8 +4211,6 @@ public class OrderInfo: Codable {
     }
 
 }
-
-
 
 /// This object represents one shipping option.
 public class ShippingOption: Codable {
@@ -4422,7 +4224,6 @@ public class ShippingOption: Codable {
     /// List of price portions
     public var prices: [LabeledPrice]
 
-
     /// ShippingOption initialization
     ///
     /// - parameter id:  Shipping option identifier
@@ -4432,9 +4233,9 @@ public class ShippingOption: Codable {
     /// - returns: The new `ShippingOption` instance.
     ///
     public init(id: String, title: String, prices: [LabeledPrice]) {
-        self.id = id 
-        self.title = title 
-        self.prices = prices 
+        self.id = id
+        self.title = title
+        self.prices = prices
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -4444,8 +4245,6 @@ public class ShippingOption: Codable {
     }
 
 }
-
-
 
 /// This object contains basic information about a successful payment.
 public class SuccessfulPayment: Codable {
@@ -4471,7 +4270,6 @@ public class SuccessfulPayment: Codable {
     /// Provider payment identifier
     public var providerPaymentChargeId: String
 
-
     /// SuccessfulPayment initialization
     ///
     /// - parameter currency:  Three-letter ISO 4217 currency code
@@ -4485,13 +4283,13 @@ public class SuccessfulPayment: Codable {
     /// - returns: The new `SuccessfulPayment` instance.
     ///
     public init(currency: String, totalAmount: Int, invoicePayload: String, shippingOptionId: String? = nil, orderInfo: OrderInfo? = nil, telegramPaymentChargeId: String, providerPaymentChargeId: String) {
-        self.currency = currency 
-        self.totalAmount = totalAmount 
-        self.invoicePayload = invoicePayload 
-        self.shippingOptionId = shippingOptionId 
-        self.orderInfo = orderInfo 
-        self.telegramPaymentChargeId = telegramPaymentChargeId 
-        self.providerPaymentChargeId = providerPaymentChargeId 
+        self.currency = currency
+        self.totalAmount = totalAmount
+        self.invoicePayload = invoicePayload
+        self.shippingOptionId = shippingOptionId
+        self.orderInfo = orderInfo
+        self.telegramPaymentChargeId = telegramPaymentChargeId
+        self.providerPaymentChargeId = providerPaymentChargeId
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -4505,8 +4303,6 @@ public class SuccessfulPayment: Codable {
     }
 
 }
-
-
 
 /// This object contains information about an incoming shipping query.
 public class ShippingQuery: Codable {
@@ -4523,7 +4319,6 @@ public class ShippingQuery: Codable {
     /// User specified shipping address
     public var shippingAddress: ShippingAddress
 
-
     /// ShippingQuery initialization
     ///
     /// - parameter id:  Unique query identifier
@@ -4534,10 +4329,10 @@ public class ShippingQuery: Codable {
     /// - returns: The new `ShippingQuery` instance.
     ///
     public init(id: String, from: User, invoicePayload: String, shippingAddress: ShippingAddress) {
-        self.id = id 
-        self.from = from 
-        self.invoicePayload = invoicePayload 
-        self.shippingAddress = shippingAddress 
+        self.id = id
+        self.from = from
+        self.invoicePayload = invoicePayload
+        self.shippingAddress = shippingAddress
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -4548,8 +4343,6 @@ public class ShippingQuery: Codable {
     }
 
 }
-
-
 
 /// This object contains information about an incoming pre-checkout query.
 public class PreCheckoutQuery: Codable {
@@ -4575,7 +4368,6 @@ public class PreCheckoutQuery: Codable {
     /// Optional. Order info provided by the user
     public var orderInfo: OrderInfo?
 
-
     /// PreCheckoutQuery initialization
     ///
     /// - parameter id:  Unique query identifier
@@ -4589,13 +4381,13 @@ public class PreCheckoutQuery: Codable {
     /// - returns: The new `PreCheckoutQuery` instance.
     ///
     public init(id: String, from: User, currency: String, totalAmount: Int, invoicePayload: String, shippingOptionId: String? = nil, orderInfo: OrderInfo? = nil) {
-        self.id = id 
-        self.from = from 
-        self.currency = currency 
-        self.totalAmount = totalAmount 
-        self.invoicePayload = invoicePayload 
-        self.shippingOptionId = shippingOptionId 
-        self.orderInfo = orderInfo 
+        self.id = id
+        self.from = from
+        self.currency = currency
+        self.totalAmount = totalAmount
+        self.invoicePayload = invoicePayload
+        self.shippingOptionId = shippingOptionId
+        self.orderInfo = orderInfo
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -4610,8 +4402,6 @@ public class PreCheckoutQuery: Codable {
 
 }
 
-
-
 /// Contains information about Telegram Passport data shared with the bot by the user.
 public class PassportData: Codable {
 
@@ -4621,7 +4411,6 @@ public class PassportData: Codable {
     /// Encrypted credentials required to decrypt the data
     public var credentials: EncryptedCredentials
 
-
     /// PassportData initialization
     ///
     /// - parameter data:  Array with information about documents and other Telegram Passport elements that was shared with the bot
@@ -4630,8 +4419,8 @@ public class PassportData: Codable {
     /// - returns: The new `PassportData` instance.
     ///
     public init(data: [EncryptedPassportElement], credentials: EncryptedCredentials) {
-        self.data = data 
-        self.credentials = credentials 
+        self.data = data
+        self.credentials = credentials
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -4640,8 +4429,6 @@ public class PassportData: Codable {
     }
 
 }
-
-
 
 /// This object represents a file uploaded to Telegram Passport. Currently all Telegram Passport files are in JPEG format when decrypted and don&#39;t exceed 10MB.
 public class PassportFile: Codable {
@@ -4655,7 +4442,6 @@ public class PassportFile: Codable {
     /// Unix time when the file was uploaded
     public var fileDate: Int
 
-
     /// PassportFile initialization
     ///
     /// - parameter fileId:  Unique identifier for this file
@@ -4665,9 +4451,9 @@ public class PassportFile: Codable {
     /// - returns: The new `PassportFile` instance.
     ///
     public init(fileId: String, fileSize: Int, fileDate: Int) {
-        self.fileId = fileId 
-        self.fileSize = fileSize 
-        self.fileDate = fileDate 
+        self.fileId = fileId
+        self.fileSize = fileSize
+        self.fileDate = fileDate
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -4677,8 +4463,6 @@ public class PassportFile: Codable {
     }
 
 }
-
-
 
 /// Contains information about documents or other Telegram Passport elements shared with the bot by the user.
 public class EncryptedPassportElement: Codable {
@@ -4713,7 +4497,6 @@ public class EncryptedPassportElement: Codable {
     /// Base64-encoded element hash for using in PassportElementErrorUnspecified
     public var hash: String
 
-
     /// EncryptedPassportElement initialization
     ///
     /// - parameter type:  Element type. One of “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport”, “address”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”, “phone_number”, “email”.
@@ -4730,16 +4513,16 @@ public class EncryptedPassportElement: Codable {
     /// - returns: The new `EncryptedPassportElement` instance.
     ///
     public init(type: String, data: String? = nil, phoneNumber: String? = nil, email: String? = nil, files: [PassportFile]? = nil, frontSide: PassportFile? = nil, reverseSide: PassportFile? = nil, selfie: PassportFile? = nil, translation: [PassportFile]? = nil, hash: String) {
-        self.type = type 
-        self.data = data 
-        self.phoneNumber = phoneNumber 
-        self.email = email 
-        self.files = files 
-        self.frontSide = frontSide 
-        self.reverseSide = reverseSide 
-        self.selfie = selfie 
-        self.translation = translation 
-        self.hash = hash 
+        self.type = type
+        self.data = data
+        self.phoneNumber = phoneNumber
+        self.email = email
+        self.files = files
+        self.frontSide = frontSide
+        self.reverseSide = reverseSide
+        self.selfie = selfie
+        self.translation = translation
+        self.hash = hash
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -4757,8 +4540,6 @@ public class EncryptedPassportElement: Codable {
 
 }
 
-
-
 /// Contains data required for decrypting and authenticating EncryptedPassportElement. See the [Telegram Passport Documentation](https://core.telegram.org/passport#receiving-information) for a complete description of the data decryption and authentication processes.
 public class EncryptedCredentials: Codable {
 
@@ -4771,7 +4552,6 @@ public class EncryptedCredentials: Codable {
     /// Base64-encoded secret, encrypted with the bot&#39;s public RSA key, required for data decryption
     public var secret: String
 
-
     /// EncryptedCredentials initialization
     ///
     /// - parameter data:  Base64-encoded encrypted JSON-serialized data with unique user&#39;s payload, data hashes and secrets required for EncryptedPassportElement decryption and authentication
@@ -4781,9 +4561,9 @@ public class EncryptedCredentials: Codable {
     /// - returns: The new `EncryptedCredentials` instance.
     ///
     public init(data: String, hash: String, secret: String) {
-        self.data = data 
-        self.hash = hash 
-        self.secret = secret 
+        self.data = data
+        self.hash = hash
+        self.secret = secret
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -4793,8 +4573,6 @@ public class EncryptedCredentials: Codable {
     }
 
 }
-
-
 
 /// This object represents an error in the Telegram Passport element which was submitted that should be resolved by the user. It should be one of:
 public enum PassportElementError: Codable {
@@ -4829,7 +4607,7 @@ public enum PassportElementError: Codable {
             self = .translationFiles(translationFiles)
         } else if let unspecified = try? container.decode(PassportElementErrorUnspecified.self) {
             self = .unspecified(unspecified)
-        }else {
+        } else {
             throw NSError(domain: "PassportElementError", code: -1, userInfo: nil)
         }
     }
@@ -4878,7 +4656,6 @@ public class PassportElementErrorDataField: Codable {
     /// Error message
     public var message: String
 
-
     /// PassportElementErrorDataField initialization
     ///
     /// - parameter source:  Error source, must be data
@@ -4890,11 +4667,11 @@ public class PassportElementErrorDataField: Codable {
     /// - returns: The new `PassportElementErrorDataField` instance.
     ///
     public init(source: String, type: String, fieldName: String, dataHash: String, message: String) {
-        self.source = source 
-        self.type = type 
-        self.fieldName = fieldName 
-        self.dataHash = dataHash 
-        self.message = message 
+        self.source = source
+        self.type = type
+        self.fieldName = fieldName
+        self.dataHash = dataHash
+        self.message = message
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -4906,8 +4683,6 @@ public class PassportElementErrorDataField: Codable {
     }
 
 }
-
-
 
 /// Represents an issue with the front side of a document. The error is considered resolved when the file with the front side of the document changes.
 public class PassportElementErrorFrontSide: Codable {
@@ -4924,7 +4699,6 @@ public class PassportElementErrorFrontSide: Codable {
     /// Error message
     public var message: String
 
-
     /// PassportElementErrorFrontSide initialization
     ///
     /// - parameter source:  Error source, must be front_side
@@ -4935,10 +4709,10 @@ public class PassportElementErrorFrontSide: Codable {
     /// - returns: The new `PassportElementErrorFrontSide` instance.
     ///
     public init(source: String, type: String, fileHash: String, message: String) {
-        self.source = source 
-        self.type = type 
-        self.fileHash = fileHash 
-        self.message = message 
+        self.source = source
+        self.type = type
+        self.fileHash = fileHash
+        self.message = message
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -4949,8 +4723,6 @@ public class PassportElementErrorFrontSide: Codable {
     }
 
 }
-
-
 
 /// Represents an issue with the reverse side of a document. The error is considered resolved when the file with reverse side of the document changes.
 public class PassportElementErrorReverseSide: Codable {
@@ -4967,7 +4739,6 @@ public class PassportElementErrorReverseSide: Codable {
     /// Error message
     public var message: String
 
-
     /// PassportElementErrorReverseSide initialization
     ///
     /// - parameter source:  Error source, must be reverse_side
@@ -4978,10 +4749,10 @@ public class PassportElementErrorReverseSide: Codable {
     /// - returns: The new `PassportElementErrorReverseSide` instance.
     ///
     public init(source: String, type: String, fileHash: String, message: String) {
-        self.source = source 
-        self.type = type 
-        self.fileHash = fileHash 
-        self.message = message 
+        self.source = source
+        self.type = type
+        self.fileHash = fileHash
+        self.message = message
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -4992,8 +4763,6 @@ public class PassportElementErrorReverseSide: Codable {
     }
 
 }
-
-
 
 /// Represents an issue with the selfie with a document. The error is considered resolved when the file with the selfie changes.
 public class PassportElementErrorSelfie: Codable {
@@ -5010,7 +4779,6 @@ public class PassportElementErrorSelfie: Codable {
     /// Error message
     public var message: String
 
-
     /// PassportElementErrorSelfie initialization
     ///
     /// - parameter source:  Error source, must be selfie
@@ -5021,10 +4789,10 @@ public class PassportElementErrorSelfie: Codable {
     /// - returns: The new `PassportElementErrorSelfie` instance.
     ///
     public init(source: String, type: String, fileHash: String, message: String) {
-        self.source = source 
-        self.type = type 
-        self.fileHash = fileHash 
-        self.message = message 
+        self.source = source
+        self.type = type
+        self.fileHash = fileHash
+        self.message = message
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -5035,8 +4803,6 @@ public class PassportElementErrorSelfie: Codable {
     }
 
 }
-
-
 
 /// Represents an issue with a document scan. The error is considered resolved when the file with the document scan changes.
 public class PassportElementErrorFile: Codable {
@@ -5053,7 +4819,6 @@ public class PassportElementErrorFile: Codable {
     /// Error message
     public var message: String
 
-
     /// PassportElementErrorFile initialization
     ///
     /// - parameter source:  Error source, must be file
@@ -5064,10 +4829,10 @@ public class PassportElementErrorFile: Codable {
     /// - returns: The new `PassportElementErrorFile` instance.
     ///
     public init(source: String, type: String, fileHash: String, message: String) {
-        self.source = source 
-        self.type = type 
-        self.fileHash = fileHash 
-        self.message = message 
+        self.source = source
+        self.type = type
+        self.fileHash = fileHash
+        self.message = message
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -5078,8 +4843,6 @@ public class PassportElementErrorFile: Codable {
     }
 
 }
-
-
 
 /// Represents an issue with a list of scans. The error is considered resolved when the list of files containing the scans changes.
 public class PassportElementErrorFiles: Codable {
@@ -5096,7 +4859,6 @@ public class PassportElementErrorFiles: Codable {
     /// Error message
     public var message: String
 
-
     /// PassportElementErrorFiles initialization
     ///
     /// - parameter source:  Error source, must be files
@@ -5107,10 +4869,10 @@ public class PassportElementErrorFiles: Codable {
     /// - returns: The new `PassportElementErrorFiles` instance.
     ///
     public init(source: String, type: String, fileHashes: [String], message: String) {
-        self.source = source 
-        self.type = type 
-        self.fileHashes = fileHashes 
-        self.message = message 
+        self.source = source
+        self.type = type
+        self.fileHashes = fileHashes
+        self.message = message
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -5121,8 +4883,6 @@ public class PassportElementErrorFiles: Codable {
     }
 
 }
-
-
 
 /// Represents an issue with one of the files that constitute the translation of a document. The error is considered resolved when the file changes.
 public class PassportElementErrorTranslationFile: Codable {
@@ -5139,7 +4899,6 @@ public class PassportElementErrorTranslationFile: Codable {
     /// Error message
     public var message: String
 
-
     /// PassportElementErrorTranslationFile initialization
     ///
     /// - parameter source:  Error source, must be translation_file
@@ -5150,10 +4909,10 @@ public class PassportElementErrorTranslationFile: Codable {
     /// - returns: The new `PassportElementErrorTranslationFile` instance.
     ///
     public init(source: String, type: String, fileHash: String, message: String) {
-        self.source = source 
-        self.type = type 
-        self.fileHash = fileHash 
-        self.message = message 
+        self.source = source
+        self.type = type
+        self.fileHash = fileHash
+        self.message = message
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -5164,8 +4923,6 @@ public class PassportElementErrorTranslationFile: Codable {
     }
 
 }
-
-
 
 /// Represents an issue with the translated version of a document. The error is considered resolved when a file with the document translation change.
 public class PassportElementErrorTranslationFiles: Codable {
@@ -5182,7 +4939,6 @@ public class PassportElementErrorTranslationFiles: Codable {
     /// Error message
     public var message: String
 
-
     /// PassportElementErrorTranslationFiles initialization
     ///
     /// - parameter source:  Error source, must be translation_files
@@ -5193,10 +4949,10 @@ public class PassportElementErrorTranslationFiles: Codable {
     /// - returns: The new `PassportElementErrorTranslationFiles` instance.
     ///
     public init(source: String, type: String, fileHashes: [String], message: String) {
-        self.source = source 
-        self.type = type 
-        self.fileHashes = fileHashes 
-        self.message = message 
+        self.source = source
+        self.type = type
+        self.fileHashes = fileHashes
+        self.message = message
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -5207,8 +4963,6 @@ public class PassportElementErrorTranslationFiles: Codable {
     }
 
 }
-
-
 
 /// Represents an issue in an unspecified place. The error is considered resolved when new data is added.
 public class PassportElementErrorUnspecified: Codable {
@@ -5225,7 +4979,6 @@ public class PassportElementErrorUnspecified: Codable {
     /// Error message
     public var message: String
 
-
     /// PassportElementErrorUnspecified initialization
     ///
     /// - parameter source:  Error source, must be unspecified
@@ -5236,10 +4989,10 @@ public class PassportElementErrorUnspecified: Codable {
     /// - returns: The new `PassportElementErrorUnspecified` instance.
     ///
     public init(source: String, type: String, elementHash: String, message: String) {
-        self.source = source 
-        self.type = type 
-        self.elementHash = elementHash 
-        self.message = message 
+        self.source = source
+        self.type = type
+        self.elementHash = elementHash
+        self.message = message
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -5250,8 +5003,6 @@ public class PassportElementErrorUnspecified: Codable {
     }
 
 }
-
-
 
 /// This object represents a game. Use BotFather to create and edit games, their short names will act as unique identifiers.
 public class Game: Codable {
@@ -5274,7 +5025,6 @@ public class Game: Codable {
     /// Optional. Animation that will be displayed in the game message in chats. Upload via [BotFather](https://t.me/botfather)
     public var animation: Animation?
 
-
     /// Game initialization
     ///
     /// - parameter title:  Title of the game
@@ -5287,12 +5037,12 @@ public class Game: Codable {
     /// - returns: The new `Game` instance.
     ///
     public init(title: String, description: String, photo: [PhotoSize], text: String? = nil, textEntities: [MessageEntity]? = nil, animation: Animation? = nil) {
-        self.title = title 
-        self.description = description 
-        self.photo = photo 
-        self.text = text 
-        self.textEntities = textEntities 
-        self.animation = animation 
+        self.title = title
+        self.description = description
+        self.photo = photo
+        self.text = text
+        self.textEntities = textEntities
+        self.animation = animation
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -5305,8 +5055,6 @@ public class Game: Codable {
     }
 
 }
-
-
 
 /// A placeholder, currently holds no information. Use [BotFather](https://t.me/botfather) to set up your game.
 public struct CallbackGame: Codable {
@@ -5325,7 +5073,6 @@ public class GameHighScore: Codable {
     /// Score
     public var score: Int
 
-
     /// GameHighScore initialization
     ///
     /// - parameter position:  Position in high score table for the game
@@ -5335,9 +5082,9 @@ public class GameHighScore: Codable {
     /// - returns: The new `GameHighScore` instance.
     ///
     public init(position: Int, user: User, score: Int) {
-        self.position = position 
-        self.user = user 
-        self.score = score 
+        self.position = position
+        self.user = user
+        self.score = score
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -5347,6 +5094,4 @@ public class GameHighScore: Codable {
     }
 
 }
-
-
 

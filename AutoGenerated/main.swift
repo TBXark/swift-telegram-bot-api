@@ -9,12 +9,12 @@
 import Foundation
 
 class ParsingController {
-    
+
     class Table {
         class Item {
             var field: String?
             var type: String?
-            
+
             var note: String?
             var isOptionalByRow: Bool?
             var isOptional: Bool {
@@ -33,7 +33,7 @@ class ParsingController {
         var list = [Item]()
         var unions: [String]?
     }
-    
+
     private let aTagRegex = try! NSRegularExpression(pattern: "<a href=\"[^>]*\">[^>^<]*</a>", options: .caseInsensitive)
     private let hrefRegex =  try! NSRegularExpression(pattern: "href=\"http[^>]*\"", options: .caseInsensitive)
     var typeMap = ["Integer": "Int",
@@ -42,7 +42,7 @@ class ParsingController {
                    "True": "Bool",
                    "InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply": "ReplyMarkup"]
     var superClass = [String: String]()
-    
+
     private func parseHTML(_ raw: String, keepLink: Bool = true) -> String {
         func removeTag(_ raw: String) -> String {
             return raw.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
@@ -63,7 +63,7 @@ class ParsingController {
         }
         return removeTag((result as String))
     }
-    
+
     private func eitherBuilder(_ raw: [String]) -> String {
         var className = ""
         var temp = raw
@@ -77,7 +77,7 @@ class ParsingController {
         className += "\(last)\(Array(repeating: ">", count: raw.count - 1).joined())"
         return className
     }
-    
+
     private func unionBuilder(name: String, cases: [String]) -> String {
         var code = "public enum \(name): Codable {\n\n"
         var prefix = ""
@@ -88,7 +88,7 @@ class ParsingController {
         while findPrefix {
             let prefixTemp = firstCase.prefix(prefix.count + 1)
             for caseValue in cases {
-                if caseValue.hasPrefix(prefixTemp)  {
+                if caseValue.hasPrefix(prefixTemp) {
                     continue
                 }
                 findPrefix = false
@@ -115,7 +115,7 @@ class ParsingController {
         }
         var decoder = "\n\tpublic init(from decoder: Decoder) throws {\n\t\tlet container = try decoder.singleValueContainer()"
         var encode = "\n\tpublic func encode(to encoder: Encoder) throws {\n\t\tvar container = encoder.singleValueContainer()\n\t\tswitch self {"
-        
+
         for (i, caseValue) in cases.enumerated() {
             var name = caseValue.dropFirst(prefix.count).dropLast(suffix.count)
             name = name.prefix(1).lowercased() + name.dropFirst()
@@ -125,15 +125,15 @@ class ParsingController {
             encode  += "\n\t\tcase .\(name)(let \(name)):\n"
             encode  += "\t\t\ttry container.encode(\(name))"
         }
-        
-        decoder += "\n\t\t}else {\n\t\t\tthrow NSError(domain: \"\(name)\", code: -1, userInfo: nil)\n\t\t}\n\t}\n"
+
+        decoder += "\n\t\t} else {\n\t\t\tthrow NSError(domain: \"\(name)\", code: -1, userInfo: nil)\n\t\t}\n\t}\n"
         encode += "\n\t\t\t}\n\t\t}\n}"
         code += decoder
         code += encode
         code += "\n\n\n"
         return code
     }
-    
+
     private func fixType(_ raw: String) -> String {
         if let mapType = typeMap[raw] {
             return mapType
@@ -152,15 +152,15 @@ class ParsingController {
                 maybe.append(fixType(str))
             }
             return eitherBuilder(maybe)
-        }  else {
+        } else {
             return  raw
         }
     }
-    
+
     func parse(url: URL) throws -> (type: String, method: String) {
-        
+
         let text = try String(contentsOf: url)
-        
+
         var tables = [Table]()
         var currentTable: Table?
         var currentRow: Table.Item?
@@ -204,13 +204,12 @@ class ParsingController {
                 currentTable = nil
             }
         }
-        
-        
+
         let uppercaseLetters: Set<Character> = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
         var telegramModel = ""
         var telegramRequest = """
         import Foundation
-        
+
         public struct TelegramAPI {
 
             public struct Request {
@@ -220,10 +219,10 @@ class ParsingController {
 
 
         """
-        
+
         telegramModel += ("""
         import Foundation
-        
+
         public enum Either<A: Codable, B: Codable>: Codable {
             case left(A)
             case right(B)
@@ -254,7 +253,7 @@ class ParsingController {
                     return b
                 }
             }
-            
+
             public init(from decoder: Decoder) throws {
                 let container = try decoder.singleValueContainer()
                 if let a = try? container.decode(A.self) {
@@ -264,7 +263,7 @@ class ParsingController {
                     self = .right(b)
                 }
             }
-            
+
             public func encode(to encoder: Encoder) throws {
                 var container = encoder.singleValueContainer()
                 switch self {
@@ -278,14 +277,14 @@ class ParsingController {
 
 
         """)
-        
+
         do {
             let replyMarkup = ["InlineKeyboardMarkup", "ReplyKeyboardMarkup", "ReplyKeyboardRemove", "ForceReply"]
             telegramModel += "/// ReplyMarkup: \(replyMarkup.joined(separator: " or "))\n"
             telegramModel += unionBuilder(name: "ReplyMarkup", cases: replyMarkup)
             telegramModel += "\n\n"
         }
-        
+
         for item in tables {
             if let title = item.title, let char = title.first {
                 if let unions = item.unions {
@@ -299,19 +298,19 @@ class ParsingController {
                     } else {
                         telegramModel += "public class \(title): \(superClass[title] ?? "Codable") {\n\n"
                     }
-                    
+
                     var propertyList = ""
                     var initMethod   = "\tpublic init("
                     var initBody     = ""
                     var codingKeys   = "\tprivate enum CodingKeys: String, CodingKey {\n"
-                    var comment = "\n\t/// \(title) initialization\n\(item.list.isEmpty ? "" : "\t///\n")"
+                    var comment = "\t/// \(title) initialization\n\(item.list.isEmpty ? "" : "\t///\n")"
                     for pro in item.list {
                         if let f = pro.camelCaseField, let t =  pro.type, let realField = pro.field {
                             let note = pro.note ?? ""
                             propertyList += "\t/// \(note)\n"
                             propertyList += "\tpublic var \(f): \(t)\(pro.isOptional ? "?" : "")\n\n"
                             initMethod += "\(f): \(t)\(pro.isOptional ? "? = nil" : ""), "
-                            initBody += "\t\tself.\(f) = \(f) \n"
+                            initBody += "\t\tself.\(f) = \(f)\n"
                             comment += "\t/// - parameter \(f):  \(pro.note ?? "")\n"
                             codingKeys += "\t\tcase \(f) = \"\(realField)\"\n"
                         }
@@ -329,10 +328,10 @@ class ParsingController {
                     telegramModel += comment
                     telegramModel += initMethod + "\n"
                     telegramModel += codingKeys + "\n"
-                    telegramModel += "}\n\n\n\n"
-                    
+                    telegramModel += "}\n\n"
+
                 } else {
-                    
+
                     var comment = "\n\t/// \(item.note ?? "")\n\(item.list.isEmpty ? "" : "\t///\n")"
                     var method = "\tfunc \(title)("
                     var body = ""
@@ -362,13 +361,11 @@ class ParsingController {
         return (type: telegramModel.replacingOccurrences(of: "\t", with: "    "),
                 method: telegramRequest.replacingOccurrences(of: "\t", with: "    "))
     }
-    
-    
+
 }
 
-
-
 let controller = ParsingController()
+
 do {
     let value = try controller.parse(url: URL(string: "https://core.telegram.org/bots/api")!)
     let path = #file.replacingOccurrences(of: "AutoGenerated/main.swift", with: "")
@@ -388,4 +385,3 @@ do {
 }
 //print(value.type)
 //print(value.method)
-
