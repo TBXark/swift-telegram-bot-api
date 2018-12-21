@@ -331,7 +331,7 @@ class ParsingController {
                 } else {
 
                     var comment = "\n\t/// \(item.note ?? "")\n\(item.list.isEmpty ? "" : "\t///\n")"
-                    var method = "\tfunc \(title)("
+                    var method = "\tstatic func \(title)("
                     var body = ""
                     for pro in item.list {
                         if let f = pro.camelCaseField, let t =  pro.type, let realField = pro.field {

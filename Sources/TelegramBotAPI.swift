@@ -16,7 +16,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func getUpdates(offset: Int? = nil, limit: Int? = nil, timeout: Int? = nil, allowedUpdates: [String]? = nil) -> Request {
+    static func getUpdates(offset: Int? = nil, limit: Int? = nil, timeout: Int? = nil, allowedUpdates: [String]? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["offset"] = offset
         parameters["limit"] = limit
@@ -34,7 +34,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func setWebhook(url: String, certificate: InputFile? = nil, maxConnections: Int? = nil, allowedUpdates: [String]? = nil) -> Request {
+    static func setWebhook(url: String, certificate: InputFile? = nil, maxConnections: Int? = nil, allowedUpdates: [String]? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["url"] = url
         parameters["certificate"] = certificate
@@ -47,7 +47,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func deleteWebhook() -> Request {
+    static func deleteWebhook() -> Request {
         return Request(method: "deleteWebhook", body: [:])
     }
 
@@ -55,7 +55,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func getWebhookInfo() -> Request {
+    static func getWebhookInfo() -> Request {
         return Request(method: "getWebhookInfo", body: [:])
     }
 
@@ -63,7 +63,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func getMe() -> Request {
+    static func getMe() -> Request {
         return Request(method: "getMe", body: [:])
     }
 
@@ -79,7 +79,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func sendMessage(chatId: Either<Int, String>, text: String, parseMode: String? = nil, disableWebPagePreview: Bool? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static func sendMessage(chatId: Either<Int, String>, text: String, parseMode: String? = nil, disableWebPagePreview: Bool? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["text"] = text
@@ -100,7 +100,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func forwardMessage(chatId: Either<Int, String>, fromChatId: Either<Int, String>, disableNotification: Bool? = nil, messageId: Int) -> Request {
+    static func forwardMessage(chatId: Either<Int, String>, fromChatId: Either<Int, String>, disableNotification: Bool? = nil, messageId: Int) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["from_chat_id"] = fromChatId
@@ -121,7 +121,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func sendPhoto(chatId: Either<Int, String>, photo: Either<InputFile, String>, caption: String? = nil, parseMode: String? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static func sendPhoto(chatId: Either<Int, String>, photo: Either<InputFile, String>, caption: String? = nil, parseMode: String? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["photo"] = photo
@@ -149,7 +149,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func sendAudio(chatId: Either<Int, String>, audio: Either<InputFile, String>, caption: String? = nil, parseMode: String? = nil, duration: Int? = nil, performer: String? = nil, title: String? = nil, thumb: Either<InputFile, String>? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static func sendAudio(chatId: Either<Int, String>, audio: Either<InputFile, String>, caption: String? = nil, parseMode: String? = nil, duration: Int? = nil, performer: String? = nil, title: String? = nil, thumb: Either<InputFile, String>? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["audio"] = audio
@@ -178,7 +178,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func sendDocument(chatId: Either<Int, String>, document: Either<InputFile, String>, thumb: Either<InputFile, String>? = nil, caption: String? = nil, parseMode: String? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static func sendDocument(chatId: Either<Int, String>, document: Either<InputFile, String>, thumb: Either<InputFile, String>? = nil, caption: String? = nil, parseMode: String? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["document"] = document
@@ -208,7 +208,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func sendVideo(chatId: Either<Int, String>, video: Either<InputFile, String>, duration: Int? = nil, width: Int? = nil, height: Int? = nil, thumb: Either<InputFile, String>? = nil, caption: String? = nil, parseMode: String? = nil, supportsStreaming: Bool? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static func sendVideo(chatId: Either<Int, String>, video: Either<InputFile, String>, duration: Int? = nil, width: Int? = nil, height: Int? = nil, thumb: Either<InputFile, String>? = nil, caption: String? = nil, parseMode: String? = nil, supportsStreaming: Bool? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["video"] = video
@@ -241,7 +241,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func sendAnimation(chatId: Either<Int, String>, animation: Either<InputFile, String>, duration: Int? = nil, width: Int? = nil, height: Int? = nil, thumb: Either<InputFile, String>? = nil, caption: String? = nil, parseMode: String? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static func sendAnimation(chatId: Either<Int, String>, animation: Either<InputFile, String>, duration: Int? = nil, width: Int? = nil, height: Int? = nil, thumb: Either<InputFile, String>? = nil, caption: String? = nil, parseMode: String? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["animation"] = animation
@@ -270,7 +270,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func sendVoice(chatId: Either<Int, String>, voice: Either<InputFile, String>, caption: String? = nil, parseMode: String? = nil, duration: Int? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static func sendVoice(chatId: Either<Int, String>, voice: Either<InputFile, String>, caption: String? = nil, parseMode: String? = nil, duration: Int? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["voice"] = voice
@@ -296,7 +296,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func sendVideoNote(chatId: Either<Int, String>, videoNote: Either<InputFile, String>, duration: Int? = nil, length: Int? = nil, thumb: Either<InputFile, String>? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static func sendVideoNote(chatId: Either<Int, String>, videoNote: Either<InputFile, String>, duration: Int? = nil, length: Int? = nil, thumb: Either<InputFile, String>? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["video_note"] = videoNote
@@ -318,7 +318,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func sendMediaGroup(chatId: Either<Int, String>, media: [Either<InputMediaPhoto, InputMediaVideo>], disableNotification: Bool? = nil, replyToMessageId: Int? = nil) -> Request {
+    static func sendMediaGroup(chatId: Either<Int, String>, media: [Either<InputMediaPhoto, InputMediaVideo>], disableNotification: Bool? = nil, replyToMessageId: Int? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["media"] = media
@@ -339,7 +339,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func sendLocation(chatId: Either<Int, String>, latitude: Float, longitude: Float, livePeriod: Int? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static func sendLocation(chatId: Either<Int, String>, latitude: Float, longitude: Float, livePeriod: Int? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["latitude"] = latitude
@@ -362,7 +362,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func editMessageLiveLocation(chatId: Either<Int, String>? = nil, messageId: Int? = nil, inlineMessageId: String? = nil, latitude: Float, longitude: Float, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
+    static func editMessageLiveLocation(chatId: Either<Int, String>? = nil, messageId: Int? = nil, inlineMessageId: String? = nil, latitude: Float, longitude: Float, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["message_id"] = messageId
@@ -382,7 +382,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func stopMessageLiveLocation(chatId: Either<Int, String>? = nil, messageId: Int? = nil, inlineMessageId: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
+    static func stopMessageLiveLocation(chatId: Either<Int, String>? = nil, messageId: Int? = nil, inlineMessageId: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["message_id"] = messageId
@@ -406,7 +406,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func sendVenue(chatId: Either<Int, String>, latitude: Float, longitude: Float, title: String, address: String, foursquareId: String? = nil, foursquareType: String? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static func sendVenue(chatId: Either<Int, String>, latitude: Float, longitude: Float, title: String, address: String, foursquareId: String? = nil, foursquareType: String? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["latitude"] = latitude
@@ -434,7 +434,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func sendContact(chatId: Either<Int, String>, phoneNumber: String, firstName: String, lastName: String? = nil, vcard: String? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static func sendContact(chatId: Either<Int, String>, phoneNumber: String, firstName: String, lastName: String? = nil, vcard: String? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["phone_number"] = phoneNumber
@@ -454,7 +454,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func sendChatAction(chatId: Either<Int, String>, action: String) -> Request {
+    static func sendChatAction(chatId: Either<Int, String>, action: String) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["action"] = action
@@ -469,7 +469,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func getUserProfilePhotos(userId: Int, offset: Int? = nil, limit: Int? = nil) -> Request {
+    static func getUserProfilePhotos(userId: Int, offset: Int? = nil, limit: Int? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["user_id"] = userId
         parameters["offset"] = offset
@@ -483,7 +483,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func getFile(fileId: String) -> Request {
+    static func getFile(fileId: String) -> Request {
         var parameters = [String: Any]()
         parameters["file_id"] = fileId
         return Request(method: "getFile", body: parameters)
@@ -497,7 +497,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func kickChatMember(chatId: Either<Int, String>, userId: Int, untilDate: Int? = nil) -> Request {
+    static func kickChatMember(chatId: Either<Int, String>, userId: Int, untilDate: Int? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["user_id"] = userId
@@ -512,7 +512,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func unbanChatMember(chatId: Either<Int, String>, userId: Int) -> Request {
+    static func unbanChatMember(chatId: Either<Int, String>, userId: Int) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["user_id"] = userId
@@ -531,7 +531,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func restrictChatMember(chatId: Either<Int, String>, userId: Int, untilDate: Int? = nil, canSendMessages: Bool? = nil, canSendMediaMessages: Bool? = nil, canSendOtherMessages: Bool? = nil, canAddWebPagePreviews: Bool? = nil) -> Request {
+    static func restrictChatMember(chatId: Either<Int, String>, userId: Int, untilDate: Int? = nil, canSendMessages: Bool? = nil, canSendMediaMessages: Bool? = nil, canSendOtherMessages: Bool? = nil, canAddWebPagePreviews: Bool? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["user_id"] = userId
@@ -558,7 +558,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func promoteChatMember(chatId: Either<Int, String>, userId: Int, canChangeInfo: Bool? = nil, canPostMessages: Bool? = nil, canEditMessages: Bool? = nil, canDeleteMessages: Bool? = nil, canInviteUsers: Bool? = nil, canRestrictMembers: Bool? = nil, canPinMessages: Bool? = nil, canPromoteMembers: Bool? = nil) -> Request {
+    static func promoteChatMember(chatId: Either<Int, String>, userId: Int, canChangeInfo: Bool? = nil, canPostMessages: Bool? = nil, canEditMessages: Bool? = nil, canDeleteMessages: Bool? = nil, canInviteUsers: Bool? = nil, canRestrictMembers: Bool? = nil, canPinMessages: Bool? = nil, canPromoteMembers: Bool? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["user_id"] = userId
@@ -579,7 +579,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func exportChatInviteLink(chatId: Either<Int, String>) -> Request {
+    static func exportChatInviteLink(chatId: Either<Int, String>) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         return Request(method: "exportChatInviteLink", body: parameters)
@@ -592,7 +592,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func setChatPhoto(chatId: Either<Int, String>, photo: InputFile) -> Request {
+    static func setChatPhoto(chatId: Either<Int, String>, photo: InputFile) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["photo"] = photo
@@ -605,7 +605,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func deleteChatPhoto(chatId: Either<Int, String>) -> Request {
+    static func deleteChatPhoto(chatId: Either<Int, String>) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         return Request(method: "deleteChatPhoto", body: parameters)
@@ -618,7 +618,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func setChatTitle(chatId: Either<Int, String>, title: String) -> Request {
+    static func setChatTitle(chatId: Either<Int, String>, title: String) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["title"] = title
@@ -632,7 +632,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func setChatDescription(chatId: Either<Int, String>, description: String? = nil) -> Request {
+    static func setChatDescription(chatId: Either<Int, String>, description: String? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["description"] = description
@@ -647,7 +647,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func pinChatMessage(chatId: Either<Int, String>, messageId: Int, disableNotification: Bool? = nil) -> Request {
+    static func pinChatMessage(chatId: Either<Int, String>, messageId: Int, disableNotification: Bool? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["message_id"] = messageId
@@ -661,7 +661,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func unpinChatMessage(chatId: Either<Int, String>) -> Request {
+    static func unpinChatMessage(chatId: Either<Int, String>) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         return Request(method: "unpinChatMessage", body: parameters)
@@ -673,7 +673,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func leaveChat(chatId: Either<Int, String>) -> Request {
+    static func leaveChat(chatId: Either<Int, String>) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         return Request(method: "leaveChat", body: parameters)
@@ -685,7 +685,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func getChat(chatId: Either<Int, String>) -> Request {
+    static func getChat(chatId: Either<Int, String>) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         return Request(method: "getChat", body: parameters)
@@ -697,7 +697,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func getChatAdministrators(chatId: Either<Int, String>) -> Request {
+    static func getChatAdministrators(chatId: Either<Int, String>) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         return Request(method: "getChatAdministrators", body: parameters)
@@ -709,7 +709,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func getChatMembersCount(chatId: Either<Int, String>) -> Request {
+    static func getChatMembersCount(chatId: Either<Int, String>) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         return Request(method: "getChatMembersCount", body: parameters)
@@ -722,7 +722,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func getChatMember(chatId: Either<Int, String>, userId: Int) -> Request {
+    static func getChatMember(chatId: Either<Int, String>, userId: Int) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["user_id"] = userId
@@ -736,7 +736,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func setChatStickerSet(chatId: Either<Int, String>, stickerSetName: String) -> Request {
+    static func setChatStickerSet(chatId: Either<Int, String>, stickerSetName: String) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["sticker_set_name"] = stickerSetName
@@ -749,7 +749,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func deleteChatStickerSet(chatId: Either<Int, String>) -> Request {
+    static func deleteChatStickerSet(chatId: Either<Int, String>) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         return Request(method: "deleteChatStickerSet", body: parameters)
@@ -765,7 +765,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func answerCallbackQuery(callbackQueryId: String, text: String? = nil, showAlert: Bool? = nil, url: String? = nil, cacheTime: Int? = nil) -> Request {
+    static func answerCallbackQuery(callbackQueryId: String, text: String? = nil, showAlert: Bool? = nil, url: String? = nil, cacheTime: Int? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["callback_query_id"] = callbackQueryId
         parameters["text"] = text
@@ -787,7 +787,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func editMessageText(chatId: Either<Int, String>? = nil, messageId: Int? = nil, inlineMessageId: String? = nil, text: String, parseMode: String? = nil, disableWebPagePreview: Bool? = nil, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
+    static func editMessageText(chatId: Either<Int, String>? = nil, messageId: Int? = nil, inlineMessageId: String? = nil, text: String, parseMode: String? = nil, disableWebPagePreview: Bool? = nil, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["message_id"] = messageId
@@ -810,7 +810,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func editMessageCaption(chatId: Either<Int, String>? = nil, messageId: Int? = nil, inlineMessageId: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
+    static func editMessageCaption(chatId: Either<Int, String>? = nil, messageId: Int? = nil, inlineMessageId: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["message_id"] = messageId
@@ -831,7 +831,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func editMessageMedia(chatId: Either<Int, String>? = nil, messageId: Int? = nil, inlineMessageId: String? = nil, media: InputMedia, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
+    static func editMessageMedia(chatId: Either<Int, String>? = nil, messageId: Int? = nil, inlineMessageId: String? = nil, media: InputMedia, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["message_id"] = messageId
@@ -850,7 +850,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func editMessageReplyMarkup(chatId: Either<Int, String>? = nil, messageId: Int? = nil, inlineMessageId: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
+    static func editMessageReplyMarkup(chatId: Either<Int, String>? = nil, messageId: Int? = nil, inlineMessageId: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["message_id"] = messageId
@@ -866,7 +866,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func deleteMessage(chatId: Either<Int, String>, messageId: Int) -> Request {
+    static func deleteMessage(chatId: Either<Int, String>, messageId: Int) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["message_id"] = messageId
@@ -883,7 +883,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func sendSticker(chatId: Either<Int, String>, sticker: Either<InputFile, String>, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static func sendSticker(chatId: Either<Int, String>, sticker: Either<InputFile, String>, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["sticker"] = sticker
@@ -899,7 +899,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func getStickerSet(name: String) -> Request {
+    static func getStickerSet(name: String) -> Request {
         var parameters = [String: Any]()
         parameters["name"] = name
         return Request(method: "getStickerSet", body: parameters)
@@ -912,7 +912,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func uploadStickerFile(userId: Int, pngSticker: InputFile) -> Request {
+    static func uploadStickerFile(userId: Int, pngSticker: InputFile) -> Request {
         var parameters = [String: Any]()
         parameters["user_id"] = userId
         parameters["png_sticker"] = pngSticker
@@ -931,7 +931,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func createNewStickerSet(userId: Int, name: String, title: String, pngSticker: Either<InputFile, String>, emojis: String, containsMasks: Bool? = nil, maskPosition: MaskPosition? = nil) -> Request {
+    static func createNewStickerSet(userId: Int, name: String, title: String, pngSticker: Either<InputFile, String>, emojis: String, containsMasks: Bool? = nil, maskPosition: MaskPosition? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["user_id"] = userId
         parameters["name"] = name
@@ -953,7 +953,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func addStickerToSet(userId: Int, name: String, pngSticker: Either<InputFile, String>, emojis: String, maskPosition: MaskPosition? = nil) -> Request {
+    static func addStickerToSet(userId: Int, name: String, pngSticker: Either<InputFile, String>, emojis: String, maskPosition: MaskPosition? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["user_id"] = userId
         parameters["name"] = name
@@ -970,7 +970,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func setStickerPositionInSet(sticker: String, position: Int) -> Request {
+    static func setStickerPositionInSet(sticker: String, position: Int) -> Request {
         var parameters = [String: Any]()
         parameters["sticker"] = sticker
         parameters["position"] = position
@@ -983,7 +983,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func deleteStickerFromSet(sticker: String) -> Request {
+    static func deleteStickerFromSet(sticker: String) -> Request {
         var parameters = [String: Any]()
         parameters["sticker"] = sticker
         return Request(method: "deleteStickerFromSet", body: parameters)
@@ -1001,7 +1001,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func answerInlineQuery(inlineQueryId: String, results: [InlineQueryResult], cacheTime: Int? = nil, isPersonal: Bool? = nil, nextOffset: String? = nil, switchPmText: String? = nil, switchPmParameter: String? = nil) -> Request {
+    static func answerInlineQuery(inlineQueryId: String, results: [InlineQueryResult], cacheTime: Int? = nil, isPersonal: Bool? = nil, nextOffset: String? = nil, switchPmText: String? = nil, switchPmParameter: String? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["inline_query_id"] = inlineQueryId
         parameters["results"] = results
@@ -1041,7 +1041,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func sendInvoice(chatId: Int, title: String, description: String, payload: String, providerToken: String, startParameter: String, currency: String, prices: [LabeledPrice], providerData: String? = nil, photoUrl: String? = nil, photoSize: Int? = nil, photoWidth: Int? = nil, photoHeight: Int? = nil, needName: Bool? = nil, needPhoneNumber: Bool? = nil, needEmail: Bool? = nil, needShippingAddress: Bool? = nil, sendPhoneNumberToProvider: Bool? = nil, sendEmailToProvider: Bool? = nil, isFlexible: Bool? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
+    static func sendInvoice(chatId: Int, title: String, description: String, payload: String, providerToken: String, startParameter: String, currency: String, prices: [LabeledPrice], providerData: String? = nil, photoUrl: String? = nil, photoSize: Int? = nil, photoWidth: Int? = nil, photoHeight: Int? = nil, needName: Bool? = nil, needPhoneNumber: Bool? = nil, needEmail: Bool? = nil, needShippingAddress: Bool? = nil, sendPhoneNumberToProvider: Bool? = nil, sendEmailToProvider: Bool? = nil, isFlexible: Bool? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["title"] = title
@@ -1078,7 +1078,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func answerShippingQuery(shippingQueryId: String, ok: Bool, shippingOptions: [ShippingOption]? = nil, errorMessage: String? = nil) -> Request {
+    static func answerShippingQuery(shippingQueryId: String, ok: Bool, shippingOptions: [ShippingOption]? = nil, errorMessage: String? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["shipping_query_id"] = shippingQueryId
         parameters["ok"] = ok
@@ -1095,7 +1095,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func answerPreCheckoutQuery(preCheckoutQueryId: String, ok: Bool, errorMessage: String? = nil) -> Request {
+    static func answerPreCheckoutQuery(preCheckoutQueryId: String, ok: Bool, errorMessage: String? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["pre_checkout_query_id"] = preCheckoutQueryId
         parameters["ok"] = ok
@@ -1110,7 +1110,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func setPassportDataErrors(userId: Int, errors: [PassportElementError]) -> Request {
+    static func setPassportDataErrors(userId: Int, errors: [PassportElementError]) -> Request {
         var parameters = [String: Any]()
         parameters["user_id"] = userId
         parameters["errors"] = errors
@@ -1127,7 +1127,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func sendGame(chatId: Int, gameShortName: String, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
+    static func sendGame(chatId: Int, gameShortName: String, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["game_short_name"] = gameShortName
@@ -1149,7 +1149,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func setGameScore(userId: Int, score: Int, force: Bool? = nil, disableEditMessage: Bool? = nil, chatId: Int? = nil, messageId: Int? = nil, inlineMessageId: String? = nil) -> Request {
+    static func setGameScore(userId: Int, score: Int, force: Bool? = nil, disableEditMessage: Bool? = nil, chatId: Int? = nil, messageId: Int? = nil, inlineMessageId: String? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["user_id"] = userId
         parameters["score"] = score
@@ -1170,7 +1170,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    func getGameHighScores(userId: Int, chatId: Int? = nil, messageId: Int? = nil, inlineMessageId: String? = nil) -> Request {
+    static func getGameHighScores(userId: Int, chatId: Int? = nil, messageId: Int? = nil, inlineMessageId: String? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["user_id"] = userId
         parameters["chat_id"] = chatId
