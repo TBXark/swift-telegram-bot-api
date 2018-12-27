@@ -31,6 +31,15 @@ public enum Either<A: Codable, B: Codable>: Codable {
         }
     }
 
+    public init(_ a: A) {
+        self = .left(a)
+    }
+    
+    public init(_ b: B) {
+        self = .right(b)
+    }
+
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         if let a = try? container.decode(A.self) {
@@ -306,7 +315,7 @@ public class Chat: Codable {
     /// Optional. Description, for supergroups and channel chats. Returned only in getChat.
     public var description: String?
 
-    /// Optional. Chat invite link, for supergroups and channel chats. Returned only in getChat.
+    /// Optional. Chat invite link, for supergroups and channel chats. Each administrator in a chat generates their own invite links, so the bot must first generate the link using exportChatInviteLink. Returned only in getChat.
     public var inviteLink: String?
 
     /// Optional. Pinned message, for supergroups and channel chats. Returned only in getChat.
@@ -329,7 +338,7 @@ public class Chat: Codable {
     /// - parameter allMembersAreAdministrators:  Optional. True if a group has ‘All Members Are Admins’ enabled.
     /// - parameter photo:  Optional. Chat photo. Returned only in getChat.
     /// - parameter description:  Optional. Description, for supergroups and channel chats. Returned only in getChat.
-    /// - parameter inviteLink:  Optional. Chat invite link, for supergroups and channel chats. Returned only in getChat.
+    /// - parameter inviteLink:  Optional. Chat invite link, for supergroups and channel chats. Each administrator in a chat generates their own invite links, so the bot must first generate the link using exportChatInviteLink. Returned only in getChat.
     /// - parameter pinnedMessage:  Optional. Pinned message, for supergroups and channel chats. Returned only in getChat.
     /// - parameter stickerSetName:  Optional. For supergroups, name of group sticker set. Returned only in getChat.
     /// - parameter canSetStickerSet:  Optional. True, if the bot can change the group sticker set. Returned only in getChat.

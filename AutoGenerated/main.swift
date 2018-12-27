@@ -253,6 +253,15 @@ class ParsingController {
                 }
             }
 
+            public init(_ a: A) {
+                self = .left(a)
+            }
+            
+            public init(_ b: B) {
+                self = .right(b)
+            }
+
+
             public init(from decoder: Decoder) throws {
                 let container = try decoder.singleValueContainer()
                 if let a = try? container.decode(A.self) {
