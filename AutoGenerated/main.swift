@@ -10,8 +10,8 @@ import Foundation
 
 class ParsingController {
 
-    class Table {
-        class Item {
+    class DocumentTable {
+        class Row {
             var field: String?
             var type: String?
 
@@ -30,39 +30,58 @@ class ParsingController {
         }
         var title: String?
         var note: String?
-        var list = [Item]()
+        var list = [Row]()
         var unions: [String]?
     }
 
     private let aTagRegex = try! NSRegularExpression(pattern: "<a href=\"[^>]*\">[^>^<]*</a>", options: .caseInsensitive)
     private let hrefRegex =  try! NSRegularExpression(pattern: "href=\"http[^>]*\"", options: .caseInsensitive)
-    var typeMap = ["Integer": "Int",
-                   "Float number": "Float",
-                   "Boolean": "Bool",
-                   "True": "Bool",
-                   "InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply": "ReplyMarkup"]
-    var superClass = [String: String]()
+    private let uppercaseLetters: Set<Character> = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+    private var typeMap = ["Integer": "Int", "Float number": "Float", "Boolean": "Bool", "True": "Bool",
+                           "InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply": "ReplyMarkup",
+                           "Int or String": "ChatId", "InputFile or String": "FileOrPath"]
+    private var superClass = [String: String]()
 
-    private func parseHTML(_ raw: String, keepLink: Bool = true) -> String {
-        func removeTag(_ raw: String) -> String {
-            return raw.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+    func parse(url: URL) throws -> (type: String, method: String) {
+
+        let text = try String(contentsOf: url)
+        let tables = parseDocument(text)
+        var telegramModel = ""
+        var telegramRequest = ""
+        let customEnum = [("ReplyMarkup", ["InlineKeyboardMarkup", "ReplyKeyboardMarkup", "ReplyKeyboardRemove", "ForceReply"]),
+                          ("ChatId", ["Int", "String"]),
+                          ("FileOrPath", ["InputFile", "String"])]
+        for (name, cases) in customEnum {
+            var code = "\n"
+            code += "/// \(name): \(cases.joined(separator: " or "))\n"
+            code += unionBuilder(name: "\(name)", cases: cases)
+            code += "\n"
+            telegramModel += code.components(separatedBy: .newlines).map({ $0.isEmpty ? $0 : "\t" + $0 }).joined(separator: "\n")
         }
-        var result = raw as NSString
-        if keepLink {
-            while let aTagMache = aTagRegex.firstMatch(in: (result as String), options: [], range: NSRange(location: 0, length: result.length)) {
-                let aTag = result.substring(with: aTagMache.range)
-                let aTagNS = aTag as NSString
-                if let hrefMach = hrefRegex.firstMatch(in: aTag, options: [], range: NSRange(location: 0, length: aTagNS.length)) {
-                    let range = NSRange(location: hrefMach.range.location + 6, length: hrefMach.range.length - 7)
-                    let newATag = "[\(removeTag(aTag))](\(aTagNS.substring(with: range)))"
-                    result = result.replacingCharacters(in: aTagMache.range, with: newATag) as NSString
+
+        for item in tables {
+            if let title = item.title, let char = title.first {
+                if let unions = item.unions {
+                    var code = ""
+                    code += "\n/// \(item.note ?? "")\n"
+                    code += unionBuilder(name: title, cases: unions)
+                    telegramModel += code.components(separatedBy: .newlines).map({ $0.isEmpty ? $0 : "\t" + $0 }).joined(separator: "\n")
+                } else if uppercaseLetters.contains(char) {
+                    let code = classBuilder(item)
+                    telegramModel += code.components(separatedBy: .newlines).map({ $0.isEmpty ? $0 : "\t" + $0 }).joined(separator: "\n")
                 } else {
-                    result = result.replacingCharacters(in: aTagMache.range, with: removeTag(aTag)) as NSString
+                    let code = methodBuilder(item)
+                    telegramRequest += code.components(separatedBy: .newlines).map({ $0.isEmpty ? $0 : "\t" + $0 }).joined(separator: "\n")
                 }
             }
         }
-        return removeTag((result as String))
+        return (type: typeFileBuilder(content: telegramModel),
+                method: methodFileBuilder(content: telegramRequest))
     }
+
+}
+
+extension ParsingController {
 
     private func eitherBuilder(_ raw: [String]) -> String {
         var className = ""
@@ -134,36 +153,87 @@ class ParsingController {
         return code
     }
 
-    private func fixType(_ raw: String) -> String {
-        if let mapType = typeMap[raw] {
-            return mapType
-        } else if raw.starts(with: "Array of ") {
-            let itemType = fixType(raw.replacingOccurrences(of: "Array of ", with: ""))
-            return "[\(itemType)]"
-        } else if raw.contains(" or ") {
-            var maybe = [String]()
-            for str in (raw as NSString).components(separatedBy: " or ") {
-                maybe.append(fixType(str))
-            }
-            return eitherBuilder(maybe)
-        } else if raw.contains(" and ") {
-            var maybe = [String]()
-            for str in (raw as NSString).components(separatedBy: " and ") {
-                maybe.append(fixType(str))
-            }
-            return eitherBuilder(maybe)
+    private func classBuilder(_ table: DocumentTable) -> String {
+        var code = ""
+        guard let title = table.title else { return code }
+        code += "\n/// \(table.note ?? "")\n"
+        if table.list.isEmpty {
+            code += "public struct \(title): \(superClass[title] ?? "Codable") {\n\n}\n"
+            return code
         } else {
-            return  raw
+            code += "public class \(title): \(superClass[title] ?? "Codable") {\n\n"
         }
+
+        var propertyList = ""
+        var initMethod   = "\tpublic init("
+        var initBody     = ""
+        var codingKeys   = "\tprivate enum CodingKeys: String, CodingKey {\n"
+        var comment = "\t/// \(title) initialization\n\(table.list.isEmpty ? "" : "\t///\n")"
+        for pro in table.list {
+            if let f = pro.camelCaseField, let t =  pro.type, let realField = pro.field {
+                let note = pro.note ?? ""
+                propertyList += "\t/// \(note)\n"
+                propertyList += "\tpublic var \(f): \(t)\(pro.isOptional ? "?" : "")\n\n"
+                initMethod += "\(f): \(t)\(pro.isOptional ? "? = nil" : ""), "
+                initBody += "\t\tself.\(f) = \(f)\n"
+                comment += "\t/// - parameter \(f):  \(pro.note ?? "")\n"
+                codingKeys += "\t\tcase \(f) = \"\(realField)\"\n"
+            }
+        }
+        comment += "\t///\n\t/// - returns: The new `\(title)` instance.\n"
+        comment += "\t///\n"
+        if table.list.count > 0 {
+            initMethod.removeLast(2)
+        }
+        initMethod += ") {\n"
+        initMethod += initBody
+        initMethod += "\t}\n"
+        codingKeys += "\t}\n"
+
+        code += propertyList
+        code += comment
+        code += initMethod + "\n"
+        code += codingKeys + "\n"
+        code += "}\n"
+        return code
     }
 
-    func parse(url: URL) throws -> (type: String, method: String) {
+    private func methodBuilder(_ table: DocumentTable) -> String {
+        var code = ""
+        guard let title = table.title else { return code }
+        var comment = "/// \(table.note ?? "")\n\(table.list.isEmpty ? "" : "///\n")"
+        var method = "static public func \(title)("
+        var body = ""
+        for pro in table.list {
+            if let f = pro.camelCaseField, let t =  pro.type, let realField = pro.field {
+                comment += "/// - parameter \(f):  \(pro.note ?? "")\n"
+                method += "\(f): \(t)\(pro.isOptional ? "? = nil" : ""), "
+                body += "\tparameters[\"\(realField)\"] = \(f)\n"
+            }
+        }
+        comment += "///\n"
+        comment += "/// - returns: The new `TelegramAPI.Request` instance.\n"
+        comment += "///\n"
+        if table.list.count > 0 {
+            method.removeLast(2)
+        }
+        method += ") -> Request {\n\(table.list.isEmpty ? "" : "\tvar parameters = [String: Any]()\n")"
+        method += body
+        method += "\treturn Request(method: \"\(title)\", body: \(table.list.isEmpty ? "[:]" : "parameters"))\n"
+        method += "}\n\n"
 
-        let text = try String(contentsOf: url)
+        code += comment
+        code += method
+        return code
+    }
+}
 
-        var tables = [Table]()
-        var currentTable: Table?
-        var currentRow: Table.Item?
+extension ParsingController {
+
+    private func parseDocument(_ text: String) -> [DocumentTable] {
+        var tables = [DocumentTable]()
+        var currentTable: DocumentTable?
+        var currentRow: DocumentTable.Row?
         for line in text.split(separator: "\n") {
             if line.starts(with: "<h4>") {
                 currentTable = nil
@@ -172,13 +242,13 @@ class ParsingController {
                 if title.contains(".") || title.contains(" ") {
                     continue
                 }
-                currentTable = Table()
+                currentTable = DocumentTable()
                 tables.append(currentTable!)
                 currentTable?.title = title
             } else if line.starts(with: "<p>") {
                 currentTable?.note = parseHTML(String(line))
             } else if line == "<tr>" {
-                currentRow = Table.Item()
+                currentRow = DocumentTable.Row()
                 currentTable?.list.append(currentRow!)
             } else if line == "</tr>" {
                 currentRow = nil
@@ -204,171 +274,165 @@ class ParsingController {
                 currentTable = nil
             }
         }
+        return tables
+    }
 
-        let uppercaseLetters: Set<Character> = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-        var telegramModel = ""
-        var telegramRequest = """
+    private func parseHTML(_ raw: String, keepLink: Bool = true) -> String {
+        func removeTag(_ raw: String) -> String {
+            return raw.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+        }
+        var result = raw as NSString
+        if keepLink {
+            while let aTagMache = aTagRegex.firstMatch(in: (result as String), options: [], range: NSRange(location: 0, length: result.length)) {
+                let aTag = result.substring(with: aTagMache.range)
+                let aTagNS = aTag as NSString
+                if let hrefMach = hrefRegex.firstMatch(in: aTag, options: [], range: NSRange(location: 0, length: aTagNS.length)) {
+                    let range = NSRange(location: hrefMach.range.location + 6, length: hrefMach.range.length - 7)
+                    let newATag = "[\(removeTag(aTag))](\(aTagNS.substring(with: range)))"
+                    result = result.replacingCharacters(in: aTagMache.range, with: newATag) as NSString
+                } else {
+                    result = result.replacingCharacters(in: aTagMache.range, with: removeTag(aTag)) as NSString
+                }
+            }
+        }
+        return removeTag((result as String))
+    }
+
+    private func fixType(_ raw: String) -> String {
+        if let mapType = typeMap[raw] {
+            return mapType
+        } else if raw.starts(with: "Array of ") {
+            let itemType = fixType(raw.replacingOccurrences(of: "Array of ", with: ""))
+            return "[\(itemType)]"
+        } else if raw.contains(" or ") {
+            var maybe = [String]()
+            for str in (raw as NSString).components(separatedBy: " or ") {
+                maybe.append(fixType(str))
+            }
+            return eitherBuilder(maybe)
+        } else if raw.contains(" and ") {
+            var maybe = [String]()
+            for str in (raw as NSString).components(separatedBy: " and ") {
+                maybe.append(fixType(str))
+            }
+            return eitherBuilder(maybe)
+        } else {
+            return  raw
+        }
+    }
+}
+
+extension ParsingController {
+    private func methodFileBuilder(content: String) -> String {
+        return ("""
         import Foundation
 
         public struct TelegramAPI {
 
+        \(content)}
+        """).replacingOccurrences(of: "\t", with: "    ")
+    }
+
+    private func typeFileBuilder(content: String) -> String {
+        return ("""
+        import Foundation
+
+        public extension TelegramAPI {
+
+            /// Telegram Request wrapper
             public struct Request {
                 public let method: String
                 public let body: [String: Any]
             }
 
-        """
+            /// AnyEncodable
+            public struct AnyEncodable: Encodable {
+                private let encodable: Encodable
 
-        telegramModel += ("""
-        import Foundation
+                public init(_ encodable: Encodable) {
+                    self.encodable = encodable
+                }
 
-        public enum Either<A: Codable, B: Codable>: Codable {
-            case left(A)
-            case right(B)
+                public func encode(to encoder: Encoder) throws {
+                    try encodable.encode(to: encoder)
+                }
 
-            public var value: Any {
-                switch self {
-                case .left(let a):
-                    return a
-                case .right(let b):
-                    return b
+                public static func encode(_ dict: [String: Any]) throws -> Data {
+                    var map = [String: AnyEncodable]()
+                    for (k, v) in dict {
+                        if let e = v as? Encodable {
+                            map[k] = AnyEncodable(e)
+                        }
+                    }
+                    let data = try JSONEncoder().encode(map)
+                    return data
                 }
             }
 
-            public var left: A? {
-                switch self {
-                case .left(let a):
-                    return a
-                case .right:
-                    return nil
+            /// May contain two different types
+            public enum Either<A: Codable, B: Codable>: Codable {
+                case left(A)
+                case right(B)
+
+                public var value: Any {
+                    switch self {
+                    case .left(let a):
+                        return a
+                    case .right(let b):
+                        return b
+                    }
                 }
-            }
 
-            public var right: B? {
-                switch self {
-                case .left:
-                    return nil
-                case .right(let b):
-                    return b
+                public var left: A? {
+                    switch self {
+                    case .left(let a):
+                        return a
+                    case .right:
+                        return nil
+                    }
                 }
-            }
 
-            public init(_ a: A) {
-                self = .left(a)
-            }
-            
-            public init(_ b: B) {
-                self = .right(b)
-            }
+                public var right: B? {
+                    switch self {
+                    case .left:
+                        return nil
+                    case .right(let b):
+                        return b
+                    }
+                }
 
-
-            public init(from decoder: Decoder) throws {
-                let container = try decoder.singleValueContainer()
-                if let a = try? container.decode(A.self) {
+                public init(_ a: A) {
                     self = .left(a)
-                } else {
-                    let b = try container.decode(B.self)
+                }
+
+                public init(_ b: B) {
                     self = .right(b)
                 }
-            }
 
-            public func encode(to encoder: Encoder) throws {
-                var container = encoder.singleValueContainer()
-                switch self {
-                    case .left(let a):
-                        try container.encode(a)
-                    case .right(let b):
-                        try container.encode(b)
-                }
-            }
-        }
-
-
-        """)
-
-        do {
-            let replyMarkup = ["InlineKeyboardMarkup", "ReplyKeyboardMarkup", "ReplyKeyboardRemove", "ForceReply"]
-            telegramModel += "/// ReplyMarkup: \(replyMarkup.joined(separator: " or "))\n"
-            telegramModel += unionBuilder(name: "ReplyMarkup", cases: replyMarkup)
-        }
-
-        for item in tables {
-            if let title = item.title, let char = title.first {
-                if let unions = item.unions {
-                    telegramModel += "\n/// \(item.note ?? "")\n"
-                    telegramModel += unionBuilder(name: title, cases: unions)
-                } else if uppercaseLetters.contains(char) {
-                    telegramModel += "\n/// \(item.note ?? "")\n"
-                    if item.list.isEmpty {
-                        telegramModel += "public struct \(title): \(superClass[title] ?? "Codable") {\n\n}\n"
-                        continue
+                public init(from decoder: Decoder) throws {
+                    let container = try decoder.singleValueContainer()
+                    if let a = try? container.decode(A.self) {
+                        self = .left(a)
                     } else {
-                        telegramModel += "public class \(title): \(superClass[title] ?? "Codable") {\n\n"
+                        let b = try container.decode(B.self)
+                        self = .right(b)
                     }
+                }
 
-                    var propertyList = ""
-                    var initMethod   = "\tpublic init("
-                    var initBody     = ""
-                    var codingKeys   = "\tprivate enum CodingKeys: String, CodingKey {\n"
-                    var comment = "\t/// \(title) initialization\n\(item.list.isEmpty ? "" : "\t///\n")"
-                    for pro in item.list {
-                        if let f = pro.camelCaseField, let t =  pro.type, let realField = pro.field {
-                            let note = pro.note ?? ""
-                            propertyList += "\t/// \(note)\n"
-                            propertyList += "\tpublic var \(f): \(t)\(pro.isOptional ? "?" : "")\n\n"
-                            initMethod += "\(f): \(t)\(pro.isOptional ? "? = nil" : ""), "
-                            initBody += "\t\tself.\(f) = \(f)\n"
-                            comment += "\t/// - parameter \(f):  \(pro.note ?? "")\n"
-                            codingKeys += "\t\tcase \(f) = \"\(realField)\"\n"
-                        }
+                public func encode(to encoder: Encoder) throws {
+                    var container = encoder.singleValueContainer()
+                    switch self {
+                        case .left(let a):
+                            try container.encode(a)
+                        case .right(let b):
+                            try container.encode(b)
                     }
-                    comment += "\t///\n\t/// - returns: The new `\(title)` instance.\n"
-                    comment += "\t///\n"
-                    if item.list.count > 0 {
-                        initMethod.removeLast(2)
-                    }
-                    initMethod += ") {\n"
-                    initMethod += initBody
-                    initMethod += "\t}\n"
-                    codingKeys += "\t}\n"
-                    telegramModel += propertyList
-                    telegramModel += comment
-                    telegramModel += initMethod + "\n"
-                    telegramModel += codingKeys + "\n"
-                    telegramModel += "}\n"
-
-                } else {
-
-                    var comment = "\n\t/// \(item.note ?? "")\n\(item.list.isEmpty ? "" : "\t///\n")"
-                    var method = "\tstatic public func \(title)("
-                    var body = ""
-                    for pro in item.list {
-                        if let f = pro.camelCaseField, let t =  pro.type, let realField = pro.field {
-                            comment += "\t/// - parameter \(f):  \(pro.note ?? "")\n"
-                            method += "\(f): \(t)\(pro.isOptional ? "? = nil" : ""), "
-                            body += "\t\tparameters[\"\(realField)\"] = \(f)\n"
-                        }
-                    }
-                    comment += "\t///\n"
-                    comment += "\t/// - returns: The new `TelegramAPI.Request` instance.\n"
-                    comment += "\t///\n"
-                    if item.list.count > 0 {
-                        method.removeLast(2)
-                    }
-                    method += ") -> Request {\n\(item.list.isEmpty ? "" : "\t\tvar parameters = [String: Any]()\n")"
-                    method += body
-                    method += "\t\treturn Request(method: \"\(title)\", body: \(item.list.isEmpty ? "[:]" : "parameters"))\n"
-                    method += "\t}\n"
-                    telegramRequest += comment
-                    telegramRequest += method
                 }
             }
+            \(content)
         }
-        telegramRequest += "\n}\n"
-        return (type: telegramModel.replacingOccurrences(of: "\t", with: "    "),
-                method: telegramRequest.replacingOccurrences(of: "\t", with: "    "))
+        """).replacingOccurrences(of: "\t", with: "    ")
     }
-
 }
 
 let controller = ParsingController()
@@ -390,5 +454,3 @@ do {
 } catch {
     print(error)
 }
-//print(value.type)
-//print(value.method)

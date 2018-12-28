@@ -2,11 +2,6 @@ import Foundation
 
 public struct TelegramAPI {
 
-    public struct Request {
-        public let method: String
-        public let body: [String: Any]
-    }
-
     /// Use this method to receive incoming updates using long polling ([wiki](http://en.wikipedia.org/wiki/Push_technology#Long_polling)). An Array of Update objects is returned.
     ///
     /// - parameter offset:  Identifier of the first update to be returned. Must be greater by one than the highest among the identifiers of previously received updates. By default, updates starting with the earliest unconfirmed update are returned. An update is considered confirmed as soon as getUpdates is called with an offset higher than its update_id. The negative offset can be specified to retrieve updates starting from -offset update from the end of the updates queue. All previous updates will forgotten.
@@ -121,7 +116,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendPhoto(chatId: Either<Int, String>, photo: Either<InputFile, String>, caption: String? = nil, parseMode: String? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static public func sendPhoto(chatId: Either<Int, String>, photo: FileOrPath, caption: String? = nil, parseMode: String? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["photo"] = photo
@@ -149,7 +144,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendAudio(chatId: Either<Int, String>, audio: Either<InputFile, String>, caption: String? = nil, parseMode: String? = nil, duration: Int? = nil, performer: String? = nil, title: String? = nil, thumb: Either<InputFile, String>? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static public func sendAudio(chatId: Either<Int, String>, audio: FileOrPath, caption: String? = nil, parseMode: String? = nil, duration: Int? = nil, performer: String? = nil, title: String? = nil, thumb: FileOrPath? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["audio"] = audio
@@ -178,7 +173,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendDocument(chatId: Either<Int, String>, document: Either<InputFile, String>, thumb: Either<InputFile, String>? = nil, caption: String? = nil, parseMode: String? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static public func sendDocument(chatId: Either<Int, String>, document: FileOrPath, thumb: FileOrPath? = nil, caption: String? = nil, parseMode: String? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["document"] = document
@@ -208,7 +203,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendVideo(chatId: Either<Int, String>, video: Either<InputFile, String>, duration: Int? = nil, width: Int? = nil, height: Int? = nil, thumb: Either<InputFile, String>? = nil, caption: String? = nil, parseMode: String? = nil, supportsStreaming: Bool? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static public func sendVideo(chatId: Either<Int, String>, video: FileOrPath, duration: Int? = nil, width: Int? = nil, height: Int? = nil, thumb: FileOrPath? = nil, caption: String? = nil, parseMode: String? = nil, supportsStreaming: Bool? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["video"] = video
@@ -241,7 +236,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendAnimation(chatId: Either<Int, String>, animation: Either<InputFile, String>, duration: Int? = nil, width: Int? = nil, height: Int? = nil, thumb: Either<InputFile, String>? = nil, caption: String? = nil, parseMode: String? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static public func sendAnimation(chatId: Either<Int, String>, animation: FileOrPath, duration: Int? = nil, width: Int? = nil, height: Int? = nil, thumb: FileOrPath? = nil, caption: String? = nil, parseMode: String? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["animation"] = animation
@@ -270,7 +265,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendVoice(chatId: Either<Int, String>, voice: Either<InputFile, String>, caption: String? = nil, parseMode: String? = nil, duration: Int? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static public func sendVoice(chatId: Either<Int, String>, voice: FileOrPath, caption: String? = nil, parseMode: String? = nil, duration: Int? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["voice"] = voice
@@ -296,7 +291,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendVideoNote(chatId: Either<Int, String>, videoNote: Either<InputFile, String>, duration: Int? = nil, length: Int? = nil, thumb: Either<InputFile, String>? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static public func sendVideoNote(chatId: Either<Int, String>, videoNote: FileOrPath, duration: Int? = nil, length: Int? = nil, thumb: FileOrPath? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["video_note"] = videoNote
@@ -883,7 +878,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendSticker(chatId: Either<Int, String>, sticker: Either<InputFile, String>, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static public func sendSticker(chatId: Either<Int, String>, sticker: FileOrPath, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["sticker"] = sticker
@@ -931,7 +926,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func createNewStickerSet(userId: Int, name: String, title: String, pngSticker: Either<InputFile, String>, emojis: String, containsMasks: Bool? = nil, maskPosition: MaskPosition? = nil) -> Request {
+    static public func createNewStickerSet(userId: Int, name: String, title: String, pngSticker: FileOrPath, emojis: String, containsMasks: Bool? = nil, maskPosition: MaskPosition? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["user_id"] = userId
         parameters["name"] = name
@@ -953,7 +948,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func addStickerToSet(userId: Int, name: String, pngSticker: Either<InputFile, String>, emojis: String, maskPosition: MaskPosition? = nil) -> Request {
+    static public func addStickerToSet(userId: Int, name: String, pngSticker: FileOrPath, emojis: String, maskPosition: MaskPosition? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["user_id"] = userId
         parameters["name"] = name
