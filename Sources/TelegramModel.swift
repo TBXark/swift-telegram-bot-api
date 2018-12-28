@@ -116,6 +116,22 @@ public extension TelegramAPI {
             }
         }
 
+        public init(_ inlineKeyboardMarkup: InlineKeyboardMarkup) {
+            self = .inlineKeyboardMarkup(inlineKeyboardMarkup)
+        }
+
+        public init(_ replyKeyboardMarkup: ReplyKeyboardMarkup) {
+            self = .replyKeyboardMarkup(replyKeyboardMarkup)
+        }
+
+        public init(_ replyKeyboardRemove: ReplyKeyboardRemove) {
+            self = .replyKeyboardRemove(replyKeyboardRemove)
+        }
+
+        public init(_ forceReply: ForceReply) {
+            self = .forceReply(forceReply)
+        }
+
         public func encode(to encoder: Encoder) throws {
             var container = encoder.singleValueContainer()
             switch self {
@@ -148,6 +164,14 @@ public extension TelegramAPI {
             }
         }
 
+        public init(_ int: Int) {
+            self = .int(int)
+        }
+
+        public init(_ string: String) {
+            self = .string(string)
+        }
+
         public func encode(to encoder: Encoder) throws {
             var container = encoder.singleValueContainer()
             switch self {
@@ -174,6 +198,14 @@ public extension TelegramAPI {
             } else {
                 throw NSError(domain: "FileOrPath", code: -1, userInfo: nil)
             }
+        }
+
+        public init(_ inputFile: InputFile) {
+            self = .inputFile(inputFile)
+        }
+
+        public init(_ string: String) {
+            self = .string(string)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -1789,6 +1821,26 @@ public extension TelegramAPI {
             }
         }
 
+        public init(_ animation: InputMediaAnimation) {
+            self = .animation(animation)
+        }
+
+        public init(_ document: InputMediaDocument) {
+            self = .document(document)
+        }
+
+        public init(_ audio: InputMediaAudio) {
+            self = .audio(audio)
+        }
+
+        public init(_ photo: InputMediaPhoto) {
+            self = .photo(photo)
+        }
+
+        public init(_ video: InputMediaVideo) {
+            self = .video(video)
+        }
+
         public func encode(to encoder: Encoder) throws {
             var container = encoder.singleValueContainer()
             switch self {
@@ -2354,6 +2406,86 @@ public extension TelegramAPI {
             } else {
                 throw NSError(domain: "InlineQueryResult", code: -1, userInfo: nil)
             }
+        }
+
+        public init(_ cachedAudio: InlineQueryResultCachedAudio) {
+            self = .cachedAudio(cachedAudio)
+        }
+
+        public init(_ cachedDocument: InlineQueryResultCachedDocument) {
+            self = .cachedDocument(cachedDocument)
+        }
+
+        public init(_ cachedGif: InlineQueryResultCachedGif) {
+            self = .cachedGif(cachedGif)
+        }
+
+        public init(_ cachedMpeg4Gif: InlineQueryResultCachedMpeg4Gif) {
+            self = .cachedMpeg4Gif(cachedMpeg4Gif)
+        }
+
+        public init(_ cachedPhoto: InlineQueryResultCachedPhoto) {
+            self = .cachedPhoto(cachedPhoto)
+        }
+
+        public init(_ cachedSticker: InlineQueryResultCachedSticker) {
+            self = .cachedSticker(cachedSticker)
+        }
+
+        public init(_ cachedVideo: InlineQueryResultCachedVideo) {
+            self = .cachedVideo(cachedVideo)
+        }
+
+        public init(_ cachedVoice: InlineQueryResultCachedVoice) {
+            self = .cachedVoice(cachedVoice)
+        }
+
+        public init(_ article: InlineQueryResultArticle) {
+            self = .article(article)
+        }
+
+        public init(_ audio: InlineQueryResultAudio) {
+            self = .audio(audio)
+        }
+
+        public init(_ contact: InlineQueryResultContact) {
+            self = .contact(contact)
+        }
+
+        public init(_ game: InlineQueryResultGame) {
+            self = .game(game)
+        }
+
+        public init(_ document: InlineQueryResultDocument) {
+            self = .document(document)
+        }
+
+        public init(_ gif: InlineQueryResultGif) {
+            self = .gif(gif)
+        }
+
+        public init(_ location: InlineQueryResultLocation) {
+            self = .location(location)
+        }
+
+        public init(_ mpeg4Gif: InlineQueryResultMpeg4Gif) {
+            self = .mpeg4Gif(mpeg4Gif)
+        }
+
+        public init(_ photo: InlineQueryResultPhoto) {
+            self = .photo(photo)
+        }
+
+        public init(_ venue: InlineQueryResultVenue) {
+            self = .venue(venue)
+        }
+
+        public init(_ video: InlineQueryResultVideo) {
+            self = .video(video)
+        }
+
+        public init(_ voice: InlineQueryResultVoice) {
+            self = .voice(voice)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -3916,6 +4048,22 @@ public extension TelegramAPI {
             }
         }
 
+        public init(_ text: InputTextMessageContent) {
+            self = .text(text)
+        }
+
+        public init(_ location: InputLocationMessageContent) {
+            self = .location(location)
+        }
+
+        public init(_ venue: InputVenueMessageContent) {
+            self = .venue(venue)
+        }
+
+        public init(_ contact: InputContactMessageContent) {
+            self = .contact(contact)
+        }
+
         public func encode(to encoder: Encoder) throws {
             var container = encoder.singleValueContainer()
             switch self {
@@ -4701,6 +4849,42 @@ public extension TelegramAPI {
             } else {
                 throw NSError(domain: "PassportElementError", code: -1, userInfo: nil)
             }
+        }
+
+        public init(_ dataField: PassportElementErrorDataField) {
+            self = .dataField(dataField)
+        }
+
+        public init(_ frontSide: PassportElementErrorFrontSide) {
+            self = .frontSide(frontSide)
+        }
+
+        public init(_ reverseSide: PassportElementErrorReverseSide) {
+            self = .reverseSide(reverseSide)
+        }
+
+        public init(_ selfie: PassportElementErrorSelfie) {
+            self = .selfie(selfie)
+        }
+
+        public init(_ file: PassportElementErrorFile) {
+            self = .file(file)
+        }
+
+        public init(_ files: PassportElementErrorFiles) {
+            self = .files(files)
+        }
+
+        public init(_ translationFile: PassportElementErrorTranslationFile) {
+            self = .translationFile(translationFile)
+        }
+
+        public init(_ translationFiles: PassportElementErrorTranslationFiles) {
+            self = .translationFiles(translationFiles)
+        }
+
+        public init(_ unspecified: PassportElementErrorUnspecified) {
+            self = .unspecified(unspecified)
         }
 
         public func encode(to encoder: Encoder) throws {

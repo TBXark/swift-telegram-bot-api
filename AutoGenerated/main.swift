@@ -39,7 +39,7 @@ class ParsingController {
     private let uppercaseLetters: Set<Character> = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     private var typeMap = ["Integer": "Int", "Float number": "Float", "Boolean": "Bool", "True": "Bool",
                            "InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply": "ReplyMarkup",
-                           "Int or String": "ChatId", "InputFile or String": "FileOrPath"]
+                           "Integer or String": "ChatId", "InputFile or String": "FileOrPath"]
     private var superClass = [String: String]()
 
     func parse(url: URL) throws -> (type: String, method: String) {
@@ -97,7 +97,7 @@ extension ParsingController {
         return className
     }
 
-    private func unionBuilder(name: String, cases: [String]) -> String {
+    private func unionBuilder(name: String, cases: [String], fastInitialization: Bool = true) -> String {
         var code = "public enum \(name): Codable {\n\n"
         var prefix = ""
         var suffix = ""
@@ -132,6 +132,7 @@ extension ParsingController {
                 break
             }
         }
+        var fastInit = ""
         var decoder = "\n\tpublic init(from decoder: Decoder) throws {\n\t\tlet container = try decoder.singleValueContainer()"
         var encode = "\n\tpublic func encode(to encoder: Encoder) throws {\n\t\tvar container = encoder.singleValueContainer()\n\t\tswitch self {"
 
@@ -143,11 +144,17 @@ extension ParsingController {
             decoder += "\t\t\tself = .\(name)(\(name))"
             encode  += "\n\t\tcase .\(name)(let \(name)):\n"
             encode  += "\t\t\ttry container.encode(\(name))"
+            if fastInitialization {
+                fastInit += "\n\tpublic init(_ \(name): \(caseValue)) {\n\t\tself = .\(name)(\(name))\n\t}\n"
+            }
         }
 
         decoder += "\n\t\t} else {\n\t\t\tthrow NSError(domain: \"\(name)\", code: -1, userInfo: nil)\n\t\t}\n\t}\n"
         encode += "\n\t\t\t}\n\t\t}\n}"
         code += decoder
+        if fastInitialization {
+            code += fastInit
+        }
         code += encode
         code += "\n"
         return code
