@@ -45,7 +45,7 @@ class ParsingController {
     func parse(url: URL) throws -> (type: String, method: String) {
 
         let text = try String(contentsOf: url)
-        let tables = parseDocument(text)
+        let tables =  parseDocument(text)
         var telegramModel = ""
         var telegramRequest = ""
         let customEnum = [("ReplyMarkup", ["InlineKeyboardMarkup", "ReplyKeyboardMarkup", "ReplyKeyboardRemove", "ForceReply"]),
@@ -150,13 +150,13 @@ extension ParsingController {
         }
 
         decoder += "\n\t\t} else {\n\t\t\tthrow NSError(domain: \"\(name)\", code: -1, userInfo: nil)\n\t\t}\n\t}\n"
-        encode += "\n\t\t\t}\n\t\t}\n}"
+        encode += "\n\t\t}\n\t}\n}"
         code += decoder
         if fastInitialization {
             code += fastInit
         }
         code += encode
-        code += "\n"
+//        code += "\n"s
         return code
     }
 

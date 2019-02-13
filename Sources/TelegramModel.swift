@@ -143,8 +143,8 @@ public extension TelegramAPI {
                 try container.encode(replyKeyboardRemove)
             case .forceReply(let forceReply):
                 try container.encode(forceReply)
-                }
             }
+        }
     }
 
     /// ChatId: Int or String
@@ -179,8 +179,8 @@ public extension TelegramAPI {
                 try container.encode(int)
             case .string(let string):
                 try container.encode(string)
-                }
             }
+        }
     }
 
     /// FileOrPath: InputFile or String
@@ -215,8 +215,8 @@ public extension TelegramAPI {
                 try container.encode(inputFile)
             case .string(let string):
                 try container.encode(string)
-                }
             }
+        }
     }
 
     /// This object represents an incoming update.At most one of the optional parameters can be present in any given update.
@@ -577,7 +577,7 @@ public extension TelegramAPI {
         /// Optional. Message is a [video note](https://telegram.org/blog/video-messages-and-telescope), information about the video message
         public var videoNote: VideoNote?
 
-        /// Optional. Caption for the audio, document, photo, video or voice, 0-1024 characters
+        /// Optional. Caption for the animation, audio, document, photo, video or voice, 0-1024 characters
         public var caption: String?
 
         /// Optional. Message is a shared contact, information about the contact
@@ -661,7 +661,7 @@ public extension TelegramAPI {
         /// - parameter video:  Optional. Message is a video, information about the video
         /// - parameter voice:  Optional. Message is a voice message, information about the file
         /// - parameter videoNote:  Optional. Message is a [video note](https://telegram.org/blog/video-messages-and-telescope), information about the video message
-        /// - parameter caption:  Optional. Caption for the audio, document, photo, video or voice, 0-1024 characters
+        /// - parameter caption:  Optional. Caption for the animation, audio, document, photo, video or voice, 0-1024 characters
         /// - parameter contact:  Optional. Message is a shared contact, information about the contact
         /// - parameter location:  Optional. Message is a shared location, information about the location
         /// - parameter venue:  Optional. Message is a venue, information about the venue
@@ -1854,10 +1854,9 @@ public extension TelegramAPI {
                 try container.encode(photo)
             case .video(let video):
                 try container.encode(video)
-                }
             }
+        }
     }
-
     /// Represents a photo to be sent.
     public class InputMediaPhoto: Codable {
 
@@ -1907,7 +1906,7 @@ public extension TelegramAPI {
         /// File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. More info on Sending Files »
         public var media: String
 
-        /// Optional. Thumbnail of the file sent. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
+        /// Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
         public var thumb: FileOrPath?
 
         /// Optional. Caption of the video to be sent, 0-1024 characters
@@ -1932,7 +1931,7 @@ public extension TelegramAPI {
         ///
         /// - parameter type:  Type of the result, must be video
         /// - parameter media:  File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. More info on Sending Files »
-        /// - parameter thumb:  Optional. Thumbnail of the file sent. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
+        /// - parameter thumb:  Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
         /// - parameter caption:  Optional. Caption of the video to be sent, 0-1024 characters
         /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
         /// - parameter width:  Optional. Video width
@@ -1977,7 +1976,7 @@ public extension TelegramAPI {
         /// File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. More info on Sending Files »
         public var media: String
 
-        /// Optional. Thumbnail of the file sent. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
+        /// Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
         public var thumb: FileOrPath?
 
         /// Optional. Caption of the animation to be sent, 0-1024 characters
@@ -1999,7 +1998,7 @@ public extension TelegramAPI {
         ///
         /// - parameter type:  Type of the result, must be animation
         /// - parameter media:  File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. More info on Sending Files »
-        /// - parameter thumb:  Optional. Thumbnail of the file sent. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
+        /// - parameter thumb:  Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
         /// - parameter caption:  Optional. Caption of the animation to be sent, 0-1024 characters
         /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
         /// - parameter width:  Optional. Animation width
@@ -2041,7 +2040,7 @@ public extension TelegramAPI {
         /// File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. More info on Sending Files »
         public var media: String
 
-        /// Optional. Thumbnail of the file sent. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
+        /// Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
         public var thumb: FileOrPath?
 
         /// Optional. Caption of the audio to be sent, 0-1024 characters
@@ -2063,7 +2062,7 @@ public extension TelegramAPI {
         ///
         /// - parameter type:  Type of the result, must be audio
         /// - parameter media:  File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. More info on Sending Files »
-        /// - parameter thumb:  Optional. Thumbnail of the file sent. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
+        /// - parameter thumb:  Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
         /// - parameter caption:  Optional. Caption of the audio to be sent, 0-1024 characters
         /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
         /// - parameter duration:  Optional. Duration of the audio in seconds
@@ -2105,7 +2104,7 @@ public extension TelegramAPI {
         /// File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. More info on Sending Files »
         public var media: String
 
-        /// Optional. Thumbnail of the file sent. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
+        /// Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
         public var thumb: FileOrPath?
 
         /// Optional. Caption of the document to be sent, 0-1024 characters
@@ -2118,7 +2117,7 @@ public extension TelegramAPI {
         ///
         /// - parameter type:  Type of the result, must be document
         /// - parameter media:  File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. More info on Sending Files »
-        /// - parameter thumb:  Optional. Thumbnail of the file sent. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
+        /// - parameter thumb:  Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
         /// - parameter caption:  Optional. Caption of the document to be sent, 0-1024 characters
         /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
         ///
@@ -2531,10 +2530,9 @@ public extension TelegramAPI {
                 try container.encode(video)
             case .voice(let voice):
                 try container.encode(voice)
-                }
             }
+        }
     }
-
     /// Represents a link to an article or web page.
     public class InlineQueryResultArticle: Codable {
 
@@ -4075,10 +4073,9 @@ public extension TelegramAPI {
                 try container.encode(venue)
             case .contact(let contact):
                 try container.encode(contact)
-                }
             }
+        }
     }
-
     /// Represents the content of a text message to be sent as the result of an inline query. 
     public class InputTextMessageContent: Codable {
 
@@ -4908,10 +4905,9 @@ public extension TelegramAPI {
                 try container.encode(translationFiles)
             case .unspecified(let unspecified):
                 try container.encode(unspecified)
-                }
             }
+        }
     }
-
     /// Represents an issue in one of the data fields that was provided by the user. The error is considered resolved when the field&#39;s value changes.
     public class PassportElementErrorDataField: Codable {
 
