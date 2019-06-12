@@ -344,7 +344,7 @@ extension ParsingController {
         return ("""
         import Foundation
 
-        public extension TelegramAPI {
+        extension TelegramAPI {
 
             /// Telegram Request wrapper
             public struct Request {

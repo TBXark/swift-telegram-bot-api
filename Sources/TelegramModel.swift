@@ -1,6 +1,6 @@
 import Foundation
 
-public extension TelegramAPI {
+extension TelegramAPI {
 
     /// Telegram Request wrapper
     public struct Request {
@@ -92,7 +92,7 @@ public extension TelegramAPI {
             }
         }
     }
-
+    
     /// ReplyMarkup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply
     public enum ReplyMarkup: Codable {
 
@@ -252,6 +252,9 @@ public extension TelegramAPI {
         /// Optional. New incoming pre-checkout query. Contains full information about checkout
         public var preCheckoutQuery: PreCheckoutQuery?
 
+        /// Optional. New poll state. Bots receive only updates about stopped polls and polls, which are sent by the bot
+        public var poll: Poll?
+
         /// Update initialization
         ///
         /// - parameter updateId:  The update‘s unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you’re using Webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially.
@@ -264,10 +267,11 @@ public extension TelegramAPI {
         /// - parameter callbackQuery:  Optional. New incoming callback query
         /// - parameter shippingQuery:  Optional. New incoming shipping query. Only for invoices with flexible price
         /// - parameter preCheckoutQuery:  Optional. New incoming pre-checkout query. Contains full information about checkout
+        /// - parameter poll:  Optional. New poll state. Bots receive only updates about stopped polls and polls, which are sent by the bot
         ///
         /// - returns: The new `Update` instance.
         ///
-        public init(updateId: Int, message: Message? = nil, editedMessage: Message? = nil, channelPost: Message? = nil, editedChannelPost: Message? = nil, inlineQuery: InlineQuery? = nil, chosenInlineResult: ChosenInlineResult? = nil, callbackQuery: CallbackQuery? = nil, shippingQuery: ShippingQuery? = nil, preCheckoutQuery: PreCheckoutQuery? = nil) {
+        public init(updateId: Int, message: Message? = nil, editedMessage: Message? = nil, channelPost: Message? = nil, editedChannelPost: Message? = nil, inlineQuery: InlineQuery? = nil, chosenInlineResult: ChosenInlineResult? = nil, callbackQuery: CallbackQuery? = nil, shippingQuery: ShippingQuery? = nil, preCheckoutQuery: PreCheckoutQuery? = nil, poll: Poll? = nil) {
             self.updateId = updateId
             self.message = message
             self.editedMessage = editedMessage
@@ -278,6 +282,7 @@ public extension TelegramAPI {
             self.callbackQuery = callbackQuery
             self.shippingQuery = shippingQuery
             self.preCheckoutQuery = preCheckoutQuery
+            self.poll = poll
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -291,6 +296,7 @@ public extension TelegramAPI {
             case callbackQuery = "callback_query"
             case shippingQuery = "shipping_query"
             case preCheckoutQuery = "pre_checkout_query"
+            case poll = "poll"
         }
 
     }
@@ -438,7 +444,7 @@ public extension TelegramAPI {
         /// Optional. Chat invite link, for supergroups and channel chats. Each administrator in a chat generates their own invite links, so the bot must first generate the link using exportChatInviteLink. Returned only in getChat.
         public var inviteLink: String?
 
-        /// Optional. Pinned message, for supergroups and channel chats. Returned only in getChat.
+        /// Optional. Pinned message, for groups, supergroups and channels. Returned only in getChat.
         public var pinnedMessage: Message?
 
         /// Optional. For supergroups, name of group sticker set. Returned only in getChat.
@@ -459,7 +465,7 @@ public extension TelegramAPI {
         /// - parameter photo:  Optional. Chat photo. Returned only in getChat.
         /// - parameter description:  Optional. Description, for supergroups and channel chats. Returned only in getChat.
         /// - parameter inviteLink:  Optional. Chat invite link, for supergroups and channel chats. Each administrator in a chat generates their own invite links, so the bot must first generate the link using exportChatInviteLink. Returned only in getChat.
-        /// - parameter pinnedMessage:  Optional. Pinned message, for supergroups and channel chats. Returned only in getChat.
+        /// - parameter pinnedMessage:  Optional. Pinned message, for groups, supergroups and channels. Returned only in getChat.
         /// - parameter stickerSetName:  Optional. For supergroups, name of group sticker set. Returned only in getChat.
         /// - parameter canSetStickerSet:  Optional. True, if the bot can change the group sticker set. Returned only in getChat.
         ///
@@ -526,6 +532,9 @@ public extension TelegramAPI {
         /// Optional. For messages forwarded from channels, signature of the post author if present
         public var forwardSignature: String?
 
+        /// Optional. Sender&#39;s name for messages forwarded from users who disallow adding a link to their account in forwarded messages
+        public var forwardSenderName: String?
+
         /// Optional. For forwarded messages, date the original message was sent in Unix time
         public var forwardDate: Int?
 
@@ -589,6 +598,9 @@ public extension TelegramAPI {
         /// Optional. Message is a venue, information about the venue
         public var venue: Venue?
 
+        /// Optional. Message is a native poll, information about the poll
+        public var poll: Poll?
+
         /// Optional. New members that were added to the group or supergroup and information about them (the bot itself may be one of these members)
         public var newChatMembers: [User]?
 
@@ -634,6 +646,9 @@ public extension TelegramAPI {
         /// Optional. Telegram Passport data
         public var passportData: PassportData?
 
+        /// Optional. Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons.
+        public var replyMarkup: InlineKeyboardMarkup?
+
         /// Message initialization
         ///
         /// - parameter messageId:  Unique message identifier inside this chat
@@ -644,6 +659,7 @@ public extension TelegramAPI {
         /// - parameter forwardFromChat:  Optional. For messages forwarded from channels, information about the original channel
         /// - parameter forwardFromMessageId:  Optional. For messages forwarded from channels, identifier of the original message in the channel
         /// - parameter forwardSignature:  Optional. For messages forwarded from channels, signature of the post author if present
+        /// - parameter forwardSenderName:  Optional. Sender&#39;s name for messages forwarded from users who disallow adding a link to their account in forwarded messages
         /// - parameter forwardDate:  Optional. For forwarded messages, date the original message was sent in Unix time
         /// - parameter replyToMessage:  Optional. For replies, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
         /// - parameter editDate:  Optional. Date the message was last edited in Unix time
@@ -665,6 +681,7 @@ public extension TelegramAPI {
         /// - parameter contact:  Optional. Message is a shared contact, information about the contact
         /// - parameter location:  Optional. Message is a shared location, information about the location
         /// - parameter venue:  Optional. Message is a venue, information about the venue
+        /// - parameter poll:  Optional. Message is a native poll, information about the poll
         /// - parameter newChatMembers:  Optional. New members that were added to the group or supergroup and information about them (the bot itself may be one of these members)
         /// - parameter leftChatMember:  Optional. A member was removed from the group, information about them (this member may be the bot itself)
         /// - parameter newChatTitle:  Optional. A chat title was changed to this value
@@ -680,10 +697,11 @@ public extension TelegramAPI {
         /// - parameter successfulPayment:  Optional. Message is a service message about a successful payment, information about the payment. More about payments »
         /// - parameter connectedWebsite:  Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
         /// - parameter passportData:  Optional. Telegram Passport data
+        /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons.
         ///
         /// - returns: The new `Message` instance.
         ///
-        public init(messageId: Int, from: User? = nil, date: Int, chat: Chat, forwardFrom: User? = nil, forwardFromChat: Chat? = nil, forwardFromMessageId: Int? = nil, forwardSignature: String? = nil, forwardDate: Int? = nil, replyToMessage: Message? = nil, editDate: Int? = nil, mediaGroupId: String? = nil, authorSignature: String? = nil, text: String? = nil, entities: [MessageEntity]? = nil, captionEntities: [MessageEntity]? = nil, audio: Audio? = nil, document: Document? = nil, animation: Animation? = nil, game: Game? = nil, photo: [PhotoSize]? = nil, sticker: Sticker? = nil, video: Video? = nil, voice: Voice? = nil, videoNote: VideoNote? = nil, caption: String? = nil, contact: Contact? = nil, location: Location? = nil, venue: Venue? = nil, newChatMembers: [User]? = nil, leftChatMember: User? = nil, newChatTitle: String? = nil, newChatPhoto: [PhotoSize]? = nil, deleteChatPhoto: Bool? = nil, groupChatCreated: Bool? = nil, supergroupChatCreated: Bool? = nil, channelChatCreated: Bool? = nil, migrateToChatId: Int? = nil, migrateFromChatId: Int? = nil, pinnedMessage: Message? = nil, invoice: Invoice? = nil, successfulPayment: SuccessfulPayment? = nil, connectedWebsite: String? = nil, passportData: PassportData? = nil) {
+        public init(messageId: Int, from: User? = nil, date: Int, chat: Chat, forwardFrom: User? = nil, forwardFromChat: Chat? = nil, forwardFromMessageId: Int? = nil, forwardSignature: String? = nil, forwardSenderName: String? = nil, forwardDate: Int? = nil, replyToMessage: Message? = nil, editDate: Int? = nil, mediaGroupId: String? = nil, authorSignature: String? = nil, text: String? = nil, entities: [MessageEntity]? = nil, captionEntities: [MessageEntity]? = nil, audio: Audio? = nil, document: Document? = nil, animation: Animation? = nil, game: Game? = nil, photo: [PhotoSize]? = nil, sticker: Sticker? = nil, video: Video? = nil, voice: Voice? = nil, videoNote: VideoNote? = nil, caption: String? = nil, contact: Contact? = nil, location: Location? = nil, venue: Venue? = nil, poll: Poll? = nil, newChatMembers: [User]? = nil, leftChatMember: User? = nil, newChatTitle: String? = nil, newChatPhoto: [PhotoSize]? = nil, deleteChatPhoto: Bool? = nil, groupChatCreated: Bool? = nil, supergroupChatCreated: Bool? = nil, channelChatCreated: Bool? = nil, migrateToChatId: Int? = nil, migrateFromChatId: Int? = nil, pinnedMessage: Message? = nil, invoice: Invoice? = nil, successfulPayment: SuccessfulPayment? = nil, connectedWebsite: String? = nil, passportData: PassportData? = nil, replyMarkup: InlineKeyboardMarkup? = nil) {
             self.messageId = messageId
             self.from = from
             self.date = date
@@ -692,6 +710,7 @@ public extension TelegramAPI {
             self.forwardFromChat = forwardFromChat
             self.forwardFromMessageId = forwardFromMessageId
             self.forwardSignature = forwardSignature
+            self.forwardSenderName = forwardSenderName
             self.forwardDate = forwardDate
             self.replyToMessage = replyToMessage
             self.editDate = editDate
@@ -713,6 +732,7 @@ public extension TelegramAPI {
             self.contact = contact
             self.location = location
             self.venue = venue
+            self.poll = poll
             self.newChatMembers = newChatMembers
             self.leftChatMember = leftChatMember
             self.newChatTitle = newChatTitle
@@ -728,6 +748,7 @@ public extension TelegramAPI {
             self.successfulPayment = successfulPayment
             self.connectedWebsite = connectedWebsite
             self.passportData = passportData
+            self.replyMarkup = replyMarkup
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -739,6 +760,7 @@ public extension TelegramAPI {
             case forwardFromChat = "forward_from_chat"
             case forwardFromMessageId = "forward_from_message_id"
             case forwardSignature = "forward_signature"
+            case forwardSenderName = "forward_sender_name"
             case forwardDate = "forward_date"
             case replyToMessage = "reply_to_message"
             case editDate = "edit_date"
@@ -760,6 +782,7 @@ public extension TelegramAPI {
             case contact = "contact"
             case location = "location"
             case venue = "venue"
+            case poll = "poll"
             case newChatMembers = "new_chat_members"
             case leftChatMember = "left_chat_member"
             case newChatTitle = "new_chat_title"
@@ -775,11 +798,12 @@ public extension TelegramAPI {
             case successfulPayment = "successful_payment"
             case connectedWebsite = "connected_website"
             case passportData = "passport_data"
+            case replyMarkup = "reply_markup"
         }
 
     }
 
-    /// This object represents one special entity in a text message. For example, hashtags, usernames, URLs, etc. 
+    /// This object represents one special entity in a text message. For example, hashtags, usernames, URLs, etc.
     public class MessageEntity: Codable {
 
         /// Type of the entity. Can be mention (@username), hashtag, cashtag, bot_command, url, email, phone_number, bold (bold text), italic (italic text), code (monowidth string), pre (monowidth block), text_link (for clickable text URLs), text_mention (for users [without usernames](https://telegram.org/blog/edit#new-mentions))
@@ -1297,6 +1321,74 @@ public extension TelegramAPI {
 
     }
 
+    /// This object contains information about one answer option in a poll.
+    public class PollOption: Codable {
+
+        /// Option text, 1-100 characters
+        public var text: String
+
+        /// Number of users that voted for this option
+        public var voterCount: Int
+
+        /// PollOption initialization
+        ///
+        /// - parameter text:  Option text, 1-100 characters
+        /// - parameter voterCount:  Number of users that voted for this option
+        ///
+        /// - returns: The new `PollOption` instance.
+        ///
+        public init(text: String, voterCount: Int) {
+            self.text = text
+            self.voterCount = voterCount
+        }
+
+        private enum CodingKeys: String, CodingKey {
+            case text = "text"
+            case voterCount = "voter_count"
+        }
+
+    }
+
+    /// This object contains information about a poll.
+    public class Poll: Codable {
+
+        /// Unique poll identifier
+        public var id: String
+
+        /// Poll question, 1-255 characters
+        public var question: String
+
+        /// List of poll options
+        public var options: [PollOption]
+
+        /// True, if the poll is closed
+        public var isClosed: Bool
+
+        /// Poll initialization
+        ///
+        /// - parameter id:  Unique poll identifier
+        /// - parameter question:  Poll question, 1-255 characters
+        /// - parameter options:  List of poll options
+        /// - parameter isClosed:  True, if the poll is closed
+        ///
+        /// - returns: The new `Poll` instance.
+        ///
+        public init(id: String, question: String, options: [PollOption], isClosed: Bool) {
+            self.id = id
+            self.question = question
+            self.options = options
+            self.isClosed = isClosed
+        }
+
+        private enum CodingKeys: String, CodingKey {
+            case id = "id"
+            case question = "question"
+            case options = "options"
+            case isClosed = "is_closed"
+        }
+
+    }
+
     /// This object represent a user&#39;s profile pictures.
     public class UserProfilePhotos: Codable {
 
@@ -1492,6 +1584,9 @@ public extension TelegramAPI {
         /// Optional. HTTP or tg:// url to be opened when button is pressed
         public var url: String?
 
+        /// Optional. An HTTP URL used to automatically authorize the user. Can be used as a replacement for the [Telegram Login Widget](https://core.telegram.org/widgets/login).
+        public var loginUrl: LoginUrl?
+
         /// Optional. Data to be sent in a callback query to the bot when button is pressed, 1-64 bytes
         public var callbackData: String?
 
@@ -1511,6 +1606,7 @@ public extension TelegramAPI {
         ///
         /// - parameter text:  Label text on the button
         /// - parameter url:  Optional. HTTP or tg:// url to be opened when button is pressed
+        /// - parameter loginUrl:  Optional. An HTTP URL used to automatically authorize the user. Can be used as a replacement for the [Telegram Login Widget](https://core.telegram.org/widgets/login).
         /// - parameter callbackData:  Optional. Data to be sent in a callback query to the bot when button is pressed, 1-64 bytes
         /// - parameter switchInlineQuery:  Optional. If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot‘s username and the specified inline query in the input field. Can be empty, in which case just the bot’s username will be inserted.Note: This offers an easy way for users to start using your bot in inline mode when they are currently in a private chat with it. Especially useful when combined with switch_pm… actions – in this case the user will be automatically returned to the chat they switched from, skipping the chat selection screen.
         /// - parameter switchInlineQueryCurrentChat:  Optional. If set, pressing the button will insert the bot‘s username and the specified inline query in the current chat&#39;s input field. Can be empty, in which case only the bot’s username will be inserted.This offers a quick way for the user to open your bot in inline mode in the same chat – good for selecting something from multiple options.
@@ -1519,9 +1615,10 @@ public extension TelegramAPI {
         ///
         /// - returns: The new `InlineKeyboardButton` instance.
         ///
-        public init(text: String, url: String? = nil, callbackData: String? = nil, switchInlineQuery: String? = nil, switchInlineQueryCurrentChat: String? = nil, callbackGame: CallbackGame? = nil, pay: Bool? = nil) {
+        public init(text: String, url: String? = nil, loginUrl: LoginUrl? = nil, callbackData: String? = nil, switchInlineQuery: String? = nil, switchInlineQueryCurrentChat: String? = nil, callbackGame: CallbackGame? = nil, pay: Bool? = nil) {
             self.text = text
             self.url = url
+            self.loginUrl = loginUrl
             self.callbackData = callbackData
             self.switchInlineQuery = switchInlineQuery
             self.switchInlineQueryCurrentChat = switchInlineQueryCurrentChat
@@ -1532,11 +1629,52 @@ public extension TelegramAPI {
         private enum CodingKeys: String, CodingKey {
             case text = "text"
             case url = "url"
+            case loginUrl = "login_url"
             case callbackData = "callback_data"
             case switchInlineQuery = "switch_inline_query"
             case switchInlineQueryCurrentChat = "switch_inline_query_current_chat"
             case callbackGame = "callback_game"
             case pay = "pay"
+        }
+
+    }
+
+    /// Sample bot: [@discussbot](https://t.me/discussbot)
+    public class LoginUrl: Codable {
+
+        /// An HTTP URL to be opened with user authorization data added to the query string when the button is pressed. If the user refuses to provide authorization data, the original URL without information about the user will be opened. The data added is the same as described in [Receiving authorization data](https://core.telegram.org/widgets/login#receiving-authorization-data).NOTE: You must always check the hash of the received data to verify the authentication and the integrity of the data as described in [Checking authorization](https://core.telegram.org/widgets/login#checking-authorization).
+        public var url: String
+
+        /// Optional. New text of the button in forwarded messages.
+        public var forwardText: String?
+
+        /// Optional. Username of a bot, which will be used for user authorization. See [Setting up a bot](https://core.telegram.org/widgets/login#setting-up-a-bot) for more details. If not specified, the current bot&#39;s username will be assumed. The url&#39;s domain must be the same as the domain linked with the bot. See [Linking your domain to the bot](https://core.telegram.org/widgets/login#linking-your-domain-to-the-bot) for more details.
+        public var botUsername: String?
+
+        /// Optional. Pass True to request the permission for your bot to send messages to the user.
+        public var requestWriteAccess: Bool?
+
+        /// LoginUrl initialization
+        ///
+        /// - parameter url:  An HTTP URL to be opened with user authorization data added to the query string when the button is pressed. If the user refuses to provide authorization data, the original URL without information about the user will be opened. The data added is the same as described in [Receiving authorization data](https://core.telegram.org/widgets/login#receiving-authorization-data).NOTE: You must always check the hash of the received data to verify the authentication and the integrity of the data as described in [Checking authorization](https://core.telegram.org/widgets/login#checking-authorization).
+        /// - parameter forwardText:  Optional. New text of the button in forwarded messages.
+        /// - parameter botUsername:  Optional. Username of a bot, which will be used for user authorization. See [Setting up a bot](https://core.telegram.org/widgets/login#setting-up-a-bot) for more details. If not specified, the current bot&#39;s username will be assumed. The url&#39;s domain must be the same as the domain linked with the bot. See [Linking your domain to the bot](https://core.telegram.org/widgets/login#linking-your-domain-to-the-bot) for more details.
+        /// - parameter requestWriteAccess:  Optional. Pass True to request the permission for your bot to send messages to the user.
+        ///
+        /// - returns: The new `LoginUrl` instance.
+        ///
+        public init(url: String, forwardText: String? = nil, botUsername: String? = nil, requestWriteAccess: Bool? = nil) {
+            self.url = url
+            self.forwardText = forwardText
+            self.botUsername = botUsername
+            self.requestWriteAccess = requestWriteAccess
+        }
+
+        private enum CodingKeys: String, CodingKey {
+            case url = "url"
+            case forwardText = "forward_text"
+            case botUsername = "bot_username"
+            case requestWriteAccess = "request_write_access"
         }
 
     }
@@ -1688,11 +1826,14 @@ public extension TelegramAPI {
         /// Optional. Administrators only. True, if the administrator can restrict, ban or unban chat members
         public var canRestrictMembers: Bool?
 
-        /// Optional. Administrators only. True, if the administrator can pin messages, supergroups only
+        /// Optional. Administrators only. True, if the administrator can pin messages, groups and supergroups only
         public var canPinMessages: Bool?
 
         /// Optional. Administrators only. True, if the administrator can add new administrators with a subset of his own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by the user)
         public var canPromoteMembers: Bool?
+
+        /// Optional. Restricted only. True, if the user is a member of the chat at the moment of the request
+        public var isMember: Bool?
 
         /// Optional. Restricted only. True, if the user can send text messages, contacts, locations and venues
         public var canSendMessages: Bool?
@@ -1718,8 +1859,9 @@ public extension TelegramAPI {
         /// - parameter canDeleteMessages:  Optional. Administrators only. True, if the administrator can delete messages of other users
         /// - parameter canInviteUsers:  Optional. Administrators only. True, if the administrator can invite new users to the chat
         /// - parameter canRestrictMembers:  Optional. Administrators only. True, if the administrator can restrict, ban or unban chat members
-        /// - parameter canPinMessages:  Optional. Administrators only. True, if the administrator can pin messages, supergroups only
+        /// - parameter canPinMessages:  Optional. Administrators only. True, if the administrator can pin messages, groups and supergroups only
         /// - parameter canPromoteMembers:  Optional. Administrators only. True, if the administrator can add new administrators with a subset of his own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by the user)
+        /// - parameter isMember:  Optional. Restricted only. True, if the user is a member of the chat at the moment of the request
         /// - parameter canSendMessages:  Optional. Restricted only. True, if the user can send text messages, contacts, locations and venues
         /// - parameter canSendMediaMessages:  Optional. Restricted only. True, if the user can send audios, documents, photos, videos, video notes and voice notes, implies can_send_messages
         /// - parameter canSendOtherMessages:  Optional. Restricted only. True, if the user can send animations, games, stickers and use inline bots, implies can_send_media_messages
@@ -1727,7 +1869,7 @@ public extension TelegramAPI {
         ///
         /// - returns: The new `ChatMember` instance.
         ///
-        public init(user: User, status: String, untilDate: Int? = nil, canBeEdited: Bool? = nil, canChangeInfo: Bool? = nil, canPostMessages: Bool? = nil, canEditMessages: Bool? = nil, canDeleteMessages: Bool? = nil, canInviteUsers: Bool? = nil, canRestrictMembers: Bool? = nil, canPinMessages: Bool? = nil, canPromoteMembers: Bool? = nil, canSendMessages: Bool? = nil, canSendMediaMessages: Bool? = nil, canSendOtherMessages: Bool? = nil, canAddWebPagePreviews: Bool? = nil) {
+        public init(user: User, status: String, untilDate: Int? = nil, canBeEdited: Bool? = nil, canChangeInfo: Bool? = nil, canPostMessages: Bool? = nil, canEditMessages: Bool? = nil, canDeleteMessages: Bool? = nil, canInviteUsers: Bool? = nil, canRestrictMembers: Bool? = nil, canPinMessages: Bool? = nil, canPromoteMembers: Bool? = nil, isMember: Bool? = nil, canSendMessages: Bool? = nil, canSendMediaMessages: Bool? = nil, canSendOtherMessages: Bool? = nil, canAddWebPagePreviews: Bool? = nil) {
             self.user = user
             self.status = status
             self.untilDate = untilDate
@@ -1740,6 +1882,7 @@ public extension TelegramAPI {
             self.canRestrictMembers = canRestrictMembers
             self.canPinMessages = canPinMessages
             self.canPromoteMembers = canPromoteMembers
+            self.isMember = isMember
             self.canSendMessages = canSendMessages
             self.canSendMediaMessages = canSendMediaMessages
             self.canSendOtherMessages = canSendOtherMessages
@@ -1759,6 +1902,7 @@ public extension TelegramAPI {
             case canRestrictMembers = "can_restrict_members"
             case canPinMessages = "can_pin_messages"
             case canPromoteMembers = "can_promote_members"
+            case isMember = "is_member"
             case canSendMessages = "can_send_messages"
             case canSendMediaMessages = "can_send_media_messages"
             case canSendOtherMessages = "can_send_other_messages"
@@ -1906,7 +2050,7 @@ public extension TelegramAPI {
         /// File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. More info on Sending Files »
         public var media: String
 
-        /// Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
+        /// Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
         public var thumb: FileOrPath?
 
         /// Optional. Caption of the video to be sent, 0-1024 characters
@@ -1931,7 +2075,7 @@ public extension TelegramAPI {
         ///
         /// - parameter type:  Type of the result, must be video
         /// - parameter media:  File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. More info on Sending Files »
-        /// - parameter thumb:  Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
+        /// - parameter thumb:  Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
         /// - parameter caption:  Optional. Caption of the video to be sent, 0-1024 characters
         /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
         /// - parameter width:  Optional. Video width
@@ -1976,7 +2120,7 @@ public extension TelegramAPI {
         /// File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. More info on Sending Files »
         public var media: String
 
-        /// Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
+        /// Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
         public var thumb: FileOrPath?
 
         /// Optional. Caption of the animation to be sent, 0-1024 characters
@@ -1998,7 +2142,7 @@ public extension TelegramAPI {
         ///
         /// - parameter type:  Type of the result, must be animation
         /// - parameter media:  File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. More info on Sending Files »
-        /// - parameter thumb:  Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
+        /// - parameter thumb:  Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
         /// - parameter caption:  Optional. Caption of the animation to be sent, 0-1024 characters
         /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
         /// - parameter width:  Optional. Animation width
@@ -2040,7 +2184,7 @@ public extension TelegramAPI {
         /// File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. More info on Sending Files »
         public var media: String
 
-        /// Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
+        /// Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
         public var thumb: FileOrPath?
 
         /// Optional. Caption of the audio to be sent, 0-1024 characters
@@ -2062,7 +2206,7 @@ public extension TelegramAPI {
         ///
         /// - parameter type:  Type of the result, must be audio
         /// - parameter media:  File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. More info on Sending Files »
-        /// - parameter thumb:  Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
+        /// - parameter thumb:  Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
         /// - parameter caption:  Optional. Caption of the audio to be sent, 0-1024 characters
         /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
         /// - parameter duration:  Optional. Duration of the audio in seconds
@@ -2104,7 +2248,7 @@ public extension TelegramAPI {
         /// File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. More info on Sending Files »
         public var media: String
 
-        /// Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
+        /// Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
         public var thumb: FileOrPath?
 
         /// Optional. Caption of the document to be sent, 0-1024 characters
@@ -2117,7 +2261,7 @@ public extension TelegramAPI {
         ///
         /// - parameter type:  Type of the result, must be document
         /// - parameter media:  File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. More info on Sending Files »
-        /// - parameter thumb:  Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
+        /// - parameter thumb:  Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
         /// - parameter caption:  Optional. Caption of the document to be sent, 0-1024 characters
         /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
         ///
@@ -4076,7 +4220,7 @@ public extension TelegramAPI {
             }
         }
     }
-    /// Represents the content of a text message to be sent as the result of an inline query. 
+    /// Represents the content of a text message to be sent as the result of an inline query.
     public class InputTextMessageContent: Codable {
 
         /// Text of the message to be sent, 1-4096 characters
@@ -4110,7 +4254,7 @@ public extension TelegramAPI {
 
     }
 
-    /// Represents the content of a location message to be sent as the result of an inline query. 
+    /// Represents the content of a location message to be sent as the result of an inline query.
     public class InputLocationMessageContent: Codable {
 
         /// Latitude of the location in degrees
@@ -4144,7 +4288,7 @@ public extension TelegramAPI {
 
     }
 
-    /// Represents the content of a venue message to be sent as the result of an inline query. 
+    /// Represents the content of a venue message to be sent as the result of an inline query.
     public class InputVenueMessageContent: Codable {
 
         /// Latitude of the venue in degrees
@@ -4196,7 +4340,7 @@ public extension TelegramAPI {
 
     }
 
-    /// Represents the content of a contact message to be sent as the result of an inline query. 
+    /// Represents the content of a contact message to be sent as the result of an inline query.
     public class InputContactMessageContent: Codable {
 
         /// Contact&#39;s phone number
@@ -4236,7 +4380,7 @@ public extension TelegramAPI {
 
     }
 
-    /// Represents a result of an inline query that was chosen by the user and sent to their chat partner. 
+    /// Represents a result of an inline query that was chosen by the user and sent to their chat partner.
     public class ChosenInlineResult: Codable {
 
         /// The unique identifier for the result that was chosen

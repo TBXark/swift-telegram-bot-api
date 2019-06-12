@@ -137,7 +137,7 @@ public struct TelegramAPI {
     /// - parameter duration:  Duration of the audio in seconds
     /// - parameter performer:  Performer
     /// - parameter title:  Track name
-    /// - parameter thumb:  Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
+    /// - parameter thumb:  Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
     /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
     /// - parameter replyToMessageId:  If the message is a reply, ID of the original message
     /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
@@ -164,7 +164,7 @@ public struct TelegramAPI {
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter document:  File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More info on Sending Files »
-    /// - parameter thumb:  Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
+    /// - parameter thumb:  Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
     /// - parameter caption:  Document caption (may also be used when resending documents by file_id), 0-1024 characters
     /// - parameter parseMode:  Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
     /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
@@ -193,7 +193,7 @@ public struct TelegramAPI {
     /// - parameter duration:  Duration of sent video in seconds
     /// - parameter width:  Video width
     /// - parameter height:  Video height
-    /// - parameter thumb:  Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
+    /// - parameter thumb:  Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
     /// - parameter caption:  Video caption (may also be used when resending videos by file_id), 0-1024 characters
     /// - parameter parseMode:  Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
     /// - parameter supportsStreaming:  Pass True, if the uploaded video is suitable for streaming
@@ -227,7 +227,7 @@ public struct TelegramAPI {
     /// - parameter duration:  Duration of sent animation in seconds
     /// - parameter width:  Animation width
     /// - parameter height:  Animation height
-    /// - parameter thumb:  Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
+    /// - parameter thumb:  Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
     /// - parameter caption:  Animation caption (may also be used when resending animation by file_id), 0-1024 characters
     /// - parameter parseMode:  Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
     /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
@@ -284,7 +284,7 @@ public struct TelegramAPI {
     /// - parameter videoNote:  Video note to send. Pass a file_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. More info on Sending Files ». Sending video notes by a URL is currently unsupported
     /// - parameter duration:  Duration of sent video in seconds
     /// - parameter length:  Video width and height, i.e. diameter of the video message
-    /// - parameter thumb:  Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
+    /// - parameter thumb:  Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
     /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
     /// - parameter replyToMessageId:  If the message is a reply, ID of the original message
     /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
@@ -346,10 +346,10 @@ public struct TelegramAPI {
         return Request(method: "sendLocation", body: parameters)
     }
 
-    /// Use this method to edit live location messages sent by the bot or via the bot (for inline bots). A location can be edited until its live_period expires or editing is explicitly disabled by a call to stopMessageLiveLocation. On success, if the edited message was sent by the bot, the edited Message is returned, otherwise True is returned.
+    /// Use this method to edit live location messages. A location can be edited until its live_period expires or editing is explicitly disabled by a call to stopMessageLiveLocation. On success, if the edited message was sent by the bot, the edited Message is returned, otherwise True is returned.
     ///
     /// - parameter chatId:  Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-    /// - parameter messageId:  Required if inline_message_id is not specified. Identifier of the sent message
+    /// - parameter messageId:  Required if inline_message_id is not specified. Identifier of the message to edit
     /// - parameter inlineMessageId:  Required if chat_id and message_id are not specified. Identifier of the inline message
     /// - parameter latitude:  Latitude of new location
     /// - parameter longitude:  Longitude of new location
@@ -368,10 +368,10 @@ public struct TelegramAPI {
         return Request(method: "editMessageLiveLocation", body: parameters)
     }
 
-    /// Use this method to stop updating a live location message sent by the bot or via the bot (for inline bots) before live_period expires. On success, if the message was sent by the bot, the sent Message is returned, otherwise True is returned.
+    /// Use this method to stop updating a live location message before live_period expires. On success, if the message was sent by the bot, the sent Message is returned, otherwise True is returned.
     ///
     /// - parameter chatId:  Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-    /// - parameter messageId:  Required if inline_message_id is not specified. Identifier of the sent message
+    /// - parameter messageId:  Required if inline_message_id is not specified. Identifier of the message with live location to stop
     /// - parameter inlineMessageId:  Required if chat_id and message_id are not specified. Identifier of the inline message
     /// - parameter replyMarkup:  A JSON-serialized object for a new [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating).
     ///
@@ -440,6 +440,28 @@ public struct TelegramAPI {
         parameters["reply_to_message_id"] = replyToMessageId
         parameters["reply_markup"] = replyMarkup
         return Request(method: "sendContact", body: parameters)
+    }
+
+    /// Use this method to send a native poll. A native poll can&#39;t be sent to a private chat. On success, the sent Message is returned.
+    ///
+    /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername). A native poll can&#39;t be sent to a private chat.
+    /// - parameter question:  Poll question, 1-255 characters
+    /// - parameter options:  List of answer options, 2-10 strings 1-100 characters each
+    /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
+    /// - parameter replyToMessageId:  If the message is a reply, ID of the original message
+    /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
+    ///
+    /// - returns: The new `TelegramAPI.Request` instance.
+    ///
+    static public func sendPoll(chatId: ChatId, question: String, options: [String], disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+        var parameters = [String: Any]()
+        parameters["chat_id"] = chatId
+        parameters["question"] = question
+        parameters["options"] = options
+        parameters["disable_notification"] = disableNotification
+        parameters["reply_to_message_id"] = replyToMessageId
+        parameters["reply_markup"] = replyMarkup
+        return Request(method: "sendPoll", body: parameters)
     }
 
     /// We only recommend using this method when a response from the bot will take a noticeable amount of time to arrive.
@@ -620,7 +642,7 @@ public struct TelegramAPI {
         return Request(method: "setChatTitle", body: parameters)
     }
 
-    /// Use this method to change the description of a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success. 
+    /// Use this method to change the description of a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success.
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter description:  New chat description, 0-255 characters
@@ -634,7 +656,7 @@ public struct TelegramAPI {
         return Request(method: "setChatDescription", body: parameters)
     }
 
-    /// Use this method to pin a message in a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the ‘can_pin_messages’ admin right in the supergroup or ‘can_edit_messages’ admin right in the channel. Returns True on success.
+    /// Use this method to pin a message in a group, a supergroup, or a channel. The bot must be an administrator in the chat for this to work and must have the ‘can_pin_messages’ admin right in the supergroup or ‘can_edit_messages’ admin right in the channel. Returns True on success.
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter messageId:  Identifier of a message to pin
@@ -650,7 +672,7 @@ public struct TelegramAPI {
         return Request(method: "pinChatMessage", body: parameters)
     }
 
-    /// Use this method to unpin a message in a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the ‘can_pin_messages’ admin right in the supergroup or ‘can_edit_messages’ admin right in the channel. Returns True on success. 
+    /// Use this method to unpin a message in a group, a supergroup, or a channel. The bot must be an administrator in the chat for this to work and must have the ‘can_pin_messages’ admin right in the supergroup or ‘can_edit_messages’ admin right in the channel. Returns True on success.
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     ///
@@ -770,10 +792,10 @@ public struct TelegramAPI {
         return Request(method: "answerCallbackQuery", body: parameters)
     }
 
-    /// Use this method to edit text and game messages sent by the bot or via the bot (for inline bots). On success, if edited message is sent by the bot, the edited Message is returned, otherwise True is returned.
+    /// Use this method to edit text and game messages. On success, if edited message is sent by the bot, the edited Message is returned, otherwise True is returned.
     ///
     /// - parameter chatId:  Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-    /// - parameter messageId:  Required if inline_message_id is not specified. Identifier of the sent message
+    /// - parameter messageId:  Required if inline_message_id is not specified. Identifier of the message to edit
     /// - parameter inlineMessageId:  Required if chat_id and message_id are not specified. Identifier of the inline message
     /// - parameter text:  New text of the message
     /// - parameter parseMode:  Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in your bot&#39;s message.
@@ -794,10 +816,10 @@ public struct TelegramAPI {
         return Request(method: "editMessageText", body: parameters)
     }
 
-    /// Use this method to edit captions of messages sent by the bot or via the bot (for inline bots). On success, if edited message is sent by the bot, the edited Message is returned, otherwise True is returned.
+    /// Use this method to edit captions of messages. On success, if edited message is sent by the bot, the edited Message is returned, otherwise True is returned.
     ///
     /// - parameter chatId:  Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-    /// - parameter messageId:  Required if inline_message_id is not specified. Identifier of the sent message
+    /// - parameter messageId:  Required if inline_message_id is not specified. Identifier of the message to edit
     /// - parameter inlineMessageId:  Required if chat_id and message_id are not specified. Identifier of the inline message
     /// - parameter caption:  New caption of the message
     /// - parameter parseMode:  Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
@@ -819,7 +841,7 @@ public struct TelegramAPI {
     /// Use this method to edit animation, audio, document, photo, or video messages. If a message is a part of a message album, then it can be edited only to a photo or a video. Otherwise, message type can be changed arbitrarily. When inline message is edited, new file can&#39;t be uploaded. Use previously uploaded file via its file_id or specify a URL. On success, if the edited message was sent by the bot, the edited Message is returned, otherwise True is returned.
     ///
     /// - parameter chatId:  Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-    /// - parameter messageId:  Required if inline_message_id is not specified. Identifier of the sent message
+    /// - parameter messageId:  Required if inline_message_id is not specified. Identifier of the message to edit
     /// - parameter inlineMessageId:  Required if chat_id and message_id are not specified. Identifier of the inline message
     /// - parameter media:  A JSON-serialized object for a new media content of the message
     /// - parameter replyMarkup:  A JSON-serialized object for a new [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating).
@@ -836,10 +858,10 @@ public struct TelegramAPI {
         return Request(method: "editMessageMedia", body: parameters)
     }
 
-    /// Use this method to edit only the reply markup of messages sent by the bot or via the bot (for inline bots).  On success, if edited message is sent by the bot, the edited Message is returned, otherwise True is returned.
+    /// Use this method to edit only the reply markup of messages. On success, if edited message is sent by the bot, the edited Message is returned, otherwise True is returned.
     ///
     /// - parameter chatId:  Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-    /// - parameter messageId:  Required if inline_message_id is not specified. Identifier of the sent message
+    /// - parameter messageId:  Required if inline_message_id is not specified. Identifier of the message to edit
     /// - parameter inlineMessageId:  Required if chat_id and message_id are not specified. Identifier of the inline message
     /// - parameter replyMarkup:  A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating).
     ///
@@ -854,7 +876,23 @@ public struct TelegramAPI {
         return Request(method: "editMessageReplyMarkup", body: parameters)
     }
 
-    /// Use this method to delete a message, including service messages, with the following limitations:- A message can only be deleted if it was sent less than 48 hours ago.- Bots can delete outgoing messages in private chats, groups, and supergroups.- Bots granted can_post_messages permissions can delete outgoing messages in channels.- If the bot is an administrator of a group, it can delete any message there.- If the bot has can_delete_messages permission in a supergroup or a channel, it can delete any message there.Returns True on success.
+    /// Use this method to stop a poll which was sent by the bot. On success, the stopped Poll with the final results is returned.
+    ///
+    /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+    /// - parameter messageId:  Identifier of the original message with the poll
+    /// - parameter replyMarkup:  A JSON-serialized object for a new message [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating).
+    ///
+    /// - returns: The new `TelegramAPI.Request` instance.
+    ///
+    static public func stopPoll(chatId: ChatId, messageId: Int, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
+        var parameters = [String: Any]()
+        parameters["chat_id"] = chatId
+        parameters["message_id"] = messageId
+        parameters["reply_markup"] = replyMarkup
+        return Request(method: "stopPoll", body: parameters)
+    }
+
+    /// Use this method to delete a message, including service messages, with the following limitations:- A message can only be deleted if it was sent less than 48 hours ago.- Bots can delete outgoing messages in private chats, groups, and supergroups.- Bots can delete incoming messages in private chats.- Bots granted can_post_messages permissions can delete outgoing messages in channels.- If the bot is an administrator of a group, it can delete any message there.- If the bot has can_delete_messages permission in a supergroup or a channel, it can delete any message there.Returns True on success.
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter messageId:  Identifier of the message to delete
