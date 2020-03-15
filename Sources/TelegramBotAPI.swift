@@ -2,12 +2,12 @@ import Foundation
 
 public struct TelegramAPI {
 
-    /// Use this method to receive incoming updates using long polling ([wiki](http://en.wikipedia.org/wiki/Push_technology#Long_polling)). An Array of Update objects is returned.
+    /// Use this method to receive incoming updates using long polling ([wiki](https://en.wikipedia.org/wiki/Push_technology#Long_polling)). An Array of Update objects is returned.
     ///
     /// - parameter offset:  Identifier of the first update to be returned. Must be greater by one than the highest among the identifiers of previously received updates. By default, updates starting with the earliest unconfirmed update are returned. An update is considered confirmed as soon as getUpdates is called with an offset higher than its update_id. The negative offset can be specified to retrieve updates starting from -offset update from the end of the updates queue. All previous updates will forgotten.
     /// - parameter limit:  Limits the number of updates to be retrieved. Values between 1—100 are accepted. Defaults to 100.
     /// - parameter timeout:  Timeout in seconds for long polling. Defaults to 0, i.e. usual short polling. Should be positive, short polling should be used for testing purposes only.
-    /// - parameter allowedUpdates:  List the types of updates you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all updates regardless of type (default). If not specified, the previous setting will be used.Please note that this parameter doesn&#39;t affect updates created before the call to the getUpdates, so unwanted updates may be received for a short period of time.
+    /// - parameter allowedUpdates:  A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all updates regardless of type (default). If not specified, the previous setting will be used.Please note that this parameter doesn&#39;t affect updates created before the call to the getUpdates, so unwanted updates may be received for a short period of time.
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
@@ -25,7 +25,7 @@ public struct TelegramAPI {
     /// - parameter url:  HTTPS url to send updates to. Use an empty string to remove webhook integration
     /// - parameter certificate:  Upload your public key certificate so that the root certificate in use can be checked. See our self-signed guide for details.
     /// - parameter maxConnections:  Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery, 1-100. Defaults to 40. Use lower values to limit the load on your bot‘s server, and higher values to increase your bot’s throughput.
-    /// - parameter allowedUpdates:  List the types of updates you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all updates regardless of type (default). If not specified, the previous setting will be used.Please note that this parameter doesn&#39;t affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time.
+    /// - parameter allowedUpdates:  A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all updates regardless of type (default). If not specified, the previous setting will be used.Please note that this parameter doesn&#39;t affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time.
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
@@ -65,7 +65,7 @@ public struct TelegramAPI {
     /// Use this method to send text messages. On success, the sent Message is returned.
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-    /// - parameter text:  Text of the message to be sent
+    /// - parameter text:  Text of the message to be sent, 1-4096 characters after entities parsing
     /// - parameter parseMode:  Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in your bot&#39;s message.
     /// - parameter disableWebPagePreview:  Disables link previews for links in this message
     /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
@@ -108,7 +108,7 @@ public struct TelegramAPI {
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter photo:  Photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. More info on Sending Files »
-    /// - parameter caption:  Photo caption (may also be used when resending photos by file_id), 0-1024 characters
+    /// - parameter caption:  Photo caption (may also be used when resending photos by file_id), 0-1024 characters after entities parsing
     /// - parameter parseMode:  Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
     /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
     /// - parameter replyToMessageId:  If the message is a reply, ID of the original message
@@ -132,7 +132,7 @@ public struct TelegramAPI {
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter audio:  Audio file to send. Pass a file_id as String to send an audio file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using multipart/form-data. More info on Sending Files »
-    /// - parameter caption:  Audio caption, 0-1024 characters
+    /// - parameter caption:  Audio caption, 0-1024 characters after entities parsing
     /// - parameter parseMode:  Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
     /// - parameter duration:  Duration of the audio in seconds
     /// - parameter performer:  Performer
@@ -165,7 +165,7 @@ public struct TelegramAPI {
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter document:  File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More info on Sending Files »
     /// - parameter thumb:  Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
-    /// - parameter caption:  Document caption (may also be used when resending documents by file_id), 0-1024 characters
+    /// - parameter caption:  Document caption (may also be used when resending documents by file_id), 0-1024 characters after entities parsing
     /// - parameter parseMode:  Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
     /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
     /// - parameter replyToMessageId:  If the message is a reply, ID of the original message
@@ -194,7 +194,7 @@ public struct TelegramAPI {
     /// - parameter width:  Video width
     /// - parameter height:  Video height
     /// - parameter thumb:  Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
-    /// - parameter caption:  Video caption (may also be used when resending videos by file_id), 0-1024 characters
+    /// - parameter caption:  Video caption (may also be used when resending videos by file_id), 0-1024 characters after entities parsing
     /// - parameter parseMode:  Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
     /// - parameter supportsStreaming:  Pass True, if the uploaded video is suitable for streaming
     /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
@@ -228,7 +228,7 @@ public struct TelegramAPI {
     /// - parameter width:  Animation width
     /// - parameter height:  Animation height
     /// - parameter thumb:  Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
-    /// - parameter caption:  Animation caption (may also be used when resending animation by file_id), 0-1024 characters
+    /// - parameter caption:  Animation caption (may also be used when resending animation by file_id), 0-1024 characters after entities parsing
     /// - parameter parseMode:  Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
     /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
     /// - parameter replyToMessageId:  If the message is a reply, ID of the original message
@@ -256,7 +256,7 @@ public struct TelegramAPI {
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter voice:  Audio file to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More info on Sending Files »
-    /// - parameter caption:  Voice message caption, 0-1024 characters
+    /// - parameter caption:  Voice message caption, 0-1024 characters after entities parsing
     /// - parameter parseMode:  Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
     /// - parameter duration:  Duration of the voice message in seconds
     /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
@@ -442,22 +442,32 @@ public struct TelegramAPI {
         return Request(method: "sendContact", body: parameters)
     }
 
-    /// Use this method to send a native poll. A native poll can&#39;t be sent to a private chat. On success, the sent Message is returned.
+    /// Use this method to send a native poll. On success, the sent Message is returned.
     ///
-    /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername). A native poll can&#39;t be sent to a private chat.
+    /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter question:  Poll question, 1-255 characters
-    /// - parameter options:  List of answer options, 2-10 strings 1-100 characters each
+    /// - parameter options:  A JSON-serialized list of answer options, 2-10 strings 1-100 characters each
+    /// - parameter isAnonymous:  True, if the poll needs to be anonymous, defaults to True
+    /// - parameter type:  Poll type, “quiz” or “regular”, defaults to “regular”
+    /// - parameter allowsMultipleAnswers:  True, if the poll allows multiple answers, ignored for polls in quiz mode, defaults to False
+    /// - parameter correctOptionId:  0-based identifier of the correct answer option, required for polls in quiz mode
+    /// - parameter isClosed:  Pass True, if the poll needs to be immediately closed. This can be useful for poll preview.
     /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
     /// - parameter replyToMessageId:  If the message is a reply, ID of the original message
     /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendPoll(chatId: ChatId, question: String, options: [String], disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static public func sendPoll(chatId: ChatId, question: String, options: [String], isAnonymous: Bool? = nil, type: String? = nil, allowsMultipleAnswers: Bool? = nil, correctOptionId: Int? = nil, isClosed: Bool? = nil, disableNotification: Bool? = nil, replyToMessageId: Int? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["question"] = question
         parameters["options"] = options
+        parameters["is_anonymous"] = isAnonymous
+        parameters["type"] = type
+        parameters["allows_multiple_answers"] = allowsMultipleAnswers
+        parameters["correct_option_id"] = correctOptionId
+        parameters["is_closed"] = isClosed
         parameters["disable_notification"] = disableNotification
         parameters["reply_to_message_id"] = replyToMessageId
         parameters["reply_markup"] = replyMarkup
@@ -506,7 +516,7 @@ public struct TelegramAPI {
         return Request(method: "getFile", body: parameters)
     }
 
-    /// Note: In regular groups (non-supergroups), this method will only work if the ‘All Members Are Admins’ setting is off in the target group. Otherwise members may only be removed by the group&#39;s creator or by the member that added them.
+    /// Use this method to kick a user from a group, a supergroup or a channel. In the case of supergroups and channels, the user will not be able to return to the group on their own using invite links, etc., unless unbanned first. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success.
     ///
     /// - parameter chatId:  Unique identifier for the target group or username of the target supergroup or channel (in the format @channelusername)
     /// - parameter userId:  Unique identifier of the target user
@@ -536,27 +546,21 @@ public struct TelegramAPI {
         return Request(method: "unbanChatMember", body: parameters)
     }
 
-    /// Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for this to work and must have the appropriate admin rights. Pass True for all boolean parameters to lift restrictions from a user. Returns True on success.
+    /// Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for this to work and must have the appropriate admin rights. Pass True for all permissions to lift restrictions from a user. Returns True on success.
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
     /// - parameter userId:  Unique identifier of the target user
+    /// - parameter permissions:  New user permissions
     /// - parameter untilDate:  Date when restrictions will be lifted for the user, unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever
-    /// - parameter canSendMessages:  Pass True, if the user can send text messages, contacts, locations and venues
-    /// - parameter canSendMediaMessages:  Pass True, if the user can send audios, documents, photos, videos, video notes and voice notes, implies can_send_messages
-    /// - parameter canSendOtherMessages:  Pass True, if the user can send animations, games, stickers and use inline bots, implies can_send_media_messages
-    /// - parameter canAddWebPagePreviews:  Pass True, if the user may add web page previews to their messages, implies can_send_media_messages
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func restrictChatMember(chatId: ChatId, userId: Int, untilDate: Int? = nil, canSendMessages: Bool? = nil, canSendMediaMessages: Bool? = nil, canSendOtherMessages: Bool? = nil, canAddWebPagePreviews: Bool? = nil) -> Request {
+    static public func restrictChatMember(chatId: ChatId, userId: Int, permissions: ChatPermissions, untilDate: Int? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["user_id"] = userId
+        parameters["permissions"] = permissions
         parameters["until_date"] = untilDate
-        parameters["can_send_messages"] = canSendMessages
-        parameters["can_send_media_messages"] = canSendMediaMessages
-        parameters["can_send_other_messages"] = canSendOtherMessages
-        parameters["can_add_web_page_previews"] = canAddWebPagePreviews
         return Request(method: "restrictChatMember", body: parameters)
     }
 
@@ -590,6 +594,36 @@ public struct TelegramAPI {
         return Request(method: "promoteChatMember", body: parameters)
     }
 
+    /// Use this method to set a custom title for an administrator in a supergroup promoted by the bot. Returns True on success.
+    ///
+    /// - parameter chatId:  Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+    /// - parameter userId:  Unique identifier of the target user
+    /// - parameter customTitle:  New custom title for the administrator; 0-16 characters, emoji are not allowed
+    ///
+    /// - returns: The new `TelegramAPI.Request` instance.
+    ///
+    static public func setChatAdministratorCustomTitle(chatId: ChatId, userId: Int, customTitle: String) -> Request {
+        var parameters = [String: Any]()
+        parameters["chat_id"] = chatId
+        parameters["user_id"] = userId
+        parameters["custom_title"] = customTitle
+        return Request(method: "setChatAdministratorCustomTitle", body: parameters)
+    }
+
+    /// Use this method to set default chat permissions for all members. The bot must be an administrator in the group or a supergroup for this to work and must have the can_restrict_members admin rights. Returns True on success.
+    ///
+    /// - parameter chatId:  Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+    /// - parameter permissions:  New default chat permissions
+    ///
+    /// - returns: The new `TelegramAPI.Request` instance.
+    ///
+    static public func setChatPermissions(chatId: ChatId, permissions: ChatPermissions) -> Request {
+        var parameters = [String: Any]()
+        parameters["chat_id"] = chatId
+        parameters["permissions"] = permissions
+        return Request(method: "setChatPermissions", body: parameters)
+    }
+
     /// Use this method to generate a new invite link for a chat; any previously generated link is revoked. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns the new invite link as String on success.
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
@@ -602,7 +636,7 @@ public struct TelegramAPI {
         return Request(method: "exportChatInviteLink", body: parameters)
     }
 
-    /// Note: In regular groups (non-supergroups), this method will only work if the ‘All Members Are Admins’ setting is off in the target group.
+    /// Use this method to set a new profile photo for the chat. Photos can&#39;t be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success.
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter photo:  New chat photo, uploaded using multipart/form-data
@@ -616,7 +650,7 @@ public struct TelegramAPI {
         return Request(method: "setChatPhoto", body: parameters)
     }
 
-    /// Note: In regular groups (non-supergroups), this method will only work if the ‘All Members Are Admins’ setting is off in the target group.
+    /// Use this method to delete a chat photo. Photos can&#39;t be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success.
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     ///
@@ -628,7 +662,7 @@ public struct TelegramAPI {
         return Request(method: "deleteChatPhoto", body: parameters)
     }
 
-    /// Note: In regular groups (non-supergroups), this method will only work if the ‘All Members Are Admins’ setting is off in the target group.
+    /// Use this method to change the title of a chat. Titles can&#39;t be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success.
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter title:  New chat title, 1-255 characters
@@ -642,7 +676,7 @@ public struct TelegramAPI {
         return Request(method: "setChatTitle", body: parameters)
     }
 
-    /// Use this method to change the description of a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success.
+    /// Use this method to change the description of a group, a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success.
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter description:  New chat description, 0-255 characters
@@ -797,7 +831,7 @@ public struct TelegramAPI {
     /// - parameter chatId:  Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter messageId:  Required if inline_message_id is not specified. Identifier of the message to edit
     /// - parameter inlineMessageId:  Required if chat_id and message_id are not specified. Identifier of the inline message
-    /// - parameter text:  New text of the message
+    /// - parameter text:  New text of the message, 1-4096 characters after entities parsing
     /// - parameter parseMode:  Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in your bot&#39;s message.
     /// - parameter disableWebPagePreview:  Disables link previews for links in this message
     /// - parameter replyMarkup:  A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating).
@@ -821,7 +855,7 @@ public struct TelegramAPI {
     /// - parameter chatId:  Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter messageId:  Required if inline_message_id is not specified. Identifier of the message to edit
     /// - parameter inlineMessageId:  Required if chat_id and message_id are not specified. Identifier of the inline message
-    /// - parameter caption:  New caption of the message
+    /// - parameter caption:  New caption of the message, 0-1024 characters after entities parsing
     /// - parameter parseMode:  Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
     /// - parameter replyMarkup:  A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating).
     ///
@@ -906,7 +940,7 @@ public struct TelegramAPI {
         return Request(method: "deleteMessage", body: parameters)
     }
 
-    /// Use this method to send .webp stickers. On success, the sent Message is returned.
+    /// Use this method to send static .WEBP or [animated](https://telegram.org/blog/animated-stickers) .TGS stickers. On success, the sent Message is returned.
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter sticker:  Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .webp file from the Internet, or upload a new one using multipart/form-data. More info on Sending Files »
@@ -1055,7 +1089,7 @@ public struct TelegramAPI {
     /// - parameter providerToken:  Payments provider token, obtained via [Botfather](https://t.me/botfather)
     /// - parameter startParameter:  Unique deep-linking parameter that can be used to generate this invoice when used as a start parameter
     /// - parameter currency:  Three-letter ISO 4217 currency code, see more on currencies
-    /// - parameter prices:  Price breakdown, a list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.)
+    /// - parameter prices:  Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.)
     /// - parameter providerData:  JSON-encoded data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider.
     /// - parameter photoUrl:  URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. People like it better when they see what they are paying for.
     /// - parameter photoSize:  Photo size
