@@ -149,7 +149,7 @@ extension ParsingController {
             }
         }
 
-        decoder += "\n\t\t} else {\n\t\t\tthrow NSError(domain: \"\(name)\", code: -1, userInfo: nil)\n\t\t}\n\t}\n"
+        decoder += "\n\t\t} else {\n\t\t\tthrow NSError(domain: \"org.telegram.api\", code: -1, userInfo: [\"name\": \"\(name)\"])\n\t\t}\n\t}\n"
         encode += "\n\t\t}\n\t}\n}"
         code += decoder
         if fastInitialization {

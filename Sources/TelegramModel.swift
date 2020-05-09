@@ -112,7 +112,7 @@ extension TelegramAPI {
             } else if let forceReply = try? container.decode(ForceReply.self) {
                 self = .forceReply(forceReply)
             } else {
-                throw NSError(domain: "ReplyMarkup", code: -1, userInfo: nil)
+                throw NSError(domain: "org.telegram.api", code: -1, userInfo: ["name": "ReplyMarkup"])
             }
         }
 
@@ -160,7 +160,7 @@ extension TelegramAPI {
             } else if let string = try? container.decode(String.self) {
                 self = .string(string)
             } else {
-                throw NSError(domain: "ChatId", code: -1, userInfo: nil)
+                throw NSError(domain: "org.telegram.api", code: -1, userInfo: ["name": "ChatId"])
             }
         }
 
@@ -196,7 +196,7 @@ extension TelegramAPI {
             } else if let string = try? container.decode(String.self) {
                 self = .string(string)
             } else {
-                throw NSError(domain: "FileOrPath", code: -1, userInfo: nil)
+                throw NSError(domain: "org.telegram.api", code: -1, userInfo: ["name": "FileOrPath"])
             }
         }
 
@@ -631,6 +631,9 @@ extension TelegramAPI {
         /// Optional. Message is a native poll, information about the poll
         public var poll: Poll?
 
+        /// Optional. Message is a dice with random value from 1 to 6
+        public var dice: Dice?
+
         /// Optional. New members that were added to the group or supergroup and information about them (the bot itself may be one of these members)
         public var newChatMembers: [User]?
 
@@ -712,6 +715,7 @@ extension TelegramAPI {
         /// - parameter location:  Optional. Message is a shared location, information about the location
         /// - parameter venue:  Optional. Message is a venue, information about the venue
         /// - parameter poll:  Optional. Message is a native poll, information about the poll
+        /// - parameter dice:  Optional. Message is a dice with random value from 1 to 6
         /// - parameter newChatMembers:  Optional. New members that were added to the group or supergroup and information about them (the bot itself may be one of these members)
         /// - parameter leftChatMember:  Optional. A member was removed from the group, information about them (this member may be the bot itself)
         /// - parameter newChatTitle:  Optional. A chat title was changed to this value
@@ -731,7 +735,7 @@ extension TelegramAPI {
         ///
         /// - returns: The new `Message` instance.
         ///
-        public init(messageId: Int, from: User? = nil, date: Int, chat: Chat, forwardFrom: User? = nil, forwardFromChat: Chat? = nil, forwardFromMessageId: Int? = nil, forwardSignature: String? = nil, forwardSenderName: String? = nil, forwardDate: Int? = nil, replyToMessage: Message? = nil, editDate: Int? = nil, mediaGroupId: String? = nil, authorSignature: String? = nil, text: String? = nil, entities: [MessageEntity]? = nil, captionEntities: [MessageEntity]? = nil, audio: Audio? = nil, document: Document? = nil, animation: Animation? = nil, game: Game? = nil, photo: [PhotoSize]? = nil, sticker: Sticker? = nil, video: Video? = nil, voice: Voice? = nil, videoNote: VideoNote? = nil, caption: String? = nil, contact: Contact? = nil, location: Location? = nil, venue: Venue? = nil, poll: Poll? = nil, newChatMembers: [User]? = nil, leftChatMember: User? = nil, newChatTitle: String? = nil, newChatPhoto: [PhotoSize]? = nil, deleteChatPhoto: Bool? = nil, groupChatCreated: Bool? = nil, supergroupChatCreated: Bool? = nil, channelChatCreated: Bool? = nil, migrateToChatId: Int? = nil, migrateFromChatId: Int? = nil, pinnedMessage: Message? = nil, invoice: Invoice? = nil, successfulPayment: SuccessfulPayment? = nil, connectedWebsite: String? = nil, passportData: PassportData? = nil, replyMarkup: InlineKeyboardMarkup? = nil) {
+        public init(messageId: Int, from: User? = nil, date: Int, chat: Chat, forwardFrom: User? = nil, forwardFromChat: Chat? = nil, forwardFromMessageId: Int? = nil, forwardSignature: String? = nil, forwardSenderName: String? = nil, forwardDate: Int? = nil, replyToMessage: Message? = nil, editDate: Int? = nil, mediaGroupId: String? = nil, authorSignature: String? = nil, text: String? = nil, entities: [MessageEntity]? = nil, captionEntities: [MessageEntity]? = nil, audio: Audio? = nil, document: Document? = nil, animation: Animation? = nil, game: Game? = nil, photo: [PhotoSize]? = nil, sticker: Sticker? = nil, video: Video? = nil, voice: Voice? = nil, videoNote: VideoNote? = nil, caption: String? = nil, contact: Contact? = nil, location: Location? = nil, venue: Venue? = nil, poll: Poll? = nil, dice: Dice? = nil, newChatMembers: [User]? = nil, leftChatMember: User? = nil, newChatTitle: String? = nil, newChatPhoto: [PhotoSize]? = nil, deleteChatPhoto: Bool? = nil, groupChatCreated: Bool? = nil, supergroupChatCreated: Bool? = nil, channelChatCreated: Bool? = nil, migrateToChatId: Int? = nil, migrateFromChatId: Int? = nil, pinnedMessage: Message? = nil, invoice: Invoice? = nil, successfulPayment: SuccessfulPayment? = nil, connectedWebsite: String? = nil, passportData: PassportData? = nil, replyMarkup: InlineKeyboardMarkup? = nil) {
             self.messageId = messageId
             self.from = from
             self.date = date
@@ -763,6 +767,7 @@ extension TelegramAPI {
             self.location = location
             self.venue = venue
             self.poll = poll
+            self.dice = dice
             self.newChatMembers = newChatMembers
             self.leftChatMember = leftChatMember
             self.newChatTitle = newChatTitle
@@ -813,6 +818,7 @@ extension TelegramAPI {
             case location = "location"
             case venue = "venue"
             case poll = "poll"
+            case dice = "dice"
             case newChatMembers = "new_chat_members"
             case leftChatMember = "left_chat_member"
             case newChatTitle = "new_chat_title"
@@ -1491,6 +1497,18 @@ extension TelegramAPI {
         /// Optional. 0-based identifier of the correct answer option. Available only for polls in the quiz mode, which are closed, or was sent (not forwarded) by the bot or to the private chat with the bot.
         public var correctOptionId: Int?
 
+        /// Optional. Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 characters
+        public var explanation: String?
+
+        /// Optional. Special entities like usernames, URLs, bot commands, etc. that appear in the explanation
+        public var explanationEntities: [MessageEntity]?
+
+        /// Optional. Amount of time in seconds the poll will be active after creation
+        public var openPeriod: Int?
+
+        /// Optional. Point in time (Unix timestamp) when the poll will be automatically closed
+        public var closeDate: Int?
+
         /// Poll initialization
         ///
         /// - parameter id:  Unique poll identifier
@@ -1502,10 +1520,14 @@ extension TelegramAPI {
         /// - parameter type:  Poll type, currently can be “regular” or “quiz”
         /// - parameter allowsMultipleAnswers:  True, if the poll allows multiple answers
         /// - parameter correctOptionId:  Optional. 0-based identifier of the correct answer option. Available only for polls in the quiz mode, which are closed, or was sent (not forwarded) by the bot or to the private chat with the bot.
+        /// - parameter explanation:  Optional. Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 characters
+        /// - parameter explanationEntities:  Optional. Special entities like usernames, URLs, bot commands, etc. that appear in the explanation
+        /// - parameter openPeriod:  Optional. Amount of time in seconds the poll will be active after creation
+        /// - parameter closeDate:  Optional. Point in time (Unix timestamp) when the poll will be automatically closed
         ///
         /// - returns: The new `Poll` instance.
         ///
-        public init(id: String, question: String, options: [PollOption], totalVoterCount: Int, isClosed: Bool, isAnonymous: Bool, type: String, allowsMultipleAnswers: Bool, correctOptionId: Int? = nil) {
+        public init(id: String, question: String, options: [PollOption], totalVoterCount: Int, isClosed: Bool, isAnonymous: Bool, type: String, allowsMultipleAnswers: Bool, correctOptionId: Int? = nil, explanation: String? = nil, explanationEntities: [MessageEntity]? = nil, openPeriod: Int? = nil, closeDate: Int? = nil) {
             self.id = id
             self.question = question
             self.options = options
@@ -1515,6 +1537,10 @@ extension TelegramAPI {
             self.type = type
             self.allowsMultipleAnswers = allowsMultipleAnswers
             self.correctOptionId = correctOptionId
+            self.explanation = explanation
+            self.explanationEntities = explanationEntities
+            self.openPeriod = openPeriod
+            self.closeDate = closeDate
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -1527,6 +1553,38 @@ extension TelegramAPI {
             case type = "type"
             case allowsMultipleAnswers = "allows_multiple_answers"
             case correctOptionId = "correct_option_id"
+            case explanation = "explanation"
+            case explanationEntities = "explanation_entities"
+            case openPeriod = "open_period"
+            case closeDate = "close_date"
+        }
+
+    }
+
+    /// This object represents a dice with a random value from 1 to 6 for currently supported base emoji. (Yes, we&#39;re aware of the “proper” singular of die. But it&#39;s awkward, and we decided to help it change. One dice at a time!)
+    public class Dice: Codable {
+
+        /// Emoji on which the dice throw animation is based
+        public var emoji: String
+
+        /// Value of the dice, 1-6 for currently supported base emoji
+        public var value: Int
+
+        /// Dice initialization
+        ///
+        /// - parameter emoji:  Emoji on which the dice throw animation is based
+        /// - parameter value:  Value of the dice, 1-6 for currently supported base emoji
+        ///
+        /// - returns: The new `Dice` instance.
+        ///
+        public init(emoji: String, value: Int) {
+            self.emoji = emoji
+            self.value = value
+        }
+
+        private enum CodingKeys: String, CodingKey {
+            case emoji = "emoji"
+            case value = "value"
         }
 
     }
@@ -1769,7 +1827,7 @@ extension TelegramAPI {
         /// Optional. If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot‘s username and the specified inline query in the input field. Can be empty, in which case just the bot’s username will be inserted.Note: This offers an easy way for users to start using your bot in inline mode when they are currently in a private chat with it. Especially useful when combined with switch_pm… actions – in this case the user will be automatically returned to the chat they switched from, skipping the chat selection screen.
         public var switchInlineQuery: String?
 
-        /// Optional. If set, pressing the button will insert the bot‘s username and the specified inline query in the current chat&#39;s input field. Can be empty, in which case only the bot’s username will be inserted.This offers a quick way for the user to open your bot in inline mode in the same chat – good for selecting something from multiple options.
+        /// Optional. If set, pressing the button will insert the bot‘s username and the specified inline query in the current chat’s input field. Can be empty, in which case only the bot&#39;s username will be inserted.This offers a quick way for the user to open your bot in inline mode in the same chat – good for selecting something from multiple options.
         public var switchInlineQueryCurrentChat: String?
 
         /// Optional. Description of the game that will be launched when the user presses the button.NOTE: This type of button must always be the first button in the first row.
@@ -1785,7 +1843,7 @@ extension TelegramAPI {
         /// - parameter loginUrl:  Optional. An HTTP URL used to automatically authorize the user. Can be used as a replacement for the [Telegram Login Widget](https://core.telegram.org/widgets/login).
         /// - parameter callbackData:  Optional. Data to be sent in a callback query to the bot when button is pressed, 1-64 bytes
         /// - parameter switchInlineQuery:  Optional. If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot‘s username and the specified inline query in the input field. Can be empty, in which case just the bot’s username will be inserted.Note: This offers an easy way for users to start using your bot in inline mode when they are currently in a private chat with it. Especially useful when combined with switch_pm… actions – in this case the user will be automatically returned to the chat they switched from, skipping the chat selection screen.
-        /// - parameter switchInlineQueryCurrentChat:  Optional. If set, pressing the button will insert the bot‘s username and the specified inline query in the current chat&#39;s input field. Can be empty, in which case only the bot’s username will be inserted.This offers a quick way for the user to open your bot in inline mode in the same chat – good for selecting something from multiple options.
+        /// - parameter switchInlineQueryCurrentChat:  Optional. If set, pressing the button will insert the bot‘s username and the specified inline query in the current chat’s input field. Can be empty, in which case only the bot&#39;s username will be inserted.This offers a quick way for the user to open your bot in inline mode in the same chat – good for selecting something from multiple options.
         /// - parameter callbackGame:  Optional. Description of the game that will be launched when the user presses the button.NOTE: This type of button must always be the first button in the first row.
         /// - parameter pay:  Optional. Specify True, to send a Pay button.NOTE: This type of button must always be the first button in the first row.
         ///
@@ -2011,7 +2069,7 @@ extension TelegramAPI {
         /// Optional. Administrators only. True, if the administrator can restrict, ban or unban chat members
         public var canRestrictMembers: Bool?
 
-        /// Optional. Administrators only. True, if the administrator can add new administrators with a subset of his own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by the user)
+        /// Optional. Administrators only. True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by the user)
         public var canPromoteMembers: Bool?
 
         /// Optional. Administrators and restricted only. True, if the user is allowed to change the chat title, photo and other settings
@@ -2052,7 +2110,7 @@ extension TelegramAPI {
         /// - parameter canEditMessages:  Optional. Administrators only. True, if the administrator can edit messages of other users and can pin messages; channels only
         /// - parameter canDeleteMessages:  Optional. Administrators only. True, if the administrator can delete messages of other users
         /// - parameter canRestrictMembers:  Optional. Administrators only. True, if the administrator can restrict, ban or unban chat members
-        /// - parameter canPromoteMembers:  Optional. Administrators only. True, if the administrator can add new administrators with a subset of his own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by the user)
+        /// - parameter canPromoteMembers:  Optional. Administrators only. True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by the user)
         /// - parameter canChangeInfo:  Optional. Administrators and restricted only. True, if the user is allowed to change the chat title, photo and other settings
         /// - parameter canInviteUsers:  Optional. Administrators and restricted only. True, if the user is allowed to invite new users to the chat
         /// - parameter canPinMessages:  Optional. Administrators and restricted only. True, if the user is allowed to pin messages; groups and supergroups only
@@ -2175,6 +2233,34 @@ extension TelegramAPI {
 
     }
 
+    /// This object represents a bot command.
+    public class BotCommand: Codable {
+
+        /// Text of the command, 1-32 characters. Can contain only lowercase English letters, digits and underscores.
+        public var command: String
+
+        /// Description of the command, 3-256 characters.
+        public var description: String
+
+        /// BotCommand initialization
+        ///
+        /// - parameter command:  Text of the command, 1-32 characters. Can contain only lowercase English letters, digits and underscores.
+        /// - parameter description:  Description of the command, 3-256 characters.
+        ///
+        /// - returns: The new `BotCommand` instance.
+        ///
+        public init(command: String, description: String) {
+            self.command = command
+            self.description = description
+        }
+
+        private enum CodingKeys: String, CodingKey {
+            case command = "command"
+            case description = "description"
+        }
+
+    }
+
     /// Contains information about why a request was unsuccessful.
     public class ResponseParameters: Codable {
 
@@ -2225,7 +2311,7 @@ extension TelegramAPI {
             } else if let video = try? container.decode(InputMediaVideo.self) {
                 self = .video(video)
             } else {
-                throw NSError(domain: "InputMedia", code: -1, userInfo: nil)
+                throw NSError(domain: "org.telegram.api", code: -1, userInfo: ["name": "InputMedia"])
             }
         }
 
@@ -2277,7 +2363,7 @@ extension TelegramAPI {
         /// Optional. Caption of the photo to be sent, 0-1024 characters after entities parsing
         public var caption: String?
 
-        /// Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// Optional. Mode for parsing entities in the photo caption. See formatting options for more details.
         public var parseMode: String?
 
         /// InputMediaPhoto initialization
@@ -2285,7 +2371,7 @@ extension TelegramAPI {
         /// - parameter type:  Type of the result, must be photo
         /// - parameter media:  File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. More info on Sending Files »
         /// - parameter caption:  Optional. Caption of the photo to be sent, 0-1024 characters after entities parsing
-        /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// - parameter parseMode:  Optional. Mode for parsing entities in the photo caption. See formatting options for more details.
         ///
         /// - returns: The new `InputMediaPhoto` instance.
         ///
@@ -2320,7 +2406,7 @@ extension TelegramAPI {
         /// Optional. Caption of the video to be sent, 0-1024 characters after entities parsing
         public var caption: String?
 
-        /// Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// Optional. Mode for parsing entities in the video caption. See formatting options for more details.
         public var parseMode: String?
 
         /// Optional. Video width
@@ -2341,7 +2427,7 @@ extension TelegramAPI {
         /// - parameter media:  File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. More info on Sending Files »
         /// - parameter thumb:  Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
         /// - parameter caption:  Optional. Caption of the video to be sent, 0-1024 characters after entities parsing
-        /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// - parameter parseMode:  Optional. Mode for parsing entities in the video caption. See formatting options for more details.
         /// - parameter width:  Optional. Video width
         /// - parameter height:  Optional. Video height
         /// - parameter duration:  Optional. Video duration
@@ -2390,7 +2476,7 @@ extension TelegramAPI {
         /// Optional. Caption of the animation to be sent, 0-1024 characters after entities parsing
         public var caption: String?
 
-        /// Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// Optional. Mode for parsing entities in the animation caption. See formatting options for more details.
         public var parseMode: String?
 
         /// Optional. Animation width
@@ -2408,7 +2494,7 @@ extension TelegramAPI {
         /// - parameter media:  File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. More info on Sending Files »
         /// - parameter thumb:  Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
         /// - parameter caption:  Optional. Caption of the animation to be sent, 0-1024 characters after entities parsing
-        /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// - parameter parseMode:  Optional. Mode for parsing entities in the animation caption. See formatting options for more details.
         /// - parameter width:  Optional. Animation width
         /// - parameter height:  Optional. Animation height
         /// - parameter duration:  Optional. Animation duration
@@ -2454,7 +2540,7 @@ extension TelegramAPI {
         /// Optional. Caption of the audio to be sent, 0-1024 characters after entities parsing
         public var caption: String?
 
-        /// Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// Optional. Mode for parsing entities in the audio caption. See formatting options for more details.
         public var parseMode: String?
 
         /// Optional. Duration of the audio in seconds
@@ -2472,7 +2558,7 @@ extension TelegramAPI {
         /// - parameter media:  File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. More info on Sending Files »
         /// - parameter thumb:  Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
         /// - parameter caption:  Optional. Caption of the audio to be sent, 0-1024 characters after entities parsing
-        /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// - parameter parseMode:  Optional. Mode for parsing entities in the audio caption. See formatting options for more details.
         /// - parameter duration:  Optional. Duration of the audio in seconds
         /// - parameter performer:  Optional. Performer of the audio
         /// - parameter title:  Optional. Title of the audio
@@ -2518,7 +2604,7 @@ extension TelegramAPI {
         /// Optional. Caption of the document to be sent, 0-1024 characters after entities parsing
         public var caption: String?
 
-        /// Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// Optional. Mode for parsing entities in the document caption. See formatting options for more details.
         public var parseMode: String?
 
         /// InputMediaDocument initialization
@@ -2527,7 +2613,7 @@ extension TelegramAPI {
         /// - parameter media:  File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. More info on Sending Files »
         /// - parameter thumb:  Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
         /// - parameter caption:  Optional. Caption of the document to be sent, 0-1024 characters after entities parsing
-        /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// - parameter parseMode:  Optional. Mode for parsing entities in the document caption. See formatting options for more details.
         ///
         /// - returns: The new `InputMediaDocument` instance.
         ///
@@ -2572,7 +2658,7 @@ extension TelegramAPI {
         /// True, if the sticker is [animated](https://telegram.org/blog/animated-stickers)
         public var isAnimated: Bool
 
-        /// Optional. Sticker thumbnail in the .webp or .jpg format
+        /// Optional. Sticker thumbnail in the .WEBP or .JPG format
         public var thumb: PhotoSize?
 
         /// Optional. Emoji associated with the sticker
@@ -2594,7 +2680,7 @@ extension TelegramAPI {
         /// - parameter width:  Sticker width
         /// - parameter height:  Sticker height
         /// - parameter isAnimated:  True, if the sticker is [animated](https://telegram.org/blog/animated-stickers)
-        /// - parameter thumb:  Optional. Sticker thumbnail in the .webp or .jpg format
+        /// - parameter thumb:  Optional. Sticker thumbnail in the .WEBP or .JPG format
         /// - parameter emoji:  Optional. Emoji associated with the sticker
         /// - parameter setName:  Optional. Name of the sticker set to which the sticker belongs
         /// - parameter maskPosition:  Optional. For mask stickers, the position where the mask should be placed
@@ -2648,6 +2734,9 @@ extension TelegramAPI {
         /// List of all set stickers
         public var stickers: [Sticker]
 
+        /// Optional. Sticker set thumbnail in the .WEBP or .TGS format
+        public var thumb: PhotoSize?
+
         /// StickerSet initialization
         ///
         /// - parameter name:  Sticker set name
@@ -2655,15 +2744,17 @@ extension TelegramAPI {
         /// - parameter isAnimated:  True, if the sticker set contains [animated stickers](https://telegram.org/blog/animated-stickers)
         /// - parameter containsMasks:  True, if the sticker set contains masks
         /// - parameter stickers:  List of all set stickers
+        /// - parameter thumb:  Optional. Sticker set thumbnail in the .WEBP or .TGS format
         ///
         /// - returns: The new `StickerSet` instance.
         ///
-        public init(name: String, title: String, isAnimated: Bool, containsMasks: Bool, stickers: [Sticker]) {
+        public init(name: String, title: String, isAnimated: Bool, containsMasks: Bool, stickers: [Sticker], thumb: PhotoSize? = nil) {
             self.name = name
             self.title = title
             self.isAnimated = isAnimated
             self.containsMasks = containsMasks
             self.stickers = stickers
+            self.thumb = thumb
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -2672,6 +2763,7 @@ extension TelegramAPI {
             case isAnimated = "is_animated"
             case containsMasks = "contains_masks"
             case stickers = "stickers"
+            case thumb = "thumb"
         }
 
     }
@@ -2829,7 +2921,7 @@ extension TelegramAPI {
             } else if let voice = try? container.decode(InlineQueryResultVoice.self) {
                 self = .voice(voice)
             } else {
-                throw NSError(domain: "InlineQueryResult", code: -1, userInfo: nil)
+                throw NSError(domain: "org.telegram.api", code: -1, userInfo: ["name": "InlineQueryResult"])
             }
         }
 
@@ -3071,7 +3163,7 @@ extension TelegramAPI {
         /// Optional. Caption of the photo to be sent, 0-1024 characters after entities parsing
         public var caption: String?
 
-        /// Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// Optional. Mode for parsing entities in the photo caption. See formatting options for more details.
         public var parseMode: String?
 
         /// Optional. Inline keyboard attached to the message
@@ -3091,7 +3183,7 @@ extension TelegramAPI {
         /// - parameter title:  Optional. Title for the result
         /// - parameter description:  Optional. Short description of the result
         /// - parameter caption:  Optional. Caption of the photo to be sent, 0-1024 characters after entities parsing
-        /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// - parameter parseMode:  Optional. Mode for parsing entities in the photo caption. See formatting options for more details.
         /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
         /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the photo
         ///
@@ -3159,7 +3251,7 @@ extension TelegramAPI {
         /// Optional. Caption of the GIF file to be sent, 0-1024 characters after entities parsing
         public var caption: String?
 
-        /// Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// Optional. Mode for parsing entities in the caption. See formatting options for more details.
         public var parseMode: String?
 
         /// Optional. Inline keyboard attached to the message
@@ -3179,7 +3271,7 @@ extension TelegramAPI {
         /// - parameter thumbUrl:  URL of the static thumbnail for the result (jpeg or gif)
         /// - parameter title:  Optional. Title for the result
         /// - parameter caption:  Optional. Caption of the GIF file to be sent, 0-1024 characters after entities parsing
-        /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// - parameter parseMode:  Optional. Mode for parsing entities in the caption. See formatting options for more details.
         /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
         /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the GIF animation
         ///
@@ -3247,7 +3339,7 @@ extension TelegramAPI {
         /// Optional. Caption of the MPEG-4 file to be sent, 0-1024 characters after entities parsing
         public var caption: String?
 
-        /// Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// Optional. Mode for parsing entities in the caption. See formatting options for more details.
         public var parseMode: String?
 
         /// Optional. Inline keyboard attached to the message
@@ -3267,7 +3359,7 @@ extension TelegramAPI {
         /// - parameter thumbUrl:  URL of the static thumbnail (jpeg or gif) for the result
         /// - parameter title:  Optional. Title for the result
         /// - parameter caption:  Optional. Caption of the MPEG-4 file to be sent, 0-1024 characters after entities parsing
-        /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// - parameter parseMode:  Optional. Mode for parsing entities in the caption. See formatting options for more details.
         /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
         /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the video animation
         ///
@@ -3329,7 +3421,7 @@ extension TelegramAPI {
         /// Optional. Caption of the video to be sent, 0-1024 characters after entities parsing
         public var caption: String?
 
-        /// Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// Optional. Mode for parsing entities in the video caption. See formatting options for more details.
         public var parseMode: String?
 
         /// Optional. Video width
@@ -3359,7 +3451,7 @@ extension TelegramAPI {
         /// - parameter thumbUrl:  URL of the thumbnail (jpeg only) for the video
         /// - parameter title:  Title for the result
         /// - parameter caption:  Optional. Caption of the video to be sent, 0-1024 characters after entities parsing
-        /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// - parameter parseMode:  Optional. Mode for parsing entities in the video caption. See formatting options for more details.
         /// - parameter videoWidth:  Optional. Video width
         /// - parameter videoHeight:  Optional. Video height
         /// - parameter videoDuration:  Optional. Video duration in seconds
@@ -3423,7 +3515,7 @@ extension TelegramAPI {
         /// Optional. Caption, 0-1024 characters after entities parsing
         public var caption: String?
 
-        /// Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// Optional. Mode for parsing entities in the audio caption. See formatting options for more details.
         public var parseMode: String?
 
         /// Optional. Performer
@@ -3445,7 +3537,7 @@ extension TelegramAPI {
         /// - parameter audioUrl:  A valid URL for the audio file
         /// - parameter title:  Title
         /// - parameter caption:  Optional. Caption, 0-1024 characters after entities parsing
-        /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// - parameter parseMode:  Optional. Mode for parsing entities in the audio caption. See formatting options for more details.
         /// - parameter performer:  Optional. Performer
         /// - parameter audioDuration:  Optional. Audio duration in seconds
         /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
@@ -3481,7 +3573,7 @@ extension TelegramAPI {
 
     }
 
-    /// Represents a link to a voice recording in an .ogg container encoded with OPUS. By default, this voice recording will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the the voice message.
+    /// Represents a link to a voice recording in an .OGG container encoded with OPUS. By default, this voice recording will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the the voice message.
     public class InlineQueryResultVoice: Codable {
 
         /// Type of the result, must be voice
@@ -3499,7 +3591,7 @@ extension TelegramAPI {
         /// Optional. Caption, 0-1024 characters after entities parsing
         public var caption: String?
 
-        /// Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// Optional. Mode for parsing entities in the voice message caption. See formatting options for more details.
         public var parseMode: String?
 
         /// Optional. Recording duration in seconds
@@ -3518,7 +3610,7 @@ extension TelegramAPI {
         /// - parameter voiceUrl:  A valid URL for the voice recording
         /// - parameter title:  Recording title
         /// - parameter caption:  Optional. Caption, 0-1024 characters after entities parsing
-        /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// - parameter parseMode:  Optional. Mode for parsing entities in the voice message caption. See formatting options for more details.
         /// - parameter voiceDuration:  Optional. Recording duration in seconds
         /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
         /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the voice recording
@@ -3566,7 +3658,7 @@ extension TelegramAPI {
         /// Optional. Caption of the document to be sent, 0-1024 characters after entities parsing
         public var caption: String?
 
-        /// Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// Optional. Mode for parsing entities in the document caption. See formatting options for more details.
         public var parseMode: String?
 
         /// A valid URL for the file
@@ -3599,7 +3691,7 @@ extension TelegramAPI {
         /// - parameter id:  Unique identifier for this result, 1-64 bytes
         /// - parameter title:  Title for the result
         /// - parameter caption:  Optional. Caption of the document to be sent, 0-1024 characters after entities parsing
-        /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// - parameter parseMode:  Optional. Mode for parsing entities in the document caption. See formatting options for more details.
         /// - parameter documentUrl:  A valid URL for the file
         /// - parameter mimeType:  Mime type of the content of the file, either “application/pdf” or “application/zip”
         /// - parameter description:  Optional. Short description of the result
@@ -3964,7 +4056,7 @@ extension TelegramAPI {
         /// Optional. Caption of the photo to be sent, 0-1024 characters after entities parsing
         public var caption: String?
 
-        /// Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// Optional. Mode for parsing entities in the photo caption. See formatting options for more details.
         public var parseMode: String?
 
         /// Optional. Inline keyboard attached to the message
@@ -3981,7 +4073,7 @@ extension TelegramAPI {
         /// - parameter title:  Optional. Title for the result
         /// - parameter description:  Optional. Short description of the result
         /// - parameter caption:  Optional. Caption of the photo to be sent, 0-1024 characters after entities parsing
-        /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// - parameter parseMode:  Optional. Mode for parsing entities in the photo caption. See formatting options for more details.
         /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
         /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the photo
         ///
@@ -4031,7 +4123,7 @@ extension TelegramAPI {
         /// Optional. Caption of the GIF file to be sent, 0-1024 characters after entities parsing
         public var caption: String?
 
-        /// Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// Optional. Mode for parsing entities in the caption. See formatting options for more details.
         public var parseMode: String?
 
         /// Optional. Inline keyboard attached to the message
@@ -4047,7 +4139,7 @@ extension TelegramAPI {
         /// - parameter gifFileId:  A valid file identifier for the GIF file
         /// - parameter title:  Optional. Title for the result
         /// - parameter caption:  Optional. Caption of the GIF file to be sent, 0-1024 characters after entities parsing
-        /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// - parameter parseMode:  Optional. Mode for parsing entities in the caption. See formatting options for more details.
         /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
         /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the GIF animation
         ///
@@ -4095,7 +4187,7 @@ extension TelegramAPI {
         /// Optional. Caption of the MPEG-4 file to be sent, 0-1024 characters after entities parsing
         public var caption: String?
 
-        /// Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// Optional. Mode for parsing entities in the caption. See formatting options for more details.
         public var parseMode: String?
 
         /// Optional. Inline keyboard attached to the message
@@ -4111,7 +4203,7 @@ extension TelegramAPI {
         /// - parameter mpeg4FileId:  A valid file identifier for the MP4 file
         /// - parameter title:  Optional. Title for the result
         /// - parameter caption:  Optional. Caption of the MPEG-4 file to be sent, 0-1024 characters after entities parsing
-        /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// - parameter parseMode:  Optional. Mode for parsing entities in the caption. See formatting options for more details.
         /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
         /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the video animation
         ///
@@ -4208,7 +4300,7 @@ extension TelegramAPI {
         /// Optional. Caption of the document to be sent, 0-1024 characters after entities parsing
         public var caption: String?
 
-        /// Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// Optional. Mode for parsing entities in the document caption. See formatting options for more details.
         public var parseMode: String?
 
         /// Optional. Inline keyboard attached to the message
@@ -4225,7 +4317,7 @@ extension TelegramAPI {
         /// - parameter documentFileId:  A valid file identifier for the file
         /// - parameter description:  Optional. Short description of the result
         /// - parameter caption:  Optional. Caption of the document to be sent, 0-1024 characters after entities parsing
-        /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// - parameter parseMode:  Optional. Mode for parsing entities in the document caption. See formatting options for more details.
         /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
         /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the file
         ///
@@ -4278,7 +4370,7 @@ extension TelegramAPI {
         /// Optional. Caption of the video to be sent, 0-1024 characters after entities parsing
         public var caption: String?
 
-        /// Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// Optional. Mode for parsing entities in the video caption. See formatting options for more details.
         public var parseMode: String?
 
         /// Optional. Inline keyboard attached to the message
@@ -4295,7 +4387,7 @@ extension TelegramAPI {
         /// - parameter title:  Title for the result
         /// - parameter description:  Optional. Short description of the result
         /// - parameter caption:  Optional. Caption of the video to be sent, 0-1024 characters after entities parsing
-        /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// - parameter parseMode:  Optional. Mode for parsing entities in the video caption. See formatting options for more details.
         /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
         /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the video
         ///
@@ -4345,7 +4437,7 @@ extension TelegramAPI {
         /// Optional. Caption, 0-1024 characters after entities parsing
         public var caption: String?
 
-        /// Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// Optional. Mode for parsing entities in the voice message caption. See formatting options for more details.
         public var parseMode: String?
 
         /// Optional. Inline keyboard attached to the message
@@ -4361,7 +4453,7 @@ extension TelegramAPI {
         /// - parameter voiceFileId:  A valid file identifier for the voice message
         /// - parameter title:  Voice message title
         /// - parameter caption:  Optional. Caption, 0-1024 characters after entities parsing
-        /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// - parameter parseMode:  Optional. Mode for parsing entities in the voice message caption. See formatting options for more details.
         /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
         /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the voice message
         ///
@@ -4406,7 +4498,7 @@ extension TelegramAPI {
         /// Optional. Caption, 0-1024 characters after entities parsing
         public var caption: String?
 
-        /// Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// Optional. Mode for parsing entities in the audio caption. See formatting options for more details.
         public var parseMode: String?
 
         /// Optional. Inline keyboard attached to the message
@@ -4421,7 +4513,7 @@ extension TelegramAPI {
         /// - parameter id:  Unique identifier for this result, 1-64 bytes
         /// - parameter audioFileId:  A valid file identifier for the audio file
         /// - parameter caption:  Optional. Caption, 0-1024 characters after entities parsing
-        /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+        /// - parameter parseMode:  Optional. Mode for parsing entities in the audio caption. See formatting options for more details.
         /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
         /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the audio
         ///
@@ -4468,7 +4560,7 @@ extension TelegramAPI {
             } else if let contact = try? container.decode(InputContactMessageContent.self) {
                 self = .contact(contact)
             } else {
-                throw NSError(domain: "InputMessageContent", code: -1, userInfo: nil)
+                throw NSError(domain: "org.telegram.api", code: -1, userInfo: ["name": "InputMessageContent"])
             }
         }
 
@@ -4508,7 +4600,7 @@ extension TelegramAPI {
         /// Text of the message to be sent, 1-4096 characters
         public var messageText: String
 
-        /// Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in your bot&#39;s message.
+        /// Optional. Mode for parsing entities in the message text. See formatting options for more details.
         public var parseMode: String?
 
         /// Optional. Disables link previews for links in the sent message
@@ -4517,7 +4609,7 @@ extension TelegramAPI {
         /// InputTextMessageContent initialization
         ///
         /// - parameter messageText:  Text of the message to be sent, 1-4096 characters
-        /// - parameter parseMode:  Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in your bot&#39;s message.
+        /// - parameter parseMode:  Optional. Mode for parsing entities in the message text. See formatting options for more details.
         /// - parameter disableWebPagePreview:  Optional. Disables link previews for links in the sent message
         ///
         /// - returns: The new `InputTextMessageContent` instance.
@@ -5276,7 +5368,7 @@ extension TelegramAPI {
             } else if let unspecified = try? container.decode(PassportElementErrorUnspecified.self) {
                 self = .unspecified(unspecified)
             } else {
-                throw NSError(domain: "PassportElementError", code: -1, userInfo: nil)
+                throw NSError(domain: "org.telegram.api", code: -1, userInfo: ["name": "PassportElementError"])
             }
         }
 
