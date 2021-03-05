@@ -1,18 +1,17 @@
-// swift-tools-version:4.0
+// swift-tools-version:5.3
+
 import PackageDescription
 
 let package = Package(
-    name: "TelegramBotAPI",
+    name: "Either",
     products: [
+        .executable(name: "Generate", targets: ["Generate"]),
         .library(name: "TelegramBotAPI", targets: ["TelegramBotAPI"]),
     ],
-    dependencies: [],
-    targets: [
-        .target(
-            name: "TelegramBotAPI", 
-            path: "Sources/",
-            exclude: []
-        )
+    dependencies: [
     ],
-    swiftLanguageVersions: [4]
+    targets: [
+        .target(name: "Generate", dependencies: []),
+        .target(name: "TelegramBotAPI", dependencies: []),
+    ]
 )

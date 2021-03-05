@@ -1,3 +1,11 @@
+//
+//  TelegramModel.swift
+//  TelegramAPI
+//
+//  Created by Tbxark on 2021/03/05.
+//  Copyright © 2018 Tbxark. All rights reserved.
+//
+
 import Foundation
 
 extension TelegramAPI {
@@ -358,6 +366,9 @@ extension TelegramAPI {
         /// Number of updates awaiting delivery
         public var pendingUpdateCount: Int
 
+        /// Optional. Currently used webhook IP address
+        public var ipAddress: String?
+
         /// Optional. Unix time for the most recent error that happened when trying to deliver an update via webhook
         public var lastErrorDate: Int?
 
@@ -375,6 +386,7 @@ extension TelegramAPI {
         /// - parameter url:  Webhook URL, may be empty if webhook is not set up
         /// - parameter hasCustomCertificate:  True, if a custom certificate was provided for webhook certificate checks
         /// - parameter pendingUpdateCount:  Number of updates awaiting delivery
+        /// - parameter ipAddress:  Optional. Currently used webhook IP address
         /// - parameter lastErrorDate:  Optional. Unix time for the most recent error that happened when trying to deliver an update via webhook
         /// - parameter lastErrorMessage:  Optional. Error message in human-readable format for the most recent error that happened when trying to deliver an update via webhook
         /// - parameter maxConnections:  Optional. Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery
@@ -382,10 +394,11 @@ extension TelegramAPI {
         ///
         /// - returns: The new `WebhookInfo` instance.
         ///
-        public init(url: String, hasCustomCertificate: Bool, pendingUpdateCount: Int, lastErrorDate: Int? = nil, lastErrorMessage: String? = nil, maxConnections: Int? = nil, allowedUpdates: [String]? = nil) {
+        public init(url: String, hasCustomCertificate: Bool, pendingUpdateCount: Int, ipAddress: String? = nil, lastErrorDate: Int? = nil, lastErrorMessage: String? = nil, maxConnections: Int? = nil, allowedUpdates: [String]? = nil) {
             self.url = url
             self.hasCustomCertificate = hasCustomCertificate
             self.pendingUpdateCount = pendingUpdateCount
+            self.ipAddress = ipAddress
             self.lastErrorDate = lastErrorDate
             self.lastErrorMessage = lastErrorMessage
             self.maxConnections = maxConnections
@@ -396,6 +409,7 @@ extension TelegramAPI {
             case url = "url"
             case hasCustomCertificate = "has_custom_certificate"
             case pendingUpdateCount = "pending_update_count"
+            case ipAddress = "ip_address"
             case lastErrorDate = "last_error_date"
             case lastErrorMessage = "last_error_message"
             case maxConnections = "max_connections"
@@ -498,13 +512,16 @@ extension TelegramAPI {
         /// Optional. Chat photo. Returned only in getChat.
         public var photo: ChatPhoto?
 
+        /// Optional. Bio of the other party in a private chat. Returned only in getChat.
+        public var bio: String?
+
         /// Optional. Description, for groups, supergroups and channel chats. Returned only in getChat.
         public var description: String?
 
         /// Optional. Chat invite link, for groups, supergroups and channel chats. Each administrator in a chat generates their own invite links, so the bot must first generate the link using exportChatInviteLink. Returned only in getChat.
         public var inviteLink: String?
 
-        /// Optional. Pinned message, for groups, supergroups and channels. Returned only in getChat.
+        /// Optional. The most recent pinned message (by sending date). Returned only in getChat.
         public var pinnedMessage: Message?
 
         /// Optional. Default chat member permissions, for groups and supergroups. Returned only in getChat.
@@ -519,6 +536,12 @@ extension TelegramAPI {
         /// Optional. True, if the bot can change the group sticker set. Returned only in getChat.
         public var canSetStickerSet: Bool?
 
+        /// Optional. Unique identifier for the linked chat, i.e. the discussion group identifier for a channel and vice versa; for supergroups and channel chats. This identifier may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier. Returned only in getChat.
+        public var linkedChatId: Int?
+
+        /// Optional. For supergroups, the location to which the supergroup is connected. Returned only in getChat.
+        public var location: ChatLocation?
+
         /// Chat initialization
         ///
         /// - parameter id:  Unique identifier for this chat. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier.
@@ -528,17 +551,20 @@ extension TelegramAPI {
         /// - parameter firstName:  Optional. First name of the other party in a private chat
         /// - parameter lastName:  Optional. Last name of the other party in a private chat
         /// - parameter photo:  Optional. Chat photo. Returned only in getChat.
+        /// - parameter bio:  Optional. Bio of the other party in a private chat. Returned only in getChat.
         /// - parameter description:  Optional. Description, for groups, supergroups and channel chats. Returned only in getChat.
         /// - parameter inviteLink:  Optional. Chat invite link, for groups, supergroups and channel chats. Each administrator in a chat generates their own invite links, so the bot must first generate the link using exportChatInviteLink. Returned only in getChat.
-        /// - parameter pinnedMessage:  Optional. Pinned message, for groups, supergroups and channels. Returned only in getChat.
+        /// - parameter pinnedMessage:  Optional. The most recent pinned message (by sending date). Returned only in getChat.
         /// - parameter permissions:  Optional. Default chat member permissions, for groups and supergroups. Returned only in getChat.
         /// - parameter slowModeDelay:  Optional. For supergroups, the minimum allowed delay between consecutive messages sent by each unpriviledged user. Returned only in getChat.
         /// - parameter stickerSetName:  Optional. For supergroups, name of group sticker set. Returned only in getChat.
         /// - parameter canSetStickerSet:  Optional. True, if the bot can change the group sticker set. Returned only in getChat.
+        /// - parameter linkedChatId:  Optional. Unique identifier for the linked chat, i.e. the discussion group identifier for a channel and vice versa; for supergroups and channel chats. This identifier may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier. Returned only in getChat.
+        /// - parameter location:  Optional. For supergroups, the location to which the supergroup is connected. Returned only in getChat.
         ///
         /// - returns: The new `Chat` instance.
         ///
-        public init(id: Int, type: String, title: String? = nil, username: String? = nil, firstName: String? = nil, lastName: String? = nil, photo: ChatPhoto? = nil, description: String? = nil, inviteLink: String? = nil, pinnedMessage: Message? = nil, permissions: ChatPermissions? = nil, slowModeDelay: Int? = nil, stickerSetName: String? = nil, canSetStickerSet: Bool? = nil) {
+        public init(id: Int, type: String, title: String? = nil, username: String? = nil, firstName: String? = nil, lastName: String? = nil, photo: ChatPhoto? = nil, bio: String? = nil, description: String? = nil, inviteLink: String? = nil, pinnedMessage: Message? = nil, permissions: ChatPermissions? = nil, slowModeDelay: Int? = nil, stickerSetName: String? = nil, canSetStickerSet: Bool? = nil, linkedChatId: Int? = nil, location: ChatLocation? = nil) {
             self.id = id
             self.type = type
             self.title = title
@@ -546,6 +572,7 @@ extension TelegramAPI {
             self.firstName = firstName
             self.lastName = lastName
             self.photo = photo
+            self.bio = bio
             self.description = description
             self.inviteLink = inviteLink
             self.pinnedMessage = pinnedMessage
@@ -553,6 +580,8 @@ extension TelegramAPI {
             self.slowModeDelay = slowModeDelay
             self.stickerSetName = stickerSetName
             self.canSetStickerSet = canSetStickerSet
+            self.linkedChatId = linkedChatId
+            self.location = location
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -563,6 +592,7 @@ extension TelegramAPI {
             case firstName = "first_name"
             case lastName = "last_name"
             case photo = "photo"
+            case bio = "bio"
             case description = "description"
             case inviteLink = "invite_link"
             case pinnedMessage = "pinned_message"
@@ -570,6 +600,8 @@ extension TelegramAPI {
             case slowModeDelay = "slow_mode_delay"
             case stickerSetName = "sticker_set_name"
             case canSetStickerSet = "can_set_sticker_set"
+            case linkedChatId = "linked_chat_id"
+            case location = "location"
         }
 
     }
@@ -583,6 +615,9 @@ extension TelegramAPI {
         /// Optional. Sender, empty for messages sent to channels
         public var from: User?
 
+        /// Optional. Sender of the message, sent on behalf of a chat. The channel itself for channel messages. The supergroup itself for messages from anonymous group administrators. The linked channel for messages automatically forwarded to the discussion group
+        public var senderChat: Chat?
+
         /// Date the message was sent in Unix time
         public var date: Int
 
@@ -592,7 +627,7 @@ extension TelegramAPI {
         /// Optional. For forwarded messages, sender of the original message
         public var forwardFrom: User?
 
-        /// Optional. For messages forwarded from channels, information about the original channel
+        /// Optional. For messages forwarded from channels or from anonymous administrators, information about the original sender chat
         public var forwardFromChat: Chat?
 
         /// Optional. For messages forwarded from channels, identifier of the original message in the channel
@@ -619,7 +654,7 @@ extension TelegramAPI {
         /// Optional. The unique identifier of a media message group this message belongs to
         public var mediaGroupId: String?
 
-        /// Optional. Signature of the post author for messages in channels
+        /// Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
         public var authorSignature: String?
 
         /// Optional. For text messages, the actual UTF-8 text of the message, 0-4096 characters
@@ -661,7 +696,7 @@ extension TelegramAPI {
         /// Optional. Message is a shared contact, information about the contact
         public var contact: Contact?
 
-        /// Optional. Message is a dice with random value from 1 to 6
+        /// Optional. Message is a dice with random value
         public var dice: Dice?
 
         /// Optional. Message is a game, information about the game. More about games »
@@ -721,6 +756,9 @@ extension TelegramAPI {
         /// Optional. Telegram Passport data
         public var passportData: PassportData?
 
+        /// Optional. Service message. A user in the chat triggered another user’s proximity alert while sharing Live Location.
+        public var proximityAlertTriggered: ProximityAlertTriggered?
+
         /// Optional. Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons.
         public var replyMarkup: InlineKeyboardMarkup?
 
@@ -728,10 +766,11 @@ extension TelegramAPI {
         ///
         /// - parameter messageId:  Unique message identifier inside this chat
         /// - parameter from:  Optional. Sender, empty for messages sent to channels
+        /// - parameter senderChat:  Optional. Sender of the message, sent on behalf of a chat. The channel itself for channel messages. The supergroup itself for messages from anonymous group administrators. The linked channel for messages automatically forwarded to the discussion group
         /// - parameter date:  Date the message was sent in Unix time
         /// - parameter chat:  Conversation the message belongs to
         /// - parameter forwardFrom:  Optional. For forwarded messages, sender of the original message
-        /// - parameter forwardFromChat:  Optional. For messages forwarded from channels, information about the original channel
+        /// - parameter forwardFromChat:  Optional. For messages forwarded from channels or from anonymous administrators, information about the original sender chat
         /// - parameter forwardFromMessageId:  Optional. For messages forwarded from channels, identifier of the original message in the channel
         /// - parameter forwardSignature:  Optional. For messages forwarded from channels, signature of the post author if present
         /// - parameter forwardSenderName:  Optional. Sender’s name for messages forwarded from users who disallow adding a link to their account in forwarded messages
@@ -740,7 +779,7 @@ extension TelegramAPI {
         /// - parameter viaBot:  Optional. Bot through which the message was sent
         /// - parameter editDate:  Optional. Date the message was last edited in Unix time
         /// - parameter mediaGroupId:  Optional. The unique identifier of a media message group this message belongs to
-        /// - parameter authorSignature:  Optional. Signature of the post author for messages in channels
+        /// - parameter authorSignature:  Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
         /// - parameter text:  Optional. For text messages, the actual UTF-8 text of the message, 0-4096 characters
         /// - parameter entities:  Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
         /// - parameter animation:  Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
@@ -754,7 +793,7 @@ extension TelegramAPI {
         /// - parameter caption:  Optional. Caption for the animation, audio, document, photo, video or voice, 0-1024 characters
         /// - parameter captionEntities:  Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
         /// - parameter contact:  Optional. Message is a shared contact, information about the contact
-        /// - parameter dice:  Optional. Message is a dice with random value from 1 to 6
+        /// - parameter dice:  Optional. Message is a dice with random value
         /// - parameter game:  Optional. Message is a game, information about the game. More about games »
         /// - parameter poll:  Optional. Message is a native poll, information about the poll
         /// - parameter venue:  Optional. Message is a venue, information about the venue. For backward compatibility, when this field is set, the location field will also be set
@@ -774,13 +813,15 @@ extension TelegramAPI {
         /// - parameter successfulPayment:  Optional. Message is a service message about a successful payment, information about the payment. More about payments »
         /// - parameter connectedWebsite:  Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
         /// - parameter passportData:  Optional. Telegram Passport data
+        /// - parameter proximityAlertTriggered:  Optional. Service message. A user in the chat triggered another user’s proximity alert while sharing Live Location.
         /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons.
         ///
         /// - returns: The new `Message` instance.
         ///
-        public init(messageId: Int, from: User? = nil, date: Int, chat: Chat, forwardFrom: User? = nil, forwardFromChat: Chat? = nil, forwardFromMessageId: Int? = nil, forwardSignature: String? = nil, forwardSenderName: String? = nil, forwardDate: Int? = nil, replyToMessage: Message? = nil, viaBot: User? = nil, editDate: Int? = nil, mediaGroupId: String? = nil, authorSignature: String? = nil, text: String? = nil, entities: [MessageEntity]? = nil, animation: Animation? = nil, audio: Audio? = nil, document: Document? = nil, photo: [PhotoSize]? = nil, sticker: Sticker? = nil, video: Video? = nil, videoNote: VideoNote? = nil, voice: Voice? = nil, caption: String? = nil, captionEntities: [MessageEntity]? = nil, contact: Contact? = nil, dice: Dice? = nil, game: Game? = nil, poll: Poll? = nil, venue: Venue? = nil, location: Location? = nil, newChatMembers: [User]? = nil, leftChatMember: User? = nil, newChatTitle: String? = nil, newChatPhoto: [PhotoSize]? = nil, deleteChatPhoto: Bool? = nil, groupChatCreated: Bool? = nil, supergroupChatCreated: Bool? = nil, channelChatCreated: Bool? = nil, migrateToChatId: Int? = nil, migrateFromChatId: Int? = nil, pinnedMessage: Message? = nil, invoice: Invoice? = nil, successfulPayment: SuccessfulPayment? = nil, connectedWebsite: String? = nil, passportData: PassportData? = nil, replyMarkup: InlineKeyboardMarkup? = nil) {
+        public init(messageId: Int, from: User? = nil, senderChat: Chat? = nil, date: Int, chat: Chat, forwardFrom: User? = nil, forwardFromChat: Chat? = nil, forwardFromMessageId: Int? = nil, forwardSignature: String? = nil, forwardSenderName: String? = nil, forwardDate: Int? = nil, replyToMessage: Message? = nil, viaBot: User? = nil, editDate: Int? = nil, mediaGroupId: String? = nil, authorSignature: String? = nil, text: String? = nil, entities: [MessageEntity]? = nil, animation: Animation? = nil, audio: Audio? = nil, document: Document? = nil, photo: [PhotoSize]? = nil, sticker: Sticker? = nil, video: Video? = nil, videoNote: VideoNote? = nil, voice: Voice? = nil, caption: String? = nil, captionEntities: [MessageEntity]? = nil, contact: Contact? = nil, dice: Dice? = nil, game: Game? = nil, poll: Poll? = nil, venue: Venue? = nil, location: Location? = nil, newChatMembers: [User]? = nil, leftChatMember: User? = nil, newChatTitle: String? = nil, newChatPhoto: [PhotoSize]? = nil, deleteChatPhoto: Bool? = nil, groupChatCreated: Bool? = nil, supergroupChatCreated: Bool? = nil, channelChatCreated: Bool? = nil, migrateToChatId: Int? = nil, migrateFromChatId: Int? = nil, pinnedMessage: Message? = nil, invoice: Invoice? = nil, successfulPayment: SuccessfulPayment? = nil, connectedWebsite: String? = nil, passportData: PassportData? = nil, proximityAlertTriggered: ProximityAlertTriggered? = nil, replyMarkup: InlineKeyboardMarkup? = nil) {
             self.messageId = messageId
             self.from = from
+            self.senderChat = senderChat
             self.date = date
             self.chat = chat
             self.forwardFrom = forwardFrom
@@ -827,12 +868,14 @@ extension TelegramAPI {
             self.successfulPayment = successfulPayment
             self.connectedWebsite = connectedWebsite
             self.passportData = passportData
+            self.proximityAlertTriggered = proximityAlertTriggered
             self.replyMarkup = replyMarkup
         }
 
         private enum CodingKeys: String, CodingKey {
             case messageId = "message_id"
             case from = "from"
+            case senderChat = "sender_chat"
             case date = "date"
             case chat = "chat"
             case forwardFrom = "forward_from"
@@ -879,7 +922,30 @@ extension TelegramAPI {
             case successfulPayment = "successful_payment"
             case connectedWebsite = "connected_website"
             case passportData = "passport_data"
+            case proximityAlertTriggered = "proximity_alert_triggered"
             case replyMarkup = "reply_markup"
+        }
+
+    }
+
+    /// This object represents a unique message identifier.
+    public class MessageId: Codable {
+
+        /// Unique message identifier
+        public var messageId: Int
+
+        /// MessageId initialization
+        ///
+        /// - parameter messageId:  Unique message identifier
+        ///
+        /// - returns: The new `MessageId` instance.
+        ///
+        public init(messageId: Int) {
+            self.messageId = messageId
+        }
+
+        private enum CodingKeys: String, CodingKey {
+            case messageId = "message_id"
         }
 
     }
@@ -1070,6 +1136,9 @@ extension TelegramAPI {
         /// Optional. Title of the audio as defined by sender or by audio tags
         public var title: String?
 
+        /// Optional. Original filename as defined by sender
+        public var fileName: String?
+
         /// Optional. MIME type of the file as defined by sender
         public var mimeType: String?
 
@@ -1086,18 +1155,20 @@ extension TelegramAPI {
         /// - parameter duration:  Duration of the audio in seconds as defined by sender
         /// - parameter performer:  Optional. Performer of the audio as defined by sender or by audio tags
         /// - parameter title:  Optional. Title of the audio as defined by sender or by audio tags
+        /// - parameter fileName:  Optional. Original filename as defined by sender
         /// - parameter mimeType:  Optional. MIME type of the file as defined by sender
         /// - parameter fileSize:  Optional. File size
         /// - parameter thumb:  Optional. Thumbnail of the album cover to which the music file belongs
         ///
         /// - returns: The new `Audio` instance.
         ///
-        public init(fileId: String, fileUniqueId: String, duration: Int, performer: String? = nil, title: String? = nil, mimeType: String? = nil, fileSize: Int? = nil, thumb: PhotoSize? = nil) {
+        public init(fileId: String, fileUniqueId: String, duration: Int, performer: String? = nil, title: String? = nil, fileName: String? = nil, mimeType: String? = nil, fileSize: Int? = nil, thumb: PhotoSize? = nil) {
             self.fileId = fileId
             self.fileUniqueId = fileUniqueId
             self.duration = duration
             self.performer = performer
             self.title = title
+            self.fileName = fileName
             self.mimeType = mimeType
             self.fileSize = fileSize
             self.thumb = thumb
@@ -1109,6 +1180,7 @@ extension TelegramAPI {
             case duration = "duration"
             case performer = "performer"
             case title = "title"
+            case fileName = "file_name"
             case mimeType = "mime_type"
             case fileSize = "file_size"
             case thumb = "thumb"
@@ -1189,6 +1261,9 @@ extension TelegramAPI {
         /// Optional. Video thumbnail
         public var thumb: PhotoSize?
 
+        /// Optional. Original filename as defined by sender
+        public var fileName: String?
+
         /// Optional. Mime type of a file as defined by sender
         public var mimeType: String?
 
@@ -1203,18 +1278,20 @@ extension TelegramAPI {
         /// - parameter height:  Video height as defined by sender
         /// - parameter duration:  Duration of the video in seconds as defined by sender
         /// - parameter thumb:  Optional. Video thumbnail
+        /// - parameter fileName:  Optional. Original filename as defined by sender
         /// - parameter mimeType:  Optional. Mime type of a file as defined by sender
         /// - parameter fileSize:  Optional. File size
         ///
         /// - returns: The new `Video` instance.
         ///
-        public init(fileId: String, fileUniqueId: String, width: Int, height: Int, duration: Int, thumb: PhotoSize? = nil, mimeType: String? = nil, fileSize: Int? = nil) {
+        public init(fileId: String, fileUniqueId: String, width: Int, height: Int, duration: Int, thumb: PhotoSize? = nil, fileName: String? = nil, mimeType: String? = nil, fileSize: Int? = nil) {
             self.fileId = fileId
             self.fileUniqueId = fileUniqueId
             self.width = width
             self.height = height
             self.duration = duration
             self.thumb = thumb
+            self.fileName = fileName
             self.mimeType = mimeType
             self.fileSize = fileSize
         }
@@ -1226,6 +1303,7 @@ extension TelegramAPI {
             case height = "height"
             case duration = "duration"
             case thumb = "thumb"
+            case fileName = "file_name"
             case mimeType = "mime_type"
             case fileSize = "file_size"
         }
@@ -1382,13 +1460,13 @@ extension TelegramAPI {
         /// Emoji on which the dice throw animation is based
         public var emoji: String
 
-        /// Value of the dice, 1-6 for “” and “” base emoji, 1-5 for “” base emoji
+        /// Value of the dice, 1-6 for “” and “” base emoji, 1-5 for “” and “” base emoji, 1-64 for “” base emoji
         public var value: Int
 
         /// Dice initialization
         ///
         /// - parameter emoji:  Emoji on which the dice throw animation is based
-        /// - parameter value:  Value of the dice, 1-6 for “” and “” base emoji, 1-5 for “” base emoji
+        /// - parameter value:  Value of the dice, 1-6 for “” and “” base emoji, 1-5 for “” and “” base emoji, 1-64 for “” base emoji
         ///
         /// - returns: The new `Dice` instance.
         ///
@@ -1472,7 +1550,7 @@ extension TelegramAPI {
         /// Unique poll identifier
         public var id: String
 
-        /// Poll question, 1-255 characters
+        /// Poll question, 1-300 characters
         public var question: String
 
         /// List of poll options
@@ -1511,7 +1589,7 @@ extension TelegramAPI {
         /// Poll initialization
         ///
         /// - parameter id:  Unique poll identifier
-        /// - parameter question:  Poll question, 1-255 characters
+        /// - parameter question:  Poll question, 1-300 characters
         /// - parameter options:  List of poll options
         /// - parameter totalVoterCount:  Total number of users that voted in the poll
         /// - parameter isClosed:  True, if the poll is closed
@@ -1569,21 +1647,45 @@ extension TelegramAPI {
         /// Latitude as defined by sender
         public var latitude: Float
 
+        /// Optional. The radius of uncertainty for the location, measured in meters; 0-1500
+        public var horizontalAccuracy: Float?
+
+        /// Optional. Time relative to the message sending date, during which the location can be updated, in seconds. For active live locations only.
+        public var livePeriod: Int?
+
+        /// Optional. The direction in which user is moving, in degrees; 1-360. For active live locations only.
+        public var heading: Int?
+
+        /// Optional. Maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only.
+        public var proximityAlertRadius: Int?
+
         /// Location initialization
         ///
         /// - parameter longitude:  Longitude as defined by sender
         /// - parameter latitude:  Latitude as defined by sender
+        /// - parameter horizontalAccuracy:  Optional. The radius of uncertainty for the location, measured in meters; 0-1500
+        /// - parameter livePeriod:  Optional. Time relative to the message sending date, during which the location can be updated, in seconds. For active live locations only.
+        /// - parameter heading:  Optional. The direction in which user is moving, in degrees; 1-360. For active live locations only.
+        /// - parameter proximityAlertRadius:  Optional. Maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only.
         ///
         /// - returns: The new `Location` instance.
         ///
-        public init(longitude: Float, latitude: Float) {
+        public init(longitude: Float, latitude: Float, horizontalAccuracy: Float? = nil, livePeriod: Int? = nil, heading: Int? = nil, proximityAlertRadius: Int? = nil) {
             self.longitude = longitude
             self.latitude = latitude
+            self.horizontalAccuracy = horizontalAccuracy
+            self.livePeriod = livePeriod
+            self.heading = heading
+            self.proximityAlertRadius = proximityAlertRadius
         }
 
         private enum CodingKeys: String, CodingKey {
             case longitude = "longitude"
             case latitude = "latitude"
+            case horizontalAccuracy = "horizontal_accuracy"
+            case livePeriod = "live_period"
+            case heading = "heading"
+            case proximityAlertRadius = "proximity_alert_radius"
         }
 
     }
@@ -1591,7 +1693,7 @@ extension TelegramAPI {
     /// This object represents a venue.
     public class Venue: Codable {
 
-        /// Venue location
+        /// Venue location. Can’t be a live location
         public var location: Location
 
         /// Name of the venue
@@ -1606,22 +1708,32 @@ extension TelegramAPI {
         /// Optional. Foursquare type of the venue. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
         public var foursquareType: String?
 
+        /// Optional. Google Places identifier of the venue
+        public var googlePlaceId: String?
+
+        /// Optional. Google Places type of the venue. (See [supported types](https://developers.google.com/places/web-service/supported_types).)
+        public var googlePlaceType: String?
+
         /// Venue initialization
         ///
-        /// - parameter location:  Venue location
+        /// - parameter location:  Venue location. Can’t be a live location
         /// - parameter title:  Name of the venue
         /// - parameter address:  Address of the venue
         /// - parameter foursquareId:  Optional. Foursquare identifier of the venue
         /// - parameter foursquareType:  Optional. Foursquare type of the venue. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
+        /// - parameter googlePlaceId:  Optional. Google Places identifier of the venue
+        /// - parameter googlePlaceType:  Optional. Google Places type of the venue. (See [supported types](https://developers.google.com/places/web-service/supported_types).)
         ///
         /// - returns: The new `Venue` instance.
         ///
-        public init(location: Location, title: String, address: String, foursquareId: String? = nil, foursquareType: String? = nil) {
+        public init(location: Location, title: String, address: String, foursquareId: String? = nil, foursquareType: String? = nil, googlePlaceId: String? = nil, googlePlaceType: String? = nil) {
             self.location = location
             self.title = title
             self.address = address
             self.foursquareId = foursquareId
             self.foursquareType = foursquareType
+            self.googlePlaceId = googlePlaceId
+            self.googlePlaceType = googlePlaceType
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -1630,6 +1742,42 @@ extension TelegramAPI {
             case address = "address"
             case foursquareId = "foursquare_id"
             case foursquareType = "foursquare_type"
+            case googlePlaceId = "google_place_id"
+            case googlePlaceType = "google_place_type"
+        }
+
+    }
+
+    /// This object represents the content of a service message, sent whenever a user in the chat triggers a proximity alert set by another user.
+    public class ProximityAlertTriggered: Codable {
+
+        /// User that triggered the alert
+        public var traveler: User
+
+        /// User that set the alert
+        public var watcher: User
+
+        /// The distance between the users
+        public var distance: Int
+
+        /// ProximityAlertTriggered initialization
+        ///
+        /// - parameter traveler:  User that triggered the alert
+        /// - parameter watcher:  User that set the alert
+        /// - parameter distance:  The distance between the users
+        ///
+        /// - returns: The new `ProximityAlertTriggered` instance.
+        ///
+        public init(traveler: User, watcher: User, distance: Int) {
+            self.traveler = traveler
+            self.watcher = watcher
+            self.distance = distance
+        }
+
+        private enum CodingKeys: String, CodingKey {
+            case traveler = "traveler"
+            case watcher = "watcher"
+            case distance = "distance"
         }
 
     }
@@ -2096,8 +2244,8 @@ extension TelegramAPI {
         /// Optional. Owner and administrators only. Custom title for this user
         public var customTitle: String?
 
-        /// Optional. Restricted and kicked only. Date when restrictions will be lifted for this user; unix time
-        public var untilDate: Int?
+        /// Optional. Owner and administrators only. True, if the user’s presence in the chat is hidden
+        public var isAnonymous: Bool?
 
         /// Optional. Administrators only. True, if the bot is allowed to edit administrator privileges of that user
         public var canBeEdited: Bool?
@@ -2144,12 +2292,15 @@ extension TelegramAPI {
         /// Optional. Restricted only. True, if the user is allowed to add web page previews to their messages
         public var canAddWebPagePreviews: Bool?
 
+        /// Optional. Restricted and kicked only. Date when restrictions will be lifted for this user; unix time
+        public var untilDate: Int?
+
         /// ChatMember initialization
         ///
         /// - parameter user:  Information about the user
         /// - parameter status:  The member’s status in the chat. Can be “creator”, “administrator”, “member”, “restricted”, “left” or “kicked”
         /// - parameter customTitle:  Optional. Owner and administrators only. Custom title for this user
-        /// - parameter untilDate:  Optional. Restricted and kicked only. Date when restrictions will be lifted for this user; unix time
+        /// - parameter isAnonymous:  Optional. Owner and administrators only. True, if the user’s presence in the chat is hidden
         /// - parameter canBeEdited:  Optional. Administrators only. True, if the bot is allowed to edit administrator privileges of that user
         /// - parameter canPostMessages:  Optional. Administrators only. True, if the administrator can post in the channel; channels only
         /// - parameter canEditMessages:  Optional. Administrators only. True, if the administrator can edit messages of other users and can pin messages; channels only
@@ -2165,14 +2316,15 @@ extension TelegramAPI {
         /// - parameter canSendPolls:  Optional. Restricted only. True, if the user is allowed to send polls
         /// - parameter canSendOtherMessages:  Optional. Restricted only. True, if the user is allowed to send animations, games, stickers and use inline bots
         /// - parameter canAddWebPagePreviews:  Optional. Restricted only. True, if the user is allowed to add web page previews to their messages
+        /// - parameter untilDate:  Optional. Restricted and kicked only. Date when restrictions will be lifted for this user; unix time
         ///
         /// - returns: The new `ChatMember` instance.
         ///
-        public init(user: User, status: String, customTitle: String? = nil, untilDate: Int? = nil, canBeEdited: Bool? = nil, canPostMessages: Bool? = nil, canEditMessages: Bool? = nil, canDeleteMessages: Bool? = nil, canRestrictMembers: Bool? = nil, canPromoteMembers: Bool? = nil, canChangeInfo: Bool? = nil, canInviteUsers: Bool? = nil, canPinMessages: Bool? = nil, isMember: Bool? = nil, canSendMessages: Bool? = nil, canSendMediaMessages: Bool? = nil, canSendPolls: Bool? = nil, canSendOtherMessages: Bool? = nil, canAddWebPagePreviews: Bool? = nil) {
+        public init(user: User, status: String, customTitle: String? = nil, isAnonymous: Bool? = nil, canBeEdited: Bool? = nil, canPostMessages: Bool? = nil, canEditMessages: Bool? = nil, canDeleteMessages: Bool? = nil, canRestrictMembers: Bool? = nil, canPromoteMembers: Bool? = nil, canChangeInfo: Bool? = nil, canInviteUsers: Bool? = nil, canPinMessages: Bool? = nil, isMember: Bool? = nil, canSendMessages: Bool? = nil, canSendMediaMessages: Bool? = nil, canSendPolls: Bool? = nil, canSendOtherMessages: Bool? = nil, canAddWebPagePreviews: Bool? = nil, untilDate: Int? = nil) {
             self.user = user
             self.status = status
             self.customTitle = customTitle
-            self.untilDate = untilDate
+            self.isAnonymous = isAnonymous
             self.canBeEdited = canBeEdited
             self.canPostMessages = canPostMessages
             self.canEditMessages = canEditMessages
@@ -2188,13 +2340,14 @@ extension TelegramAPI {
             self.canSendPolls = canSendPolls
             self.canSendOtherMessages = canSendOtherMessages
             self.canAddWebPagePreviews = canAddWebPagePreviews
+            self.untilDate = untilDate
         }
 
         private enum CodingKeys: String, CodingKey {
             case user = "user"
             case status = "status"
             case customTitle = "custom_title"
-            case untilDate = "until_date"
+            case isAnonymous = "is_anonymous"
             case canBeEdited = "can_be_edited"
             case canPostMessages = "can_post_messages"
             case canEditMessages = "can_edit_messages"
@@ -2210,6 +2363,7 @@ extension TelegramAPI {
             case canSendPolls = "can_send_polls"
             case canSendOtherMessages = "can_send_other_messages"
             case canAddWebPagePreviews = "can_add_web_page_previews"
+            case untilDate = "until_date"
         }
 
     }
@@ -2274,6 +2428,34 @@ extension TelegramAPI {
             case canChangeInfo = "can_change_info"
             case canInviteUsers = "can_invite_users"
             case canPinMessages = "can_pin_messages"
+        }
+
+    }
+
+    /// Represents a location to which a chat is connected.
+    public class ChatLocation: Codable {
+
+        /// The location to which the supergroup is connected. Can’t be a live location.
+        public var location: Location
+
+        /// Location address; 1-64 characters, as defined by the chat owner
+        public var address: String
+
+        /// ChatLocation initialization
+        ///
+        /// - parameter location:  The location to which the supergroup is connected. Can’t be a live location.
+        /// - parameter address:  Location address; 1-64 characters, as defined by the chat owner
+        ///
+        /// - returns: The new `ChatLocation` instance.
+        ///
+        public init(location: Location, address: String) {
+            self.location = location
+            self.address = address
+        }
+
+        private enum CodingKeys: String, CodingKey {
+            case location = "location"
+            case address = "address"
         }
 
     }
@@ -2411,20 +2593,25 @@ extension TelegramAPI {
         /// Optional. Mode for parsing entities in the photo caption. See formatting options for more details.
         public var parseMode: String?
 
+        /// Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
+        public var captionEntities: [MessageEntity]?
+
         /// InputMediaPhoto initialization
         ///
         /// - parameter type:  Type of the result, must be photo
         /// - parameter media:  File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. More info on Sending Files »
         /// - parameter caption:  Optional. Caption of the photo to be sent, 0-1024 characters after entities parsing
         /// - parameter parseMode:  Optional. Mode for parsing entities in the photo caption. See formatting options for more details.
+        /// - parameter captionEntities:  Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
         ///
         /// - returns: The new `InputMediaPhoto` instance.
         ///
-        public init(type: String, media: String, caption: String? = nil, parseMode: String? = nil) {
+        public init(type: String, media: String, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil) {
             self.type = type
             self.media = media
             self.caption = caption
             self.parseMode = parseMode
+            self.captionEntities = captionEntities
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -2432,6 +2619,7 @@ extension TelegramAPI {
             case media = "media"
             case caption = "caption"
             case parseMode = "parse_mode"
+            case captionEntities = "caption_entities"
         }
 
     }
@@ -2454,6 +2642,9 @@ extension TelegramAPI {
         /// Optional. Mode for parsing entities in the video caption. See formatting options for more details.
         public var parseMode: String?
 
+        /// Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
+        public var captionEntities: [MessageEntity]?
+
         /// Optional. Video width
         public var width: Int?
 
@@ -2473,6 +2664,7 @@ extension TelegramAPI {
         /// - parameter thumb:  Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail’s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
         /// - parameter caption:  Optional. Caption of the video to be sent, 0-1024 characters after entities parsing
         /// - parameter parseMode:  Optional. Mode for parsing entities in the video caption. See formatting options for more details.
+        /// - parameter captionEntities:  Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
         /// - parameter width:  Optional. Video width
         /// - parameter height:  Optional. Video height
         /// - parameter duration:  Optional. Video duration
@@ -2480,12 +2672,13 @@ extension TelegramAPI {
         ///
         /// - returns: The new `InputMediaVideo` instance.
         ///
-        public init(type: String, media: String, thumb: FileOrPath? = nil, caption: String? = nil, parseMode: String? = nil, width: Int? = nil, height: Int? = nil, duration: Int? = nil, supportsStreaming: Bool? = nil) {
+        public init(type: String, media: String, thumb: FileOrPath? = nil, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, width: Int? = nil, height: Int? = nil, duration: Int? = nil, supportsStreaming: Bool? = nil) {
             self.type = type
             self.media = media
             self.thumb = thumb
             self.caption = caption
             self.parseMode = parseMode
+            self.captionEntities = captionEntities
             self.width = width
             self.height = height
             self.duration = duration
@@ -2498,6 +2691,7 @@ extension TelegramAPI {
             case thumb = "thumb"
             case caption = "caption"
             case parseMode = "parse_mode"
+            case captionEntities = "caption_entities"
             case width = "width"
             case height = "height"
             case duration = "duration"
@@ -2524,6 +2718,9 @@ extension TelegramAPI {
         /// Optional. Mode for parsing entities in the animation caption. See formatting options for more details.
         public var parseMode: String?
 
+        /// Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
+        public var captionEntities: [MessageEntity]?
+
         /// Optional. Animation width
         public var width: Int?
 
@@ -2540,18 +2737,20 @@ extension TelegramAPI {
         /// - parameter thumb:  Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail’s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
         /// - parameter caption:  Optional. Caption of the animation to be sent, 0-1024 characters after entities parsing
         /// - parameter parseMode:  Optional. Mode for parsing entities in the animation caption. See formatting options for more details.
+        /// - parameter captionEntities:  Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
         /// - parameter width:  Optional. Animation width
         /// - parameter height:  Optional. Animation height
         /// - parameter duration:  Optional. Animation duration
         ///
         /// - returns: The new `InputMediaAnimation` instance.
         ///
-        public init(type: String, media: String, thumb: FileOrPath? = nil, caption: String? = nil, parseMode: String? = nil, width: Int? = nil, height: Int? = nil, duration: Int? = nil) {
+        public init(type: String, media: String, thumb: FileOrPath? = nil, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, width: Int? = nil, height: Int? = nil, duration: Int? = nil) {
             self.type = type
             self.media = media
             self.thumb = thumb
             self.caption = caption
             self.parseMode = parseMode
+            self.captionEntities = captionEntities
             self.width = width
             self.height = height
             self.duration = duration
@@ -2563,6 +2762,7 @@ extension TelegramAPI {
             case thumb = "thumb"
             case caption = "caption"
             case parseMode = "parse_mode"
+            case captionEntities = "caption_entities"
             case width = "width"
             case height = "height"
             case duration = "duration"
@@ -2588,6 +2788,9 @@ extension TelegramAPI {
         /// Optional. Mode for parsing entities in the audio caption. See formatting options for more details.
         public var parseMode: String?
 
+        /// Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
+        public var captionEntities: [MessageEntity]?
+
         /// Optional. Duration of the audio in seconds
         public var duration: Int?
 
@@ -2604,18 +2807,20 @@ extension TelegramAPI {
         /// - parameter thumb:  Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail’s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
         /// - parameter caption:  Optional. Caption of the audio to be sent, 0-1024 characters after entities parsing
         /// - parameter parseMode:  Optional. Mode for parsing entities in the audio caption. See formatting options for more details.
+        /// - parameter captionEntities:  Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
         /// - parameter duration:  Optional. Duration of the audio in seconds
         /// - parameter performer:  Optional. Performer of the audio
         /// - parameter title:  Optional. Title of the audio
         ///
         /// - returns: The new `InputMediaAudio` instance.
         ///
-        public init(type: String, media: String, thumb: FileOrPath? = nil, caption: String? = nil, parseMode: String? = nil, duration: Int? = nil, performer: String? = nil, title: String? = nil) {
+        public init(type: String, media: String, thumb: FileOrPath? = nil, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, duration: Int? = nil, performer: String? = nil, title: String? = nil) {
             self.type = type
             self.media = media
             self.thumb = thumb
             self.caption = caption
             self.parseMode = parseMode
+            self.captionEntities = captionEntities
             self.duration = duration
             self.performer = performer
             self.title = title
@@ -2627,6 +2832,7 @@ extension TelegramAPI {
             case thumb = "thumb"
             case caption = "caption"
             case parseMode = "parse_mode"
+            case captionEntities = "caption_entities"
             case duration = "duration"
             case performer = "performer"
             case title = "title"
@@ -2652,6 +2858,12 @@ extension TelegramAPI {
         /// Optional. Mode for parsing entities in the document caption. See formatting options for more details.
         public var parseMode: String?
 
+        /// Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
+        public var captionEntities: [MessageEntity]?
+
+        /// Optional. Disables automatic server-side content type detection for files uploaded using multipart/form-data. Always true, if the document is sent as part of an album.
+        public var disableContentTypeDetection: Bool?
+
         /// InputMediaDocument initialization
         ///
         /// - parameter type:  Type of the result, must be document
@@ -2659,15 +2871,19 @@ extension TelegramAPI {
         /// - parameter thumb:  Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail’s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More info on Sending Files »
         /// - parameter caption:  Optional. Caption of the document to be sent, 0-1024 characters after entities parsing
         /// - parameter parseMode:  Optional. Mode for parsing entities in the document caption. See formatting options for more details.
+        /// - parameter captionEntities:  Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
+        /// - parameter disableContentTypeDetection:  Optional. Disables automatic server-side content type detection for files uploaded using multipart/form-data. Always true, if the document is sent as part of an album.
         ///
         /// - returns: The new `InputMediaDocument` instance.
         ///
-        public init(type: String, media: String, thumb: FileOrPath? = nil, caption: String? = nil, parseMode: String? = nil) {
+        public init(type: String, media: String, thumb: FileOrPath? = nil, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, disableContentTypeDetection: Bool? = nil) {
             self.type = type
             self.media = media
             self.thumb = thumb
             self.caption = caption
             self.parseMode = parseMode
+            self.captionEntities = captionEntities
+            self.disableContentTypeDetection = disableContentTypeDetection
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -2676,6 +2892,8 @@ extension TelegramAPI {
             case thumb = "thumb"
             case caption = "caption"
             case parseMode = "parse_mode"
+            case captionEntities = "caption_entities"
+            case disableContentTypeDetection = "disable_content_type_detection"
         }
 
     }
@@ -3211,6 +3429,9 @@ extension TelegramAPI {
         /// Optional. Mode for parsing entities in the photo caption. See formatting options for more details.
         public var parseMode: String?
 
+        /// Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
+        public var captionEntities: [MessageEntity]?
+
         /// Optional. Inline keyboard attached to the message
         public var replyMarkup: InlineKeyboardMarkup?
 
@@ -3229,12 +3450,13 @@ extension TelegramAPI {
         /// - parameter description:  Optional. Short description of the result
         /// - parameter caption:  Optional. Caption of the photo to be sent, 0-1024 characters after entities parsing
         /// - parameter parseMode:  Optional. Mode for parsing entities in the photo caption. See formatting options for more details.
+        /// - parameter captionEntities:  Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
         /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
         /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the photo
         ///
         /// - returns: The new `InlineQueryResultPhoto` instance.
         ///
-        public init(type: String, id: String, photoUrl: String, thumbUrl: String, photoWidth: Int? = nil, photoHeight: Int? = nil, title: String? = nil, description: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
+        public init(type: String, id: String, photoUrl: String, thumbUrl: String, photoWidth: Int? = nil, photoHeight: Int? = nil, title: String? = nil, description: String? = nil, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
             self.type = type
             self.id = id
             self.photoUrl = photoUrl
@@ -3245,6 +3467,7 @@ extension TelegramAPI {
             self.description = description
             self.caption = caption
             self.parseMode = parseMode
+            self.captionEntities = captionEntities
             self.replyMarkup = replyMarkup
             self.inputMessageContent = inputMessageContent
         }
@@ -3260,6 +3483,7 @@ extension TelegramAPI {
             case description = "description"
             case caption = "caption"
             case parseMode = "parse_mode"
+            case captionEntities = "caption_entities"
             case replyMarkup = "reply_markup"
             case inputMessageContent = "input_message_content"
         }
@@ -3302,6 +3526,9 @@ extension TelegramAPI {
         /// Optional. Mode for parsing entities in the caption. See formatting options for more details.
         public var parseMode: String?
 
+        /// Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
+        public var captionEntities: [MessageEntity]?
+
         /// Optional. Inline keyboard attached to the message
         public var replyMarkup: InlineKeyboardMarkup?
 
@@ -3321,12 +3548,13 @@ extension TelegramAPI {
         /// - parameter title:  Optional. Title for the result
         /// - parameter caption:  Optional. Caption of the GIF file to be sent, 0-1024 characters after entities parsing
         /// - parameter parseMode:  Optional. Mode for parsing entities in the caption. See formatting options for more details.
+        /// - parameter captionEntities:  Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
         /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
         /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the GIF animation
         ///
         /// - returns: The new `InlineQueryResultGif` instance.
         ///
-        public init(type: String, id: String, gifUrl: String, gifWidth: Int? = nil, gifHeight: Int? = nil, gifDuration: Int? = nil, thumbUrl: String, thumbMimeType: String? = nil, title: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
+        public init(type: String, id: String, gifUrl: String, gifWidth: Int? = nil, gifHeight: Int? = nil, gifDuration: Int? = nil, thumbUrl: String, thumbMimeType: String? = nil, title: String? = nil, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
             self.type = type
             self.id = id
             self.gifUrl = gifUrl
@@ -3338,6 +3566,7 @@ extension TelegramAPI {
             self.title = title
             self.caption = caption
             self.parseMode = parseMode
+            self.captionEntities = captionEntities
             self.replyMarkup = replyMarkup
             self.inputMessageContent = inputMessageContent
         }
@@ -3354,6 +3583,7 @@ extension TelegramAPI {
             case title = "title"
             case caption = "caption"
             case parseMode = "parse_mode"
+            case captionEntities = "caption_entities"
             case replyMarkup = "reply_markup"
             case inputMessageContent = "input_message_content"
         }
@@ -3396,6 +3626,9 @@ extension TelegramAPI {
         /// Optional. Mode for parsing entities in the caption. See formatting options for more details.
         public var parseMode: String?
 
+        /// Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
+        public var captionEntities: [MessageEntity]?
+
         /// Optional. Inline keyboard attached to the message
         public var replyMarkup: InlineKeyboardMarkup?
 
@@ -3415,12 +3648,13 @@ extension TelegramAPI {
         /// - parameter title:  Optional. Title for the result
         /// - parameter caption:  Optional. Caption of the MPEG-4 file to be sent, 0-1024 characters after entities parsing
         /// - parameter parseMode:  Optional. Mode for parsing entities in the caption. See formatting options for more details.
+        /// - parameter captionEntities:  Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
         /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
         /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the video animation
         ///
         /// - returns: The new `InlineQueryResultMpeg4Gif` instance.
         ///
-        public init(type: String, id: String, mpeg4Url: String, mpeg4Width: Int? = nil, mpeg4Height: Int? = nil, mpeg4Duration: Int? = nil, thumbUrl: String, thumbMimeType: String? = nil, title: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
+        public init(type: String, id: String, mpeg4Url: String, mpeg4Width: Int? = nil, mpeg4Height: Int? = nil, mpeg4Duration: Int? = nil, thumbUrl: String, thumbMimeType: String? = nil, title: String? = nil, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
             self.type = type
             self.id = id
             self.mpeg4Url = mpeg4Url
@@ -3432,6 +3666,7 @@ extension TelegramAPI {
             self.title = title
             self.caption = caption
             self.parseMode = parseMode
+            self.captionEntities = captionEntities
             self.replyMarkup = replyMarkup
             self.inputMessageContent = inputMessageContent
         }
@@ -3448,6 +3683,7 @@ extension TelegramAPI {
             case title = "title"
             case caption = "caption"
             case parseMode = "parse_mode"
+            case captionEntities = "caption_entities"
             case replyMarkup = "reply_markup"
             case inputMessageContent = "input_message_content"
         }
@@ -3481,6 +3717,9 @@ extension TelegramAPI {
         /// Optional. Mode for parsing entities in the video caption. See formatting options for more details.
         public var parseMode: String?
 
+        /// Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
+        public var captionEntities: [MessageEntity]?
+
         /// Optional. Video width
         public var videoWidth: Int?
 
@@ -3509,6 +3748,7 @@ extension TelegramAPI {
         /// - parameter title:  Title for the result
         /// - parameter caption:  Optional. Caption of the video to be sent, 0-1024 characters after entities parsing
         /// - parameter parseMode:  Optional. Mode for parsing entities in the video caption. See formatting options for more details.
+        /// - parameter captionEntities:  Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
         /// - parameter videoWidth:  Optional. Video width
         /// - parameter videoHeight:  Optional. Video height
         /// - parameter videoDuration:  Optional. Video duration in seconds
@@ -3518,7 +3758,7 @@ extension TelegramAPI {
         ///
         /// - returns: The new `InlineQueryResultVideo` instance.
         ///
-        public init(type: String, id: String, videoUrl: String, mimeType: String, thumbUrl: String, title: String, caption: String? = nil, parseMode: String? = nil, videoWidth: Int? = nil, videoHeight: Int? = nil, videoDuration: Int? = nil, description: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
+        public init(type: String, id: String, videoUrl: String, mimeType: String, thumbUrl: String, title: String, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, videoWidth: Int? = nil, videoHeight: Int? = nil, videoDuration: Int? = nil, description: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
             self.type = type
             self.id = id
             self.videoUrl = videoUrl
@@ -3527,6 +3767,7 @@ extension TelegramAPI {
             self.title = title
             self.caption = caption
             self.parseMode = parseMode
+            self.captionEntities = captionEntities
             self.videoWidth = videoWidth
             self.videoHeight = videoHeight
             self.videoDuration = videoDuration
@@ -3544,6 +3785,7 @@ extension TelegramAPI {
             case title = "title"
             case caption = "caption"
             case parseMode = "parse_mode"
+            case captionEntities = "caption_entities"
             case videoWidth = "video_width"
             case videoHeight = "video_height"
             case videoDuration = "video_duration"
@@ -3575,6 +3817,9 @@ extension TelegramAPI {
         /// Optional. Mode for parsing entities in the audio caption. See formatting options for more details.
         public var parseMode: String?
 
+        /// Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
+        public var captionEntities: [MessageEntity]?
+
         /// Optional. Performer
         public var performer: String?
 
@@ -3595,6 +3840,7 @@ extension TelegramAPI {
         /// - parameter title:  Title
         /// - parameter caption:  Optional. Caption, 0-1024 characters after entities parsing
         /// - parameter parseMode:  Optional. Mode for parsing entities in the audio caption. See formatting options for more details.
+        /// - parameter captionEntities:  Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
         /// - parameter performer:  Optional. Performer
         /// - parameter audioDuration:  Optional. Audio duration in seconds
         /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
@@ -3602,13 +3848,14 @@ extension TelegramAPI {
         ///
         /// - returns: The new `InlineQueryResultAudio` instance.
         ///
-        public init(type: String, id: String, audioUrl: String, title: String, caption: String? = nil, parseMode: String? = nil, performer: String? = nil, audioDuration: Int? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
+        public init(type: String, id: String, audioUrl: String, title: String, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, performer: String? = nil, audioDuration: Int? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
             self.type = type
             self.id = id
             self.audioUrl = audioUrl
             self.title = title
             self.caption = caption
             self.parseMode = parseMode
+            self.captionEntities = captionEntities
             self.performer = performer
             self.audioDuration = audioDuration
             self.replyMarkup = replyMarkup
@@ -3622,6 +3869,7 @@ extension TelegramAPI {
             case title = "title"
             case caption = "caption"
             case parseMode = "parse_mode"
+            case captionEntities = "caption_entities"
             case performer = "performer"
             case audioDuration = "audio_duration"
             case replyMarkup = "reply_markup"
@@ -3651,6 +3899,9 @@ extension TelegramAPI {
         /// Optional. Mode for parsing entities in the voice message caption. See formatting options for more details.
         public var parseMode: String?
 
+        /// Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
+        public var captionEntities: [MessageEntity]?
+
         /// Optional. Recording duration in seconds
         public var voiceDuration: Int?
 
@@ -3668,19 +3919,21 @@ extension TelegramAPI {
         /// - parameter title:  Recording title
         /// - parameter caption:  Optional. Caption, 0-1024 characters after entities parsing
         /// - parameter parseMode:  Optional. Mode for parsing entities in the voice message caption. See formatting options for more details.
+        /// - parameter captionEntities:  Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
         /// - parameter voiceDuration:  Optional. Recording duration in seconds
         /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
         /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the voice recording
         ///
         /// - returns: The new `InlineQueryResultVoice` instance.
         ///
-        public init(type: String, id: String, voiceUrl: String, title: String, caption: String? = nil, parseMode: String? = nil, voiceDuration: Int? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
+        public init(type: String, id: String, voiceUrl: String, title: String, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, voiceDuration: Int? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
             self.type = type
             self.id = id
             self.voiceUrl = voiceUrl
             self.title = title
             self.caption = caption
             self.parseMode = parseMode
+            self.captionEntities = captionEntities
             self.voiceDuration = voiceDuration
             self.replyMarkup = replyMarkup
             self.inputMessageContent = inputMessageContent
@@ -3693,6 +3946,7 @@ extension TelegramAPI {
             case title = "title"
             case caption = "caption"
             case parseMode = "parse_mode"
+            case captionEntities = "caption_entities"
             case voiceDuration = "voice_duration"
             case replyMarkup = "reply_markup"
             case inputMessageContent = "input_message_content"
@@ -3717,6 +3971,9 @@ extension TelegramAPI {
 
         /// Optional. Mode for parsing entities in the document caption. See formatting options for more details.
         public var parseMode: String?
+
+        /// Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
+        public var captionEntities: [MessageEntity]?
 
         /// A valid URL for the file
         public var documentUrl: String
@@ -3749,6 +4006,7 @@ extension TelegramAPI {
         /// - parameter title:  Title for the result
         /// - parameter caption:  Optional. Caption of the document to be sent, 0-1024 characters after entities parsing
         /// - parameter parseMode:  Optional. Mode for parsing entities in the document caption. See formatting options for more details.
+        /// - parameter captionEntities:  Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
         /// - parameter documentUrl:  A valid URL for the file
         /// - parameter mimeType:  Mime type of the content of the file, either “application/pdf” or “application/zip”
         /// - parameter description:  Optional. Short description of the result
@@ -3760,12 +4018,13 @@ extension TelegramAPI {
         ///
         /// - returns: The new `InlineQueryResultDocument` instance.
         ///
-        public init(type: String, id: String, title: String, caption: String? = nil, parseMode: String? = nil, documentUrl: String, mimeType: String, description: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil, thumbUrl: String? = nil, thumbWidth: Int? = nil, thumbHeight: Int? = nil) {
+        public init(type: String, id: String, title: String, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, documentUrl: String, mimeType: String, description: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil, thumbUrl: String? = nil, thumbWidth: Int? = nil, thumbHeight: Int? = nil) {
             self.type = type
             self.id = id
             self.title = title
             self.caption = caption
             self.parseMode = parseMode
+            self.captionEntities = captionEntities
             self.documentUrl = documentUrl
             self.mimeType = mimeType
             self.description = description
@@ -3782,6 +4041,7 @@ extension TelegramAPI {
             case title = "title"
             case caption = "caption"
             case parseMode = "parse_mode"
+            case captionEntities = "caption_entities"
             case documentUrl = "document_url"
             case mimeType = "mime_type"
             case description = "description"
@@ -3812,8 +4072,17 @@ extension TelegramAPI {
         /// Location title
         public var title: String
 
+        /// Optional. The radius of uncertainty for the location, measured in meters; 0-1500
+        public var horizontalAccuracy: Float?
+
         /// Optional. Period in seconds for which the location can be updated, should be between 60 and 86400.
         public var livePeriod: Int?
+
+        /// Optional. For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
+        public var heading: Int?
+
+        /// Optional. For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
+        public var proximityAlertRadius: Int?
 
         /// Optional. Inline keyboard attached to the message
         public var replyMarkup: InlineKeyboardMarkup?
@@ -3837,7 +4106,10 @@ extension TelegramAPI {
         /// - parameter latitude:  Location latitude in degrees
         /// - parameter longitude:  Location longitude in degrees
         /// - parameter title:  Location title
+        /// - parameter horizontalAccuracy:  Optional. The radius of uncertainty for the location, measured in meters; 0-1500
         /// - parameter livePeriod:  Optional. Period in seconds for which the location can be updated, should be between 60 and 86400.
+        /// - parameter heading:  Optional. For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
+        /// - parameter proximityAlertRadius:  Optional. For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
         /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
         /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the location
         /// - parameter thumbUrl:  Optional. Url of the thumbnail for the result
@@ -3846,13 +4118,16 @@ extension TelegramAPI {
         ///
         /// - returns: The new `InlineQueryResultLocation` instance.
         ///
-        public init(type: String, id: String, latitude: Float, longitude: Float, title: String, livePeriod: Int? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil, thumbUrl: String? = nil, thumbWidth: Int? = nil, thumbHeight: Int? = nil) {
+        public init(type: String, id: String, latitude: Float, longitude: Float, title: String, horizontalAccuracy: Float? = nil, livePeriod: Int? = nil, heading: Int? = nil, proximityAlertRadius: Int? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil, thumbUrl: String? = nil, thumbWidth: Int? = nil, thumbHeight: Int? = nil) {
             self.type = type
             self.id = id
             self.latitude = latitude
             self.longitude = longitude
             self.title = title
+            self.horizontalAccuracy = horizontalAccuracy
             self.livePeriod = livePeriod
+            self.heading = heading
+            self.proximityAlertRadius = proximityAlertRadius
             self.replyMarkup = replyMarkup
             self.inputMessageContent = inputMessageContent
             self.thumbUrl = thumbUrl
@@ -3866,7 +4141,10 @@ extension TelegramAPI {
             case latitude = "latitude"
             case longitude = "longitude"
             case title = "title"
+            case horizontalAccuracy = "horizontal_accuracy"
             case livePeriod = "live_period"
+            case heading = "heading"
+            case proximityAlertRadius = "proximity_alert_radius"
             case replyMarkup = "reply_markup"
             case inputMessageContent = "input_message_content"
             case thumbUrl = "thumb_url"
@@ -3903,6 +4181,12 @@ extension TelegramAPI {
         /// Optional. Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
         public var foursquareType: String?
 
+        /// Optional. Google Places identifier of the venue
+        public var googlePlaceId: String?
+
+        /// Optional. Google Places type of the venue. (See [supported types](https://developers.google.com/places/web-service/supported_types).)
+        public var googlePlaceType: String?
+
         /// Optional. Inline keyboard attached to the message
         public var replyMarkup: InlineKeyboardMarkup?
 
@@ -3928,6 +4212,8 @@ extension TelegramAPI {
         /// - parameter address:  Address of the venue
         /// - parameter foursquareId:  Optional. Foursquare identifier of the venue if known
         /// - parameter foursquareType:  Optional. Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
+        /// - parameter googlePlaceId:  Optional. Google Places identifier of the venue
+        /// - parameter googlePlaceType:  Optional. Google Places type of the venue. (See [supported types](https://developers.google.com/places/web-service/supported_types).)
         /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
         /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the venue
         /// - parameter thumbUrl:  Optional. Url of the thumbnail for the result
@@ -3936,7 +4222,7 @@ extension TelegramAPI {
         ///
         /// - returns: The new `InlineQueryResultVenue` instance.
         ///
-        public init(type: String, id: String, latitude: Float, longitude: Float, title: String, address: String, foursquareId: String? = nil, foursquareType: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil, thumbUrl: String? = nil, thumbWidth: Int? = nil, thumbHeight: Int? = nil) {
+        public init(type: String, id: String, latitude: Float, longitude: Float, title: String, address: String, foursquareId: String? = nil, foursquareType: String? = nil, googlePlaceId: String? = nil, googlePlaceType: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil, thumbUrl: String? = nil, thumbWidth: Int? = nil, thumbHeight: Int? = nil) {
             self.type = type
             self.id = id
             self.latitude = latitude
@@ -3945,6 +4231,8 @@ extension TelegramAPI {
             self.address = address
             self.foursquareId = foursquareId
             self.foursquareType = foursquareType
+            self.googlePlaceId = googlePlaceId
+            self.googlePlaceType = googlePlaceType
             self.replyMarkup = replyMarkup
             self.inputMessageContent = inputMessageContent
             self.thumbUrl = thumbUrl
@@ -3961,6 +4249,8 @@ extension TelegramAPI {
             case address = "address"
             case foursquareId = "foursquare_id"
             case foursquareType = "foursquare_type"
+            case googlePlaceId = "google_place_id"
+            case googlePlaceType = "google_place_type"
             case replyMarkup = "reply_markup"
             case inputMessageContent = "input_message_content"
             case thumbUrl = "thumb_url"
@@ -4116,6 +4406,9 @@ extension TelegramAPI {
         /// Optional. Mode for parsing entities in the photo caption. See formatting options for more details.
         public var parseMode: String?
 
+        /// Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
+        public var captionEntities: [MessageEntity]?
+
         /// Optional. Inline keyboard attached to the message
         public var replyMarkup: InlineKeyboardMarkup?
 
@@ -4131,12 +4424,13 @@ extension TelegramAPI {
         /// - parameter description:  Optional. Short description of the result
         /// - parameter caption:  Optional. Caption of the photo to be sent, 0-1024 characters after entities parsing
         /// - parameter parseMode:  Optional. Mode for parsing entities in the photo caption. See formatting options for more details.
+        /// - parameter captionEntities:  Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
         /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
         /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the photo
         ///
         /// - returns: The new `InlineQueryResultCachedPhoto` instance.
         ///
-        public init(type: String, id: String, photoFileId: String, title: String? = nil, description: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
+        public init(type: String, id: String, photoFileId: String, title: String? = nil, description: String? = nil, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
             self.type = type
             self.id = id
             self.photoFileId = photoFileId
@@ -4144,6 +4438,7 @@ extension TelegramAPI {
             self.description = description
             self.caption = caption
             self.parseMode = parseMode
+            self.captionEntities = captionEntities
             self.replyMarkup = replyMarkup
             self.inputMessageContent = inputMessageContent
         }
@@ -4156,6 +4451,7 @@ extension TelegramAPI {
             case description = "description"
             case caption = "caption"
             case parseMode = "parse_mode"
+            case captionEntities = "caption_entities"
             case replyMarkup = "reply_markup"
             case inputMessageContent = "input_message_content"
         }
@@ -4183,6 +4479,9 @@ extension TelegramAPI {
         /// Optional. Mode for parsing entities in the caption. See formatting options for more details.
         public var parseMode: String?
 
+        /// Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
+        public var captionEntities: [MessageEntity]?
+
         /// Optional. Inline keyboard attached to the message
         public var replyMarkup: InlineKeyboardMarkup?
 
@@ -4197,18 +4496,20 @@ extension TelegramAPI {
         /// - parameter title:  Optional. Title for the result
         /// - parameter caption:  Optional. Caption of the GIF file to be sent, 0-1024 characters after entities parsing
         /// - parameter parseMode:  Optional. Mode for parsing entities in the caption. See formatting options for more details.
+        /// - parameter captionEntities:  Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
         /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
         /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the GIF animation
         ///
         /// - returns: The new `InlineQueryResultCachedGif` instance.
         ///
-        public init(type: String, id: String, gifFileId: String, title: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
+        public init(type: String, id: String, gifFileId: String, title: String? = nil, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
             self.type = type
             self.id = id
             self.gifFileId = gifFileId
             self.title = title
             self.caption = caption
             self.parseMode = parseMode
+            self.captionEntities = captionEntities
             self.replyMarkup = replyMarkup
             self.inputMessageContent = inputMessageContent
         }
@@ -4220,6 +4521,7 @@ extension TelegramAPI {
             case title = "title"
             case caption = "caption"
             case parseMode = "parse_mode"
+            case captionEntities = "caption_entities"
             case replyMarkup = "reply_markup"
             case inputMessageContent = "input_message_content"
         }
@@ -4247,6 +4549,9 @@ extension TelegramAPI {
         /// Optional. Mode for parsing entities in the caption. See formatting options for more details.
         public var parseMode: String?
 
+        /// Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
+        public var captionEntities: [MessageEntity]?
+
         /// Optional. Inline keyboard attached to the message
         public var replyMarkup: InlineKeyboardMarkup?
 
@@ -4261,18 +4566,20 @@ extension TelegramAPI {
         /// - parameter title:  Optional. Title for the result
         /// - parameter caption:  Optional. Caption of the MPEG-4 file to be sent, 0-1024 characters after entities parsing
         /// - parameter parseMode:  Optional. Mode for parsing entities in the caption. See formatting options for more details.
+        /// - parameter captionEntities:  Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
         /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
         /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the video animation
         ///
         /// - returns: The new `InlineQueryResultCachedMpeg4Gif` instance.
         ///
-        public init(type: String, id: String, mpeg4FileId: String, title: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
+        public init(type: String, id: String, mpeg4FileId: String, title: String? = nil, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
             self.type = type
             self.id = id
             self.mpeg4FileId = mpeg4FileId
             self.title = title
             self.caption = caption
             self.parseMode = parseMode
+            self.captionEntities = captionEntities
             self.replyMarkup = replyMarkup
             self.inputMessageContent = inputMessageContent
         }
@@ -4284,6 +4591,7 @@ extension TelegramAPI {
             case title = "title"
             case caption = "caption"
             case parseMode = "parse_mode"
+            case captionEntities = "caption_entities"
             case replyMarkup = "reply_markup"
             case inputMessageContent = "input_message_content"
         }
@@ -4360,6 +4668,9 @@ extension TelegramAPI {
         /// Optional. Mode for parsing entities in the document caption. See formatting options for more details.
         public var parseMode: String?
 
+        /// Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
+        public var captionEntities: [MessageEntity]?
+
         /// Optional. Inline keyboard attached to the message
         public var replyMarkup: InlineKeyboardMarkup?
 
@@ -4375,12 +4686,13 @@ extension TelegramAPI {
         /// - parameter description:  Optional. Short description of the result
         /// - parameter caption:  Optional. Caption of the document to be sent, 0-1024 characters after entities parsing
         /// - parameter parseMode:  Optional. Mode for parsing entities in the document caption. See formatting options for more details.
+        /// - parameter captionEntities:  Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
         /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
         /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the file
         ///
         /// - returns: The new `InlineQueryResultCachedDocument` instance.
         ///
-        public init(type: String, id: String, title: String, documentFileId: String, description: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
+        public init(type: String, id: String, title: String, documentFileId: String, description: String? = nil, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
             self.type = type
             self.id = id
             self.title = title
@@ -4388,6 +4700,7 @@ extension TelegramAPI {
             self.description = description
             self.caption = caption
             self.parseMode = parseMode
+            self.captionEntities = captionEntities
             self.replyMarkup = replyMarkup
             self.inputMessageContent = inputMessageContent
         }
@@ -4400,6 +4713,7 @@ extension TelegramAPI {
             case description = "description"
             case caption = "caption"
             case parseMode = "parse_mode"
+            case captionEntities = "caption_entities"
             case replyMarkup = "reply_markup"
             case inputMessageContent = "input_message_content"
         }
@@ -4430,6 +4744,9 @@ extension TelegramAPI {
         /// Optional. Mode for parsing entities in the video caption. See formatting options for more details.
         public var parseMode: String?
 
+        /// Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
+        public var captionEntities: [MessageEntity]?
+
         /// Optional. Inline keyboard attached to the message
         public var replyMarkup: InlineKeyboardMarkup?
 
@@ -4445,12 +4762,13 @@ extension TelegramAPI {
         /// - parameter description:  Optional. Short description of the result
         /// - parameter caption:  Optional. Caption of the video to be sent, 0-1024 characters after entities parsing
         /// - parameter parseMode:  Optional. Mode for parsing entities in the video caption. See formatting options for more details.
+        /// - parameter captionEntities:  Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
         /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
         /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the video
         ///
         /// - returns: The new `InlineQueryResultCachedVideo` instance.
         ///
-        public init(type: String, id: String, videoFileId: String, title: String, description: String? = nil, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
+        public init(type: String, id: String, videoFileId: String, title: String, description: String? = nil, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
             self.type = type
             self.id = id
             self.videoFileId = videoFileId
@@ -4458,6 +4776,7 @@ extension TelegramAPI {
             self.description = description
             self.caption = caption
             self.parseMode = parseMode
+            self.captionEntities = captionEntities
             self.replyMarkup = replyMarkup
             self.inputMessageContent = inputMessageContent
         }
@@ -4470,6 +4789,7 @@ extension TelegramAPI {
             case description = "description"
             case caption = "caption"
             case parseMode = "parse_mode"
+            case captionEntities = "caption_entities"
             case replyMarkup = "reply_markup"
             case inputMessageContent = "input_message_content"
         }
@@ -4497,6 +4817,9 @@ extension TelegramAPI {
         /// Optional. Mode for parsing entities in the voice message caption. See formatting options for more details.
         public var parseMode: String?
 
+        /// Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
+        public var captionEntities: [MessageEntity]?
+
         /// Optional. Inline keyboard attached to the message
         public var replyMarkup: InlineKeyboardMarkup?
 
@@ -4511,18 +4834,20 @@ extension TelegramAPI {
         /// - parameter title:  Voice message title
         /// - parameter caption:  Optional. Caption, 0-1024 characters after entities parsing
         /// - parameter parseMode:  Optional. Mode for parsing entities in the voice message caption. See formatting options for more details.
+        /// - parameter captionEntities:  Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
         /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
         /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the voice message
         ///
         /// - returns: The new `InlineQueryResultCachedVoice` instance.
         ///
-        public init(type: String, id: String, voiceFileId: String, title: String, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
+        public init(type: String, id: String, voiceFileId: String, title: String, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
             self.type = type
             self.id = id
             self.voiceFileId = voiceFileId
             self.title = title
             self.caption = caption
             self.parseMode = parseMode
+            self.captionEntities = captionEntities
             self.replyMarkup = replyMarkup
             self.inputMessageContent = inputMessageContent
         }
@@ -4534,6 +4859,7 @@ extension TelegramAPI {
             case title = "title"
             case caption = "caption"
             case parseMode = "parse_mode"
+            case captionEntities = "caption_entities"
             case replyMarkup = "reply_markup"
             case inputMessageContent = "input_message_content"
         }
@@ -4558,6 +4884,9 @@ extension TelegramAPI {
         /// Optional. Mode for parsing entities in the audio caption. See formatting options for more details.
         public var parseMode: String?
 
+        /// Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
+        public var captionEntities: [MessageEntity]?
+
         /// Optional. Inline keyboard attached to the message
         public var replyMarkup: InlineKeyboardMarkup?
 
@@ -4571,17 +4900,19 @@ extension TelegramAPI {
         /// - parameter audioFileId:  A valid file identifier for the audio file
         /// - parameter caption:  Optional. Caption, 0-1024 characters after entities parsing
         /// - parameter parseMode:  Optional. Mode for parsing entities in the audio caption. See formatting options for more details.
+        /// - parameter captionEntities:  Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
         /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message
         /// - parameter inputMessageContent:  Optional. Content of the message to be sent instead of the audio
         ///
         /// - returns: The new `InlineQueryResultCachedAudio` instance.
         ///
-        public init(type: String, id: String, audioFileId: String, caption: String? = nil, parseMode: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
+        public init(type: String, id: String, audioFileId: String, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
             self.type = type
             self.id = id
             self.audioFileId = audioFileId
             self.caption = caption
             self.parseMode = parseMode
+            self.captionEntities = captionEntities
             self.replyMarkup = replyMarkup
             self.inputMessageContent = inputMessageContent
         }
@@ -4592,6 +4923,7 @@ extension TelegramAPI {
             case audioFileId = "audio_file_id"
             case caption = "caption"
             case parseMode = "parse_mode"
+            case captionEntities = "caption_entities"
             case replyMarkup = "reply_markup"
             case inputMessageContent = "input_message_content"
         }
@@ -4660,6 +4992,9 @@ extension TelegramAPI {
         /// Optional. Mode for parsing entities in the message text. See formatting options for more details.
         public var parseMode: String?
 
+        /// Optional. List of special entities that appear in message text, which can be specified instead of parse_mode
+        public var entities: [MessageEntity]?
+
         /// Optional. Disables link previews for links in the sent message
         public var disableWebPagePreview: Bool?
 
@@ -4667,19 +5002,22 @@ extension TelegramAPI {
         ///
         /// - parameter messageText:  Text of the message to be sent, 1-4096 characters
         /// - parameter parseMode:  Optional. Mode for parsing entities in the message text. See formatting options for more details.
+        /// - parameter entities:  Optional. List of special entities that appear in message text, which can be specified instead of parse_mode
         /// - parameter disableWebPagePreview:  Optional. Disables link previews for links in the sent message
         ///
         /// - returns: The new `InputTextMessageContent` instance.
         ///
-        public init(messageText: String, parseMode: String? = nil, disableWebPagePreview: Bool? = nil) {
+        public init(messageText: String, parseMode: String? = nil, entities: [MessageEntity]? = nil, disableWebPagePreview: Bool? = nil) {
             self.messageText = messageText
             self.parseMode = parseMode
+            self.entities = entities
             self.disableWebPagePreview = disableWebPagePreview
         }
 
         private enum CodingKeys: String, CodingKey {
             case messageText = "message_text"
             case parseMode = "parse_mode"
+            case entities = "entities"
             case disableWebPagePreview = "disable_web_page_preview"
         }
 
@@ -4694,27 +5032,45 @@ extension TelegramAPI {
         /// Longitude of the location in degrees
         public var longitude: Float
 
+        /// Optional. The radius of uncertainty for the location, measured in meters; 0-1500
+        public var horizontalAccuracy: Float?
+
         /// Optional. Period in seconds for which the location can be updated, should be between 60 and 86400.
         public var livePeriod: Int?
+
+        /// Optional. For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
+        public var heading: Int?
+
+        /// Optional. For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
+        public var proximityAlertRadius: Int?
 
         /// InputLocationMessageContent initialization
         ///
         /// - parameter latitude:  Latitude of the location in degrees
         /// - parameter longitude:  Longitude of the location in degrees
+        /// - parameter horizontalAccuracy:  Optional. The radius of uncertainty for the location, measured in meters; 0-1500
         /// - parameter livePeriod:  Optional. Period in seconds for which the location can be updated, should be between 60 and 86400.
+        /// - parameter heading:  Optional. For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
+        /// - parameter proximityAlertRadius:  Optional. For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
         ///
         /// - returns: The new `InputLocationMessageContent` instance.
         ///
-        public init(latitude: Float, longitude: Float, livePeriod: Int? = nil) {
+        public init(latitude: Float, longitude: Float, horizontalAccuracy: Float? = nil, livePeriod: Int? = nil, heading: Int? = nil, proximityAlertRadius: Int? = nil) {
             self.latitude = latitude
             self.longitude = longitude
+            self.horizontalAccuracy = horizontalAccuracy
             self.livePeriod = livePeriod
+            self.heading = heading
+            self.proximityAlertRadius = proximityAlertRadius
         }
 
         private enum CodingKeys: String, CodingKey {
             case latitude = "latitude"
             case longitude = "longitude"
+            case horizontalAccuracy = "horizontal_accuracy"
             case livePeriod = "live_period"
+            case heading = "heading"
+            case proximityAlertRadius = "proximity_alert_radius"
         }
 
     }
@@ -4740,6 +5096,12 @@ extension TelegramAPI {
         /// Optional. Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
         public var foursquareType: String?
 
+        /// Optional. Google Places identifier of the venue
+        public var googlePlaceId: String?
+
+        /// Optional. Google Places type of the venue. (See [supported types](https://developers.google.com/places/web-service/supported_types).)
+        public var googlePlaceType: String?
+
         /// InputVenueMessageContent initialization
         ///
         /// - parameter latitude:  Latitude of the venue in degrees
@@ -4748,16 +5110,20 @@ extension TelegramAPI {
         /// - parameter address:  Address of the venue
         /// - parameter foursquareId:  Optional. Foursquare identifier of the venue, if known
         /// - parameter foursquareType:  Optional. Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
+        /// - parameter googlePlaceId:  Optional. Google Places identifier of the venue
+        /// - parameter googlePlaceType:  Optional. Google Places type of the venue. (See [supported types](https://developers.google.com/places/web-service/supported_types).)
         ///
         /// - returns: The new `InputVenueMessageContent` instance.
         ///
-        public init(latitude: Float, longitude: Float, title: String, address: String, foursquareId: String? = nil, foursquareType: String? = nil) {
+        public init(latitude: Float, longitude: Float, title: String, address: String, foursquareId: String? = nil, foursquareType: String? = nil, googlePlaceId: String? = nil, googlePlaceType: String? = nil) {
             self.latitude = latitude
             self.longitude = longitude
             self.title = title
             self.address = address
             self.foursquareId = foursquareId
             self.foursquareType = foursquareType
+            self.googlePlaceId = googlePlaceId
+            self.googlePlaceType = googlePlaceType
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -4767,6 +5133,8 @@ extension TelegramAPI {
             case address = "address"
             case foursquareId = "foursquare_id"
             case foursquareType = "foursquare_type"
+            case googlePlaceId = "google_place_id"
+            case googlePlaceType = "google_place_type"
         }
 
     }
