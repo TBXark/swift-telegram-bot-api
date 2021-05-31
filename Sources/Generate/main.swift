@@ -366,7 +366,7 @@ extension ParsingController {
 
         extension TelegramAPI {
 
-          
+
             /// Telegram Request wrapper
             /// Authorizing your bot
             ///
@@ -394,7 +394,7 @@ extension ParsingController {
             public struct Request {
                 public let method: String
                 public let body: [String: Any]
-                
+
                 public func jsonRequest(token: String) throws -> URLRequest {
                     let urlRaw = "https://api.telegram.org/bot\\(token)/\\(method)"
                     guard let url = URL(string: urlRaw) else {
@@ -408,7 +408,7 @@ extension ParsingController {
                     req.httpBody = try AnyEncodable.encode(body)
                     return req
                 }
-                
+
             }
 
             /// AnyEncodable

@@ -10,7 +10,6 @@ import Foundation
 
 extension TelegramAPI {
 
-  
     /// Telegram Request wrapper
     /// Authorizing your bot
     ///
@@ -38,7 +37,7 @@ extension TelegramAPI {
     public struct Request {
         public let method: String
         public let body: [String: Any]
-        
+
         public func jsonRequest(token: String) throws -> URLRequest {
             let urlRaw = "https://api.telegram.org/bot\(token)/\(method)"
             guard let url = URL(string: urlRaw) else {
@@ -52,7 +51,7 @@ extension TelegramAPI {
             req.httpBody = try AnyEncodable.encode(body)
             return req
         }
-        
+
     }
 
     /// AnyEncodable
@@ -139,7 +138,7 @@ extension TelegramAPI {
             }
         }
     }
-    
+
     /// ReplyMarkup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply
     public enum ReplyMarkup: Codable {
 
