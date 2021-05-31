@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "Either",
+    name: "TelegramBotAPI",
     products: [
         .executable(name: "Generate", targets: ["Generate"]),
         .library(name: "TelegramBotAPI", targets: ["TelegramBotAPI"])
