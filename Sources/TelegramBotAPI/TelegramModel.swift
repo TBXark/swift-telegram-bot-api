@@ -2,7 +2,7 @@
 //  TelegramModel.swift
 //  TelegramAPI
 //
-//  Created by Tbxark on 2021/03/06.
+//  Created by Tbxark on 2021/05/31.
 //  Copyright © 2018 Tbxark. All rights reserved.
 //
 
@@ -305,6 +305,12 @@ extension TelegramAPI {
         /// Optional. A user changed their answer in a non-anonymous poll. Bots receive new votes only in polls that were sent by the bot itself.
         public var pollAnswer: PollAnswer?
 
+        /// Optional. The bot’s chat member status was updated in a chat. For private chats, this update is received only when the bot is blocked or unblocked by the user.
+        public var myChatMember: ChatMemberUpdated?
+
+        /// Optional. A chat member’s status was updated in a chat. The bot must be an administrator in the chat and must explicitly specify “chat_member” in the list of allowed_updates to receive these updates.
+        public var chatMember: ChatMemberUpdated?
+
         /// Update initialization
         ///
         /// - parameter updateId:  The update’s unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you’re using Webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially.
@@ -319,10 +325,12 @@ extension TelegramAPI {
         /// - parameter preCheckoutQuery:  Optional. New incoming pre-checkout query. Contains full information about checkout
         /// - parameter poll:  Optional. New poll state. Bots receive only updates about stopped polls and polls, which are sent by the bot
         /// - parameter pollAnswer:  Optional. A user changed their answer in a non-anonymous poll. Bots receive new votes only in polls that were sent by the bot itself.
+        /// - parameter myChatMember:  Optional. The bot’s chat member status was updated in a chat. For private chats, this update is received only when the bot is blocked or unblocked by the user.
+        /// - parameter chatMember:  Optional. A chat member’s status was updated in a chat. The bot must be an administrator in the chat and must explicitly specify “chat_member” in the list of allowed_updates to receive these updates.
         ///
         /// - returns: The new `Update` instance.
         ///
-        public init(updateId: Int, message: Message? = nil, editedMessage: Message? = nil, channelPost: Message? = nil, editedChannelPost: Message? = nil, inlineQuery: InlineQuery? = nil, chosenInlineResult: ChosenInlineResult? = nil, callbackQuery: CallbackQuery? = nil, shippingQuery: ShippingQuery? = nil, preCheckoutQuery: PreCheckoutQuery? = nil, poll: Poll? = nil, pollAnswer: PollAnswer? = nil) {
+        public init(updateId: Int, message: Message? = nil, editedMessage: Message? = nil, channelPost: Message? = nil, editedChannelPost: Message? = nil, inlineQuery: InlineQuery? = nil, chosenInlineResult: ChosenInlineResult? = nil, callbackQuery: CallbackQuery? = nil, shippingQuery: ShippingQuery? = nil, preCheckoutQuery: PreCheckoutQuery? = nil, poll: Poll? = nil, pollAnswer: PollAnswer? = nil, myChatMember: ChatMemberUpdated? = nil, chatMember: ChatMemberUpdated? = nil) {
             self.updateId = updateId
             self.message = message
             self.editedMessage = editedMessage
@@ -335,6 +343,8 @@ extension TelegramAPI {
             self.preCheckoutQuery = preCheckoutQuery
             self.poll = poll
             self.pollAnswer = pollAnswer
+            self.myChatMember = myChatMember
+            self.chatMember = chatMember
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -350,6 +360,8 @@ extension TelegramAPI {
             case preCheckoutQuery = "pre_checkout_query"
             case poll = "poll"
             case pollAnswer = "poll_answer"
+            case myChatMember = "my_chat_member"
+            case chatMember = "chat_member"
         }
 
     }
@@ -378,7 +390,7 @@ extension TelegramAPI {
         /// Optional. Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery
         public var maxConnections: Int?
 
-        /// Optional. A list of update types the bot is subscribed to. Defaults to all update types
+        /// Optional. A list of update types the bot is subscribed to. Defaults to all update types except chat_member
         public var allowedUpdates: [String]?
 
         /// WebhookInfo initialization
@@ -390,7 +402,7 @@ extension TelegramAPI {
         /// - parameter lastErrorDate:  Optional. Unix time for the most recent error that happened when trying to deliver an update via webhook
         /// - parameter lastErrorMessage:  Optional. Error message in human-readable format for the most recent error that happened when trying to deliver an update via webhook
         /// - parameter maxConnections:  Optional. Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery
-        /// - parameter allowedUpdates:  Optional. A list of update types the bot is subscribed to. Defaults to all update types
+        /// - parameter allowedUpdates:  Optional. A list of update types the bot is subscribed to. Defaults to all update types except chat_member
         ///
         /// - returns: The new `WebhookInfo` instance.
         ///
@@ -421,7 +433,7 @@ extension TelegramAPI {
     /// This object represents a Telegram user or bot.
     public class User: Codable {
 
-        /// Unique identifier for this user or bot
+        /// Unique identifier for this user or bot. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier.
         public var id: Int
 
         /// True, if this user is a bot
@@ -450,7 +462,7 @@ extension TelegramAPI {
 
         /// User initialization
         ///
-        /// - parameter id:  Unique identifier for this user or bot
+        /// - parameter id:  Unique identifier for this user or bot. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier.
         /// - parameter isBot:  True, if this user is a bot
         /// - parameter firstName:  User’s or bot’s first name
         /// - parameter lastName:  Optional. User’s or bot’s last name
@@ -491,7 +503,7 @@ extension TelegramAPI {
     /// This object represents a chat.
     public class Chat: Codable {
 
-        /// Unique identifier for this chat. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier.
+        /// Unique identifier for this chat. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
         public var id: Int
 
         /// Type of chat, can be either “private”, “group”, “supergroup” or “channel”
@@ -518,7 +530,7 @@ extension TelegramAPI {
         /// Optional. Description, for groups, supergroups and channel chats. Returned only in getChat.
         public var description: String?
 
-        /// Optional. Chat invite link, for groups, supergroups and channel chats. Each administrator in a chat generates their own invite links, so the bot must first generate the link using exportChatInviteLink. Returned only in getChat.
+        /// Optional. Primary invite link, for groups, supergroups and channel chats. Returned only in getChat.
         public var inviteLink: String?
 
         /// Optional. The most recent pinned message (by sending date). Returned only in getChat.
@@ -529,6 +541,9 @@ extension TelegramAPI {
 
         /// Optional. For supergroups, the minimum allowed delay between consecutive messages sent by each unpriviledged user. Returned only in getChat.
         public var slowModeDelay: Int?
+
+        /// Optional. The time after which all messages sent to the chat will be automatically deleted; in seconds. Returned only in getChat.
+        public var messageAutoDeleteTime: Int?
 
         /// Optional. For supergroups, name of group sticker set. Returned only in getChat.
         public var stickerSetName: String?
@@ -544,7 +559,7 @@ extension TelegramAPI {
 
         /// Chat initialization
         ///
-        /// - parameter id:  Unique identifier for this chat. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier.
+        /// - parameter id:  Unique identifier for this chat. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
         /// - parameter type:  Type of chat, can be either “private”, “group”, “supergroup” or “channel”
         /// - parameter title:  Optional. Title, for supergroups, channels and group chats
         /// - parameter username:  Optional. Username, for private chats, supergroups and channels if available
@@ -553,10 +568,11 @@ extension TelegramAPI {
         /// - parameter photo:  Optional. Chat photo. Returned only in getChat.
         /// - parameter bio:  Optional. Bio of the other party in a private chat. Returned only in getChat.
         /// - parameter description:  Optional. Description, for groups, supergroups and channel chats. Returned only in getChat.
-        /// - parameter inviteLink:  Optional. Chat invite link, for groups, supergroups and channel chats. Each administrator in a chat generates their own invite links, so the bot must first generate the link using exportChatInviteLink. Returned only in getChat.
+        /// - parameter inviteLink:  Optional. Primary invite link, for groups, supergroups and channel chats. Returned only in getChat.
         /// - parameter pinnedMessage:  Optional. The most recent pinned message (by sending date). Returned only in getChat.
         /// - parameter permissions:  Optional. Default chat member permissions, for groups and supergroups. Returned only in getChat.
         /// - parameter slowModeDelay:  Optional. For supergroups, the minimum allowed delay between consecutive messages sent by each unpriviledged user. Returned only in getChat.
+        /// - parameter messageAutoDeleteTime:  Optional. The time after which all messages sent to the chat will be automatically deleted; in seconds. Returned only in getChat.
         /// - parameter stickerSetName:  Optional. For supergroups, name of group sticker set. Returned only in getChat.
         /// - parameter canSetStickerSet:  Optional. True, if the bot can change the group sticker set. Returned only in getChat.
         /// - parameter linkedChatId:  Optional. Unique identifier for the linked chat, i.e. the discussion group identifier for a channel and vice versa; for supergroups and channel chats. This identifier may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier. Returned only in getChat.
@@ -564,7 +580,7 @@ extension TelegramAPI {
         ///
         /// - returns: The new `Chat` instance.
         ///
-        public init(id: Int, type: String, title: String? = nil, username: String? = nil, firstName: String? = nil, lastName: String? = nil, photo: ChatPhoto? = nil, bio: String? = nil, description: String? = nil, inviteLink: String? = nil, pinnedMessage: Message? = nil, permissions: ChatPermissions? = nil, slowModeDelay: Int? = nil, stickerSetName: String? = nil, canSetStickerSet: Bool? = nil, linkedChatId: Int? = nil, location: ChatLocation? = nil) {
+        public init(id: Int, type: String, title: String? = nil, username: String? = nil, firstName: String? = nil, lastName: String? = nil, photo: ChatPhoto? = nil, bio: String? = nil, description: String? = nil, inviteLink: String? = nil, pinnedMessage: Message? = nil, permissions: ChatPermissions? = nil, slowModeDelay: Int? = nil, messageAutoDeleteTime: Int? = nil, stickerSetName: String? = nil, canSetStickerSet: Bool? = nil, linkedChatId: Int? = nil, location: ChatLocation? = nil) {
             self.id = id
             self.type = type
             self.title = title
@@ -578,6 +594,7 @@ extension TelegramAPI {
             self.pinnedMessage = pinnedMessage
             self.permissions = permissions
             self.slowModeDelay = slowModeDelay
+            self.messageAutoDeleteTime = messageAutoDeleteTime
             self.stickerSetName = stickerSetName
             self.canSetStickerSet = canSetStickerSet
             self.linkedChatId = linkedChatId
@@ -598,6 +615,7 @@ extension TelegramAPI {
             case pinnedMessage = "pinned_message"
             case permissions = "permissions"
             case slowModeDelay = "slow_mode_delay"
+            case messageAutoDeleteTime = "message_auto_delete_time"
             case stickerSetName = "sticker_set_name"
             case canSetStickerSet = "can_set_sticker_set"
             case linkedChatId = "linked_chat_id"
@@ -735,10 +753,13 @@ extension TelegramAPI {
         /// Optional. Service message: the channel has been created. This field can’t be received in a message coming through updates, because bot can’t be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
         public var channelChatCreated: Bool?
 
-        /// Optional. The group has been migrated to a supergroup with the specified identifier. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier.
+        /// Optional. Service message: auto-delete timer settings changed in the chat
+        public var messageAutoDeleteTimerChanged: MessageAutoDeleteTimerChanged?
+
+        /// Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
         public var migrateToChatId: Int?
 
-        /// Optional. The supergroup has been migrated from a group with the specified identifier. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier.
+        /// Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
         public var migrateFromChatId: Int?
 
         /// Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it is itself a reply.
@@ -758,6 +779,18 @@ extension TelegramAPI {
 
         /// Optional. Service message. A user in the chat triggered another user’s proximity alert while sharing Live Location.
         public var proximityAlertTriggered: ProximityAlertTriggered?
+
+        /// Optional. Service message: voice chat scheduled
+        public var voiceChatScheduled: VoiceChatScheduled?
+
+        /// Optional. Service message: voice chat started
+        public var voiceChatStarted: VoiceChatStarted?
+
+        /// Optional. Service message: voice chat ended
+        public var voiceChatEnded: VoiceChatEnded?
+
+        /// Optional. Service message: new participants invited to a voice chat
+        public var voiceChatParticipantsInvited: VoiceChatParticipantsInvited?
 
         /// Optional. Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons.
         public var replyMarkup: InlineKeyboardMarkup?
@@ -806,19 +839,24 @@ extension TelegramAPI {
         /// - parameter groupChatCreated:  Optional. Service message: the group has been created
         /// - parameter supergroupChatCreated:  Optional. Service message: the supergroup has been created. This field can’t be received in a message coming through updates, because bot can’t be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
         /// - parameter channelChatCreated:  Optional. Service message: the channel has been created. This field can’t be received in a message coming through updates, because bot can’t be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
-        /// - parameter migrateToChatId:  Optional. The group has been migrated to a supergroup with the specified identifier. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier.
-        /// - parameter migrateFromChatId:  Optional. The supergroup has been migrated from a group with the specified identifier. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier.
+        /// - parameter messageAutoDeleteTimerChanged:  Optional. Service message: auto-delete timer settings changed in the chat
+        /// - parameter migrateToChatId:  Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+        /// - parameter migrateFromChatId:  Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
         /// - parameter pinnedMessage:  Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it is itself a reply.
         /// - parameter invoice:  Optional. Message is an invoice for a payment, information about the invoice. More about payments »
         /// - parameter successfulPayment:  Optional. Message is a service message about a successful payment, information about the payment. More about payments »
         /// - parameter connectedWebsite:  Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
         /// - parameter passportData:  Optional. Telegram Passport data
         /// - parameter proximityAlertTriggered:  Optional. Service message. A user in the chat triggered another user’s proximity alert while sharing Live Location.
+        /// - parameter voiceChatScheduled:  Optional. Service message: voice chat scheduled
+        /// - parameter voiceChatStarted:  Optional. Service message: voice chat started
+        /// - parameter voiceChatEnded:  Optional. Service message: voice chat ended
+        /// - parameter voiceChatParticipantsInvited:  Optional. Service message: new participants invited to a voice chat
         /// - parameter replyMarkup:  Optional. Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons.
         ///
         /// - returns: The new `Message` instance.
         ///
-        public init(messageId: Int, from: User? = nil, senderChat: Chat? = nil, date: Int, chat: Chat, forwardFrom: User? = nil, forwardFromChat: Chat? = nil, forwardFromMessageId: Int? = nil, forwardSignature: String? = nil, forwardSenderName: String? = nil, forwardDate: Int? = nil, replyToMessage: Message? = nil, viaBot: User? = nil, editDate: Int? = nil, mediaGroupId: String? = nil, authorSignature: String? = nil, text: String? = nil, entities: [MessageEntity]? = nil, animation: Animation? = nil, audio: Audio? = nil, document: Document? = nil, photo: [PhotoSize]? = nil, sticker: Sticker? = nil, video: Video? = nil, videoNote: VideoNote? = nil, voice: Voice? = nil, caption: String? = nil, captionEntities: [MessageEntity]? = nil, contact: Contact? = nil, dice: Dice? = nil, game: Game? = nil, poll: Poll? = nil, venue: Venue? = nil, location: Location? = nil, newChatMembers: [User]? = nil, leftChatMember: User? = nil, newChatTitle: String? = nil, newChatPhoto: [PhotoSize]? = nil, deleteChatPhoto: Bool? = nil, groupChatCreated: Bool? = nil, supergroupChatCreated: Bool? = nil, channelChatCreated: Bool? = nil, migrateToChatId: Int? = nil, migrateFromChatId: Int? = nil, pinnedMessage: Message? = nil, invoice: Invoice? = nil, successfulPayment: SuccessfulPayment? = nil, connectedWebsite: String? = nil, passportData: PassportData? = nil, proximityAlertTriggered: ProximityAlertTriggered? = nil, replyMarkup: InlineKeyboardMarkup? = nil) {
+        public init(messageId: Int, from: User? = nil, senderChat: Chat? = nil, date: Int, chat: Chat, forwardFrom: User? = nil, forwardFromChat: Chat? = nil, forwardFromMessageId: Int? = nil, forwardSignature: String? = nil, forwardSenderName: String? = nil, forwardDate: Int? = nil, replyToMessage: Message? = nil, viaBot: User? = nil, editDate: Int? = nil, mediaGroupId: String? = nil, authorSignature: String? = nil, text: String? = nil, entities: [MessageEntity]? = nil, animation: Animation? = nil, audio: Audio? = nil, document: Document? = nil, photo: [PhotoSize]? = nil, sticker: Sticker? = nil, video: Video? = nil, videoNote: VideoNote? = nil, voice: Voice? = nil, caption: String? = nil, captionEntities: [MessageEntity]? = nil, contact: Contact? = nil, dice: Dice? = nil, game: Game? = nil, poll: Poll? = nil, venue: Venue? = nil, location: Location? = nil, newChatMembers: [User]? = nil, leftChatMember: User? = nil, newChatTitle: String? = nil, newChatPhoto: [PhotoSize]? = nil, deleteChatPhoto: Bool? = nil, groupChatCreated: Bool? = nil, supergroupChatCreated: Bool? = nil, channelChatCreated: Bool? = nil, messageAutoDeleteTimerChanged: MessageAutoDeleteTimerChanged? = nil, migrateToChatId: Int? = nil, migrateFromChatId: Int? = nil, pinnedMessage: Message? = nil, invoice: Invoice? = nil, successfulPayment: SuccessfulPayment? = nil, connectedWebsite: String? = nil, passportData: PassportData? = nil, proximityAlertTriggered: ProximityAlertTriggered? = nil, voiceChatScheduled: VoiceChatScheduled? = nil, voiceChatStarted: VoiceChatStarted? = nil, voiceChatEnded: VoiceChatEnded? = nil, voiceChatParticipantsInvited: VoiceChatParticipantsInvited? = nil, replyMarkup: InlineKeyboardMarkup? = nil) {
             self.messageId = messageId
             self.from = from
             self.senderChat = senderChat
@@ -861,6 +899,7 @@ extension TelegramAPI {
             self.groupChatCreated = groupChatCreated
             self.supergroupChatCreated = supergroupChatCreated
             self.channelChatCreated = channelChatCreated
+            self.messageAutoDeleteTimerChanged = messageAutoDeleteTimerChanged
             self.migrateToChatId = migrateToChatId
             self.migrateFromChatId = migrateFromChatId
             self.pinnedMessage = pinnedMessage
@@ -869,6 +908,10 @@ extension TelegramAPI {
             self.connectedWebsite = connectedWebsite
             self.passportData = passportData
             self.proximityAlertTriggered = proximityAlertTriggered
+            self.voiceChatScheduled = voiceChatScheduled
+            self.voiceChatStarted = voiceChatStarted
+            self.voiceChatEnded = voiceChatEnded
+            self.voiceChatParticipantsInvited = voiceChatParticipantsInvited
             self.replyMarkup = replyMarkup
         }
 
@@ -915,6 +958,7 @@ extension TelegramAPI {
             case groupChatCreated = "group_chat_created"
             case supergroupChatCreated = "supergroup_chat_created"
             case channelChatCreated = "channel_chat_created"
+            case messageAutoDeleteTimerChanged = "message_auto_delete_timer_changed"
             case migrateToChatId = "migrate_to_chat_id"
             case migrateFromChatId = "migrate_from_chat_id"
             case pinnedMessage = "pinned_message"
@@ -923,6 +967,10 @@ extension TelegramAPI {
             case connectedWebsite = "connected_website"
             case passportData = "passport_data"
             case proximityAlertTriggered = "proximity_alert_triggered"
+            case voiceChatScheduled = "voice_chat_scheduled"
+            case voiceChatStarted = "voice_chat_started"
+            case voiceChatEnded = "voice_chat_ended"
+            case voiceChatParticipantsInvited = "voice_chat_participants_invited"
             case replyMarkup = "reply_markup"
         }
 
@@ -1420,7 +1468,7 @@ extension TelegramAPI {
         /// Optional. Contact’s last name
         public var lastName: String?
 
-        /// Optional. Contact’s user identifier in Telegram
+        /// Optional. Contact’s user identifier in Telegram. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier.
         public var userId: Int?
 
         /// Optional. Additional data about the contact in the form of a [vCard](https://en.wikipedia.org/wiki/VCard)
@@ -1431,7 +1479,7 @@ extension TelegramAPI {
         /// - parameter phoneNumber:  Contact’s phone number
         /// - parameter firstName:  Contact’s first name
         /// - parameter lastName:  Optional. Contact’s last name
-        /// - parameter userId:  Optional. Contact’s user identifier in Telegram
+        /// - parameter userId:  Optional. Contact’s user identifier in Telegram. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier.
         /// - parameter vcard:  Optional. Additional data about the contact in the form of a [vCard](https://en.wikipedia.org/wiki/VCard)
         ///
         /// - returns: The new `Contact` instance.
@@ -1460,13 +1508,13 @@ extension TelegramAPI {
         /// Emoji on which the dice throw animation is based
         public var emoji: String
 
-        /// Value of the dice, 1-6 for “” and “” base emoji, 1-5 for “” and “” base emoji, 1-64 for “” base emoji
+        /// Value of the dice, 1-6 for “”, “” and “” base emoji, 1-5 for “” and “” base emoji, 1-64 for “” base emoji
         public var value: Int
 
         /// Dice initialization
         ///
         /// - parameter emoji:  Emoji on which the dice throw animation is based
-        /// - parameter value:  Value of the dice, 1-6 for “” and “” base emoji, 1-5 for “” and “” base emoji, 1-64 for “” base emoji
+        /// - parameter value:  Value of the dice, 1-6 for “”, “” and “” base emoji, 1-5 for “” and “” base emoji, 1-64 for “” base emoji
         ///
         /// - returns: The new `Dice` instance.
         ///
@@ -1778,6 +1826,99 @@ extension TelegramAPI {
             case traveler = "traveler"
             case watcher = "watcher"
             case distance = "distance"
+        }
+
+    }
+
+    /// This object represents a service message about a change in auto-delete timer settings.
+    public class MessageAutoDeleteTimerChanged: Codable {
+
+        /// New auto-delete time for messages in the chat
+        public var messageAutoDeleteTime: Int
+
+        /// MessageAutoDeleteTimerChanged initialization
+        ///
+        /// - parameter messageAutoDeleteTime:  New auto-delete time for messages in the chat
+        ///
+        /// - returns: The new `MessageAutoDeleteTimerChanged` instance.
+        ///
+        public init(messageAutoDeleteTime: Int) {
+            self.messageAutoDeleteTime = messageAutoDeleteTime
+        }
+
+        private enum CodingKeys: String, CodingKey {
+            case messageAutoDeleteTime = "message_auto_delete_time"
+        }
+
+    }
+
+    /// This object represents a service message about a voice chat scheduled in the chat.
+    public class VoiceChatScheduled: Codable {
+
+        /// Point in time (Unix timestamp) when the voice chat is supposed to be started by a chat administrator
+        public var startDate: Int
+
+        /// VoiceChatScheduled initialization
+        ///
+        /// - parameter startDate:  Point in time (Unix timestamp) when the voice chat is supposed to be started by a chat administrator
+        ///
+        /// - returns: The new `VoiceChatScheduled` instance.
+        ///
+        public init(startDate: Int) {
+            self.startDate = startDate
+        }
+
+        private enum CodingKeys: String, CodingKey {
+            case startDate = "start_date"
+        }
+
+    }
+
+    /// This object represents a service message about a voice chat started in the chat. Currently holds no information.
+    public struct VoiceChatStarted: Codable {
+
+    }
+
+    /// This object represents a service message about a voice chat ended in the chat.
+    public class VoiceChatEnded: Codable {
+
+        /// Voice chat duration; in seconds
+        public var duration: Int
+
+        /// VoiceChatEnded initialization
+        ///
+        /// - parameter duration:  Voice chat duration; in seconds
+        ///
+        /// - returns: The new `VoiceChatEnded` instance.
+        ///
+        public init(duration: Int) {
+            self.duration = duration
+        }
+
+        private enum CodingKeys: String, CodingKey {
+            case duration = "duration"
+        }
+
+    }
+
+    /// This object represents a service message about new members invited to a voice chat.
+    public class VoiceChatParticipantsInvited: Codable {
+
+        /// Optional. New members that were invited to the voice chat
+        public var users: [User]?
+
+        /// VoiceChatParticipantsInvited initialization
+        ///
+        /// - parameter users:  Optional. New members that were invited to the voice chat
+        ///
+        /// - returns: The new `VoiceChatParticipantsInvited` instance.
+        ///
+        public init(users: [User]? = nil) {
+            self.users = users
+        }
+
+        private enum CodingKeys: String, CodingKey {
+            case users = "users"
         }
 
     }
@@ -2232,6 +2373,58 @@ extension TelegramAPI {
 
     }
 
+    /// Represents an invite link for a chat.
+    public class ChatInviteLink: Codable {
+
+        /// The invite link. If the link was created by another chat administrator, then the second part of the link will be replaced with “…”.
+        public var inviteLink: String
+
+        /// Creator of the link
+        public var creator: User
+
+        /// True, if the link is primary
+        public var isPrimary: Bool
+
+        /// True, if the link is revoked
+        public var isRevoked: Bool
+
+        /// Optional. Point in time (Unix timestamp) when the link will expire or has been expired
+        public var expireDate: Int?
+
+        /// Optional. Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
+        public var memberLimit: Int?
+
+        /// ChatInviteLink initialization
+        ///
+        /// - parameter inviteLink:  The invite link. If the link was created by another chat administrator, then the second part of the link will be replaced with “…”.
+        /// - parameter creator:  Creator of the link
+        /// - parameter isPrimary:  True, if the link is primary
+        /// - parameter isRevoked:  True, if the link is revoked
+        /// - parameter expireDate:  Optional. Point in time (Unix timestamp) when the link will expire or has been expired
+        /// - parameter memberLimit:  Optional. Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
+        ///
+        /// - returns: The new `ChatInviteLink` instance.
+        ///
+        public init(inviteLink: String, creator: User, isPrimary: Bool, isRevoked: Bool, expireDate: Int? = nil, memberLimit: Int? = nil) {
+            self.inviteLink = inviteLink
+            self.creator = creator
+            self.isPrimary = isPrimary
+            self.isRevoked = isRevoked
+            self.expireDate = expireDate
+            self.memberLimit = memberLimit
+        }
+
+        private enum CodingKeys: String, CodingKey {
+            case inviteLink = "invite_link"
+            case creator = "creator"
+            case isPrimary = "is_primary"
+            case isRevoked = "is_revoked"
+            case expireDate = "expire_date"
+            case memberLimit = "member_limit"
+        }
+
+    }
+
     /// This object contains information about one member of a chat.
     public class ChatMember: Codable {
 
@@ -2250,6 +2443,9 @@ extension TelegramAPI {
         /// Optional. Administrators only. True, if the bot is allowed to edit administrator privileges of that user
         public var canBeEdited: Bool?
 
+        /// Optional. Administrators only. True, if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
+        public var canManageChat: Bool?
+
         /// Optional. Administrators only. True, if the administrator can post in the channel; channels only
         public var canPostMessages: Bool?
 
@@ -2258,6 +2454,9 @@ extension TelegramAPI {
 
         /// Optional. Administrators only. True, if the administrator can delete messages of other users
         public var canDeleteMessages: Bool?
+
+        /// Optional. Administrators only. True, if the administrator can manage voice chats
+        public var canManageVoiceChats: Bool?
 
         /// Optional. Administrators only. True, if the administrator can restrict, ban or unban chat members
         public var canRestrictMembers: Bool?
@@ -2302,9 +2501,11 @@ extension TelegramAPI {
         /// - parameter customTitle:  Optional. Owner and administrators only. Custom title for this user
         /// - parameter isAnonymous:  Optional. Owner and administrators only. True, if the user’s presence in the chat is hidden
         /// - parameter canBeEdited:  Optional. Administrators only. True, if the bot is allowed to edit administrator privileges of that user
+        /// - parameter canManageChat:  Optional. Administrators only. True, if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
         /// - parameter canPostMessages:  Optional. Administrators only. True, if the administrator can post in the channel; channels only
         /// - parameter canEditMessages:  Optional. Administrators only. True, if the administrator can edit messages of other users and can pin messages; channels only
         /// - parameter canDeleteMessages:  Optional. Administrators only. True, if the administrator can delete messages of other users
+        /// - parameter canManageVoiceChats:  Optional. Administrators only. True, if the administrator can manage voice chats
         /// - parameter canRestrictMembers:  Optional. Administrators only. True, if the administrator can restrict, ban or unban chat members
         /// - parameter canPromoteMembers:  Optional. Administrators only. True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by the user)
         /// - parameter canChangeInfo:  Optional. Administrators and restricted only. True, if the user is allowed to change the chat title, photo and other settings
@@ -2320,15 +2521,17 @@ extension TelegramAPI {
         ///
         /// - returns: The new `ChatMember` instance.
         ///
-        public init(user: User, status: String, customTitle: String? = nil, isAnonymous: Bool? = nil, canBeEdited: Bool? = nil, canPostMessages: Bool? = nil, canEditMessages: Bool? = nil, canDeleteMessages: Bool? = nil, canRestrictMembers: Bool? = nil, canPromoteMembers: Bool? = nil, canChangeInfo: Bool? = nil, canInviteUsers: Bool? = nil, canPinMessages: Bool? = nil, isMember: Bool? = nil, canSendMessages: Bool? = nil, canSendMediaMessages: Bool? = nil, canSendPolls: Bool? = nil, canSendOtherMessages: Bool? = nil, canAddWebPagePreviews: Bool? = nil, untilDate: Int? = nil) {
+        public init(user: User, status: String, customTitle: String? = nil, isAnonymous: Bool? = nil, canBeEdited: Bool? = nil, canManageChat: Bool? = nil, canPostMessages: Bool? = nil, canEditMessages: Bool? = nil, canDeleteMessages: Bool? = nil, canManageVoiceChats: Bool? = nil, canRestrictMembers: Bool? = nil, canPromoteMembers: Bool? = nil, canChangeInfo: Bool? = nil, canInviteUsers: Bool? = nil, canPinMessages: Bool? = nil, isMember: Bool? = nil, canSendMessages: Bool? = nil, canSendMediaMessages: Bool? = nil, canSendPolls: Bool? = nil, canSendOtherMessages: Bool? = nil, canAddWebPagePreviews: Bool? = nil, untilDate: Int? = nil) {
             self.user = user
             self.status = status
             self.customTitle = customTitle
             self.isAnonymous = isAnonymous
             self.canBeEdited = canBeEdited
+            self.canManageChat = canManageChat
             self.canPostMessages = canPostMessages
             self.canEditMessages = canEditMessages
             self.canDeleteMessages = canDeleteMessages
+            self.canManageVoiceChats = canManageVoiceChats
             self.canRestrictMembers = canRestrictMembers
             self.canPromoteMembers = canPromoteMembers
             self.canChangeInfo = canChangeInfo
@@ -2349,9 +2552,11 @@ extension TelegramAPI {
             case customTitle = "custom_title"
             case isAnonymous = "is_anonymous"
             case canBeEdited = "can_be_edited"
+            case canManageChat = "can_manage_chat"
             case canPostMessages = "can_post_messages"
             case canEditMessages = "can_edit_messages"
             case canDeleteMessages = "can_delete_messages"
+            case canManageVoiceChats = "can_manage_voice_chats"
             case canRestrictMembers = "can_restrict_members"
             case canPromoteMembers = "can_promote_members"
             case canChangeInfo = "can_change_info"
@@ -2364,6 +2569,58 @@ extension TelegramAPI {
             case canSendOtherMessages = "can_send_other_messages"
             case canAddWebPagePreviews = "can_add_web_page_previews"
             case untilDate = "until_date"
+        }
+
+    }
+
+    /// This object represents changes in the status of a chat member.
+    public class ChatMemberUpdated: Codable {
+
+        /// Chat the user belongs to
+        public var chat: Chat
+
+        /// Performer of the action, which resulted in the change
+        public var from: User
+
+        /// Date the change was done in Unix time
+        public var date: Int
+
+        /// Previous information about the chat member
+        public var oldChatMember: ChatMember
+
+        /// New information about the chat member
+        public var newChatMember: ChatMember
+
+        /// Optional. Chat invite link, which was used by the user to join the chat; for joining by invite link events only.
+        public var inviteLink: ChatInviteLink?
+
+        /// ChatMemberUpdated initialization
+        ///
+        /// - parameter chat:  Chat the user belongs to
+        /// - parameter from:  Performer of the action, which resulted in the change
+        /// - parameter date:  Date the change was done in Unix time
+        /// - parameter oldChatMember:  Previous information about the chat member
+        /// - parameter newChatMember:  New information about the chat member
+        /// - parameter inviteLink:  Optional. Chat invite link, which was used by the user to join the chat; for joining by invite link events only.
+        ///
+        /// - returns: The new `ChatMemberUpdated` instance.
+        ///
+        public init(chat: Chat, from: User, date: Int, oldChatMember: ChatMember, newChatMember: ChatMember, inviteLink: ChatInviteLink? = nil) {
+            self.chat = chat
+            self.from = from
+            self.date = date
+            self.oldChatMember = oldChatMember
+            self.newChatMember = newChatMember
+            self.inviteLink = inviteLink
+        }
+
+        private enum CodingKeys: String, CodingKey {
+            case chat = "chat"
+            case from = "from"
+            case date = "date"
+            case oldChatMember = "old_chat_member"
+            case newChatMember = "new_chat_member"
+            case inviteLink = "invite_link"
         }
 
     }
@@ -2491,7 +2748,7 @@ extension TelegramAPI {
     /// Contains information about why a request was unsuccessful.
     public class ResponseParameters: Codable {
 
-        /// Optional. The group has been migrated to a supergroup with the specified identifier. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier.
+        /// Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
         public var migrateToChatId: Int?
 
         /// Optional. In case of exceeding flood control, the number of seconds left to wait before the request can be repeated
@@ -2499,7 +2756,7 @@ extension TelegramAPI {
 
         /// ResponseParameters initialization
         ///
-        /// - parameter migrateToChatId:  Optional. The group has been migrated to a supergroup with the specified identifier. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier.
+        /// - parameter migrateToChatId:  Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
         /// - parameter retryAfter:  Optional. In case of exceeding flood control, the number of seconds left to wait before the request can be repeated
         ///
         /// - returns: The new `ResponseParameters` instance.
@@ -3080,44 +3337,50 @@ extension TelegramAPI {
         /// Sender
         public var from: User
 
-        /// Optional. Sender location, only for bots that request user location
-        public var location: Location?
-
         /// Text of the query (up to 256 characters)
         public var query: String
 
         /// Offset of the results to be returned, can be controlled by the bot
         public var offset: String
 
+        /// Optional. Type of the chat, from which the inline query was sent. Can be either “sender” for a private chat with the inline query sender, “private”, “group”, “supergroup”, or “channel”. The chat type should be always known for requests sent from official clients and most third-party clients, unless the request was sent from a secret chat
+        public var chatType: String?
+
+        /// Optional. Sender location, only for bots that request user location
+        public var location: Location?
+
         /// InlineQuery initialization
         ///
         /// - parameter id:  Unique identifier for this query
         /// - parameter from:  Sender
-        /// - parameter location:  Optional. Sender location, only for bots that request user location
         /// - parameter query:  Text of the query (up to 256 characters)
         /// - parameter offset:  Offset of the results to be returned, can be controlled by the bot
+        /// - parameter chatType:  Optional. Type of the chat, from which the inline query was sent. Can be either “sender” for a private chat with the inline query sender, “private”, “group”, “supergroup”, or “channel”. The chat type should be always known for requests sent from official clients and most third-party clients, unless the request was sent from a secret chat
+        /// - parameter location:  Optional. Sender location, only for bots that request user location
         ///
         /// - returns: The new `InlineQuery` instance.
         ///
-        public init(id: String, from: User, location: Location? = nil, query: String, offset: String) {
+        public init(id: String, from: User, query: String, offset: String, chatType: String? = nil, location: Location? = nil) {
             self.id = id
             self.from = from
-            self.location = location
             self.query = query
             self.offset = offset
+            self.chatType = chatType
+            self.location = location
         }
 
         private enum CodingKeys: String, CodingKey {
             case id = "id"
             case from = "from"
-            case location = "location"
             case query = "query"
             case offset = "offset"
+            case chatType = "chat_type"
+            case location = "location"
         }
 
     }
 
-    /// This object represents one result of an inline query. Telegram clients currently support results of the following 20 types:
+    /// Note: All URLs passed in inline query results will be available to end users and therefore must be assumed to be public.
     public enum InlineQueryResult: Codable {
 
         case cachedAudio(InlineQueryResultCachedAudio)
@@ -4930,13 +5193,14 @@ extension TelegramAPI {
 
     }
 
-    /// This object represents the content of a message to be sent as a result of an inline query. Telegram clients currently support the following 4 types:
+    /// This object represents the content of a message to be sent as a result of an inline query. Telegram clients currently support the following 5 types:
     public enum InputMessageContent: Codable {
 
         case text(InputTextMessageContent)
         case location(InputLocationMessageContent)
         case venue(InputVenueMessageContent)
         case contact(InputContactMessageContent)
+        case invoice(InputInvoiceMessageContent)
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
@@ -4948,6 +5212,8 @@ extension TelegramAPI {
                 self = .venue(venue)
             } else if let contact = try? container.decode(InputContactMessageContent.self) {
                 self = .contact(contact)
+            } else if let invoice = try? container.decode(InputInvoiceMessageContent.self) {
+                self = .invoice(invoice)
             } else {
                 throw NSError(domain: "org.telegram.api", code: -1, userInfo: ["name": "InputMessageContent"])
             }
@@ -4969,6 +5235,10 @@ extension TelegramAPI {
             self = .contact(contact)
         }
 
+        public init(_ invoice: InputInvoiceMessageContent) {
+            self = .invoice(invoice)
+        }
+
         public func encode(to encoder: Encoder) throws {
             var container = encoder.singleValueContainer()
             switch self {
@@ -4980,6 +5250,8 @@ extension TelegramAPI {
                 try container.encode(venue)
             case .contact(let contact):
                 try container.encode(contact)
+            case .invoice(let invoice):
+                try container.encode(invoice)
             }
         }
     }
@@ -5175,6 +5447,142 @@ extension TelegramAPI {
             case firstName = "first_name"
             case lastName = "last_name"
             case vcard = "vcard"
+        }
+
+    }
+
+    /// Represents the content of an invoice message to be sent as the result of an inline query.
+    public class InputInvoiceMessageContent: Codable {
+
+        /// Product name, 1-32 characters
+        public var title: String
+
+        /// Product description, 1-255 characters
+        public var description: String
+
+        /// Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal processes.
+        public var payload: String
+
+        /// Payment provider token, obtained via [Botfather](https://t.me/botfather)
+        public var providerToken: String
+
+        /// Three-letter ISO 4217 currency code, see more on currencies
+        public var currency: String
+
+        /// Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.)
+        public var prices: [LabeledPrice]
+
+        /// Optional. The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the exp parameter in [currencies.json](https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0
+        public var maxTipAmount: Int?
+
+        /// Optional. A JSON-serialized array of suggested amounts of tip in the smallest units of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount.
+        public var suggestedTipAmounts: [Int]?
+
+        /// Optional. A JSON-serialized object for data about the invoice, which will be shared with the payment provider. A detailed description of the required fields should be provided by the payment provider.
+        public var providerData: String?
+
+        /// Optional. URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. People like it better when they see what they are paying for.
+        public var photoUrl: String?
+
+        /// Optional. Photo size
+        public var photoSize: Int?
+
+        /// Optional. Photo width
+        public var photoWidth: Int?
+
+        /// Optional. Photo height
+        public var photoHeight: Int?
+
+        /// Optional. Pass True, if you require the user’s full name to complete the order
+        public var needName: Bool?
+
+        /// Optional. Pass True, if you require the user’s phone number to complete the order
+        public var needPhoneNumber: Bool?
+
+        /// Optional. Pass True, if you require the user’s email address to complete the order
+        public var needEmail: Bool?
+
+        /// Optional. Pass True, if you require the user’s shipping address to complete the order
+        public var needShippingAddress: Bool?
+
+        /// Optional. Pass True, if user’s phone number should be sent to provider
+        public var sendPhoneNumberToProvider: Bool?
+
+        /// Optional. Pass True, if user’s email address should be sent to provider
+        public var sendEmailToProvider: Bool?
+
+        /// Optional. Pass True, if the final price depends on the shipping method
+        public var isFlexible: Bool?
+
+        /// InputInvoiceMessageContent initialization
+        ///
+        /// - parameter title:  Product name, 1-32 characters
+        /// - parameter description:  Product description, 1-255 characters
+        /// - parameter payload:  Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal processes.
+        /// - parameter providerToken:  Payment provider token, obtained via [Botfather](https://t.me/botfather)
+        /// - parameter currency:  Three-letter ISO 4217 currency code, see more on currencies
+        /// - parameter prices:  Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.)
+        /// - parameter maxTipAmount:  Optional. The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the exp parameter in [currencies.json](https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0
+        /// - parameter suggestedTipAmounts:  Optional. A JSON-serialized array of suggested amounts of tip in the smallest units of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount.
+        /// - parameter providerData:  Optional. A JSON-serialized object for data about the invoice, which will be shared with the payment provider. A detailed description of the required fields should be provided by the payment provider.
+        /// - parameter photoUrl:  Optional. URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. People like it better when they see what they are paying for.
+        /// - parameter photoSize:  Optional. Photo size
+        /// - parameter photoWidth:  Optional. Photo width
+        /// - parameter photoHeight:  Optional. Photo height
+        /// - parameter needName:  Optional. Pass True, if you require the user’s full name to complete the order
+        /// - parameter needPhoneNumber:  Optional. Pass True, if you require the user’s phone number to complete the order
+        /// - parameter needEmail:  Optional. Pass True, if you require the user’s email address to complete the order
+        /// - parameter needShippingAddress:  Optional. Pass True, if you require the user’s shipping address to complete the order
+        /// - parameter sendPhoneNumberToProvider:  Optional. Pass True, if user’s phone number should be sent to provider
+        /// - parameter sendEmailToProvider:  Optional. Pass True, if user’s email address should be sent to provider
+        /// - parameter isFlexible:  Optional. Pass True, if the final price depends on the shipping method
+        ///
+        /// - returns: The new `InputInvoiceMessageContent` instance.
+        ///
+        public init(title: String, description: String, payload: String, providerToken: String, currency: String, prices: [LabeledPrice], maxTipAmount: Int? = nil, suggestedTipAmounts: [Int]? = nil, providerData: String? = nil, photoUrl: String? = nil, photoSize: Int? = nil, photoWidth: Int? = nil, photoHeight: Int? = nil, needName: Bool? = nil, needPhoneNumber: Bool? = nil, needEmail: Bool? = nil, needShippingAddress: Bool? = nil, sendPhoneNumberToProvider: Bool? = nil, sendEmailToProvider: Bool? = nil, isFlexible: Bool? = nil) {
+            self.title = title
+            self.description = description
+            self.payload = payload
+            self.providerToken = providerToken
+            self.currency = currency
+            self.prices = prices
+            self.maxTipAmount = maxTipAmount
+            self.suggestedTipAmounts = suggestedTipAmounts
+            self.providerData = providerData
+            self.photoUrl = photoUrl
+            self.photoSize = photoSize
+            self.photoWidth = photoWidth
+            self.photoHeight = photoHeight
+            self.needName = needName
+            self.needPhoneNumber = needPhoneNumber
+            self.needEmail = needEmail
+            self.needShippingAddress = needShippingAddress
+            self.sendPhoneNumberToProvider = sendPhoneNumberToProvider
+            self.sendEmailToProvider = sendEmailToProvider
+            self.isFlexible = isFlexible
+        }
+
+        private enum CodingKeys: String, CodingKey {
+            case title = "title"
+            case description = "description"
+            case payload = "payload"
+            case providerToken = "provider_token"
+            case currency = "currency"
+            case prices = "prices"
+            case maxTipAmount = "max_tip_amount"
+            case suggestedTipAmounts = "suggested_tip_amounts"
+            case providerData = "provider_data"
+            case photoUrl = "photo_url"
+            case photoSize = "photo_size"
+            case photoWidth = "photo_width"
+            case photoHeight = "photo_height"
+            case needName = "need_name"
+            case needPhoneNumber = "need_phone_number"
+            case needEmail = "need_email"
+            case needShippingAddress = "need_shipping_address"
+            case sendPhoneNumberToProvider = "send_phone_number_to_provider"
+            case sendEmailToProvider = "send_email_to_provider"
+            case isFlexible = "is_flexible"
         }
 
     }
