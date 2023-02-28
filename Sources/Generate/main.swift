@@ -90,9 +90,9 @@ extension ParsingController {
     private func eitherBuilder(_ raw: [String]) -> String {
         var temp = raw
         guard raw.count >= 2 else {
-            return raw.first ?? "Void"
+            return raw.first?.replacingOccurrences(of: " ", with: "") ?? "Void"
         }
-        let last = temp.removeLast()
+        let last = temp.removeLast().replacingOccurrences(of: " ", with: "")
         return "Either<\(last), \(eitherBuilder(temp))>"
     }
 

@@ -458,7 +458,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendMediaGroup(chatId: ChatId, messageThreadId: Int? = nil, media: [Either<InputMediaVideo, Either< InputMediaPhoto, Either< InputMediaDocument, InputMediaAudio>>>], disableNotification: Bool? = nil, protectContent: Bool? = nil, replyToMessageId: Int? = nil, allowSendingWithoutReply: Bool? = nil) -> Request {
+    static public func sendMediaGroup(chatId: ChatId, messageThreadId: Int? = nil, media: [Either<InputMediaVideo, Either<InputMediaPhoto, Either<InputMediaDocument, InputMediaAudio>>>], disableNotification: Bool? = nil, protectContent: Bool? = nil, replyToMessageId: Int? = nil, allowSendingWithoutReply: Bool? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["message_thread_id"] = messageThreadId
