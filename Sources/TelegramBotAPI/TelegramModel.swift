@@ -3783,7 +3783,7 @@ extension TelegramAPI {
     /// This object represents the scope to which bot commands are applied. Currently, the following 7 scopes are supported:
     public enum BotCommandScope: Codable {
 
-        case defaulter(BotCommandScopeDefault)
+        case defaultCase(BotCommandScopeDefault)
         case allPrivateChats(BotCommandScopeAllPrivateChats)
         case allGroupChats(BotCommandScopeAllGroupChats)
         case allChatAdministrators(BotCommandScopeAllChatAdministrators)
@@ -3793,8 +3793,8 @@ extension TelegramAPI {
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            if let defaulter = try? container.decode(BotCommandScopeDefault.self) {
-                self = .defaulter(defaulter)
+            if let defaultCase = try? container.decode(BotCommandScopeDefault.self) {
+                self = .defaultCase(defaultCase)
             } else if let allPrivateChats = try? container.decode(BotCommandScopeAllPrivateChats.self) {
                 self = .allPrivateChats(allPrivateChats)
             } else if let allGroupChats = try? container.decode(BotCommandScopeAllGroupChats.self) {
@@ -3812,8 +3812,8 @@ extension TelegramAPI {
             }
         }
 
-        public init(_ defaulter: BotCommandScopeDefault) {
-            self = .defaulter(defaulter)
+        public init(_ defaultCase: BotCommandScopeDefault) {
+            self = .defaultCase(defaultCase)
         }
 
         public init(_ allPrivateChats: BotCommandScopeAllPrivateChats) {
@@ -3843,8 +3843,8 @@ extension TelegramAPI {
         public func encode(to encoder: Encoder) throws {
             var container = encoder.singleValueContainer()
             switch self {
-            case .defaulter(let defaulter):
-                try container.encode(defaulter)
+            case .defaultCase(let defaultCase):
+                try container.encode(defaultCase)
             case .allPrivateChats(let allPrivateChats):
                 try container.encode(allPrivateChats)
             case .allGroupChats(let allGroupChats):
@@ -4043,7 +4043,7 @@ extension TelegramAPI {
 
         case commands(MenuButtonCommands)
         case webApp(MenuButtonWebApp)
-        case defaulter(MenuButtonDefault)
+        case defaultCase(MenuButtonDefault)
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
@@ -4051,8 +4051,8 @@ extension TelegramAPI {
                 self = .commands(commands)
             } else if let webApp = try? container.decode(MenuButtonWebApp.self) {
                 self = .webApp(webApp)
-            } else if let defaulter = try? container.decode(MenuButtonDefault.self) {
-                self = .defaulter(defaulter)
+            } else if let defaultCase = try? container.decode(MenuButtonDefault.self) {
+                self = .defaultCase(defaultCase)
             } else {
                 throw NSError(domain: "org.telegram.api", code: -1, userInfo: ["name": "MenuButton"])
             }
@@ -4066,8 +4066,8 @@ extension TelegramAPI {
             self = .webApp(webApp)
         }
 
-        public init(_ defaulter: MenuButtonDefault) {
-            self = .defaulter(defaulter)
+        public init(_ defaultCase: MenuButtonDefault) {
+            self = .defaultCase(defaultCase)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -4077,8 +4077,8 @@ extension TelegramAPI {
                 try container.encode(commands)
             case .webApp(let webApp):
                 try container.encode(webApp)
-            case .defaulter(let defaulter):
-                try container.encode(defaulter)
+            case .defaultCase(let defaultCase):
+                try container.encode(defaultCase)
             }
         }
     }

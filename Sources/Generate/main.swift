@@ -139,7 +139,7 @@ extension ParsingController {
             var name = caseValue.dropFirst(prefix.count).dropLast(suffix.count)
             name = name.prefix(1).lowercased() + name.dropFirst()
             if name == "default" {
-                name = "defaulter"
+                name = "defaultCase"
             }
             code += "\tcase \(name)(\(caseValue))\n"
             decoder += "\n\t\t\(i > 0 ? "} else " : "")if let \(name) = try? container.decode(\(caseValue).self) {\n"
