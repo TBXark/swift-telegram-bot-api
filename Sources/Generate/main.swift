@@ -88,17 +88,12 @@ class ParsingController {
 extension ParsingController {
 
     private func eitherBuilder(_ raw: [String]) -> String {
-        var className = ""
         var temp = raw
         guard raw.count >= 2 else {
             return raw.first ?? "Void"
         }
         let last = temp.removeLast()
-        for i in temp {
-            className += "Either<\(i), "
-        }
-        className += "\(last)\(Array(repeating: ">", count: raw.count - 1).joined())"
-        return className
+        return "Either<\(last), \(eitherBuilder(temp))>"
     }
 
     private func unionBuilder(name: String, cases: [String], fastInitialization: Bool = true) -> String {
@@ -143,6 +138,9 @@ extension ParsingController {
         for (i, caseValue) in cases.enumerated() {
             var name = caseValue.dropFirst(prefix.count).dropLast(suffix.count)
             name = name.prefix(1).lowercased() + name.dropFirst()
+            if name == "default" {
+                name = "defaulter"
+            }
             code += "\tcase \(name)(\(caseValue))\n"
             decoder += "\n\t\t\(i > 0 ? "} else " : "")if let \(name) = try? container.decode(\(caseValue).self) {\n"
             decoder += "\t\t\tself = .\(name)(\(name))"
@@ -317,14 +315,14 @@ extension ParsingController {
             return "[\(itemType)]"
         } else if raw.contains(" or ") {
             var maybe = [String]()
-            for str in (raw as NSString).components(separatedBy: " or ") {
-                maybe.append(fixType(str))
+            for str in (raw as NSString).components(separatedBy: " or ").flatMap({ $0.split(separator: ",")}) {
+                maybe.append(fixType(String(str)))
             }
             return eitherBuilder(maybe)
         } else if raw.contains(" and ") {
             var maybe = [String]()
-            for str in (raw as NSString).components(separatedBy: " and ") {
-                maybe.append(fixType(str))
+            for str in (raw as NSString).components(separatedBy: " and ").flatMap({ $0.split(separator: ",")}) {
+                maybe.append(fixType(String(str)))
             }
             return eitherBuilder(maybe)
         } else {

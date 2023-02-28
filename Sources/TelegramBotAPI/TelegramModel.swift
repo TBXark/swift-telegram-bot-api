@@ -10,7 +10,6 @@ import Foundation
 
 extension TelegramAPI {
 
-
     /// Telegram Request wrapper
     /// Authorizing your bot
     ///
@@ -139,7 +138,7 @@ extension TelegramAPI {
             }
         }
     }
-    
+
     /// ReplyMarkup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply
     public enum ReplyMarkup: Codable {
 
@@ -3784,7 +3783,7 @@ extension TelegramAPI {
     /// This object represents the scope to which bot commands are applied. Currently, the following 7 scopes are supported:
     public enum BotCommandScope: Codable {
 
-        case default(BotCommandScopeDefault)
+        case defaulter(BotCommandScopeDefault)
         case allPrivateChats(BotCommandScopeAllPrivateChats)
         case allGroupChats(BotCommandScopeAllGroupChats)
         case allChatAdministrators(BotCommandScopeAllChatAdministrators)
@@ -3794,8 +3793,8 @@ extension TelegramAPI {
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            if let default = try? container.decode(BotCommandScopeDefault.self) {
-                self = .default(default)
+            if let defaulter = try? container.decode(BotCommandScopeDefault.self) {
+                self = .defaulter(defaulter)
             } else if let allPrivateChats = try? container.decode(BotCommandScopeAllPrivateChats.self) {
                 self = .allPrivateChats(allPrivateChats)
             } else if let allGroupChats = try? container.decode(BotCommandScopeAllGroupChats.self) {
@@ -3813,8 +3812,8 @@ extension TelegramAPI {
             }
         }
 
-        public init(_ default: BotCommandScopeDefault) {
-            self = .default(default)
+        public init(_ defaulter: BotCommandScopeDefault) {
+            self = .defaulter(defaulter)
         }
 
         public init(_ allPrivateChats: BotCommandScopeAllPrivateChats) {
@@ -3844,8 +3843,8 @@ extension TelegramAPI {
         public func encode(to encoder: Encoder) throws {
             var container = encoder.singleValueContainer()
             switch self {
-            case .default(let default):
-                try container.encode(default)
+            case .defaulter(let defaulter):
+                try container.encode(defaulter)
             case .allPrivateChats(let allPrivateChats):
                 try container.encode(allPrivateChats)
             case .allGroupChats(let allGroupChats):
@@ -4044,7 +4043,7 @@ extension TelegramAPI {
 
         case commands(MenuButtonCommands)
         case webApp(MenuButtonWebApp)
-        case default(MenuButtonDefault)
+        case defaulter(MenuButtonDefault)
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
@@ -4052,8 +4051,8 @@ extension TelegramAPI {
                 self = .commands(commands)
             } else if let webApp = try? container.decode(MenuButtonWebApp.self) {
                 self = .webApp(webApp)
-            } else if let default = try? container.decode(MenuButtonDefault.self) {
-                self = .default(default)
+            } else if let defaulter = try? container.decode(MenuButtonDefault.self) {
+                self = .defaulter(defaulter)
             } else {
                 throw NSError(domain: "org.telegram.api", code: -1, userInfo: ["name": "MenuButton"])
             }
@@ -4067,8 +4066,8 @@ extension TelegramAPI {
             self = .webApp(webApp)
         }
 
-        public init(_ default: MenuButtonDefault) {
-            self = .default(default)
+        public init(_ defaulter: MenuButtonDefault) {
+            self = .defaulter(defaulter)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -4078,8 +4077,8 @@ extension TelegramAPI {
                 try container.encode(commands)
             case .webApp(let webApp):
                 try container.encode(webApp)
-            case .default(let default):
-                try container.encode(default)
+            case .defaulter(let defaulter):
+                try container.encode(defaulter)
             }
         }
     }
