@@ -17,7 +17,7 @@ To learn how to create…">
 <link rel="alternate icon" href="/img/favicon.ico" type="image/x-icon" />
     <link href="/css/bootstrap.min.css?3" rel="stylesheet">
     
-    <link href="/css/telegram.css?234" rel="stylesheet" media="screen">
+    <link href="/css/telegram.css?236" rel="stylesheet" media="screen">
     <style>
     </style>
   </head>
@@ -53,71 +53,38 @@ To learn how to create…">
 <blockquote>
 <p>Subscribe to <a href="https://t.me/botnews">@BotNews</a> to be the first to know about the latest updates and join the discussion in <a href="https://t.me/bottalk">@BotTalk</a></p>
 </blockquote>
-<h4><a class="anchor" name="february-3-2023" href="#february-3-2023"><i class="anchor-icon"></i></a>February 3, 2023</h4>
-<p><strong>Bot API 6.5</strong></p>
+<h4><a class="anchor" name="september-22-2023" href="#september-22-2023"><i class="anchor-icon"></i></a>September 22, 2023</h4>
+<p><strong>Bot API 6.9</strong></p>
 <ul>
-<li>Added <a href="https://telegram.org/blog/profile-pics-emoji-translations#chat-selection-for-bots">requests for users and chats</a> and support for <a href="https://telegram.org/blog/profile-pics-emoji-translations#granular-media-permissions">granular media permissions</a>.</li>
-<li>Added the class <a href="#keyboardbuttonrequestuser">KeyboardButtonRequestUser</a> and the field <em>request_user</em> to the class <a href="#keyboardbutton">KeyboardButton</a>.</li>
-<li>Added the class <a href="#keyboardbuttonrequestchat">KeyboardButtonRequestChat</a> and the field <em>request_chat</em> to the class <a href="#keyboardbutton">KeyboardButton</a>.</li>
-<li>Added the classes <a href="#usershared">UserShared</a>, <a href="#chatshared">ChatShared</a> and the fields <em>user_shared</em>, and <em>chat_shared</em> to the class <a href="#message">Message</a>.</li>
-<li>Replaced the fields <em>can_send_media_messages</em> in the classes <a href="#chatmemberrestricted">ChatMemberRestricted</a> and <a href="#chatpermissions">ChatPermissions</a> with separate fields <em>can_send_audios</em>, <em>can_send_documents</em>, <em>can_send_photos</em>, <em>can_send_videos</em>, <em>can_send_video_notes</em>, and <em>can_send_voice_notes</em> for different media types.</li>
-<li>Added the parameter <em>use_independent_chat_permissions</em> to the methods <a href="#restrictchatmember">restrictChatMember</a> and <a href="#setchatpermissions">setChatPermissions</a>.</li>
-<li>Added the field <em>user_chat_id</em> to the class <a href="#chatjoinrequest">ChatJoinRequest</a>.</li>
+<li>Added the new administrator privileges <em>can_post_stories</em>, <em>can_edit_stories</em> and <em>can_delete_stories</em> to the classes <a href="#chatmemberadministrator">ChatMemberAdministrator</a> and <a href="#chatadministratorrights">ChatAdministratorRights</a>.</li>
+<li>Added the parameters <em>can_post_stories</em>, <em>can_edit_stories</em> and <em>can_delete_stories</em> to the method <a href="#promotechatmember">promoteChatMember</a>. Currently, bots have no use for these privileges besides assigning them to other administrators.</li>
+<li>Added the ability to set any header color for Web App using the method <em>setHeaderColor</em>.</li>
+<li>Added the field <em>CloudStorage</em> to the class <a href="/bots/webapps#initializing-mini-apps">WebApp</a>.</li>
+<li>Added the methods <em>requestWriteAccess</em> and <em>requestContact</em> to the class <a href="/bots/webapps#initializing-mini-apps">WebApp</a>.</li>
+<li>Added Web App events <em>writeAccessRequested</em> and <em>contactRequested</em>.</li>
+<li>Added the fields <em>from_request</em> and <em>from_attachment_menu</em> to the class <a href="#writeaccessallowed">WriteAccessAllowed</a>.</li>
+<li>Added the fields <em>added_to_attachment_menu</em> and <em>allows_write_to_pm</em> to the class <a href="/bots/webapps#webappuser">WebAppUser</a>.</li>
 </ul>
-<h4><a class="anchor" name="december-30-2022" href="#december-30-2022"><i class="anchor-icon"></i></a>December 30, 2022</h4>
-<p><strong>Bot API 6.4</strong></p>
+<h4><a class="anchor" name="august-18-2023" href="#august-18-2023"><i class="anchor-icon"></i></a>August 18, 2023</h4>
+<p><strong>Bot API 6.8</strong></p>
 <ul>
-<li>Added the field <em>is_persistent</em> to the class <a href="#replykeyboardmarkup">ReplyKeyboardMarkup</a>, allowing to control when the keyboard is shown.</li>
-<li>Added the parameter <em>has_spoiler</em> to the methods <a href="#sendphoto">sendPhoto</a>, <a href="#sendvideo">sendVideo</a>, and <a href="#sendanimation">sendAnimation</a>.</li>
-<li>Added the field <em>has_spoiler</em> to the classes <a href="#inputmediaphoto">InputMediaPhoto</a>, <a href="#inputmediavideo">InputMediaVideo</a>, and <a href="#inputmediaanimation">InputMediaAnimation</a>.</li>
-<li>Added the field <em>has_media_spoiler</em> to the class <a href="#message">Message</a>.</li>
-<li>The parameters <em>name</em> and <em>icon_custom_emoji_id</em> of the method <a href="#editforumtopic">editForumTopic</a> are now optional. If they are omitted, the existing values are kept.</li>
-<li>Added the classes <a href="#forumtopicedited">ForumTopicEdited</a>, <a href="#generalforumtopichidden">GeneralForumTopicHidden</a>, <a href="#generalforumtopicunhidden">GeneralForumTopicUnhidden</a>, and <a href="#writeaccessallowed">WriteAccessAllowed</a> and the fields <em>forum_topic_edited</em>, <em>general_forum_topic_hidden</em>, <em>general_forum_topic_unhidden</em>, and <em>write_access_allowed</em> to the class <a href="#message">Message</a>.</li>
-<li>Added the methods <a href="#editgeneralforumtopic">editGeneralForumTopic</a>, <a href="#closegeneralforumtopic">closeGeneralForumTopic</a>, <a href="#reopengeneralforumtopic">reopenGeneralForumTopic</a>, <a href="#hidegeneralforumtopic">hideGeneralForumTopic</a>, <a href="#unhidegeneralforumtopic">unhideGeneralForumTopic</a> for managing the General topic in forums.</li>
-<li>Added the parameter <em>message_thread_id</em> to the method <a href="#sendchataction">sendChatAction</a> for sending chat actions to a specific message thread or a forum topic.</li>
-<li>Added the field <em>has_hidden_members</em> to the class <a href="#chat">Chat</a>. Note that the method <a href="#getchatmember">getChatMember</a> is only guaranteed to work if the bot is an administrator in the chat.</li>
-<li>Added the field <em>has_aggressive_anti_spam_enabled</em> to the class <a href="#chat">Chat</a>.</li>
-<li>Added Web App events <em>qrTextReceived</em> and <em>clipboardTextReceived</em>.</li>
-<li>Added the field <em>platform</em> to the class <a href="/bots/webapps#initializing-web-apps">WebApp</a>.</li>
-<li>Added the methods <em>showScanQrPopup</em>, <em>closeScanQrPopup</em>, and <em>readTextFromClipboard</em> to the class <a href="/bots/webapps#initializing-web-apps">WebApp</a>.</li>
-<li>Added the parameter <em>options</em> to the method <em>openLink</em> of the class <a href="/bots/webapps#initializing-web-apps">WebApp</a>.</li>
+<li>Added the field <em>story</em> to the class <a href="#message">Message</a> for messages with forwarded stories. Currently, it holds no information.</li>
+<li>Added the field <em>voter_chat</em> to the class <a href="#pollanswer">PollAnswer</a>, to contain channel chat voters in <a href="#poll">Polls</a>. For backward compatibility, the field <em>user</em> in such objects will contain the user 136817688 (<a href="https://t.me/Channel_Bot">@Channel_Bot</a>).</li>
+<li>Added the field <em>emoji_status_expiration_date</em> to the class <a href="#chat">Chat</a>.</li>
+<li>Added the method <a href="#unpinallgeneralforumtopicmessages">unpinAllGeneralForumTopicMessages</a>.</li>
+<li>Increased to 512 characters the maximum length of the <em>startapp</em> parameter in direct Web App links.</li>
 </ul>
-<h4><a class="anchor" name="november-5-2022" href="#november-5-2022"><i class="anchor-icon"></i></a>November 5, 2022</h4>
-<p><strong>Bot API 6.3</strong></p>
+<h4><a class="anchor" name="april-21-2023" href="#april-21-2023"><i class="anchor-icon"></i></a>April 21, 2023</h4>
+<p><strong>Bot API 6.7</strong></p>
 <ul>
-<li>Added support for <a href="https://telegram.org/blog/topics-in-groups-collectible-usernames#topics-in-groups">Topics in Groups</a>.</li>
-<li>Added the field <em>is_forum</em> to the class <a href="#chat">Chat</a>.</li>
-<li>Added the fields <em>is_topic_message</em> and <em>message_thread_id</em> to the class <a href="#message">Message</a> to allow detection of messages belonging to a forum topic and their message thread identifier.</li>
-<li>Added the classes <a href="#forumtopiccreated">ForumTopicCreated</a>, <a href="#forumtopicclosed">ForumTopicClosed</a>, and <a href="#forumtopicreopened">ForumTopicReopened</a> and the fields <em>forum_topic_created</em>, <em>forum_topic_closed</em>, and <em>forum_topic_reopened</em> to the class <a href="#message">Message</a>. Note that service messages about forum topic creation can&#39;t be deleted with the <a href="#deletemessage">deleteMessage</a> method.</li>
-<li>Added the field <em>can_manage_topics</em> to the classes <a href="#chatadministratorrights">ChatAdministratorRights</a>, <a href="#chatpermissions">ChatPermissions</a>, <a href="#chatmemberadministrator">ChatMemberAdministrator</a>, and <a href="#chatmemberrestricted">ChatMemberRestricted</a>.</li>
-<li>Added the parameter <em>can_manage_topics</em> to the method <a href="#promotechatmember">promoteChatMember</a>.</li>
-<li>Added the methods <a href="#createforumtopic">createForumTopic</a>, <a href="#editforumtopic">editForumTopic</a>, <a href="#closeforumtopic">closeForumTopic</a>, <a href="#reopenforumtopic">reopenForumTopic</a>, <a href="#deleteforumtopic">deleteForumTopic</a>, <a href="#unpinallforumtopicmessages">unpinAllForumTopicMessages</a>, and <a href="#getforumtopiciconstickers">getForumTopicIconStickers</a> for forum topic management.</li>
-<li>Added the parameter <em>message_thread_id</em> to the methods <a href="#sendmessage">sendMessage</a>, <a href="#sendphoto">sendPhoto</a>, <a href="#sendvideo">sendVideo</a>, <a href="#sendanimation">sendAnimation</a>, <a href="#sendaudio">sendAudio</a>, <a href="#senddocument">sendDocument</a>, <a href="#sendsticker">sendSticker</a>, <a href="#sendvideonote">sendVideoNote</a>, <a href="#sendvoice">sendVoice</a>, <a href="#sendlocation">sendLocation</a>, <a href="#sendvenue">sendVenue</a>, <a href="#sendcontact">sendContact</a>, <a href="#sendpoll">sendPoll</a>, <a href="#senddice">sendDice</a>, <a href="#sendinvoice">sendInvoice</a>, <a href="#sendgame">sendGame</a>, <a href="#sendmediagroup">sendMediaGroup</a>, <a href="#copymessage">copyMessage</a>, <a href="#forwardmessage">forwardMessage</a> to support sending of messages to a forum topic.</li>
-<li>Added support for <a href="https://telegram.org/blog/topics-in-groups-collectible-usernames#collectible-usernames">Multiple Usernames</a> via the field <em>active_usernames</em> in the class <a href="#chat">Chat</a>.</li>
-<li>Added the field <em>emoji_status_custom_emoji_id</em> to the class <a href="#chat">Chat</a>.</li>
-</ul>
-<h4><a class="anchor" name="august-12-2022" href="#august-12-2022"><i class="anchor-icon"></i></a>August 12, 2022</h4>
-<p><strong>Bot API 6.2</strong></p>
-<p><strong>Custom Emoji Support</strong></p>
-<ul>
-<li>Added the <a href="#messageentity">MessageEntity</a> type “custom_emoji”.</li>
-<li>Added the field <em>custom_emoji_id</em> to the class <a href="#messageentity">MessageEntity</a> for “custom_emoji” entities.</li>
-<li>Added the method <a href="#getcustomemojistickers">getCustomEmojiStickers</a>.</li>
-<li>Added the fields <em>type</em> and <em>custom_emoji_id</em> to the class <a href="#sticker">Sticker</a>.</li>
-<li>Added the field <em>sticker_type</em> to the class <a href="#stickerset">StickerSet</a>, describing the type of stickers in the set.</li>
-<li>The field <em>contains_masks</em> has been removed from the documentation of the class <a href="#stickerset">StickerSet</a>. The field is still returned in the object for backward compatibility, but new bots should use the field <em>sticker_type</em> instead.</li>
-<li>Added the parameter <em>sticker_type</em> to the method <a href="#createnewstickerset">createNewStickerSet</a>.</li>
-<li>The parameter <em>contains_masks</em> has been removed from the documentation of the method <a href="#createnewstickerset">createNewStickerSet</a>. The parameter will still work for backward compatibility, but new bots should use the parameter <em>sticker_type</em> instead.</li>
-</ul>
-<p><strong>Web App Improvements</strong></p>
-<ul>
-<li>Added the field <em>isClosingConfirmationEnabled</em> and the methods <em>enableClosingConfirmation</em>, <em>disableClosingConfirmation</em>, <em>showPopup</em>, <em>showAlert</em>, <em>showConfirm</em> to the class <a href="/bots/webapps#initializing-web-apps">WebApp</a>.</li>
-<li>Added the field <em>is_premium</em> to the class <a href="/bots/webapps#webappuser">WebAppUser</a>.</li>
-<li>Added the event <em>popupClosed</em>.</li>
-</ul>
-<p><strong>Other Changes</strong></p>
-<ul>
-<li>Added the field <em>has_restricted_voice_and_video_messages</em> to the class <a href="#chat">Chat</a> to support the <a href="https://telegram.org/blog/custom-emoji#privacy-settings-for-voice-messages">new setting</a>.</li>
+<li>Added support for launching <a href="/bots/webapps">Web Apps</a> from inline query results by replacing the parameters <em>switch_pm_text</em> and <em>switch_pm_parameter</em> of the method <a href="#answerinlinequery">answerInlineQuery</a> with the parameter <em>button</em> of type <a href="#inlinequeryresultsbutton">InlineQueryResultsButton</a>.</li>
+<li>Added the field <em>web_app_name</em> to the class <a href="#writeaccessallowed">WriteAccessAllowed</a>.</li>
+<li>Added the field <em>switch_inline_query_chosen_chat</em> of the type <a href="#switchinlinequerychosenchat">SwitchInlineQueryChosenChat</a> to the class <a href="#inlinekeyboardbutton">InlineKeyboardButton</a>, which allows bots to switch to inline mode in a chosen chat of the given type.</li>
+<li>Added the field <em>via_chat_folder_invite_link</em> to the class <a href="#chatmemberupdated">ChatMemberUpdated</a>.</li>
+<li>Added the ability to set different bot names for different user languages using the method <a href="#setmyname">setMyName</a>.</li>
+<li>Added the ability to get the current bot name in the given language as the class <a href="#botname">BotName</a> using the method <a href="#getmyname">getMyName</a>.</li>
+<li>Added the ability to change bot settings from the bot&#39;s profile in official Telegram apps, including the ability to set animated profile photos.</li>
+<li>Added the ability to specify custom emoji entities using <a href="#html-style">HTML</a> and <a href="#markdownv2-style">MarkdownV2</a> formatting options for bots that purchased additional usernames on <a href="https://fragment.com">Fragment</a>.</li>
 </ul>
 <p><strong><a href="/bots/api-changelog">See earlier changes »</a></strong></p>
 <h3><a class="anchor" name="authorizing-your-bot" href="#authorizing-your-bot"><i class="anchor-icon"></i></a>Authorizing your bot</h3>
@@ -238,7 +205,7 @@ To learn how to create…">
 <tr>
 <td>chat_member</td>
 <td><a href="#chatmemberupdated">ChatMemberUpdated</a></td>
-<td><em>Optional</em>. A chat member&#39;s status was updated in a chat. The bot must be an administrator in the chat and must explicitly specify “chat_member” in the list of <em>allowed_updates</em> to receive these updates.</td>
+<td><em>Optional</em>. A chat member&#39;s status was updated in a chat. The bot must be an administrator in the chat and must explicitly specify <code>&quot;chat_member&quot;</code> in the list of <em>allowed_updates</em> to receive these updates.</td>
 </tr>
 <tr>
 <td>chat_join_request</td>
@@ -263,7 +230,7 @@ To learn how to create…">
 <td>offset</td>
 <td>Integer</td>
 <td>Optional</td>
-<td>Identifier of the first update to be returned. Must be greater by one than the highest among the identifiers of previously received updates. By default, updates starting with the earliest unconfirmed update are returned. An update is considered confirmed as soon as <a href="#getupdates">getUpdates</a> is called with an <em>offset</em> higher than its <em>update_id</em>. The negative offset can be specified to retrieve updates starting from <em>-offset</em> update from the end of the updates queue. All previous updates will forgotten.</td>
+<td>Identifier of the first update to be returned. Must be greater by one than the highest among the identifiers of previously received updates. By default, updates starting with the earliest unconfirmed update are returned. An update is considered confirmed as soon as <a href="#getupdates">getUpdates</a> is called with an <em>offset</em> higher than its <em>update_id</em>. The negative offset can be specified to retrieve updates starting from <em>-offset</em> update from the end of the updates queue. All previous updates will be forgotten.</td>
 </tr>
 <tr>
 <td>limit</td>
@@ -281,7 +248,7 @@ To learn how to create…">
 <td>allowed_updates</td>
 <td>Array of String</td>
 <td>Optional</td>
-<td>A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See <a href="#update">Update</a> for a complete list of available update types. Specify an empty list to receive all update types except <em>chat_member</em> (default). If not specified, the previous setting will be used.<br><br>Please note that this parameter doesn&#39;t affect updates created before the call to the getUpdates, so unwanted updates may be received for a short period of time.</td>
+<td>A JSON-serialized list of the update types you want your bot to receive. For example, specify <code>[&quot;message&quot;, &quot;edited_channel_post&quot;, &quot;callback_query&quot;]</code> to only receive updates of these types. See <a href="#update">Update</a> for a complete list of available update types. Specify an empty list to receive all update types except <em>chat_member</em> (default). If not specified, the previous setting will be used.<br><br>Please note that this parameter doesn&#39;t affect updates created before the call to the getUpdates, so unwanted updates may be received for a short period of time.</td>
 </tr>
 </tbody>
 </table>
@@ -329,7 +296,7 @@ To learn how to create…">
 <td>allowed_updates</td>
 <td>Array of String</td>
 <td>Optional</td>
-<td>A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See <a href="#update">Update</a> for a complete list of available update types. Specify an empty list to receive all update types except <em>chat_member</em> (default). If not specified, the previous setting will be used.<br>Please note that this parameter doesn&#39;t affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time.</td>
+<td>A JSON-serialized list of the update types you want your bot to receive. For example, specify <code>[&quot;message&quot;, &quot;edited_channel_post&quot;, &quot;callback_query&quot;]</code> to only receive updates of these types. See <a href="#update">Update</a> for a complete list of available update types. Specify an empty list to receive all update types except <em>chat_member</em> (default). If not specified, the previous setting will be used.<br>Please note that this parameter doesn&#39;t affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time.</td>
 </tr>
 <tr>
 <td>drop_pending_updates</td>
@@ -563,6 +530,11 @@ To learn how to create…">
 <td>emoji_status_custom_emoji_id</td>
 <td>String</td>
 <td><em>Optional</em>. Custom emoji identifier of emoji status of the other party in a private chat. Returned only in <a href="#getchat">getChat</a>.</td>
+</tr>
+<tr>
+<td>emoji_status_expiration_date</td>
+<td>Integer</td>
+<td><em>Optional</em>. Expiration date of the emoji status of the other party in a private chat in Unix time, if any. Returned only in <a href="#getchat">getChat</a>.</td>
 </tr>
 <tr>
 <td>bio</td>
@@ -803,6 +775,11 @@ To learn how to create…">
 <td><em>Optional</em>. Message is a sticker, information about the sticker</td>
 </tr>
 <tr>
+<td>story</td>
+<td><a href="#story">Story</a></td>
+<td><em>Optional</em>. Message is a forwarded story</td>
+</tr>
+<tr>
 <td>video</td>
 <td><a href="#video">Video</a></td>
 <td><em>Optional</em>. Message is a video, information about the video</td>
@@ -950,7 +927,7 @@ To learn how to create…">
 <tr>
 <td>write_access_allowed</td>
 <td><a href="#writeaccessallowed">WriteAccessAllowed</a></td>
-<td><em>Optional</em>. Service message: the user allowed the bot added to the attachment menu to write messages</td>
+<td><em>Optional</em>. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method <a href="/bots/webapps#initializing-mini-apps">requestWriteAccess</a></td>
 </tr>
 <tr>
 <td>passport_data</td>
@@ -1165,7 +1142,7 @@ To learn how to create…">
 <td>Duration of the video in seconds as defined by sender</td>
 </tr>
 <tr>
-<td>thumb</td>
+<td>thumbnail</td>
 <td><a href="#photosize">PhotoSize</a></td>
 <td><em>Optional</em>. Animation thumbnail as defined by sender</td>
 </tr>
@@ -1238,7 +1215,7 @@ To learn how to create…">
 <td><em>Optional</em>. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.</td>
 </tr>
 <tr>
-<td>thumb</td>
+<td>thumbnail</td>
 <td><a href="#photosize">PhotoSize</a></td>
 <td><em>Optional</em>. Thumbnail of the album cover to which the music file belongs</td>
 </tr>
@@ -1266,7 +1243,7 @@ To learn how to create…">
 <td>Unique identifier for this file, which is supposed to be the same over time and for different bots. Can&#39;t be used to download or reuse the file.</td>
 </tr>
 <tr>
-<td>thumb</td>
+<td>thumbnail</td>
 <td><a href="#photosize">PhotoSize</a></td>
 <td><em>Optional</em>. Document thumbnail as defined by sender</td>
 </tr>
@@ -1287,6 +1264,8 @@ To learn how to create…">
 </tr>
 </tbody>
 </table>
+<h4><a class="anchor" name="story" href="#story"><i class="anchor-icon"></i></a>Story</h4>
+<p>This object represents a message about a forwarded story in the chat. Currently holds no information.</p>
 <h4><a class="anchor" name="video" href="#video"><i class="anchor-icon"></i></a>Video</h4>
 <p>This object represents a video file.</p>
 <table class="table">
@@ -1324,7 +1303,7 @@ To learn how to create…">
 <td>Duration of the video in seconds as defined by sender</td>
 </tr>
 <tr>
-<td>thumb</td>
+<td>thumbnail</td>
 <td><a href="#photosize">PhotoSize</a></td>
 <td><em>Optional</em>. Video thumbnail</td>
 </tr>
@@ -1377,7 +1356,7 @@ To learn how to create…">
 <td>Duration of the video in seconds as defined by sender</td>
 </tr>
 <tr>
-<td>thumb</td>
+<td>thumbnail</td>
 <td><a href="#photosize">PhotoSize</a></td>
 <td><em>Optional</em>. Video thumbnail</td>
 </tr>
@@ -1527,14 +1506,19 @@ To learn how to create…">
 <td>Unique poll identifier</td>
 </tr>
 <tr>
+<td>voter_chat</td>
+<td><a href="#chat">Chat</a></td>
+<td><em>Optional</em>. The chat that changed the answer to the poll, if the voter is anonymous</td>
+</tr>
+<tr>
 <td>user</td>
 <td><a href="#user">User</a></td>
-<td>The user, who changed the answer to the poll</td>
+<td><em>Optional</em>. The user that changed the answer to the poll, if the voter isn&#39;t anonymous</td>
 </tr>
 <tr>
 <td>option_ids</td>
 <td>Array of Integer</td>
-<td>0-based identifiers of answer options, chosen by the user. May be empty if the user retracted their vote.</td>
+<td>0-based identifiers of chosen answer options. May be empty if the vote was retracted.</td>
 </tr>
 </tbody>
 </table>
@@ -1882,7 +1866,33 @@ To learn how to create…">
 </tbody>
 </table>
 <h4><a class="anchor" name="writeaccessallowed" href="#writeaccessallowed"><i class="anchor-icon"></i></a>WriteAccessAllowed</h4>
-<p>This object represents a service message about a user allowing a bot added to the attachment menu to write messages. Currently holds no information.</p>
+<p>This object represents a service message about a user allowing a bot to write messages after adding it to the attachment menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method <a href="/bots/webapps#initializing-mini-apps">requestWriteAccess</a>.</p>
+<table class="table">
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>from_request</td>
+<td>Boolean</td>
+<td><em>Optional</em>. True, if the access was granted after the user accepted an explicit request from a Web App sent by the method <a href="/bots/webapps#initializing-mini-apps">requestWriteAccess</a></td>
+</tr>
+<tr>
+<td>web_app_name</td>
+<td>String</td>
+<td><em>Optional</em>. Name of the Web App, if the access was granted when the Web App was launched from a link</td>
+</tr>
+<tr>
+<td>from_attachment_menu</td>
+<td>Boolean</td>
+<td><em>Optional</em>. True, if the access was granted when the bot was added to the attachment or side menu</td>
+</tr>
+</tbody>
+</table>
 <h4><a class="anchor" name="videochatscheduled" href="#videochatscheduled"><i class="anchor-icon"></i></a>VideoChatScheduled</h4>
 <p>This object represents a service message about a video chat scheduled in the chat.</p>
 <table class="table">
@@ -2012,7 +2022,7 @@ To learn how to create…">
 <tr>
 <td>url</td>
 <td>String</td>
-<td>An HTTPS URL of a Web App to be opened with additional data as specified in <a href="/bots/webapps#initializing-web-apps">Initializing Web Apps</a></td>
+<td>An HTTPS URL of a Web App to be opened with additional data as specified in <a href="/bots/webapps#initializing-mini-apps">Initializing Web Apps</a></td>
 </tr>
 </tbody>
 </table>
@@ -2109,7 +2119,7 @@ To learn how to create…">
 </table>
 <p><strong>Note:</strong> <em>request_contact</em> and <em>request_location</em> options will only work in Telegram versions released after 9 April, 2016. Older clients will display <em>unsupported message</em>.<br><strong>Note:</strong> <em>request_poll</em> option will only work in Telegram versions released after 23 January, 2020. Older clients will display <em>unsupported message</em>.<br><strong>Note:</strong> <em>web_app</em> option will only work in Telegram versions released after 16 April, 2022. Older clients will display <em>unsupported message</em>.<br><strong>Note:</strong> <em>request_user</em> and <em>request_chat</em> options will only work in Telegram versions released after 3 February, 2023. Older clients will display <em>unsupported message</em>.</p>
 <h4><a class="anchor" name="keyboardbuttonrequestuser" href="#keyboardbuttonrequestuser"><i class="anchor-icon"></i></a>KeyboardButtonRequestUser</h4>
-<p>This object defines the criteria used to request a suitable user. The identifier of the selected user will be shared with the bot when the corresponding button is pressed.</p>
+<p>This object defines the criteria used to request a suitable user. The identifier of the selected user will be shared with the bot when the corresponding button is pressed. <a href="/bots/features#chat-and-user-selection">More about requesting users »</a></p>
 <table class="table">
 <thead>
 <tr>
@@ -2137,7 +2147,7 @@ To learn how to create…">
 </tbody>
 </table>
 <h4><a class="anchor" name="keyboardbuttonrequestchat" href="#keyboardbuttonrequestchat"><i class="anchor-icon"></i></a>KeyboardButtonRequestChat</h4>
-<p>This object defines the criteria used to request a suitable chat. The identifier of the selected chat will be shared with the bot when the corresponding button is pressed.</p>
+<p>This object defines the criteria used to request a suitable chat. The identifier of the selected chat will be shared with the bot when the corresponding button is pressed. <a href="/bots/features#chat-and-user-selection">More about requesting chats »</a></p>
 <table class="table">
 <thead>
 <tr>
@@ -2288,12 +2298,17 @@ To learn how to create…">
 <tr>
 <td>switch_inline_query</td>
 <td>String</td>
-<td><em>Optional</em>. If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot&#39;s username and the specified inline query in the input field. May be empty, in which case just the bot&#39;s username will be inserted.<br><br><strong>Note:</strong> This offers an easy way for users to start using your bot in <a href="/bots/inline">inline mode</a> when they are currently in a private chat with it. Especially useful when combined with <a href="#answerinlinequery"><em>switch_pm…</em></a> actions - in this case the user will be automatically returned to the chat they switched from, skipping the chat selection screen.</td>
+<td><em>Optional</em>. If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot&#39;s username and the specified inline query in the input field. May be empty, in which case just the bot&#39;s username will be inserted.</td>
 </tr>
 <tr>
 <td>switch_inline_query_current_chat</td>
 <td>String</td>
 <td><em>Optional</em>. If set, pressing the button will insert the bot&#39;s username and the specified inline query in the current chat&#39;s input field. May be empty, in which case only the bot&#39;s username will be inserted.<br><br>This offers a quick way for the user to open your bot in inline mode in the same chat - good for selecting something from multiple options.</td>
+</tr>
+<tr>
+<td>switch_inline_query_chosen_chat</td>
+<td><a href="#switchinlinequerychosenchat">SwitchInlineQueryChosenChat</a></td>
+<td><em>Optional</em>. If set, pressing the button will prompt the user to select one of their chats of the specified type, open that chat and insert the bot&#39;s username and the specified inline query in the input field</td>
 </tr>
 <tr>
 <td>callback_game</td>
@@ -2345,6 +2360,44 @@ To learn how to create…">
 <td>request_write_access</td>
 <td>Boolean</td>
 <td><em>Optional</em>. Pass <em>True</em> to request the permission for your bot to send messages to the user.</td>
+</tr>
+</tbody>
+</table>
+<h4><a class="anchor" name="switchinlinequerychosenchat" href="#switchinlinequerychosenchat"><i class="anchor-icon"></i></a>SwitchInlineQueryChosenChat</h4>
+<p>This object represents an inline button that switches the current user to inline mode in a chosen chat, with an optional default inline query.</p>
+<table class="table">
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>query</td>
+<td>String</td>
+<td><em>Optional</em>. The default inline query to be inserted in the input field. If left empty, only the bot&#39;s username will be inserted</td>
+</tr>
+<tr>
+<td>allow_user_chats</td>
+<td>Boolean</td>
+<td><em>Optional</em>. True, if private chats with users can be chosen</td>
+</tr>
+<tr>
+<td>allow_bot_chats</td>
+<td>Boolean</td>
+<td><em>Optional</em>. True, if private chats with bots can be chosen</td>
+</tr>
+<tr>
+<td>allow_group_chats</td>
+<td>Boolean</td>
+<td><em>Optional</em>. True, if group and supergroup chats can be chosen</td>
+</tr>
+<tr>
+<td>allow_channel_chats</td>
+<td>Boolean</td>
+<td><em>Optional</em>. True, if channel chats can be chosen</td>
 </tr>
 </tbody>
 </table>
@@ -2545,7 +2598,7 @@ To learn how to create…">
 <tr>
 <td>can_manage_chat</td>
 <td>Boolean</td>
-<td><em>True</em>, if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege</td>
+<td><em>True</em>, if the administrator can access the chat event log, boost list in channels, see channel members, report spam messages, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege</td>
 </tr>
 <tr>
 <td>can_delete_messages</td>
@@ -2560,7 +2613,7 @@ To learn how to create…">
 <tr>
 <td>can_restrict_members</td>
 <td>Boolean</td>
-<td><em>True</em>, if the administrator can restrict, ban or unban chat members</td>
+<td><em>True</em>, if the administrator can restrict, ban or unban chat members, or access supergroup statistics</td>
 </tr>
 <tr>
 <td>can_promote_members</td>
@@ -2580,7 +2633,7 @@ To learn how to create…">
 <tr>
 <td>can_post_messages</td>
 <td>Boolean</td>
-<td><em>Optional</em>. <em>True</em>, if the administrator can post in the channel; channels only</td>
+<td><em>Optional</em>. <em>True</em>, if the administrator can post messages in the channel, or access channel statistics; channels only</td>
 </tr>
 <tr>
 <td>can_edit_messages</td>
@@ -2591,6 +2644,21 @@ To learn how to create…">
 <td>can_pin_messages</td>
 <td>Boolean</td>
 <td><em>Optional</em>. <em>True</em>, if the user is allowed to pin messages; groups and supergroups only</td>
+</tr>
+<tr>
+<td>can_post_stories</td>
+<td>Boolean</td>
+<td><em>Optional</em>. <em>True</em>, if the administrator can post stories in the channel; channels only</td>
+</tr>
+<tr>
+<td>can_edit_stories</td>
+<td>Boolean</td>
+<td><em>Optional</em>. <em>True</em>, if the administrator can edit stories posted by other users; channels only</td>
+</tr>
+<tr>
+<td>can_delete_stories</td>
+<td>Boolean</td>
+<td><em>Optional</em>. <em>True</em>, if the administrator can delete stories posted by other users; channels only</td>
 </tr>
 <tr>
 <td>can_manage_topics</td>
@@ -2676,7 +2744,7 @@ To learn how to create…">
 <tr>
 <td>can_manage_chat</td>
 <td>Boolean</td>
-<td><em>True</em>, if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege</td>
+<td><em>True</em>, if the administrator can access the chat event log, boost list in channels, see channel members, report spam messages, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege</td>
 </tr>
 <tr>
 <td>can_delete_messages</td>
@@ -2691,7 +2759,7 @@ To learn how to create…">
 <tr>
 <td>can_restrict_members</td>
 <td>Boolean</td>
-<td><em>True</em>, if the administrator can restrict, ban or unban chat members</td>
+<td><em>True</em>, if the administrator can restrict, ban or unban chat members, or access supergroup statistics</td>
 </tr>
 <tr>
 <td>can_promote_members</td>
@@ -2711,7 +2779,7 @@ To learn how to create…">
 <tr>
 <td>can_post_messages</td>
 <td>Boolean</td>
-<td><em>Optional</em>. <em>True</em>, if the administrator can post in the channel; channels only</td>
+<td><em>Optional</em>. <em>True</em>, if the administrator can post messages in the channel, or access channel statistics; channels only</td>
 </tr>
 <tr>
 <td>can_edit_messages</td>
@@ -2722,6 +2790,21 @@ To learn how to create…">
 <td>can_pin_messages</td>
 <td>Boolean</td>
 <td><em>Optional</em>. <em>True</em>, if the user is allowed to pin messages; groups and supergroups only</td>
+</tr>
+<tr>
+<td>can_post_stories</td>
+<td>Boolean</td>
+<td><em>Optional</em>. <em>True</em>, if the administrator can post stories in the channel; channels only</td>
+</tr>
+<tr>
+<td>can_edit_stories</td>
+<td>Boolean</td>
+<td><em>Optional</em>. <em>True</em>, if the administrator can edit stories posted by other users; channels only</td>
+</tr>
+<tr>
+<td>can_delete_stories</td>
+<td>Boolean</td>
+<td><em>Optional</em>. <em>True</em>, if the administrator can delete stories posted by other users; channels only</td>
 </tr>
 <tr>
 <td>can_manage_topics</td>
@@ -2857,7 +2940,7 @@ To learn how to create…">
 <tr>
 <td>until_date</td>
 <td>Integer</td>
-<td>Date when restrictions will be lifted for this user; unix time. If 0, then the user is restricted forever</td>
+<td>Date when restrictions will be lifted for this user; Unix time. If 0, then the user is restricted forever</td>
 </tr>
 </tbody>
 </table>
@@ -2908,7 +2991,7 @@ To learn how to create…">
 <tr>
 <td>until_date</td>
 <td>Integer</td>
-<td>Date when restrictions will be lifted for this user; unix time. If 0, then the user is banned forever</td>
+<td>Date when restrictions will be lifted for this user; Unix time. If 0, then the user is banned forever</td>
 </tr>
 </tbody>
 </table>
@@ -2953,6 +3036,11 @@ To learn how to create…">
 <td><a href="#chatinvitelink">ChatInviteLink</a></td>
 <td><em>Optional</em>. Chat invite link, which was used by the user to join the chat; for joining by invite link events only.</td>
 </tr>
+<tr>
+<td>via_chat_folder_invite_link</td>
+<td>Boolean</td>
+<td><em>Optional</em>. True, if the user joined the chat via a chat folder invite link</td>
+</tr>
 </tbody>
 </table>
 <h4><a class="anchor" name="chatjoinrequest" href="#chatjoinrequest"><i class="anchor-icon"></i></a>ChatJoinRequest</h4>
@@ -2979,7 +3067,7 @@ To learn how to create…">
 <tr>
 <td>user_chat_id</td>
 <td>Integer</td>
-<td>Identifier of a private chat with the user who sent the join request. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier. The bot can use this identifier for 24 hours to send messages until the join request is processed, assuming no other administrator contacted the user.</td>
+<td>Identifier of a private chat with the user who sent the join request. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier. The bot can use this identifier for 5 minutes to send messages until the join request is processed, assuming no other administrator contacted the user.</td>
 </tr>
 <tr>
 <td>date</td>
@@ -3343,6 +3431,60 @@ To learn how to create…">
 </tr>
 </tbody>
 </table>
+<h4><a class="anchor" name="botname" href="#botname"><i class="anchor-icon"></i></a>BotName</h4>
+<p>This object represents the bot&#39;s name.</p>
+<table class="table">
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>The bot&#39;s name</td>
+</tr>
+</tbody>
+</table>
+<h4><a class="anchor" name="botdescription" href="#botdescription"><i class="anchor-icon"></i></a>BotDescription</h4>
+<p>This object represents the bot&#39;s description.</p>
+<table class="table">
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>description</td>
+<td>String</td>
+<td>The bot&#39;s description</td>
+</tr>
+</tbody>
+</table>
+<h4><a class="anchor" name="botshortdescription" href="#botshortdescription"><i class="anchor-icon"></i></a>BotShortDescription</h4>
+<p>This object represents the bot&#39;s short description.</p>
+<table class="table">
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>short_description</td>
+<td>String</td>
+<td>The bot&#39;s short description</td>
+</tr>
+</tbody>
+</table>
 <h4><a class="anchor" name="menubutton" href="#menubutton"><i class="anchor-icon"></i></a>MenuButton</h4>
 <p>This object describes the bot&#39;s menu button in a private chat. It should be one of</p>
 <ul>
@@ -3512,7 +3654,7 @@ To learn how to create…">
 <td>File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. <a href="#sending-files">More information on Sending Files »</a></td>
 </tr>
 <tr>
-<td>thumb</td>
+<td>thumbnail</td>
 <td><a href="#inputfile">InputFile</a> or String</td>
 <td><em>Optional</em>. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail&#39;s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can&#39;t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. <a href="#sending-files">More information on Sending Files »</a></td>
 </tr>
@@ -3580,7 +3722,7 @@ To learn how to create…">
 <td>File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. <a href="#sending-files">More information on Sending Files »</a></td>
 </tr>
 <tr>
-<td>thumb</td>
+<td>thumbnail</td>
 <td><a href="#inputfile">InputFile</a> or String</td>
 <td><em>Optional</em>. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail&#39;s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can&#39;t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. <a href="#sending-files">More information on Sending Files »</a></td>
 </tr>
@@ -3643,7 +3785,7 @@ To learn how to create…">
 <td>File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. <a href="#sending-files">More information on Sending Files »</a></td>
 </tr>
 <tr>
-<td>thumb</td>
+<td>thumbnail</td>
 <td><a href="#inputfile">InputFile</a> or String</td>
 <td><em>Optional</em>. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail&#39;s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can&#39;t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. <a href="#sending-files">More information on Sending Files »</a></td>
 </tr>
@@ -3701,7 +3843,7 @@ To learn how to create…">
 <td>File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. <a href="#sending-files">More information on Sending Files »</a></td>
 </tr>
 <tr>
-<td>thumb</td>
+<td>thumbnail</td>
 <td><a href="#inputfile">InputFile</a> or String</td>
 <td><em>Optional</em>. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail&#39;s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can&#39;t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. <a href="#sending-files">More information on Sending Files »</a></td>
 </tr>
@@ -3862,6 +4004,7 @@ __underline__
 *bold _italic bold ~italic bold strikethrough ||italic bold strikethrough spoiler||~ __underline italic bold___ bold*
 [inline URL](http://www.example.com/)
 [inline mention of a user](tg://user?id=123456789)
+![<img class="emoji" src="//telegram.org/img/emoji/40/F09F918D.png" width="20" height="20" alt="👍" />](tg://emoji?id=5368324170671202286)
 `inline fixed-width code`
 ```
 pre-formatted fixed-width code block
@@ -3873,9 +4016,11 @@ pre-formatted fixed-width code block written in the Python programming language
 <ul>
 <li>Any character with code between 1 and 126 inclusively can be escaped anywhere with a preceding &#39;\&#39; character, in which case it is treated as an ordinary character and not a part of the markup. This implies that &#39;\&#39; character usually must be escaped with a preceding &#39;\&#39; character.</li>
 <li>Inside <code>pre</code> and <code>code</code> entities, all &#39;`&#39; and &#39;\&#39; characters must be escaped with a preceding &#39;\&#39; character.</li>
-<li>Inside <code>(...)</code> part of inline link definition, all &#39;)&#39; and &#39;\&#39; must be escaped with a preceding &#39;\&#39; character.</li>
+<li>Inside the <code>(...)</code> part of the inline link and custom emoji definition, all &#39;)&#39; and &#39;\&#39; must be escaped with a preceding &#39;\&#39; character.</li>
 <li>In all other places characters &#39;_&#39;, &#39;*&#39;, &#39;[&#39;, &#39;]&#39;, &#39;(&#39;, &#39;)&#39;, &#39;~&#39;, &#39;`&#39;, &#39;&gt;&#39;, &#39;#&#39;, &#39;+&#39;, &#39;-&#39;, &#39;=&#39;, &#39;|&#39;, &#39;{&#39;, &#39;}&#39;, &#39;.&#39;, &#39;!&#39; must be escaped with the preceding character &#39;\&#39;.</li>
 <li>In case of ambiguity between <code>italic</code> and <code>underline</code> entities <code>__</code> is always greadily treated from left to right as beginning or end of <code>underline</code> entity, so instead of <code>___italic underline___</code> use <code>___italic underline_\r__</code>, where <code>\r</code> is a character with code 13, which will be ignored.</li>
+<li>A valid emoji must be provided as an alternative value for the custom emoji. The emoji will be shown instead of the custom emoji in places where a custom emoji cannot be displayed (e.g., system notifications) or if the message is forwarded by a non-premium user. It is recommended to use the emoji from the <strong>emoji</strong> field of the custom emoji <a href="#sticker">sticker</a>.</li>
+<li>Custom emoji entities can only be used by bots that purchased additional usernames on <a href="https://fragment.com">Fragment</a>.</li>
 </ul>
 <h6><a class="anchor" name="html-style" href="#html-style"><i class="anchor-icon"></i></a>HTML style</h6>
 <p>To use this mode, pass <em>HTML</em> in the <em>parse_mode</em> field. The following tags are currently supported:</p>
@@ -3887,6 +4032,7 @@ pre-formatted fixed-width code block written in the Python programming language
 &lt;b&gt;bold &lt;i&gt;italic bold &lt;s&gt;italic bold strikethrough &lt;span class=&quot;tg-spoiler&quot;&gt;italic bold strikethrough spoiler&lt;/span&gt;&lt;/s&gt; &lt;u&gt;underline italic bold&lt;/u&gt;&lt;/i&gt; bold&lt;/b&gt;
 &lt;a href=&quot;http://www.example.com/&quot;&gt;inline URL&lt;/a&gt;
 &lt;a href=&quot;tg://user?id=123456789&quot;&gt;inline mention of a user&lt;/a&gt;
+&lt;tg-emoji emoji-id=&quot;5368324170671202286&quot;&gt;<img class="emoji" src="//telegram.org/img/emoji/40/F09F918D.png" width="20" height="20" alt="👍" />&lt;/tg-emoji&gt;
 &lt;code&gt;inline fixed-width code&lt;/code&gt;
 &lt;pre&gt;pre-formatted fixed-width code block&lt;/pre&gt;
 &lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;pre-formatted fixed-width code block written in the Python programming language&lt;/code&gt;&lt;/pre&gt;</code></pre>
@@ -3898,6 +4044,8 @@ pre-formatted fixed-width code block written in the Python programming language
 <li>The API currently supports only the following named HTML entities: <code>&amp;lt;</code>, <code>&amp;gt;</code>, <code>&amp;amp;</code> and <code>&amp;quot;</code>.</li>
 <li>Use nested <code>pre</code> and <code>code</code> tags, to define programming language for <code>pre</code> entity.</li>
 <li>Programming language can&#39;t be specified for standalone <code>code</code> tags.</li>
+<li>A valid emoji must be used as the content of the <code>tg-emoji</code> tag. The emoji will be shown instead of the custom emoji in places where a custom emoji cannot be displayed (e.g., system notifications) or if the message is forwarded by a non-premium user. It is recommended to use the emoji from the <strong>emoji</strong> field of the custom emoji <a href="#sticker">sticker</a>.</li>
+<li>Custom emoji entities can only be used by bots that purchased additional usernames on <a href="https://fragment.com">Fragment</a>.</li>
 </ul>
 <h6><a class="anchor" name="markdown-style" href="#markdown-style"><i class="anchor-icon"></i></a>Markdown style</h6>
 <p>This is a legacy mode, retained for backward compatibility. To use this mode, pass <em>Markdown</em> in the <em>parse_mode</em> field. Use the following syntax in your message:</p>
@@ -4209,7 +4357,7 @@ pre-formatted fixed-width code block written in the Python programming language
 <td>Track name</td>
 </tr>
 <tr>
-<td>thumb</td>
+<td>thumbnail</td>
 <td><a href="#inputfile">InputFile</a> or String</td>
 <td>Optional</td>
 <td>Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail&#39;s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can&#39;t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. <a href="#sending-files">More information on Sending Files »</a></td>
@@ -4277,7 +4425,7 @@ pre-formatted fixed-width code block written in the Python programming language
 <td>File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. <a href="#sending-files">More information on Sending Files »</a></td>
 </tr>
 <tr>
-<td>thumb</td>
+<td>thumbnail</td>
 <td><a href="#inputfile">InputFile</a> or String</td>
 <td>Optional</td>
 <td>Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail&#39;s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can&#39;t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. <a href="#sending-files">More information on Sending Files »</a></td>
@@ -4387,7 +4535,7 @@ pre-formatted fixed-width code block written in the Python programming language
 <td>Video height</td>
 </tr>
 <tr>
-<td>thumb</td>
+<td>thumbnail</td>
 <td><a href="#inputfile">InputFile</a> or String</td>
 <td>Optional</td>
 <td>Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail&#39;s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can&#39;t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. <a href="#sending-files">More information on Sending Files »</a></td>
@@ -4503,7 +4651,7 @@ pre-formatted fixed-width code block written in the Python programming language
 <td>Animation height</td>
 </tr>
 <tr>
-<td>thumb</td>
+<td>thumbnail</td>
 <td><a href="#inputfile">InputFile</a> or String</td>
 <td>Optional</td>
 <td>Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail&#39;s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can&#39;t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. <a href="#sending-files">More information on Sending Files »</a></td>
@@ -4693,7 +4841,7 @@ pre-formatted fixed-width code block written in the Python programming language
 <td>Video width and height, i.e. diameter of the video message</td>
 </tr>
 <tr>
-<td>thumb</td>
+<td>thumbnail</td>
 <td><a href="#inputfile">InputFile</a> or String</td>
 <td>Optional</td>
 <td>Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail&#39;s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can&#39;t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. <a href="#sending-files">More information on Sending Files »</a></td>
@@ -4875,112 +5023,6 @@ pre-formatted fixed-width code block written in the Python programming language
 <td><a href="#inlinekeyboardmarkup">InlineKeyboardMarkup</a> or <a href="#replykeyboardmarkup">ReplyKeyboardMarkup</a> or <a href="#replykeyboardremove">ReplyKeyboardRemove</a> or <a href="#forcereply">ForceReply</a></td>
 <td>Optional</td>
 <td>Additional interface options. A JSON-serialized object for an <a href="/bots/features#inline-keyboards">inline keyboard</a>, <a href="/bots/features#keyboards">custom reply keyboard</a>, instructions to remove reply keyboard or to force a reply from the user.</td>
-</tr>
-</tbody>
-</table>
-<h4><a class="anchor" name="editmessagelivelocation" href="#editmessagelivelocation"><i class="anchor-icon"></i></a>editMessageLiveLocation</h4>
-<p>Use this method to edit live location messages. A location can be edited until its <em>live_period</em> expires or editing is explicitly disabled by a call to <a href="#stopmessagelivelocation">stopMessageLiveLocation</a>. On success, if the edited message is not an inline message, the edited <a href="#message">Message</a> is returned, otherwise <em>True</em> is returned.</p>
-<table class="table">
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>chat_id</td>
-<td>Integer or String</td>
-<td>Optional</td>
-<td>Required if <em>inline_message_id</em> is not specified. Unique identifier for the target chat or username of the target channel (in the format <code>@channelusername</code>)</td>
-</tr>
-<tr>
-<td>message_id</td>
-<td>Integer</td>
-<td>Optional</td>
-<td>Required if <em>inline_message_id</em> is not specified. Identifier of the message to edit</td>
-</tr>
-<tr>
-<td>inline_message_id</td>
-<td>String</td>
-<td>Optional</td>
-<td>Required if <em>chat_id</em> and <em>message_id</em> are not specified. Identifier of the inline message</td>
-</tr>
-<tr>
-<td>latitude</td>
-<td>Float number</td>
-<td>Yes</td>
-<td>Latitude of new location</td>
-</tr>
-<tr>
-<td>longitude</td>
-<td>Float number</td>
-<td>Yes</td>
-<td>Longitude of new location</td>
-</tr>
-<tr>
-<td>horizontal_accuracy</td>
-<td>Float number</td>
-<td>Optional</td>
-<td>The radius of uncertainty for the location, measured in meters; 0-1500</td>
-</tr>
-<tr>
-<td>heading</td>
-<td>Integer</td>
-<td>Optional</td>
-<td>Direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.</td>
-</tr>
-<tr>
-<td>proximity_alert_radius</td>
-<td>Integer</td>
-<td>Optional</td>
-<td>The maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.</td>
-</tr>
-<tr>
-<td>reply_markup</td>
-<td><a href="#inlinekeyboardmarkup">InlineKeyboardMarkup</a></td>
-<td>Optional</td>
-<td>A JSON-serialized object for a new <a href="/bots/features#inline-keyboards">inline keyboard</a>.</td>
-</tr>
-</tbody>
-</table>
-<h4><a class="anchor" name="stopmessagelivelocation" href="#stopmessagelivelocation"><i class="anchor-icon"></i></a>stopMessageLiveLocation</h4>
-<p>Use this method to stop updating a live location message before <em>live_period</em> expires. On success, if the message is not an inline message, the edited <a href="#message">Message</a> is returned, otherwise <em>True</em> is returned.</p>
-<table class="table">
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>chat_id</td>
-<td>Integer or String</td>
-<td>Optional</td>
-<td>Required if <em>inline_message_id</em> is not specified. Unique identifier for the target chat or username of the target channel (in the format <code>@channelusername</code>)</td>
-</tr>
-<tr>
-<td>message_id</td>
-<td>Integer</td>
-<td>Optional</td>
-<td>Required if <em>inline_message_id</em> is not specified. Identifier of the message with live location to stop</td>
-</tr>
-<tr>
-<td>inline_message_id</td>
-<td>String</td>
-<td>Optional</td>
-<td>Required if <em>chat_id</em> and <em>message_id</em> are not specified. Identifier of the inline message</td>
-</tr>
-<tr>
-<td>reply_markup</td>
-<td><a href="#inlinekeyboardmarkup">InlineKeyboardMarkup</a></td>
-<td>Optional</td>
-<td>A JSON-serialized object for a new <a href="/bots/features#inline-keyboards">inline keyboard</a>.</td>
 </tr>
 </tbody>
 </table>
@@ -5475,7 +5517,7 @@ pre-formatted fixed-width code block written in the Python programming language
 <td>until_date</td>
 <td>Integer</td>
 <td>Optional</td>
-<td>Date when the user will be unbanned, unix time. If user is banned for more than 366 days or less than 30 seconds from the current time they are considered to be banned forever. Applied for supergroups and channels only.</td>
+<td>Date when the user will be unbanned; Unix time. If user is banned for more than 366 days or less than 30 seconds from the current time they are considered to be banned forever. Applied for supergroups and channels only.</td>
 </tr>
 <tr>
 <td>revoke_messages</td>
@@ -5557,7 +5599,7 @@ pre-formatted fixed-width code block written in the Python programming language
 <td>until_date</td>
 <td>Integer</td>
 <td>Optional</td>
-<td>Date when restrictions will be lifted for the user, unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever</td>
+<td>Date when restrictions will be lifted for the user; Unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever</td>
 </tr>
 </tbody>
 </table>
@@ -5595,19 +5637,7 @@ pre-formatted fixed-width code block written in the Python programming language
 <td>can_manage_chat</td>
 <td>Boolean</td>
 <td>Optional</td>
-<td>Pass <em>True</em> if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege</td>
-</tr>
-<tr>
-<td>can_post_messages</td>
-<td>Boolean</td>
-<td>Optional</td>
-<td>Pass <em>True</em> if the administrator can create channel posts, channels only</td>
-</tr>
-<tr>
-<td>can_edit_messages</td>
-<td>Boolean</td>
-<td>Optional</td>
-<td>Pass <em>True</em> if the administrator can edit messages of other users and can pin messages, channels only</td>
+<td>Pass <em>True</em> if the administrator can access the chat event log, boost list in channels, see channel members, report spam messages, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege</td>
 </tr>
 <tr>
 <td>can_delete_messages</td>
@@ -5625,7 +5655,7 @@ pre-formatted fixed-width code block written in the Python programming language
 <td>can_restrict_members</td>
 <td>Boolean</td>
 <td>Optional</td>
-<td>Pass <em>True</em> if the administrator can restrict, ban or unban chat members</td>
+<td>Pass <em>True</em> if the administrator can restrict, ban or unban chat members, or access supergroup statistics</td>
 </tr>
 <tr>
 <td>can_promote_members</td>
@@ -5646,10 +5676,40 @@ pre-formatted fixed-width code block written in the Python programming language
 <td>Pass <em>True</em> if the administrator can invite new users to the chat</td>
 </tr>
 <tr>
+<td>can_post_messages</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Pass <em>True</em> if the administrator can post messages in the channel, or access channel statistics; channels only</td>
+</tr>
+<tr>
+<td>can_edit_messages</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Pass <em>True</em> if the administrator can edit messages of other users and can pin messages; channels only</td>
+</tr>
+<tr>
 <td>can_pin_messages</td>
 <td>Boolean</td>
 <td>Optional</td>
 <td>Pass <em>True</em> if the administrator can pin messages, supergroups only</td>
+</tr>
+<tr>
+<td>can_post_stories</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Pass <em>True</em> if the administrator can post stories in the channel; channels only</td>
+</tr>
+<tr>
+<td>can_edit_stories</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Pass <em>True</em> if the administrator can edit stories posted by other users; channels only</td>
+</tr>
+<tr>
+<td>can_delete_stories</td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>Pass <em>True</em> if the administrator can delete stories posted by other users; channels only</td>
 </tr>
 <tr>
 <td>can_manage_topics</td>
@@ -6586,6 +6646,26 @@ pre-formatted fixed-width code block written in the Python programming language
 </tr>
 </tbody>
 </table>
+<h4><a class="anchor" name="unpinallgeneralforumtopicmessages" href="#unpinallgeneralforumtopicmessages"><i class="anchor-icon"></i></a>unpinAllGeneralForumTopicMessages</h4>
+<p>Use this method to clear the list of pinned messages in a General forum topic. The bot must be an administrator in the chat for this to work and must have the <em>can_pin_messages</em> administrator right in the supergroup. Returns <em>True</em> on success.</p>
+<table class="table">
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>chat_id</td>
+<td>Integer or String</td>
+<td>Yes</td>
+<td>Unique identifier for the target chat or username of the target supergroup (in the format <code>@supergroupusername</code>)</td>
+</tr>
+</tbody>
+</table>
 <h4><a class="anchor" name="answercallbackquery" href="#answercallbackquery"><i class="anchor-icon"></i></a>answerCallbackQuery</h4>
 <p>Use this method to send answers to callback queries sent from <a href="/bots/features#inline-keyboards">inline keyboards</a>. The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, <em>True</em> is returned.</p>
 <blockquote>
@@ -6709,6 +6789,144 @@ pre-formatted fixed-width code block written in the Python programming language
 <td>Optional</td>
 <td>A JSON-serialized object, describing scope of users. Defaults to <a href="#botcommandscopedefault">BotCommandScopeDefault</a>.</td>
 </tr>
+<tr>
+<td>language_code</td>
+<td>String</td>
+<td>Optional</td>
+<td>A two-letter ISO 639-1 language code or an empty string</td>
+</tr>
+</tbody>
+</table>
+<h4><a class="anchor" name="setmyname" href="#setmyname"><i class="anchor-icon"></i></a>setMyName</h4>
+<p>Use this method to change the bot&#39;s name. Returns <em>True</em> on success.</p>
+<table class="table">
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>Optional</td>
+<td>New bot name; 0-64 characters. Pass an empty string to remove the dedicated name for the given language.</td>
+</tr>
+<tr>
+<td>language_code</td>
+<td>String</td>
+<td>Optional</td>
+<td>A two-letter ISO 639-1 language code. If empty, the name will be shown to all users for whose language there is no dedicated name.</td>
+</tr>
+</tbody>
+</table>
+<h4><a class="anchor" name="getmyname" href="#getmyname"><i class="anchor-icon"></i></a>getMyName</h4>
+<p>Use this method to get the current bot name for the given user language. Returns <a href="#botname">BotName</a> on success.</p>
+<table class="table">
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>language_code</td>
+<td>String</td>
+<td>Optional</td>
+<td>A two-letter ISO 639-1 language code or an empty string</td>
+</tr>
+</tbody>
+</table>
+<h4><a class="anchor" name="setmydescription" href="#setmydescription"><i class="anchor-icon"></i></a>setMyDescription</h4>
+<p>Use this method to change the bot&#39;s description, which is shown in the chat with the bot if the chat is empty. Returns <em>True</em> on success.</p>
+<table class="table">
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>description</td>
+<td>String</td>
+<td>Optional</td>
+<td>New bot description; 0-512 characters. Pass an empty string to remove the dedicated description for the given language.</td>
+</tr>
+<tr>
+<td>language_code</td>
+<td>String</td>
+<td>Optional</td>
+<td>A two-letter ISO 639-1 language code. If empty, the description will be applied to all users for whose language there is no dedicated description.</td>
+</tr>
+</tbody>
+</table>
+<h4><a class="anchor" name="getmydescription" href="#getmydescription"><i class="anchor-icon"></i></a>getMyDescription</h4>
+<p>Use this method to get the current bot description for the given user language. Returns <a href="#botdescription">BotDescription</a> on success.</p>
+<table class="table">
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>language_code</td>
+<td>String</td>
+<td>Optional</td>
+<td>A two-letter ISO 639-1 language code or an empty string</td>
+</tr>
+</tbody>
+</table>
+<h4><a class="anchor" name="setmyshortdescription" href="#setmyshortdescription"><i class="anchor-icon"></i></a>setMyShortDescription</h4>
+<p>Use this method to change the bot&#39;s short description, which is shown on the bot&#39;s profile page and is sent together with the link when users share the bot. Returns <em>True</em> on success.</p>
+<table class="table">
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>short_description</td>
+<td>String</td>
+<td>Optional</td>
+<td>New short description for the bot; 0-120 characters. Pass an empty string to remove the dedicated short description for the given language.</td>
+</tr>
+<tr>
+<td>language_code</td>
+<td>String</td>
+<td>Optional</td>
+<td>A two-letter ISO 639-1 language code. If empty, the short description will be applied to all users for whose language there is no dedicated short description.</td>
+</tr>
+</tbody>
+</table>
+<h4><a class="anchor" name="getmyshortdescription" href="#getmyshortdescription"><i class="anchor-icon"></i></a>getMyShortDescription</h4>
+<p>Use this method to get the current bot short description for the given user language. Returns <a href="#botshortdescription">BotShortDescription</a> on success.</p>
+<table class="table">
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
 <tr>
 <td>language_code</td>
 <td>String</td>
@@ -6976,6 +7194,112 @@ pre-formatted fixed-width code block written in the Python programming language
 </tr>
 </tbody>
 </table>
+<h4><a class="anchor" name="editmessagelivelocation" href="#editmessagelivelocation"><i class="anchor-icon"></i></a>editMessageLiveLocation</h4>
+<p>Use this method to edit live location messages. A location can be edited until its <em>live_period</em> expires or editing is explicitly disabled by a call to <a href="#stopmessagelivelocation">stopMessageLiveLocation</a>. On success, if the edited message is not an inline message, the edited <a href="#message">Message</a> is returned, otherwise <em>True</em> is returned.</p>
+<table class="table">
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>chat_id</td>
+<td>Integer or String</td>
+<td>Optional</td>
+<td>Required if <em>inline_message_id</em> is not specified. Unique identifier for the target chat or username of the target channel (in the format <code>@channelusername</code>)</td>
+</tr>
+<tr>
+<td>message_id</td>
+<td>Integer</td>
+<td>Optional</td>
+<td>Required if <em>inline_message_id</em> is not specified. Identifier of the message to edit</td>
+</tr>
+<tr>
+<td>inline_message_id</td>
+<td>String</td>
+<td>Optional</td>
+<td>Required if <em>chat_id</em> and <em>message_id</em> are not specified. Identifier of the inline message</td>
+</tr>
+<tr>
+<td>latitude</td>
+<td>Float number</td>
+<td>Yes</td>
+<td>Latitude of new location</td>
+</tr>
+<tr>
+<td>longitude</td>
+<td>Float number</td>
+<td>Yes</td>
+<td>Longitude of new location</td>
+</tr>
+<tr>
+<td>horizontal_accuracy</td>
+<td>Float number</td>
+<td>Optional</td>
+<td>The radius of uncertainty for the location, measured in meters; 0-1500</td>
+</tr>
+<tr>
+<td>heading</td>
+<td>Integer</td>
+<td>Optional</td>
+<td>Direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.</td>
+</tr>
+<tr>
+<td>proximity_alert_radius</td>
+<td>Integer</td>
+<td>Optional</td>
+<td>The maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.</td>
+</tr>
+<tr>
+<td>reply_markup</td>
+<td><a href="#inlinekeyboardmarkup">InlineKeyboardMarkup</a></td>
+<td>Optional</td>
+<td>A JSON-serialized object for a new <a href="/bots/features#inline-keyboards">inline keyboard</a>.</td>
+</tr>
+</tbody>
+</table>
+<h4><a class="anchor" name="stopmessagelivelocation" href="#stopmessagelivelocation"><i class="anchor-icon"></i></a>stopMessageLiveLocation</h4>
+<p>Use this method to stop updating a live location message before <em>live_period</em> expires. On success, if the message is not an inline message, the edited <a href="#message">Message</a> is returned, otherwise <em>True</em> is returned.</p>
+<table class="table">
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>chat_id</td>
+<td>Integer or String</td>
+<td>Optional</td>
+<td>Required if <em>inline_message_id</em> is not specified. Unique identifier for the target chat or username of the target channel (in the format <code>@channelusername</code>)</td>
+</tr>
+<tr>
+<td>message_id</td>
+<td>Integer</td>
+<td>Optional</td>
+<td>Required if <em>inline_message_id</em> is not specified. Identifier of the message with live location to stop</td>
+</tr>
+<tr>
+<td>inline_message_id</td>
+<td>String</td>
+<td>Optional</td>
+<td>Required if <em>chat_id</em> and <em>message_id</em> are not specified. Identifier of the inline message</td>
+</tr>
+<tr>
+<td>reply_markup</td>
+<td><a href="#inlinekeyboardmarkup">InlineKeyboardMarkup</a></td>
+<td>Optional</td>
+<td>A JSON-serialized object for a new <a href="/bots/features#inline-keyboards">inline keyboard</a>.</td>
+</tr>
+</tbody>
+</table>
 <h4><a class="anchor" name="editmessagereplymarkup" href="#editmessagereplymarkup"><i class="anchor-icon"></i></a>editMessageReplyMarkup</h4>
 <p>Use this method to edit only the reply markup of messages. On success, if the edited message is not an inline message, the edited <a href="#message">Message</a> is returned, otherwise <em>True</em> is returned.</p>
 <table class="table">
@@ -7121,7 +7445,7 @@ pre-formatted fixed-width code block written in the Python programming language
 <td><em>True</em>, if the sticker is a <a href="https://telegram.org/blog/video-stickers-better-reactions">video sticker</a></td>
 </tr>
 <tr>
-<td>thumb</td>
+<td>thumbnail</td>
 <td><a href="#photosize">PhotoSize</a></td>
 <td><em>Optional</em>. Sticker thumbnail in the .WEBP or .JPG format</td>
 </tr>
@@ -7149,6 +7473,11 @@ pre-formatted fixed-width code block written in the Python programming language
 <td>custom_emoji_id</td>
 <td>String</td>
 <td><em>Optional</em>. For custom emoji stickers, unique identifier of the custom emoji</td>
+</tr>
+<tr>
+<td>needs_repainting</td>
+<td>True</td>
+<td><em>Optional</em>. <em>True</em>, if the sticker must be repainted to a text color in messages, the color of the Telegram Premium badge in emoji status, white color on chat photos, or another appropriate color in other places</td>
 </tr>
 <tr>
 <td>file_size</td>
@@ -7199,7 +7528,7 @@ pre-formatted fixed-width code block written in the Python programming language
 <td>List of all set stickers</td>
 </tr>
 <tr>
-<td>thumb</td>
+<td>thumbnail</td>
 <td><a href="#photosize">PhotoSize</a></td>
 <td><em>Optional</em>. Sticker set thumbnail in the .WEBP, .TGS, or .WEBM format</td>
 </tr>
@@ -7238,6 +7567,39 @@ pre-formatted fixed-width code block written in the Python programming language
 </tr>
 </tbody>
 </table>
+<h4><a class="anchor" name="inputsticker" href="#inputsticker"><i class="anchor-icon"></i></a>InputSticker</h4>
+<p>This object describes a sticker to be added to a sticker set.</p>
+<table class="table">
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sticker</td>
+<td><a href="#inputfile">InputFile</a> or String</td>
+<td>The added sticker. Pass a <em>file_id</em> as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, upload a new one using multipart/form-data, or pass “attach://&lt;file_attach_name&gt;” to upload a new one using multipart/form-data under &lt;file_attach_name&gt; name. Animated and video stickers can&#39;t be uploaded via HTTP URL. <a href="#sending-files">More information on Sending Files »</a></td>
+</tr>
+<tr>
+<td>emoji_list</td>
+<td>Array of String</td>
+<td>List of 1-20 emoji associated with the sticker</td>
+</tr>
+<tr>
+<td>mask_position</td>
+<td><a href="#maskposition">MaskPosition</a></td>
+<td><em>Optional</em>. Position where the mask should be placed on faces. For “mask” stickers only.</td>
+</tr>
+<tr>
+<td>keywords</td>
+<td>Array of String</td>
+<td><em>Optional</em>. List of 0-20 search keywords for the sticker with total length of up to 64 characters. For “regular” and “custom_emoji” stickers only.</td>
+</tr>
+</tbody>
+</table>
 <h4><a class="anchor" name="sendsticker" href="#sendsticker"><i class="anchor-icon"></i></a>sendSticker</h4>
 <p>Use this method to send static .WEBP, <a href="https://telegram.org/blog/animated-stickers">animated</a> .TGS, or <a href="https://telegram.org/blog/video-stickers-better-reactions">video</a> .WEBM stickers. On success, the sent <a href="#message">Message</a> is returned.</p>
 <table class="table">
@@ -7266,7 +7628,13 @@ pre-formatted fixed-width code block written in the Python programming language
 <td>sticker</td>
 <td><a href="#inputfile">InputFile</a> or String</td>
 <td>Yes</td>
-<td>Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP file from the Internet, or upload a new one using multipart/form-data. <a href="#sending-files">More information on Sending Files »</a></td>
+<td>Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP sticker from the Internet, or upload a new .WEBP or .TGS sticker using multipart/form-data. <a href="#sending-files">More information on Sending Files »</a>. Video stickers can only be sent by a file_id. Animated stickers can&#39;t be sent via an HTTP URL.</td>
+</tr>
+<tr>
+<td>emoji</td>
+<td>String</td>
+<td>Optional</td>
+<td>Emoji associated with the sticker; only for just uploaded stickers</td>
 </tr>
 <tr>
 <td>disable_notification</td>
@@ -7341,7 +7709,7 @@ pre-formatted fixed-width code block written in the Python programming language
 </tbody>
 </table>
 <h4><a class="anchor" name="uploadstickerfile" href="#uploadstickerfile"><i class="anchor-icon"></i></a>uploadStickerFile</h4>
-<p>Use this method to upload a .PNG file with a sticker for later use in <em>createNewStickerSet</em> and <em>addStickerToSet</em> methods (can be used multiple times). Returns the uploaded <a href="#file">File</a> on success.</p>
+<p>Use this method to upload a file with a sticker for later use in the <a href="#createnewstickerset">createNewStickerSet</a> and <a href="#addstickertoset">addStickerToSet</a> methods (the file can be used multiple times). Returns the uploaded <a href="#file">File</a> on success.</p>
 <table class="table">
 <thead>
 <tr>
@@ -7359,15 +7727,21 @@ pre-formatted fixed-width code block written in the Python programming language
 <td>User identifier of sticker file owner</td>
 </tr>
 <tr>
-<td>png_sticker</td>
+<td>sticker</td>
 <td><a href="#inputfile">InputFile</a></td>
 <td>Yes</td>
-<td><strong>PNG</strong> image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. <a href="#sending-files">More information on Sending Files »</a></td>
+<td>A file with the sticker in .WEBP, .PNG, .TGS, or .WEBM format. See <a href="/stickers"><a href="https://core.telegram.org/stickers">https://core.telegram.org/stickers</a></a> for technical requirements. <a href="#sending-files">More information on Sending Files »</a></td>
+</tr>
+<tr>
+<td>sticker_format</td>
+<td>String</td>
+<td>Yes</td>
+<td>Format of the sticker, must be one of “static”, “animated”, “video”</td>
 </tr>
 </tbody>
 </table>
 <h4><a class="anchor" name="createnewstickerset" href="#createnewstickerset"><i class="anchor-icon"></i></a>createNewStickerSet</h4>
-<p>Use this method to create a new sticker set owned by a user. The bot will be able to edit the sticker set thus created. You <strong>must</strong> use exactly one of the fields <em>png_sticker</em>, <em>tgs_sticker</em>, or <em>webm_sticker</em>. Returns <em>True</em> on success.</p>
+<p>Use this method to create a new sticker set owned by a user. The bot will be able to edit the sticker set thus created. Returns <em>True</em> on success.</p>
 <table class="table">
 <thead>
 <tr>
@@ -7397,45 +7771,33 @@ pre-formatted fixed-width code block written in the Python programming language
 <td>Sticker set title, 1-64 characters</td>
 </tr>
 <tr>
-<td>png_sticker</td>
-<td><a href="#inputfile">InputFile</a> or String</td>
-<td>Optional</td>
-<td><strong>PNG</strong> image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a <em>file_id</em> as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. <a href="#sending-files">More information on Sending Files »</a></td>
+<td>stickers</td>
+<td>Array of <a href="#inputsticker">InputSticker</a></td>
+<td>Yes</td>
+<td>A JSON-serialized list of 1-50 initial stickers to be added to the sticker set</td>
 </tr>
 <tr>
-<td>tgs_sticker</td>
-<td><a href="#inputfile">InputFile</a></td>
-<td>Optional</td>
-<td><strong>TGS</strong> animation with the sticker, uploaded using multipart/form-data. See <a href="/stickers#animated-sticker-requirements"><a href="https://core.telegram.org/stickers#animated-sticker-requirements">https://core.telegram.org/stickers#animated-sticker-requirements</a></a> for technical requirements</td>
-</tr>
-<tr>
-<td>webm_sticker</td>
-<td><a href="#inputfile">InputFile</a></td>
-<td>Optional</td>
-<td><strong>WEBM</strong> video with the sticker, uploaded using multipart/form-data. See <a href="/stickers#video-sticker-requirements"><a href="https://core.telegram.org/stickers#video-sticker-requirements">https://core.telegram.org/stickers#video-sticker-requirements</a></a> for technical requirements</td>
+<td>sticker_format</td>
+<td>String</td>
+<td>Yes</td>
+<td>Format of stickers in the set, must be one of “static”, “animated”, “video”</td>
 </tr>
 <tr>
 <td>sticker_type</td>
 <td>String</td>
 <td>Optional</td>
-<td>Type of stickers in the set, pass “regular” or “mask”. Custom emoji sticker sets can&#39;t be created via the Bot API at the moment. By default, a regular sticker set is created.</td>
+<td>Type of stickers in the set, pass “regular”, “mask”, or “custom_emoji”. By default, a regular sticker set is created.</td>
 </tr>
 <tr>
-<td>emojis</td>
-<td>String</td>
-<td>Yes</td>
-<td>One or more emoji corresponding to the sticker</td>
-</tr>
-<tr>
-<td>mask_position</td>
-<td><a href="#maskposition">MaskPosition</a></td>
+<td>needs_repainting</td>
+<td>Boolean</td>
 <td>Optional</td>
-<td>A JSON-serialized object for position where the mask should be placed on faces</td>
+<td>Pass <em>True</em> if stickers in the sticker set must be repainted to the color of text when used in messages, the accent color if used as emoji status, white on chat photos, or another appropriate color based on context; for custom emoji sticker sets only</td>
 </tr>
 </tbody>
 </table>
 <h4><a class="anchor" name="addstickertoset" href="#addstickertoset"><i class="anchor-icon"></i></a>addStickerToSet</h4>
-<p>Use this method to add a new sticker to a set created by the bot. You <strong>must</strong> use exactly one of the fields <em>png_sticker</em>, <em>tgs_sticker</em>, or <em>webm_sticker</em>. Animated stickers can be added to animated sticker sets and only to them. Animated sticker sets can have up to 50 stickers. Static sticker sets can have up to 120 stickers. Returns <em>True</em> on success.</p>
+<p>Use this method to add a new sticker to a set created by the bot. The format of the added sticker must match the format of the other stickers in the set. Emoji sticker sets can have up to 200 stickers. Animated and video sticker sets can have up to 50 stickers. Static sticker sets can have up to 120 stickers. Returns <em>True</em> on success.</p>
 <table class="table">
 <thead>
 <tr>
@@ -7459,34 +7821,10 @@ pre-formatted fixed-width code block written in the Python programming language
 <td>Sticker set name</td>
 </tr>
 <tr>
-<td>png_sticker</td>
-<td><a href="#inputfile">InputFile</a> or String</td>
-<td>Optional</td>
-<td><strong>PNG</strong> image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a <em>file_id</em> as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. <a href="#sending-files">More information on Sending Files »</a></td>
-</tr>
-<tr>
-<td>tgs_sticker</td>
-<td><a href="#inputfile">InputFile</a></td>
-<td>Optional</td>
-<td><strong>TGS</strong> animation with the sticker, uploaded using multipart/form-data. See <a href="/stickers#animated-sticker-requirements"><a href="https://core.telegram.org/stickers#animated-sticker-requirements">https://core.telegram.org/stickers#animated-sticker-requirements</a></a> for technical requirements</td>
-</tr>
-<tr>
-<td>webm_sticker</td>
-<td><a href="#inputfile">InputFile</a></td>
-<td>Optional</td>
-<td><strong>WEBM</strong> video with the sticker, uploaded using multipart/form-data. See <a href="/stickers#video-sticker-requirements"><a href="https://core.telegram.org/stickers#video-sticker-requirements">https://core.telegram.org/stickers#video-sticker-requirements</a></a> for technical requirements</td>
-</tr>
-<tr>
-<td>emojis</td>
-<td>String</td>
+<td>sticker</td>
+<td><a href="#inputsticker">InputSticker</a></td>
 <td>Yes</td>
-<td>One or more emoji corresponding to the sticker</td>
-</tr>
-<tr>
-<td>mask_position</td>
-<td><a href="#maskposition">MaskPosition</a></td>
-<td>Optional</td>
-<td>A JSON-serialized object for position where the mask should be placed on faces</td>
+<td>A JSON-serialized object with information about the added sticker. If exactly the same sticker had already been added to the set, then the set isn&#39;t changed.</td>
 </tr>
 </tbody>
 </table>
@@ -7536,8 +7874,112 @@ pre-formatted fixed-width code block written in the Python programming language
 </tr>
 </tbody>
 </table>
-<h4><a class="anchor" name="setstickersetthumb" href="#setstickersetthumb"><i class="anchor-icon"></i></a>setStickerSetThumb</h4>
-<p>Use this method to set the thumbnail of a sticker set. Animated thumbnails can be set for animated sticker sets only. Video thumbnails can be set only for video sticker sets only. Returns <em>True</em> on success.</p>
+<h4><a class="anchor" name="setstickeremojilist" href="#setstickeremojilist"><i class="anchor-icon"></i></a>setStickerEmojiList</h4>
+<p>Use this method to change the list of emoji assigned to a regular or custom emoji sticker. The sticker must belong to a sticker set created by the bot. Returns <em>True</em> on success.</p>
+<table class="table">
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sticker</td>
+<td>String</td>
+<td>Yes</td>
+<td>File identifier of the sticker</td>
+</tr>
+<tr>
+<td>emoji_list</td>
+<td>Array of String</td>
+<td>Yes</td>
+<td>A JSON-serialized list of 1-20 emoji associated with the sticker</td>
+</tr>
+</tbody>
+</table>
+<h4><a class="anchor" name="setstickerkeywords" href="#setstickerkeywords"><i class="anchor-icon"></i></a>setStickerKeywords</h4>
+<p>Use this method to change search keywords assigned to a regular or custom emoji sticker. The sticker must belong to a sticker set created by the bot. Returns <em>True</em> on success.</p>
+<table class="table">
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sticker</td>
+<td>String</td>
+<td>Yes</td>
+<td>File identifier of the sticker</td>
+</tr>
+<tr>
+<td>keywords</td>
+<td>Array of String</td>
+<td>Optional</td>
+<td>A JSON-serialized list of 0-20 search keywords for the sticker with total length of up to 64 characters</td>
+</tr>
+</tbody>
+</table>
+<h4><a class="anchor" name="setstickermaskposition" href="#setstickermaskposition"><i class="anchor-icon"></i></a>setStickerMaskPosition</h4>
+<p>Use this method to change the <a href="#maskposition">mask position</a> of a mask sticker. The sticker must belong to a sticker set that was created by the bot. Returns <em>True</em> on success.</p>
+<table class="table">
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sticker</td>
+<td>String</td>
+<td>Yes</td>
+<td>File identifier of the sticker</td>
+</tr>
+<tr>
+<td>mask_position</td>
+<td><a href="#maskposition">MaskPosition</a></td>
+<td>Optional</td>
+<td>A JSON-serialized object with the position where the mask should be placed on faces. Omit the parameter to remove the mask position.</td>
+</tr>
+</tbody>
+</table>
+<h4><a class="anchor" name="setstickersettitle" href="#setstickersettitle"><i class="anchor-icon"></i></a>setStickerSetTitle</h4>
+<p>Use this method to set the title of a created sticker set. Returns <em>True</em> on success.</p>
+<table class="table">
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>Yes</td>
+<td>Sticker set name</td>
+</tr>
+<tr>
+<td>title</td>
+<td>String</td>
+<td>Yes</td>
+<td>Sticker set title, 1-64 characters</td>
+</tr>
+</tbody>
+</table>
+<h4><a class="anchor" name="setstickersetthumbnail" href="#setstickersetthumbnail"><i class="anchor-icon"></i></a>setStickerSetThumbnail</h4>
+<p>Use this method to set the thumbnail of a regular or mask sticker set. The format of the thumbnail file must match the format of the stickers in the set. Returns <em>True</em> on success.</p>
 <table class="table">
 <thead>
 <tr>
@@ -7561,10 +8003,56 @@ pre-formatted fixed-width code block written in the Python programming language
 <td>User identifier of the sticker set owner</td>
 </tr>
 <tr>
-<td>thumb</td>
+<td>thumbnail</td>
 <td><a href="#inputfile">InputFile</a> or String</td>
 <td>Optional</td>
-<td>A <strong>PNG</strong> image with the thumbnail, must be up to 128 kilobytes in size and have width and height exactly 100px, or a <strong>TGS</strong> animation with the thumbnail up to 32 kilobytes in size; see <a href="/stickers#animated-sticker-requirements"><a href="https://core.telegram.org/stickers#animated-sticker-requirements">https://core.telegram.org/stickers#animated-sticker-requirements</a></a> for animated sticker technical requirements, or a <strong>WEBM</strong> video with the thumbnail up to 32 kilobytes in size; see <a href="/stickers#video-sticker-requirements"><a href="https://core.telegram.org/stickers#video-sticker-requirements">https://core.telegram.org/stickers#video-sticker-requirements</a></a> for video sticker technical requirements. Pass a <em>file_id</em> as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. <a href="#sending-files">More information on Sending Files »</a>. Animated sticker set thumbnails can&#39;t be uploaded via HTTP URL.</td>
+<td>A <strong>.WEBP</strong> or <strong>.PNG</strong> image with the thumbnail, must be up to 128 kilobytes in size and have a width and height of exactly 100px, or a <strong>.TGS</strong> animation with a thumbnail up to 32 kilobytes in size (see <a href="/stickers#animated-sticker-requirements"><a href="https://core.telegram.org/stickers#animated-sticker-requirements">https://core.telegram.org/stickers#animated-sticker-requirements</a></a> for animated sticker technical requirements), or a <strong>WEBM</strong> video with the thumbnail up to 32 kilobytes in size; see <a href="/stickers#video-sticker-requirements"><a href="https://core.telegram.org/stickers#video-sticker-requirements">https://core.telegram.org/stickers#video-sticker-requirements</a></a> for video sticker technical requirements. Pass a <em>file_id</em> as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. <a href="#sending-files">More information on Sending Files »</a>. Animated and video sticker set thumbnails can&#39;t be uploaded via HTTP URL. If omitted, then the thumbnail is dropped and the first sticker is used as the thumbnail.</td>
+</tr>
+</tbody>
+</table>
+<h4><a class="anchor" name="setcustomemojistickersetthumbnail" href="#setcustomemojistickersetthumbnail"><i class="anchor-icon"></i></a>setCustomEmojiStickerSetThumbnail</h4>
+<p>Use this method to set the thumbnail of a custom emoji sticker set. Returns <em>True</em> on success.</p>
+<table class="table">
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>Yes</td>
+<td>Sticker set name</td>
+</tr>
+<tr>
+<td>custom_emoji_id</td>
+<td>String</td>
+<td>Optional</td>
+<td>Custom emoji identifier of a sticker from the sticker set; pass an empty string to drop the thumbnail and use the first sticker as the thumbnail.</td>
+</tr>
+</tbody>
+</table>
+<h4><a class="anchor" name="deletestickerset" href="#deletestickerset"><i class="anchor-icon"></i></a>deleteStickerSet</h4>
+<p>Use this method to delete a sticker set that was created by the bot. Returns <em>True</em> on success.</p>
+<table class="table">
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>Yes</td>
+<td>Sticker set name</td>
 </tr>
 </tbody>
 </table>
@@ -7648,7 +8136,7 @@ pre-formatted fixed-width code block written in the Python programming language
 <td>is_personal</td>
 <td>Boolean</td>
 <td>Optional</td>
-<td>Pass <em>True</em> if results may be cached on the server side only for the user that sent the query. By default, results may be returned to any user who sends the same query</td>
+<td>Pass <em>True</em> if results may be cached on the server side only for the user that sent the query. By default, results may be returned to any user who sends the same query.</td>
 </tr>
 <tr>
 <td>next_offset</td>
@@ -7657,16 +8145,38 @@ pre-formatted fixed-width code block written in the Python programming language
 <td>Pass the offset that a client should send in the next query with the same text to receive more results. Pass an empty string if there are no more results or if you don&#39;t support pagination. Offset length can&#39;t exceed 64 bytes.</td>
 </tr>
 <tr>
-<td>switch_pm_text</td>
-<td>String</td>
+<td>button</td>
+<td><a href="#inlinequeryresultsbutton">InlineQueryResultsButton</a></td>
 <td>Optional</td>
-<td>If passed, clients will display a button with specified text that switches the user to a private chat with the bot and sends the bot a start message with the parameter <em>switch_pm_parameter</em></td>
+<td>A JSON-serialized object describing a button to be shown above inline query results</td>
+</tr>
+</tbody>
+</table>
+<h4><a class="anchor" name="inlinequeryresultsbutton" href="#inlinequeryresultsbutton"><i class="anchor-icon"></i></a>InlineQueryResultsButton</h4>
+<p>This object represents a button to be shown above inline query results. You <strong>must</strong> use exactly one of the optional fields.</p>
+<table class="table">
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>text</td>
+<td>String</td>
+<td>Label text on the button</td>
 </tr>
 <tr>
-<td>switch_pm_parameter</td>
+<td>web_app</td>
+<td><a href="#webappinfo">WebAppInfo</a></td>
+<td><em>Optional</em>. Description of the <a href="/bots/webapps">Web App</a> that will be launched when the user presses the button. The Web App will be able to switch back to the inline mode using the method <a href="/bots/webapps#initializing-mini-apps">switchInlineQuery</a> inside the Web App.</td>
+</tr>
+<tr>
+<td>start_parameter</td>
 <td>String</td>
-<td>Optional</td>
-<td><a href="/bots/features#deep-linking">Deep-linking</a> parameter for the /start message sent to the bot when user presses the switch button. 1-64 characters, only <code>A-Z</code>, <code>a-z</code>, <code>0-9</code>, <code>_</code> and <code>-</code> are allowed.<br><br><em>Example:</em> An inline bot that sends YouTube videos can ask the user to connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a &#39;Connect your YouTube account&#39; button above the results, or even before showing any. The user presses the button, switches to a private chat with the bot and, in doing so, passes a start parameter that instructs the bot to return an OAuth link. Once done, the bot can offer a <a href="#inlinekeyboardmarkup"><em>switch_inline</em></a> button so that the user can easily return to the chat where they wanted to use the bot&#39;s inline capabilities.</td>
+<td><em>Optional</em>. <a href="/bots/features#deep-linking">Deep-linking</a> parameter for the /start message sent to the bot when a user presses the button. 1-64 characters, only <code>A-Z</code>, <code>a-z</code>, <code>0-9</code>, <code>_</code> and <code>-</code> are allowed.<br><br><em>Example:</em> An inline bot that sends YouTube videos can ask the user to connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a &#39;Connect your YouTube account&#39; button above the results, or even before showing any. The user presses the button, switches to a private chat with the bot and, in doing so, passes a start parameter that instructs the bot to return an OAuth link. Once done, the bot can offer a <a href="#inlinekeyboardmarkup"><em>switch_inline</em></a> button so that the user can easily return to the chat where they wanted to use the bot&#39;s inline capabilities.</td>
 </tr>
 </tbody>
 </table>
@@ -7747,17 +8257,17 @@ pre-formatted fixed-width code block written in the Python programming language
 <td><em>Optional</em>. Short description of the result</td>
 </tr>
 <tr>
-<td>thumb_url</td>
+<td>thumbnail_url</td>
 <td>String</td>
 <td><em>Optional</em>. Url of the thumbnail for the result</td>
 </tr>
 <tr>
-<td>thumb_width</td>
+<td>thumbnail_width</td>
 <td>Integer</td>
 <td><em>Optional</em>. Thumbnail width</td>
 </tr>
 <tr>
-<td>thumb_height</td>
+<td>thumbnail_height</td>
 <td>Integer</td>
 <td><em>Optional</em>. Thumbnail height</td>
 </tr>
@@ -7790,7 +8300,7 @@ pre-formatted fixed-width code block written in the Python programming language
 <td>A valid URL of the photo. Photo must be in <strong>JPEG</strong> format. Photo size must not exceed 5MB</td>
 </tr>
 <tr>
-<td>thumb_url</td>
+<td>thumbnail_url</td>
 <td>String</td>
 <td>URL of the thumbnail for the photo</td>
 </tr>
@@ -7883,12 +8393,12 @@ pre-formatted fixed-width code block written in the Python programming language
 <td><em>Optional</em>. Duration of the GIF in seconds</td>
 </tr>
 <tr>
-<td>thumb_url</td>
+<td>thumbnail_url</td>
 <td>String</td>
 <td>URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result</td>
 </tr>
 <tr>
-<td>thumb_mime_type</td>
+<td>thumbnail_mime_type</td>
 <td>String</td>
 <td><em>Optional</em>. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”</td>
 </tr>
@@ -7966,12 +8476,12 @@ pre-formatted fixed-width code block written in the Python programming language
 <td><em>Optional</em>. Video duration in seconds</td>
 </tr>
 <tr>
-<td>thumb_url</td>
+<td>thumbnail_url</td>
 <td>String</td>
 <td>URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result</td>
 </tr>
 <tr>
-<td>thumb_mime_type</td>
+<td>thumbnail_mime_type</td>
 <td>String</td>
 <td><em>Optional</em>. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”</td>
 </tr>
@@ -8042,7 +8552,7 @@ pre-formatted fixed-width code block written in the Python programming language
 <td>MIME type of the content of the video URL, “text/html” or “video/mp4”</td>
 </tr>
 <tr>
-<td>thumb_url</td>
+<td>thumbnail_url</td>
 <td>String</td>
 <td>URL of the thumbnail (JPEG only) for the video</td>
 </tr>
@@ -8298,17 +8808,17 @@ pre-formatted fixed-width code block written in the Python programming language
 <td><em>Optional</em>. Content of the message to be sent instead of the file</td>
 </tr>
 <tr>
-<td>thumb_url</td>
+<td>thumbnail_url</td>
 <td>String</td>
 <td><em>Optional</em>. URL of the thumbnail (JPEG only) for the file</td>
 </tr>
 <tr>
-<td>thumb_width</td>
+<td>thumbnail_width</td>
 <td>Integer</td>
 <td><em>Optional</em>. Thumbnail width</td>
 </tr>
 <tr>
-<td>thumb_height</td>
+<td>thumbnail_height</td>
 <td>Integer</td>
 <td><em>Optional</em>. Thumbnail height</td>
 </tr>
@@ -8382,17 +8892,17 @@ pre-formatted fixed-width code block written in the Python programming language
 <td><em>Optional</em>. Content of the message to be sent instead of the location</td>
 </tr>
 <tr>
-<td>thumb_url</td>
+<td>thumbnail_url</td>
 <td>String</td>
 <td><em>Optional</em>. Url of the thumbnail for the result</td>
 </tr>
 <tr>
-<td>thumb_width</td>
+<td>thumbnail_width</td>
 <td>Integer</td>
 <td><em>Optional</em>. Thumbnail width</td>
 </tr>
 <tr>
-<td>thumb_height</td>
+<td>thumbnail_height</td>
 <td>Integer</td>
 <td><em>Optional</em>. Thumbnail height</td>
 </tr>
@@ -8471,17 +8981,17 @@ pre-formatted fixed-width code block written in the Python programming language
 <td><em>Optional</em>. Content of the message to be sent instead of the venue</td>
 </tr>
 <tr>
-<td>thumb_url</td>
+<td>thumbnail_url</td>
 <td>String</td>
 <td><em>Optional</em>. Url of the thumbnail for the result</td>
 </tr>
 <tr>
-<td>thumb_width</td>
+<td>thumbnail_width</td>
 <td>Integer</td>
 <td><em>Optional</em>. Thumbnail width</td>
 </tr>
 <tr>
-<td>thumb_height</td>
+<td>thumbnail_height</td>
 <td>Integer</td>
 <td><em>Optional</em>. Thumbnail height</td>
 </tr>
@@ -8540,17 +9050,17 @@ pre-formatted fixed-width code block written in the Python programming language
 <td><em>Optional</em>. Content of the message to be sent instead of the contact</td>
 </tr>
 <tr>
-<td>thumb_url</td>
+<td>thumbnail_url</td>
 <td>String</td>
 <td><em>Optional</em>. Url of the thumbnail for the result</td>
 </tr>
 <tr>
-<td>thumb_width</td>
+<td>thumbnail_width</td>
 <td>Integer</td>
 <td><em>Optional</em>. Thumbnail width</td>
 </tr>
 <tr>
-<td>thumb_height</td>
+<td>thumbnail_height</td>
 <td>Integer</td>
 <td><em>Optional</em>. Thumbnail height</td>
 </tr>
@@ -10897,7 +11407,7 @@ pre-formatted fixed-width code block written in the Python programming language
       <h5><a href="/">Platform</a></h5>
     </div>
     <div class="footer_column">
-      <h5><a href="https://twitter.com/telegram" target="_blank" data-track="Follow/Twitter" onclick="trackDlClick(this, event)">Twitter</a></h5>
+      <h5><a href="//telegram.org/press">Press</a></h5>
     </div>
   </div>
 </div>
@@ -10912,4 +11422,4 @@ removePreloadInit();
 </script>
   </body>
 </html>
-<!-- page generated in 42.6ms -->
+<!-- page generated in 47.22ms -->

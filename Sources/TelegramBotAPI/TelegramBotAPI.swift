@@ -2,7 +2,7 @@
 //  TelegramAPI.swift
 //  TelegramAPI
 //
-//  Created by Tbxark on 2023/02/28.
+//  Created by Tbxark on 2023/10/27.
 //  Copyright © 2018 Tbxark. All rights reserved.
 //
 
@@ -12,10 +12,10 @@ public struct TelegramAPI {
 
     /// Use this method to receive incoming updates using long polling ([wiki](https://en.wikipedia.org/wiki/Push_technology#Long_polling)). Returns an Array of Update objects.
     ///
-    /// - parameter offset:  Identifier of the first update to be returned. Must be greater by one than the highest among the identifiers of previously received updates. By default, updates starting with the earliest unconfirmed update are returned. An update is considered confirmed as soon as getUpdates is called with an offset higher than its update_id. The negative offset can be specified to retrieve updates starting from -offset update from the end of the updates queue. All previous updates will forgotten.
+    /// - parameter offset:  Identifier of the first update to be returned. Must be greater by one than the highest among the identifiers of previously received updates. By default, updates starting with the earliest unconfirmed update are returned. An update is considered confirmed as soon as getUpdates is called with an offset higher than its update_id. The negative offset can be specified to retrieve updates starting from -offset update from the end of the updates queue. All previous updates will be forgotten.
     /// - parameter limit:  Limits the number of updates to be retrieved. Values between 1-100 are accepted. Defaults to 100.
     /// - parameter timeout:  Timeout in seconds for long polling. Defaults to 0, i.e. usual short polling. Should be positive, short polling should be used for testing purposes only.
-    /// - parameter allowedUpdates:  A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the previous setting will be used.Please note that this parameter doesn’t affect updates created before the call to the getUpdates, so unwanted updates may be received for a short period of time.
+    /// - parameter allowedUpdates:  A JSON-serialized list of the update types you want your bot to receive. For example, specify [&quot;message&quot;, &quot;edited_channel_post&quot;, &quot;callback_query&quot;] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the previous setting will be used.Please note that this parameter doesn’t affect updates created before the call to the getUpdates, so unwanted updates may be received for a short period of time.
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
@@ -34,7 +34,7 @@ public struct TelegramAPI {
     /// - parameter certificate:  Upload your public key certificate so that the root certificate in use can be checked. See our self-signed guide for details.
     /// - parameter ipAddress:  The fixed IP address which will be used to send webhook requests instead of the IP address resolved through DNS
     /// - parameter maxConnections:  The maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery, 1-100. Defaults to 40. Use lower values to limit the load on your bot’s server, and higher values to increase your bot’s throughput.
-    /// - parameter allowedUpdates:  A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the previous setting will be used.Please note that this parameter doesn’t affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time.
+    /// - parameter allowedUpdates:  A JSON-serialized list of the update types you want your bot to receive. For example, specify [&quot;message&quot;, &quot;edited_channel_post&quot;, &quot;callback_query&quot;] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the previous setting will be used.Please note that this parameter doesn’t affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time.
     /// - parameter dropPendingUpdates:  Pass True to drop all pending updates
     /// - parameter secretToken:  A secret token to be sent in a header “X-Telegram-Bot-Api-Secret-Token” in every webhook request, 1-256 characters. Only characters A-Z, a-z, 0-9, _ and - are allowed. The header is useful to ensure that the request comes from a webhook set by you.
     ///
@@ -229,7 +229,7 @@ public struct TelegramAPI {
     /// - parameter duration:  Duration of the audio in seconds
     /// - parameter performer:  Performer
     /// - parameter title:  Track name
-    /// - parameter thumb:  Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail’s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More information on Sending Files »
+    /// - parameter thumbnail:  Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail’s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More information on Sending Files »
     /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
     /// - parameter protectContent:  Protects the contents of the sent message from forwarding and saving
     /// - parameter replyToMessageId:  If the message is a reply, ID of the original message
@@ -238,7 +238,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendAudio(chatId: ChatId, messageThreadId: Int? = nil, audio: FileOrPath, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, duration: Int? = nil, performer: String? = nil, title: String? = nil, thumb: FileOrPath? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, replyToMessageId: Int? = nil, allowSendingWithoutReply: Bool? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static public func sendAudio(chatId: ChatId, messageThreadId: Int? = nil, audio: FileOrPath, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, duration: Int? = nil, performer: String? = nil, title: String? = nil, thumbnail: FileOrPath? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, replyToMessageId: Int? = nil, allowSendingWithoutReply: Bool? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["message_thread_id"] = messageThreadId
@@ -249,7 +249,7 @@ public struct TelegramAPI {
         parameters["duration"] = duration
         parameters["performer"] = performer
         parameters["title"] = title
-        parameters["thumb"] = thumb
+        parameters["thumbnail"] = thumbnail
         parameters["disable_notification"] = disableNotification
         parameters["protect_content"] = protectContent
         parameters["reply_to_message_id"] = replyToMessageId
@@ -263,7 +263,7 @@ public struct TelegramAPI {
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter messageThreadId:  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
     /// - parameter document:  File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
-    /// - parameter thumb:  Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail’s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More information on Sending Files »
+    /// - parameter thumbnail:  Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail’s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More information on Sending Files »
     /// - parameter caption:  Document caption (may also be used when resending documents by file_id), 0-1024 characters after entities parsing
     /// - parameter parseMode:  Mode for parsing entities in the document caption. See formatting options for more details.
     /// - parameter captionEntities:  A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -276,12 +276,12 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendDocument(chatId: ChatId, messageThreadId: Int? = nil, document: FileOrPath, thumb: FileOrPath? = nil, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, disableContentTypeDetection: Bool? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, replyToMessageId: Int? = nil, allowSendingWithoutReply: Bool? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static public func sendDocument(chatId: ChatId, messageThreadId: Int? = nil, document: FileOrPath, thumbnail: FileOrPath? = nil, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, disableContentTypeDetection: Bool? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, replyToMessageId: Int? = nil, allowSendingWithoutReply: Bool? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["message_thread_id"] = messageThreadId
         parameters["document"] = document
-        parameters["thumb"] = thumb
+        parameters["thumbnail"] = thumbnail
         parameters["caption"] = caption
         parameters["parse_mode"] = parseMode
         parameters["caption_entities"] = captionEntities
@@ -302,7 +302,7 @@ public struct TelegramAPI {
     /// - parameter duration:  Duration of sent video in seconds
     /// - parameter width:  Video width
     /// - parameter height:  Video height
-    /// - parameter thumb:  Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail’s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More information on Sending Files »
+    /// - parameter thumbnail:  Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail’s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More information on Sending Files »
     /// - parameter caption:  Video caption (may also be used when resending videos by file_id), 0-1024 characters after entities parsing
     /// - parameter parseMode:  Mode for parsing entities in the video caption. See formatting options for more details.
     /// - parameter captionEntities:  A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -316,7 +316,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendVideo(chatId: ChatId, messageThreadId: Int? = nil, video: FileOrPath, duration: Int? = nil, width: Int? = nil, height: Int? = nil, thumb: FileOrPath? = nil, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, hasSpoiler: Bool? = nil, supportsStreaming: Bool? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, replyToMessageId: Int? = nil, allowSendingWithoutReply: Bool? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static public func sendVideo(chatId: ChatId, messageThreadId: Int? = nil, video: FileOrPath, duration: Int? = nil, width: Int? = nil, height: Int? = nil, thumbnail: FileOrPath? = nil, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, hasSpoiler: Bool? = nil, supportsStreaming: Bool? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, replyToMessageId: Int? = nil, allowSendingWithoutReply: Bool? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["message_thread_id"] = messageThreadId
@@ -324,7 +324,7 @@ public struct TelegramAPI {
         parameters["duration"] = duration
         parameters["width"] = width
         parameters["height"] = height
-        parameters["thumb"] = thumb
+        parameters["thumbnail"] = thumbnail
         parameters["caption"] = caption
         parameters["parse_mode"] = parseMode
         parameters["caption_entities"] = captionEntities
@@ -346,7 +346,7 @@ public struct TelegramAPI {
     /// - parameter duration:  Duration of sent animation in seconds
     /// - parameter width:  Animation width
     /// - parameter height:  Animation height
-    /// - parameter thumb:  Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail’s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More information on Sending Files »
+    /// - parameter thumbnail:  Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail’s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More information on Sending Files »
     /// - parameter caption:  Animation caption (may also be used when resending animation by file_id), 0-1024 characters after entities parsing
     /// - parameter parseMode:  Mode for parsing entities in the animation caption. See formatting options for more details.
     /// - parameter captionEntities:  A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -359,7 +359,7 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendAnimation(chatId: ChatId, messageThreadId: Int? = nil, animation: FileOrPath, duration: Int? = nil, width: Int? = nil, height: Int? = nil, thumb: FileOrPath? = nil, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, hasSpoiler: Bool? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, replyToMessageId: Int? = nil, allowSendingWithoutReply: Bool? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static public func sendAnimation(chatId: ChatId, messageThreadId: Int? = nil, animation: FileOrPath, duration: Int? = nil, width: Int? = nil, height: Int? = nil, thumbnail: FileOrPath? = nil, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, hasSpoiler: Bool? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, replyToMessageId: Int? = nil, allowSendingWithoutReply: Bool? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["message_thread_id"] = messageThreadId
@@ -367,7 +367,7 @@ public struct TelegramAPI {
         parameters["duration"] = duration
         parameters["width"] = width
         parameters["height"] = height
-        parameters["thumb"] = thumb
+        parameters["thumbnail"] = thumbnail
         parameters["caption"] = caption
         parameters["parse_mode"] = parseMode
         parameters["caption_entities"] = captionEntities
@@ -421,7 +421,7 @@ public struct TelegramAPI {
     /// - parameter videoNote:  Video note to send. Pass a file_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. More information on Sending Files ». Sending video notes by a URL is currently unsupported
     /// - parameter duration:  Duration of sent video in seconds
     /// - parameter length:  Video width and height, i.e. diameter of the video message
-    /// - parameter thumb:  Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail’s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More information on Sending Files »
+    /// - parameter thumbnail:  Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail’s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More information on Sending Files »
     /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
     /// - parameter protectContent:  Protects the contents of the sent message from forwarding and saving
     /// - parameter replyToMessageId:  If the message is a reply, ID of the original message
@@ -430,14 +430,14 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendVideoNote(chatId: ChatId, messageThreadId: Int? = nil, videoNote: FileOrPath, duration: Int? = nil, length: Int? = nil, thumb: FileOrPath? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, replyToMessageId: Int? = nil, allowSendingWithoutReply: Bool? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static public func sendVideoNote(chatId: ChatId, messageThreadId: Int? = nil, videoNote: FileOrPath, duration: Int? = nil, length: Int? = nil, thumbnail: FileOrPath? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, replyToMessageId: Int? = nil, allowSendingWithoutReply: Bool? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["message_thread_id"] = messageThreadId
         parameters["video_note"] = videoNote
         parameters["duration"] = duration
         parameters["length"] = length
-        parameters["thumb"] = thumb
+        parameters["thumbnail"] = thumbnail
         parameters["disable_notification"] = disableNotification
         parameters["protect_content"] = protectContent
         parameters["reply_to_message_id"] = replyToMessageId
@@ -504,52 +504,6 @@ public struct TelegramAPI {
         parameters["allow_sending_without_reply"] = allowSendingWithoutReply
         parameters["reply_markup"] = replyMarkup
         return Request(method: "sendLocation", body: parameters)
-    }
-
-    /// Use this method to edit live location messages. A location can be edited until its live_period expires or editing is explicitly disabled by a call to stopMessageLiveLocation. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
-    ///
-    /// - parameter chatId:  Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-    /// - parameter messageId:  Required if inline_message_id is not specified. Identifier of the message to edit
-    /// - parameter inlineMessageId:  Required if chat_id and message_id are not specified. Identifier of the inline message
-    /// - parameter latitude:  Latitude of new location
-    /// - parameter longitude:  Longitude of new location
-    /// - parameter horizontalAccuracy:  The radius of uncertainty for the location, measured in meters; 0-1500
-    /// - parameter heading:  Direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
-    /// - parameter proximityAlertRadius:  The maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
-    /// - parameter replyMarkup:  A JSON-serialized object for a new inline keyboard.
-    ///
-    /// - returns: The new `TelegramAPI.Request` instance.
-    ///
-    static public func editMessageLiveLocation(chatId: ChatId? = nil, messageId: Int? = nil, inlineMessageId: String? = nil, latitude: Float, longitude: Float, horizontalAccuracy: Float? = nil, heading: Int? = nil, proximityAlertRadius: Int? = nil, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
-        var parameters = [String: Any]()
-        parameters["chat_id"] = chatId
-        parameters["message_id"] = messageId
-        parameters["inline_message_id"] = inlineMessageId
-        parameters["latitude"] = latitude
-        parameters["longitude"] = longitude
-        parameters["horizontal_accuracy"] = horizontalAccuracy
-        parameters["heading"] = heading
-        parameters["proximity_alert_radius"] = proximityAlertRadius
-        parameters["reply_markup"] = replyMarkup
-        return Request(method: "editMessageLiveLocation", body: parameters)
-    }
-
-    /// Use this method to stop updating a live location message before live_period expires. On success, if the message is not an inline message, the edited Message is returned, otherwise True is returned.
-    ///
-    /// - parameter chatId:  Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-    /// - parameter messageId:  Required if inline_message_id is not specified. Identifier of the message with live location to stop
-    /// - parameter inlineMessageId:  Required if chat_id and message_id are not specified. Identifier of the inline message
-    /// - parameter replyMarkup:  A JSON-serialized object for a new inline keyboard.
-    ///
-    /// - returns: The new `TelegramAPI.Request` instance.
-    ///
-    static public func stopMessageLiveLocation(chatId: ChatId? = nil, messageId: Int? = nil, inlineMessageId: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
-        var parameters = [String: Any]()
-        parameters["chat_id"] = chatId
-        parameters["message_id"] = messageId
-        parameters["inline_message_id"] = inlineMessageId
-        parameters["reply_markup"] = replyMarkup
-        return Request(method: "stopMessageLiveLocation", body: parameters)
     }
 
     /// Use this method to send information about a venue. On success, the sent Message is returned.
@@ -746,7 +700,7 @@ public struct TelegramAPI {
     ///
     /// - parameter chatId:  Unique identifier for the target group or username of the target supergroup or channel (in the format @channelusername)
     /// - parameter userId:  Unique identifier of the target user
-    /// - parameter untilDate:  Date when the user will be unbanned, unix time. If user is banned for more than 366 days or less than 30 seconds from the current time they are considered to be banned forever. Applied for supergroups and channels only.
+    /// - parameter untilDate:  Date when the user will be unbanned; Unix time. If user is banned for more than 366 days or less than 30 seconds from the current time they are considered to be banned forever. Applied for supergroups and channels only.
     /// - parameter revokeMessages:  Pass True to delete all messages from the chat for the user that is being removed. If False, the user will be able to see messages in the group that were sent before the user was removed. Always True for supergroups and channels.
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
@@ -782,7 +736,7 @@ public struct TelegramAPI {
     /// - parameter userId:  Unique identifier of the target user
     /// - parameter permissions:  A JSON-serialized object for new user permissions
     /// - parameter useIndependentChatPermissions:  Pass True if chat permissions are set independently. Otherwise, the can_send_other_messages and can_add_web_page_previews permissions will imply the can_send_messages, can_send_audios, can_send_documents, can_send_photos, can_send_videos, can_send_video_notes, and can_send_voice_notes permissions; the can_send_polls permission will imply the can_send_messages permission.
-    /// - parameter untilDate:  Date when restrictions will be lifted for the user, unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever
+    /// - parameter untilDate:  Date when restrictions will be lifted for the user; Unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
@@ -801,35 +755,41 @@ public struct TelegramAPI {
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter userId:  Unique identifier of the target user
     /// - parameter isAnonymous:  Pass True if the administrator’s presence in the chat is hidden
-    /// - parameter canManageChat:  Pass True if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
-    /// - parameter canPostMessages:  Pass True if the administrator can create channel posts, channels only
-    /// - parameter canEditMessages:  Pass True if the administrator can edit messages of other users and can pin messages, channels only
+    /// - parameter canManageChat:  Pass True if the administrator can access the chat event log, boost list in channels, see channel members, report spam messages, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
     /// - parameter canDeleteMessages:  Pass True if the administrator can delete messages of other users
     /// - parameter canManageVideoChats:  Pass True if the administrator can manage video chats
-    /// - parameter canRestrictMembers:  Pass True if the administrator can restrict, ban or unban chat members
+    /// - parameter canRestrictMembers:  Pass True if the administrator can restrict, ban or unban chat members, or access supergroup statistics
     /// - parameter canPromoteMembers:  Pass True if the administrator can add new administrators with a subset of their own privileges or demote administrators that they have promoted, directly or indirectly (promoted by administrators that were appointed by him)
     /// - parameter canChangeInfo:  Pass True if the administrator can change chat title, photo and other settings
     /// - parameter canInviteUsers:  Pass True if the administrator can invite new users to the chat
+    /// - parameter canPostMessages:  Pass True if the administrator can post messages in the channel, or access channel statistics; channels only
+    /// - parameter canEditMessages:  Pass True if the administrator can edit messages of other users and can pin messages; channels only
     /// - parameter canPinMessages:  Pass True if the administrator can pin messages, supergroups only
+    /// - parameter canPostStories:  Pass True if the administrator can post stories in the channel; channels only
+    /// - parameter canEditStories:  Pass True if the administrator can edit stories posted by other users; channels only
+    /// - parameter canDeleteStories:  Pass True if the administrator can delete stories posted by other users; channels only
     /// - parameter canManageTopics:  Pass True if the user is allowed to create, rename, close, and reopen forum topics, supergroups only
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func promoteChatMember(chatId: ChatId, userId: Int, isAnonymous: Bool? = nil, canManageChat: Bool? = nil, canPostMessages: Bool? = nil, canEditMessages: Bool? = nil, canDeleteMessages: Bool? = nil, canManageVideoChats: Bool? = nil, canRestrictMembers: Bool? = nil, canPromoteMembers: Bool? = nil, canChangeInfo: Bool? = nil, canInviteUsers: Bool? = nil, canPinMessages: Bool? = nil, canManageTopics: Bool? = nil) -> Request {
+    static public func promoteChatMember(chatId: ChatId, userId: Int, isAnonymous: Bool? = nil, canManageChat: Bool? = nil, canDeleteMessages: Bool? = nil, canManageVideoChats: Bool? = nil, canRestrictMembers: Bool? = nil, canPromoteMembers: Bool? = nil, canChangeInfo: Bool? = nil, canInviteUsers: Bool? = nil, canPostMessages: Bool? = nil, canEditMessages: Bool? = nil, canPinMessages: Bool? = nil, canPostStories: Bool? = nil, canEditStories: Bool? = nil, canDeleteStories: Bool? = nil, canManageTopics: Bool? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["user_id"] = userId
         parameters["is_anonymous"] = isAnonymous
         parameters["can_manage_chat"] = canManageChat
-        parameters["can_post_messages"] = canPostMessages
-        parameters["can_edit_messages"] = canEditMessages
         parameters["can_delete_messages"] = canDeleteMessages
         parameters["can_manage_video_chats"] = canManageVideoChats
         parameters["can_restrict_members"] = canRestrictMembers
         parameters["can_promote_members"] = canPromoteMembers
         parameters["can_change_info"] = canChangeInfo
         parameters["can_invite_users"] = canInviteUsers
+        parameters["can_post_messages"] = canPostMessages
+        parameters["can_edit_messages"] = canEditMessages
         parameters["can_pin_messages"] = canPinMessages
+        parameters["can_post_stories"] = canPostStories
+        parameters["can_edit_stories"] = canEditStories
+        parameters["can_delete_stories"] = canDeleteStories
         parameters["can_manage_topics"] = canManageTopics
         return Request(method: "promoteChatMember", body: parameters)
     }
@@ -1336,6 +1296,18 @@ public struct TelegramAPI {
         return Request(method: "unhideGeneralForumTopic", body: parameters)
     }
 
+    /// Use this method to clear the list of pinned messages in a General forum topic. The bot must be an administrator in the chat for this to work and must have the can_pin_messages administrator right in the supergroup. Returns True on success.
+    ///
+    /// - parameter chatId:  Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+    ///
+    /// - returns: The new `TelegramAPI.Request` instance.
+    ///
+    static public func unpinAllGeneralForumTopicMessages(chatId: ChatId) -> Request {
+        var parameters = [String: Any]()
+        parameters["chat_id"] = chatId
+        return Request(method: "unpinAllGeneralForumTopicMessages", body: parameters)
+    }
+
     /// Alternatively, the user can be redirected to the specified Game URL. For this option to work, you must first create a game for your bot via [@BotFather](https://t.me/botfather) and accept the terms. Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter.
     ///
     /// - parameter callbackQueryId:  Unique identifier for the query to be answered
@@ -1398,6 +1370,84 @@ public struct TelegramAPI {
         parameters["scope"] = scope
         parameters["language_code"] = languageCode
         return Request(method: "getMyCommands", body: parameters)
+    }
+
+    /// Use this method to change the bot’s name. Returns True on success.
+    ///
+    /// - parameter name:  New bot name; 0-64 characters. Pass an empty string to remove the dedicated name for the given language.
+    /// - parameter languageCode:  A two-letter ISO 639-1 language code. If empty, the name will be shown to all users for whose language there is no dedicated name.
+    ///
+    /// - returns: The new `TelegramAPI.Request` instance.
+    ///
+    static public func setMyName(name: String? = nil, languageCode: String? = nil) -> Request {
+        var parameters = [String: Any]()
+        parameters["name"] = name
+        parameters["language_code"] = languageCode
+        return Request(method: "setMyName", body: parameters)
+    }
+
+    /// Use this method to get the current bot name for the given user language. Returns BotName on success.
+    ///
+    /// - parameter languageCode:  A two-letter ISO 639-1 language code or an empty string
+    ///
+    /// - returns: The new `TelegramAPI.Request` instance.
+    ///
+    static public func getMyName(languageCode: String? = nil) -> Request {
+        var parameters = [String: Any]()
+        parameters["language_code"] = languageCode
+        return Request(method: "getMyName", body: parameters)
+    }
+
+    /// Use this method to change the bot’s description, which is shown in the chat with the bot if the chat is empty. Returns True on success.
+    ///
+    /// - parameter description:  New bot description; 0-512 characters. Pass an empty string to remove the dedicated description for the given language.
+    /// - parameter languageCode:  A two-letter ISO 639-1 language code. If empty, the description will be applied to all users for whose language there is no dedicated description.
+    ///
+    /// - returns: The new `TelegramAPI.Request` instance.
+    ///
+    static public func setMyDescription(description: String? = nil, languageCode: String? = nil) -> Request {
+        var parameters = [String: Any]()
+        parameters["description"] = description
+        parameters["language_code"] = languageCode
+        return Request(method: "setMyDescription", body: parameters)
+    }
+
+    /// Use this method to get the current bot description for the given user language. Returns BotDescription on success.
+    ///
+    /// - parameter languageCode:  A two-letter ISO 639-1 language code or an empty string
+    ///
+    /// - returns: The new `TelegramAPI.Request` instance.
+    ///
+    static public func getMyDescription(languageCode: String? = nil) -> Request {
+        var parameters = [String: Any]()
+        parameters["language_code"] = languageCode
+        return Request(method: "getMyDescription", body: parameters)
+    }
+
+    /// Use this method to change the bot’s short description, which is shown on the bot’s profile page and is sent together with the link when users share the bot. Returns True on success.
+    ///
+    /// - parameter shortDescription:  New short description for the bot; 0-120 characters. Pass an empty string to remove the dedicated short description for the given language.
+    /// - parameter languageCode:  A two-letter ISO 639-1 language code. If empty, the short description will be applied to all users for whose language there is no dedicated short description.
+    ///
+    /// - returns: The new `TelegramAPI.Request` instance.
+    ///
+    static public func setMyShortDescription(shortDescription: String? = nil, languageCode: String? = nil) -> Request {
+        var parameters = [String: Any]()
+        parameters["short_description"] = shortDescription
+        parameters["language_code"] = languageCode
+        return Request(method: "setMyShortDescription", body: parameters)
+    }
+
+    /// Use this method to get the current bot short description for the given user language. Returns BotShortDescription on success.
+    ///
+    /// - parameter languageCode:  A two-letter ISO 639-1 language code or an empty string
+    ///
+    /// - returns: The new `TelegramAPI.Request` instance.
+    ///
+    static public func getMyShortDescription(languageCode: String? = nil) -> Request {
+        var parameters = [String: Any]()
+        parameters["language_code"] = languageCode
+        return Request(method: "getMyShortDescription", body: parameters)
     }
 
     /// Use this method to change the bot’s menu button in a private chat, or the default menu button. Returns True on success.
@@ -1522,6 +1572,52 @@ public struct TelegramAPI {
         return Request(method: "editMessageMedia", body: parameters)
     }
 
+    /// Use this method to edit live location messages. A location can be edited until its live_period expires or editing is explicitly disabled by a call to stopMessageLiveLocation. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
+    ///
+    /// - parameter chatId:  Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+    /// - parameter messageId:  Required if inline_message_id is not specified. Identifier of the message to edit
+    /// - parameter inlineMessageId:  Required if chat_id and message_id are not specified. Identifier of the inline message
+    /// - parameter latitude:  Latitude of new location
+    /// - parameter longitude:  Longitude of new location
+    /// - parameter horizontalAccuracy:  The radius of uncertainty for the location, measured in meters; 0-1500
+    /// - parameter heading:  Direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
+    /// - parameter proximityAlertRadius:  The maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
+    /// - parameter replyMarkup:  A JSON-serialized object for a new inline keyboard.
+    ///
+    /// - returns: The new `TelegramAPI.Request` instance.
+    ///
+    static public func editMessageLiveLocation(chatId: ChatId? = nil, messageId: Int? = nil, inlineMessageId: String? = nil, latitude: Float, longitude: Float, horizontalAccuracy: Float? = nil, heading: Int? = nil, proximityAlertRadius: Int? = nil, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
+        var parameters = [String: Any]()
+        parameters["chat_id"] = chatId
+        parameters["message_id"] = messageId
+        parameters["inline_message_id"] = inlineMessageId
+        parameters["latitude"] = latitude
+        parameters["longitude"] = longitude
+        parameters["horizontal_accuracy"] = horizontalAccuracy
+        parameters["heading"] = heading
+        parameters["proximity_alert_radius"] = proximityAlertRadius
+        parameters["reply_markup"] = replyMarkup
+        return Request(method: "editMessageLiveLocation", body: parameters)
+    }
+
+    /// Use this method to stop updating a live location message before live_period expires. On success, if the message is not an inline message, the edited Message is returned, otherwise True is returned.
+    ///
+    /// - parameter chatId:  Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+    /// - parameter messageId:  Required if inline_message_id is not specified. Identifier of the message with live location to stop
+    /// - parameter inlineMessageId:  Required if chat_id and message_id are not specified. Identifier of the inline message
+    /// - parameter replyMarkup:  A JSON-serialized object for a new inline keyboard.
+    ///
+    /// - returns: The new `TelegramAPI.Request` instance.
+    ///
+    static public func stopMessageLiveLocation(chatId: ChatId? = nil, messageId: Int? = nil, inlineMessageId: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
+        var parameters = [String: Any]()
+        parameters["chat_id"] = chatId
+        parameters["message_id"] = messageId
+        parameters["inline_message_id"] = inlineMessageId
+        parameters["reply_markup"] = replyMarkup
+        return Request(method: "stopMessageLiveLocation", body: parameters)
+    }
+
     /// Use this method to edit only the reply markup of messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
     ///
     /// - parameter chatId:  Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
@@ -1574,7 +1670,8 @@ public struct TelegramAPI {
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter messageThreadId:  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
-    /// - parameter sticker:  Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
+    /// - parameter sticker:  Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP sticker from the Internet, or upload a new .WEBP or .TGS sticker using multipart/form-data. More information on Sending Files ». Video stickers can only be sent by a file_id. Animated stickers can’t be sent via an HTTP URL.
+    /// - parameter emoji:  Emoji associated with the sticker; only for just uploaded stickers
     /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
     /// - parameter protectContent:  Protects the contents of the sent message from forwarding and saving
     /// - parameter replyToMessageId:  If the message is a reply, ID of the original message
@@ -1583,11 +1680,12 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendSticker(chatId: ChatId, messageThreadId: Int? = nil, sticker: FileOrPath, disableNotification: Bool? = nil, protectContent: Bool? = nil, replyToMessageId: Int? = nil, allowSendingWithoutReply: Bool? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static public func sendSticker(chatId: ChatId, messageThreadId: Int? = nil, sticker: FileOrPath, emoji: String? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, replyToMessageId: Int? = nil, allowSendingWithoutReply: Bool? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["message_thread_id"] = messageThreadId
         parameters["sticker"] = sticker
+        parameters["emoji"] = emoji
         parameters["disable_notification"] = disableNotification
         parameters["protect_content"] = protectContent
         parameters["reply_to_message_id"] = replyToMessageId
@@ -1620,69 +1718,59 @@ public struct TelegramAPI {
         return Request(method: "getCustomEmojiStickers", body: parameters)
     }
 
-    /// Use this method to upload a .PNG file with a sticker for later use in createNewStickerSet and addStickerToSet methods (can be used multiple times). Returns the uploaded File on success.
+    /// Use this method to upload a file with a sticker for later use in the createNewStickerSet and addStickerToSet methods (the file can be used multiple times). Returns the uploaded File on success.
     ///
     /// - parameter userId:  User identifier of sticker file owner
-    /// - parameter pngSticker:  PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. More information on Sending Files »
+    /// - parameter sticker:  A file with the sticker in .WEBP, .PNG, .TGS, or .WEBM format. See [https://core.telegram.org/stickers](https://core.telegram.org/stickers) for technical requirements. More information on Sending Files »
+    /// - parameter stickerFormat:  Format of the sticker, must be one of “static”, “animated”, “video”
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func uploadStickerFile(userId: Int, pngSticker: InputFile) -> Request {
+    static public func uploadStickerFile(userId: Int, sticker: InputFile, stickerFormat: String) -> Request {
         var parameters = [String: Any]()
         parameters["user_id"] = userId
-        parameters["png_sticker"] = pngSticker
+        parameters["sticker"] = sticker
+        parameters["sticker_format"] = stickerFormat
         return Request(method: "uploadStickerFile", body: parameters)
     }
 
-    /// Use this method to create a new sticker set owned by a user. The bot will be able to edit the sticker set thus created. You must use exactly one of the fields png_sticker, tgs_sticker, or webm_sticker. Returns True on success.
+    /// Use this method to create a new sticker set owned by a user. The bot will be able to edit the sticker set thus created. Returns True on success.
     ///
     /// - parameter userId:  User identifier of created sticker set owner
     /// - parameter name:  Short name of sticker set, to be used in t.me/addstickers/ URLs (e.g., animals). Can contain only English letters, digits and underscores. Must begin with a letter, can’t contain consecutive underscores and must end in &quot;_by_&lt;bot_username&gt;&quot;. &lt;bot_username&gt; is case insensitive. 1-64 characters.
     /// - parameter title:  Sticker set title, 1-64 characters
-    /// - parameter pngSticker:  PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
-    /// - parameter tgsSticker:  TGS animation with the sticker, uploaded using multipart/form-data. See [https://core.telegram.org/stickers#animated-sticker-requirements](https://core.telegram.org/stickers#animated-sticker-requirements) for technical requirements
-    /// - parameter webmSticker:  WEBM video with the sticker, uploaded using multipart/form-data. See [https://core.telegram.org/stickers#video-sticker-requirements](https://core.telegram.org/stickers#video-sticker-requirements) for technical requirements
-    /// - parameter stickerType:  Type of stickers in the set, pass “regular” or “mask”. Custom emoji sticker sets can’t be created via the Bot API at the moment. By default, a regular sticker set is created.
-    /// - parameter emojis:  One or more emoji corresponding to the sticker
-    /// - parameter maskPosition:  A JSON-serialized object for position where the mask should be placed on faces
+    /// - parameter stickers:  A JSON-serialized list of 1-50 initial stickers to be added to the sticker set
+    /// - parameter stickerFormat:  Format of stickers in the set, must be one of “static”, “animated”, “video”
+    /// - parameter stickerType:  Type of stickers in the set, pass “regular”, “mask”, or “custom_emoji”. By default, a regular sticker set is created.
+    /// - parameter needsRepainting:  Pass True if stickers in the sticker set must be repainted to the color of text when used in messages, the accent color if used as emoji status, white on chat photos, or another appropriate color based on context; for custom emoji sticker sets only
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func createNewStickerSet(userId: Int, name: String, title: String, pngSticker: FileOrPath? = nil, tgsSticker: InputFile? = nil, webmSticker: InputFile? = nil, stickerType: String? = nil, emojis: String, maskPosition: MaskPosition? = nil) -> Request {
+    static public func createNewStickerSet(userId: Int, name: String, title: String, stickers: [InputSticker], stickerFormat: String, stickerType: String? = nil, needsRepainting: Bool? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["user_id"] = userId
         parameters["name"] = name
         parameters["title"] = title
-        parameters["png_sticker"] = pngSticker
-        parameters["tgs_sticker"] = tgsSticker
-        parameters["webm_sticker"] = webmSticker
+        parameters["stickers"] = stickers
+        parameters["sticker_format"] = stickerFormat
         parameters["sticker_type"] = stickerType
-        parameters["emojis"] = emojis
-        parameters["mask_position"] = maskPosition
+        parameters["needs_repainting"] = needsRepainting
         return Request(method: "createNewStickerSet", body: parameters)
     }
 
-    /// Use this method to add a new sticker to a set created by the bot. You must use exactly one of the fields png_sticker, tgs_sticker, or webm_sticker. Animated stickers can be added to animated sticker sets and only to them. Animated sticker sets can have up to 50 stickers. Static sticker sets can have up to 120 stickers. Returns True on success.
+    /// Use this method to add a new sticker to a set created by the bot. The format of the added sticker must match the format of the other stickers in the set. Emoji sticker sets can have up to 200 stickers. Animated and video sticker sets can have up to 50 stickers. Static sticker sets can have up to 120 stickers. Returns True on success.
     ///
     /// - parameter userId:  User identifier of sticker set owner
     /// - parameter name:  Sticker set name
-    /// - parameter pngSticker:  PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
-    /// - parameter tgsSticker:  TGS animation with the sticker, uploaded using multipart/form-data. See [https://core.telegram.org/stickers#animated-sticker-requirements](https://core.telegram.org/stickers#animated-sticker-requirements) for technical requirements
-    /// - parameter webmSticker:  WEBM video with the sticker, uploaded using multipart/form-data. See [https://core.telegram.org/stickers#video-sticker-requirements](https://core.telegram.org/stickers#video-sticker-requirements) for technical requirements
-    /// - parameter emojis:  One or more emoji corresponding to the sticker
-    /// - parameter maskPosition:  A JSON-serialized object for position where the mask should be placed on faces
+    /// - parameter sticker:  A JSON-serialized object with information about the added sticker. If exactly the same sticker had already been added to the set, then the set isn’t changed.
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func addStickerToSet(userId: Int, name: String, pngSticker: FileOrPath? = nil, tgsSticker: InputFile? = nil, webmSticker: InputFile? = nil, emojis: String, maskPosition: MaskPosition? = nil) -> Request {
+    static public func addStickerToSet(userId: Int, name: String, sticker: InputSticker) -> Request {
         var parameters = [String: Any]()
         parameters["user_id"] = userId
         parameters["name"] = name
-        parameters["png_sticker"] = pngSticker
-        parameters["tgs_sticker"] = tgsSticker
-        parameters["webm_sticker"] = webmSticker
-        parameters["emojis"] = emojis
-        parameters["mask_position"] = maskPosition
+        parameters["sticker"] = sticker
         return Request(method: "addStickerToSet", body: parameters)
     }
 
@@ -1712,20 +1800,102 @@ public struct TelegramAPI {
         return Request(method: "deleteStickerFromSet", body: parameters)
     }
 
-    /// Use this method to set the thumbnail of a sticker set. Animated thumbnails can be set for animated sticker sets only. Video thumbnails can be set only for video sticker sets only. Returns True on success.
+    /// Use this method to change the list of emoji assigned to a regular or custom emoji sticker. The sticker must belong to a sticker set created by the bot. Returns True on success.
     ///
-    /// - parameter name:  Sticker set name
-    /// - parameter userId:  User identifier of the sticker set owner
-    /// - parameter thumb:  A PNG image with the thumbnail, must be up to 128 kilobytes in size and have width and height exactly 100px, or a TGS animation with the thumbnail up to 32 kilobytes in size; see [https://core.telegram.org/stickers#animated-sticker-requirements](https://core.telegram.org/stickers#animated-sticker-requirements) for animated sticker technical requirements, or a WEBM video with the thumbnail up to 32 kilobytes in size; see [https://core.telegram.org/stickers#video-sticker-requirements](https://core.telegram.org/stickers#video-sticker-requirements) for video sticker technical requirements. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files ». Animated sticker set thumbnails can’t be uploaded via HTTP URL.
+    /// - parameter sticker:  File identifier of the sticker
+    /// - parameter emojiList:  A JSON-serialized list of 1-20 emoji associated with the sticker
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func setStickerSetThumb(name: String, userId: Int, thumb: FileOrPath? = nil) -> Request {
+    static public func setStickerEmojiList(sticker: String, emojiList: [String]) -> Request {
+        var parameters = [String: Any]()
+        parameters["sticker"] = sticker
+        parameters["emoji_list"] = emojiList
+        return Request(method: "setStickerEmojiList", body: parameters)
+    }
+
+    /// Use this method to change search keywords assigned to a regular or custom emoji sticker. The sticker must belong to a sticker set created by the bot. Returns True on success.
+    ///
+    /// - parameter sticker:  File identifier of the sticker
+    /// - parameter keywords:  A JSON-serialized list of 0-20 search keywords for the sticker with total length of up to 64 characters
+    ///
+    /// - returns: The new `TelegramAPI.Request` instance.
+    ///
+    static public func setStickerKeywords(sticker: String, keywords: [String]? = nil) -> Request {
+        var parameters = [String: Any]()
+        parameters["sticker"] = sticker
+        parameters["keywords"] = keywords
+        return Request(method: "setStickerKeywords", body: parameters)
+    }
+
+    /// Use this method to change the mask position of a mask sticker. The sticker must belong to a sticker set that was created by the bot. Returns True on success.
+    ///
+    /// - parameter sticker:  File identifier of the sticker
+    /// - parameter maskPosition:  A JSON-serialized object with the position where the mask should be placed on faces. Omit the parameter to remove the mask position.
+    ///
+    /// - returns: The new `TelegramAPI.Request` instance.
+    ///
+    static public func setStickerMaskPosition(sticker: String, maskPosition: MaskPosition? = nil) -> Request {
+        var parameters = [String: Any]()
+        parameters["sticker"] = sticker
+        parameters["mask_position"] = maskPosition
+        return Request(method: "setStickerMaskPosition", body: parameters)
+    }
+
+    /// Use this method to set the title of a created sticker set. Returns True on success.
+    ///
+    /// - parameter name:  Sticker set name
+    /// - parameter title:  Sticker set title, 1-64 characters
+    ///
+    /// - returns: The new `TelegramAPI.Request` instance.
+    ///
+    static public func setStickerSetTitle(name: String, title: String) -> Request {
+        var parameters = [String: Any]()
+        parameters["name"] = name
+        parameters["title"] = title
+        return Request(method: "setStickerSetTitle", body: parameters)
+    }
+
+    /// Use this method to set the thumbnail of a regular or mask sticker set. The format of the thumbnail file must match the format of the stickers in the set. Returns True on success.
+    ///
+    /// - parameter name:  Sticker set name
+    /// - parameter userId:  User identifier of the sticker set owner
+    /// - parameter thumbnail:  A .WEBP or .PNG image with the thumbnail, must be up to 128 kilobytes in size and have a width and height of exactly 100px, or a .TGS animation with a thumbnail up to 32 kilobytes in size (see [https://core.telegram.org/stickers#animated-sticker-requirements](https://core.telegram.org/stickers#animated-sticker-requirements) for animated sticker technical requirements), or a WEBM video with the thumbnail up to 32 kilobytes in size; see [https://core.telegram.org/stickers#video-sticker-requirements](https://core.telegram.org/stickers#video-sticker-requirements) for video sticker technical requirements. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files ». Animated and video sticker set thumbnails can’t be uploaded via HTTP URL. If omitted, then the thumbnail is dropped and the first sticker is used as the thumbnail.
+    ///
+    /// - returns: The new `TelegramAPI.Request` instance.
+    ///
+    static public func setStickerSetThumbnail(name: String, userId: Int, thumbnail: FileOrPath? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["name"] = name
         parameters["user_id"] = userId
-        parameters["thumb"] = thumb
-        return Request(method: "setStickerSetThumb", body: parameters)
+        parameters["thumbnail"] = thumbnail
+        return Request(method: "setStickerSetThumbnail", body: parameters)
+    }
+
+    /// Use this method to set the thumbnail of a custom emoji sticker set. Returns True on success.
+    ///
+    /// - parameter name:  Sticker set name
+    /// - parameter customEmojiId:  Custom emoji identifier of a sticker from the sticker set; pass an empty string to drop the thumbnail and use the first sticker as the thumbnail.
+    ///
+    /// - returns: The new `TelegramAPI.Request` instance.
+    ///
+    static public func setCustomEmojiStickerSetThumbnail(name: String, customEmojiId: String? = nil) -> Request {
+        var parameters = [String: Any]()
+        parameters["name"] = name
+        parameters["custom_emoji_id"] = customEmojiId
+        return Request(method: "setCustomEmojiStickerSetThumbnail", body: parameters)
+    }
+
+    /// Use this method to delete a sticker set that was created by the bot. Returns True on success.
+    ///
+    /// - parameter name:  Sticker set name
+    ///
+    /// - returns: The new `TelegramAPI.Request` instance.
+    ///
+    static public func deleteStickerSet(name: String) -> Request {
+        var parameters = [String: Any]()
+        parameters["name"] = name
+        return Request(method: "deleteStickerSet", body: parameters)
     }
 
     /// Use this method to send answers to an inline query. On success, True is returned.No more than 50 results per query are allowed.
@@ -1733,22 +1903,20 @@ public struct TelegramAPI {
     /// - parameter inlineQueryId:  Unique identifier for the answered query
     /// - parameter results:  A JSON-serialized array of results for the inline query
     /// - parameter cacheTime:  The maximum amount of time in seconds that the result of the inline query may be cached on the server. Defaults to 300.
-    /// - parameter isPersonal:  Pass True if results may be cached on the server side only for the user that sent the query. By default, results may be returned to any user who sends the same query
+    /// - parameter isPersonal:  Pass True if results may be cached on the server side only for the user that sent the query. By default, results may be returned to any user who sends the same query.
     /// - parameter nextOffset:  Pass the offset that a client should send in the next query with the same text to receive more results. Pass an empty string if there are no more results or if you don’t support pagination. Offset length can’t exceed 64 bytes.
-    /// - parameter switchPmText:  If passed, clients will display a button with specified text that switches the user to a private chat with the bot and sends the bot a start message with the parameter switch_pm_parameter
-    /// - parameter switchPmParameter:  Deep-linking parameter for the /start message sent to the bot when user presses the switch button. 1-64 characters, only A-Z, a-z, 0-9, _ and - are allowed.Example: An inline bot that sends YouTube videos can ask the user to connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a ’Connect your YouTube account’ button above the results, or even before showing any. The user presses the button, switches to a private chat with the bot and, in doing so, passes a start parameter that instructs the bot to return an OAuth link. Once done, the bot can offer a switch_inline button so that the user can easily return to the chat where they wanted to use the bot’s inline capabilities.
+    /// - parameter button:  A JSON-serialized object describing a button to be shown above inline query results
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func answerInlineQuery(inlineQueryId: String, results: [InlineQueryResult], cacheTime: Int? = nil, isPersonal: Bool? = nil, nextOffset: String? = nil, switchPmText: String? = nil, switchPmParameter: String? = nil) -> Request {
+    static public func answerInlineQuery(inlineQueryId: String, results: [InlineQueryResult], cacheTime: Int? = nil, isPersonal: Bool? = nil, nextOffset: String? = nil, button: InlineQueryResultsButton? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["inline_query_id"] = inlineQueryId
         parameters["results"] = results
         parameters["cache_time"] = cacheTime
         parameters["is_personal"] = isPersonal
         parameters["next_offset"] = nextOffset
-        parameters["switch_pm_text"] = switchPmText
-        parameters["switch_pm_parameter"] = switchPmParameter
+        parameters["button"] = button
         return Request(method: "answerInlineQuery", body: parameters)
     }
 
