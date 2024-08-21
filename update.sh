@@ -1,6 +1,6 @@
 /bin/rm TelegramBotAPI.html
 wget -O TelegramBotAPI.html https://core.telegram.org/bots/api
-swift run Generate -f ./Sources/TelegramBotAPI
+swift ./Sources/Generate/main.swift -f ./Sources/TelegramBotAPI -h ./TelegramBotAPI.html
 swift build
 swiftlint --fix
 if [ $? -eq 0 ]; then

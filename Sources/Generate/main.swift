@@ -12,6 +12,20 @@ let dateFormatter = DateFormatter()
 dateFormatter.dateFormat = "yyyy/MM/dd"
 let today = dateFormatter.string(from: Date())
 
+func commonPrefix(in strings: [String]) -> String {
+    guard let first = strings.first else { return "" }
+    return strings.reduce(first) { commonPrefix, str in
+        String(zip(commonPrefix, str).prefix(while: { $0.0 == $0.1 }).map { $0.0 })
+    }
+}
+
+func commonSuffix(in strings: [String]) -> String {
+    guard let first = strings.first else { return "" }
+    return strings.reduce(first) { commonSuffix, str in
+        String(zip(commonSuffix.reversed(), str.reversed()).prefix(while: { $0.0 == $0.1 }).map { $0.0 }.reversed())
+    }
+}
+
 class ParsingController {
 
     class DocumentTable {
@@ -47,8 +61,11 @@ class ParsingController {
     private var superClass = [String: String]()
 
     func parse(url: URL) throws -> (type: String, method: String) {
-
         let text = try String(contentsOf: url)
+        return try parse(text: text)
+    }
+
+    func parse(text: String) throws -> (type: String, method: String) {
         let tables =  parseDocument(text)
         var telegramModel = ""
         var telegramRequest = ""
@@ -98,39 +115,10 @@ extension ParsingController {
 
     private func unionBuilder(name: String, cases: [String], fastInitialization: Bool = true) -> String {
         var code = "public enum \(name): Codable {\n\n"
-        var prefix = ""
-        var suffix = ""
-        var findPrefix = true
-        var findSuffix = true
-        guard let firstCase = cases.first else { return "" }
-        while findPrefix {
-            let prefixTemp = firstCase.prefix(prefix.count + 1)
-            for caseValue in cases {
-                if caseValue.hasPrefix(prefixTemp) {
-                    continue
-                }
-                findPrefix = false
-            }
-            if findPrefix {
-                prefix = String(prefixTemp)
-            } else {
-                break
-            }
-        }
-        while findSuffix {
-            let suffixTemp = firstCase.suffix(suffix.count + 1)
-            for caseValue in cases {
-                if caseValue.hasSuffix(suffixTemp) {
-                    continue
-                }
-                findSuffix = false
-            }
-            if findSuffix {
-                suffix = String(suffixTemp)
-            } else {
-                break
-            }
-        }
+
+        let prefix = commonPrefix(in: cases)
+        let suffix = commonSuffix(in: cases)
+
         var fastInit = ""
         var decoder = "\n\tpublic init(from decoder: Decoder) throws {\n\t\tlet container = try decoder.singleValueContainer()"
         var encode = "\n\tpublic func encode(to encoder: Encoder) throws {\n\t\tvar container = encoder.singleValueContainer()\n\t\tswitch self {"
@@ -501,21 +489,30 @@ extension ParsingController {
 
 let controller = ParsingController()
 
-let value = try controller.parse(url: URL(string: "https://core.telegram.org/bots/api")!)
-print(CommandLine.arguments)
-if let i = CommandLine.arguments.firstIndex(of: "-f"),
-   CommandLine.arguments.count > i {
-    let path = CommandLine.arguments[i + 1]
-    let typePath = "\(path)/TelegramModel.swift"
-    let methodPath = "\(path)/TelegramBotAPI.swift"
-    if FileManager.default.fileExists(atPath: typePath) {
-        try FileManager.default.removeItem(atPath: typePath)
+do {
+    if let i = CommandLine.arguments.firstIndex(of: "-f"),
+        let h = CommandLine.arguments.firstIndex(of: "-h"),
+        CommandLine.arguments.count > max(i, h) + 1 {
+
+        let genPath = CommandLine.arguments[i + 1]
+        let textPath = CommandLine.arguments[h + 1]
+
+        let text = try String(contentsOfFile: textPath)
+        let value = try controller.parse(text: text)
+
+        let typePath = "\(genPath)/TelegramModel.swift"
+        let methodPath = "\(genPath)/TelegramBotAPI.swift"
+        if FileManager.default.fileExists(atPath: typePath) {
+            try FileManager.default.removeItem(atPath: typePath)
+        }
+        if FileManager.default.fileExists(atPath: methodPath) {
+            try FileManager.default.removeItem(atPath: methodPath)
+        }
+        FileManager.default.createFile(atPath: typePath, contents: value.type.data(using: .utf8), attributes: nil)
+        FileManager.default.createFile(atPath: methodPath, contents: value.method.data(using: .utf8), attributes: nil)
+    } else {
+        print("The destination folder path cannot be found")
     }
-    if FileManager.default.fileExists(atPath: methodPath) {
-        try FileManager.default.removeItem(atPath: methodPath)
-    }
-    FileManager.default.createFile(atPath: typePath, contents: value.type.data(using: .utf8), attributes: nil)
-    FileManager.default.createFile(atPath: methodPath, contents: value.method.data(using: .utf8), attributes: nil)
-} else {
-    print("The destination folder path cannot be found")
+} catch {
+    print("Error: \(error)")
 }

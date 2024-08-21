@@ -2,7 +2,7 @@
 //  TelegramAPI.swift
 //  TelegramAPI
 //
-//  Created by Tbxark on 2023/12/13.
+//  Created by Tbxark on 2024/08/21.
 //  Copyright © 2018 Tbxark. All rights reserved.
 //
 
@@ -15,7 +15,7 @@ public struct TelegramAPI {
     /// - parameter offset:  Identifier of the first update to be returned. Must be greater by one than the highest among the identifiers of previously received updates. By default, updates starting with the earliest unconfirmed update are returned. An update is considered confirmed as soon as getUpdates is called with an offset higher than its update_id. The negative offset can be specified to retrieve updates starting from -offset update from the end of the updates queue. All previous updates will be forgotten.
     /// - parameter limit:  Limits the number of updates to be retrieved. Values between 1-100 are accepted. Defaults to 100.
     /// - parameter timeout:  Timeout in seconds for long polling. Defaults to 0, i.e. usual short polling. Should be positive, short polling should be used for testing purposes only.
-    /// - parameter allowedUpdates:  A JSON-serialized list of the update types you want your bot to receive. For example, specify [&quot;message&quot;, &quot;edited_channel_post&quot;, &quot;callback_query&quot;] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the previous setting will be used.Please note that this parameter doesn’t affect updates created before the call to the getUpdates, so unwanted updates may be received for a short period of time.
+    /// - parameter allowedUpdates:  A JSON-serialized list of the update types you want your bot to receive. For example, specify [&quot;message&quot;, &quot;edited_channel_post&quot;, &quot;callback_query&quot;] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member, message_reaction, and message_reaction_count (default). If not specified, the previous setting will be used.Please note that this parameter doesn’t affect updates created before the call to the getUpdates, so unwanted updates may be received for a short period of time.
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
@@ -34,7 +34,7 @@ public struct TelegramAPI {
     /// - parameter certificate:  Upload your public key certificate so that the root certificate in use can be checked. See our self-signed guide for details.
     /// - parameter ipAddress:  The fixed IP address which will be used to send webhook requests instead of the IP address resolved through DNS
     /// - parameter maxConnections:  The maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery, 1-100. Defaults to 40. Use lower values to limit the load on your bot’s server, and higher values to increase your bot’s throughput.
-    /// - parameter allowedUpdates:  A JSON-serialized list of the update types you want your bot to receive. For example, specify [&quot;message&quot;, &quot;edited_channel_post&quot;, &quot;callback_query&quot;] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the previous setting will be used.Please note that this parameter doesn’t affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time.
+    /// - parameter allowedUpdates:  A JSON-serialized list of the update types you want your bot to receive. For example, specify [&quot;message&quot;, &quot;edited_channel_post&quot;, &quot;callback_query&quot;] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member, message_reaction, and message_reaction_count (default). If not specified, the previous setting will be used.Please note that this parameter doesn’t affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time.
     /// - parameter dropPendingUpdates:  Pass True to drop all pending updates
     /// - parameter secretToken:  A secret token to be sent in a header “X-Telegram-Bot-Api-Secret-Token” in every webhook request, 1-256 characters. Only characters A-Z, a-z, 0-9, _ and - are allowed. The header is useful to ensure that the request comes from a webhook set by you.
     ///
@@ -98,37 +98,39 @@ public struct TelegramAPI {
 
     /// Use this method to send text messages. On success, the sent Message is returned.
     ///
+    /// - parameter businessConnectionId:  Unique identifier of the business connection on behalf of which the message will be sent
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter messageThreadId:  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
     /// - parameter text:  Text of the message to be sent, 1-4096 characters after entities parsing
     /// - parameter parseMode:  Mode for parsing entities in the message text. See formatting options for more details.
     /// - parameter entities:  A JSON-serialized list of special entities that appear in message text, which can be specified instead of parse_mode
-    /// - parameter disableWebPagePreview:  Disables link previews for links in this message
+    /// - parameter linkPreviewOptions:  Link preview generation options for the message
     /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
     /// - parameter protectContent:  Protects the contents of the sent message from forwarding and saving
-    /// - parameter replyToMessageId:  If the message is a reply, ID of the original message
-    /// - parameter allowSendingWithoutReply:  Pass True if the message should be sent even if the specified replied-to message is not found
-    /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+    /// - parameter messageEffectId:  Unique identifier of the message effect to be added to the message; for private chats only
+    /// - parameter replyParameters:  Description of the message to reply to
+    /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendMessage(chatId: ChatId, messageThreadId: Int? = nil, text: String, parseMode: String? = nil, entities: [MessageEntity]? = nil, disableWebPagePreview: Bool? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, replyToMessageId: Int? = nil, allowSendingWithoutReply: Bool? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static public func sendMessage(businessConnectionId: String? = nil, chatId: ChatId, messageThreadId: Int? = nil, text: String, parseMode: String? = nil, entities: [MessageEntity]? = nil, linkPreviewOptions: LinkPreviewOptions? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, messageEffectId: String? = nil, replyParameters: ReplyParameters? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
+        parameters["business_connection_id"] = businessConnectionId
         parameters["chat_id"] = chatId
         parameters["message_thread_id"] = messageThreadId
         parameters["text"] = text
         parameters["parse_mode"] = parseMode
         parameters["entities"] = entities
-        parameters["disable_web_page_preview"] = disableWebPagePreview
+        parameters["link_preview_options"] = linkPreviewOptions
         parameters["disable_notification"] = disableNotification
         parameters["protect_content"] = protectContent
-        parameters["reply_to_message_id"] = replyToMessageId
-        parameters["allow_sending_without_reply"] = allowSendingWithoutReply
+        parameters["message_effect_id"] = messageEffectId
+        parameters["reply_parameters"] = replyParameters
         parameters["reply_markup"] = replyMarkup
         return Request(method: "sendMessage", body: parameters)
     }
 
-    /// Use this method to forward messages of any kind. Service messages can’t be forwarded. On success, the sent Message is returned.
+    /// Use this method to forward messages of any kind. Service messages and messages with protected content can’t be forwarded. On success, the sent Message is returned.
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter messageThreadId:  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
@@ -150,7 +152,29 @@ public struct TelegramAPI {
         return Request(method: "forwardMessage", body: parameters)
     }
 
-    /// Use this method to copy messages of any kind. Service messages and invoice messages can’t be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessage, but the copied message doesn’t have a link to the original message. Returns the MessageId of the sent message on success.
+    /// Use this method to forward multiple messages of any kind. If some of the specified messages can’t be found or forwarded, they are skipped. Service messages and messages with protected content can’t be forwarded. Album grouping is kept for forwarded messages. On success, an array of MessageId of the sent messages is returned.
+    ///
+    /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+    /// - parameter messageThreadId:  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+    /// - parameter fromChatId:  Unique identifier for the chat where the original messages were sent (or channel username in the format @channelusername)
+    /// - parameter messageIds:  A JSON-serialized list of 1-100 identifiers of messages in the chat from_chat_id to forward. The identifiers must be specified in a strictly increasing order.
+    /// - parameter disableNotification:  Sends the messages [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
+    /// - parameter protectContent:  Protects the contents of the forwarded messages from forwarding and saving
+    ///
+    /// - returns: The new `TelegramAPI.Request` instance.
+    ///
+    static public func forwardMessages(chatId: ChatId, messageThreadId: Int? = nil, fromChatId: ChatId, messageIds: [Int], disableNotification: Bool? = nil, protectContent: Bool? = nil) -> Request {
+        var parameters = [String: Any]()
+        parameters["chat_id"] = chatId
+        parameters["message_thread_id"] = messageThreadId
+        parameters["from_chat_id"] = fromChatId
+        parameters["message_ids"] = messageIds
+        parameters["disable_notification"] = disableNotification
+        parameters["protect_content"] = protectContent
+        return Request(method: "forwardMessages", body: parameters)
+    }
+
+    /// Use this method to copy messages of any kind. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can’t be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessage, but the copied message doesn’t have a link to the original message. Returns the MessageId of the sent message on success.
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter messageThreadId:  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
@@ -159,15 +183,15 @@ public struct TelegramAPI {
     /// - parameter caption:  New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept
     /// - parameter parseMode:  Mode for parsing entities in the new caption. See formatting options for more details.
     /// - parameter captionEntities:  A JSON-serialized list of special entities that appear in the new caption, which can be specified instead of parse_mode
+    /// - parameter showCaptionAboveMedia:  Pass True, if the caption must be shown above the message media. Ignored if a new caption isn’t specified.
     /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
     /// - parameter protectContent:  Protects the contents of the sent message from forwarding and saving
-    /// - parameter replyToMessageId:  If the message is a reply, ID of the original message
-    /// - parameter allowSendingWithoutReply:  Pass True if the message should be sent even if the specified replied-to message is not found
-    /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+    /// - parameter replyParameters:  Description of the message to reply to
+    /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func copyMessage(chatId: ChatId, messageThreadId: Int? = nil, fromChatId: ChatId, messageId: Int, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, replyToMessageId: Int? = nil, allowSendingWithoutReply: Bool? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static public func copyMessage(chatId: ChatId, messageThreadId: Int? = nil, fromChatId: ChatId, messageId: Int, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, showCaptionAboveMedia: Bool? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, replyParameters: ReplyParameters? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["message_thread_id"] = messageThreadId
@@ -176,50 +200,79 @@ public struct TelegramAPI {
         parameters["caption"] = caption
         parameters["parse_mode"] = parseMode
         parameters["caption_entities"] = captionEntities
+        parameters["show_caption_above_media"] = showCaptionAboveMedia
         parameters["disable_notification"] = disableNotification
         parameters["protect_content"] = protectContent
-        parameters["reply_to_message_id"] = replyToMessageId
-        parameters["allow_sending_without_reply"] = allowSendingWithoutReply
+        parameters["reply_parameters"] = replyParameters
         parameters["reply_markup"] = replyMarkup
         return Request(method: "copyMessage", body: parameters)
     }
 
+    /// Use this method to copy messages of any kind. If some of the specified messages can’t be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can’t be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessages, but the copied messages don’t have a link to the original message. Album grouping is kept for copied messages. On success, an array of MessageId of the sent messages is returned.
+    ///
+    /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+    /// - parameter messageThreadId:  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+    /// - parameter fromChatId:  Unique identifier for the chat where the original messages were sent (or channel username in the format @channelusername)
+    /// - parameter messageIds:  A JSON-serialized list of 1-100 identifiers of messages in the chat from_chat_id to copy. The identifiers must be specified in a strictly increasing order.
+    /// - parameter disableNotification:  Sends the messages [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
+    /// - parameter protectContent:  Protects the contents of the sent messages from forwarding and saving
+    /// - parameter removeCaption:  Pass True to copy the messages without their captions
+    ///
+    /// - returns: The new `TelegramAPI.Request` instance.
+    ///
+    static public func copyMessages(chatId: ChatId, messageThreadId: Int? = nil, fromChatId: ChatId, messageIds: [Int], disableNotification: Bool? = nil, protectContent: Bool? = nil, removeCaption: Bool? = nil) -> Request {
+        var parameters = [String: Any]()
+        parameters["chat_id"] = chatId
+        parameters["message_thread_id"] = messageThreadId
+        parameters["from_chat_id"] = fromChatId
+        parameters["message_ids"] = messageIds
+        parameters["disable_notification"] = disableNotification
+        parameters["protect_content"] = protectContent
+        parameters["remove_caption"] = removeCaption
+        return Request(method: "copyMessages", body: parameters)
+    }
+
     /// Use this method to send photos. On success, the sent Message is returned.
     ///
+    /// - parameter businessConnectionId:  Unique identifier of the business connection on behalf of which the message will be sent
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter messageThreadId:  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
     /// - parameter photo:  Photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. The photo must be at most 10 MB in size. The photo’s width and height must not exceed 10000 in total. Width and height ratio must be at most 20. More information on Sending Files »
     /// - parameter caption:  Photo caption (may also be used when resending photos by file_id), 0-1024 characters after entities parsing
     /// - parameter parseMode:  Mode for parsing entities in the photo caption. See formatting options for more details.
     /// - parameter captionEntities:  A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
+    /// - parameter showCaptionAboveMedia:  Pass True, if the caption must be shown above the message media
     /// - parameter hasSpoiler:  Pass True if the photo needs to be covered with a spoiler animation
     /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
     /// - parameter protectContent:  Protects the contents of the sent message from forwarding and saving
-    /// - parameter replyToMessageId:  If the message is a reply, ID of the original message
-    /// - parameter allowSendingWithoutReply:  Pass True if the message should be sent even if the specified replied-to message is not found
-    /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+    /// - parameter messageEffectId:  Unique identifier of the message effect to be added to the message; for private chats only
+    /// - parameter replyParameters:  Description of the message to reply to
+    /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendPhoto(chatId: ChatId, messageThreadId: Int? = nil, photo: FileOrPath, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, hasSpoiler: Bool? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, replyToMessageId: Int? = nil, allowSendingWithoutReply: Bool? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static public func sendPhoto(businessConnectionId: String? = nil, chatId: ChatId, messageThreadId: Int? = nil, photo: FileOrPath, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, showCaptionAboveMedia: Bool? = nil, hasSpoiler: Bool? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, messageEffectId: String? = nil, replyParameters: ReplyParameters? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
+        parameters["business_connection_id"] = businessConnectionId
         parameters["chat_id"] = chatId
         parameters["message_thread_id"] = messageThreadId
         parameters["photo"] = photo
         parameters["caption"] = caption
         parameters["parse_mode"] = parseMode
         parameters["caption_entities"] = captionEntities
+        parameters["show_caption_above_media"] = showCaptionAboveMedia
         parameters["has_spoiler"] = hasSpoiler
         parameters["disable_notification"] = disableNotification
         parameters["protect_content"] = protectContent
-        parameters["reply_to_message_id"] = replyToMessageId
-        parameters["allow_sending_without_reply"] = allowSendingWithoutReply
+        parameters["message_effect_id"] = messageEffectId
+        parameters["reply_parameters"] = replyParameters
         parameters["reply_markup"] = replyMarkup
         return Request(method: "sendPhoto", body: parameters)
     }
 
     /// For sending voice messages, use the sendVoice method instead.
     ///
+    /// - parameter businessConnectionId:  Unique identifier of the business connection on behalf of which the message will be sent
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter messageThreadId:  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
     /// - parameter audio:  Audio file to send. Pass a file_id as String to send an audio file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
@@ -232,14 +285,15 @@ public struct TelegramAPI {
     /// - parameter thumbnail:  Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail’s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More information on Sending Files »
     /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
     /// - parameter protectContent:  Protects the contents of the sent message from forwarding and saving
-    /// - parameter replyToMessageId:  If the message is a reply, ID of the original message
-    /// - parameter allowSendingWithoutReply:  Pass True if the message should be sent even if the specified replied-to message is not found
-    /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+    /// - parameter messageEffectId:  Unique identifier of the message effect to be added to the message; for private chats only
+    /// - parameter replyParameters:  Description of the message to reply to
+    /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendAudio(chatId: ChatId, messageThreadId: Int? = nil, audio: FileOrPath, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, duration: Int? = nil, performer: String? = nil, title: String? = nil, thumbnail: FileOrPath? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, replyToMessageId: Int? = nil, allowSendingWithoutReply: Bool? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static public func sendAudio(businessConnectionId: String? = nil, chatId: ChatId, messageThreadId: Int? = nil, audio: FileOrPath, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, duration: Int? = nil, performer: String? = nil, title: String? = nil, thumbnail: FileOrPath? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, messageEffectId: String? = nil, replyParameters: ReplyParameters? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
+        parameters["business_connection_id"] = businessConnectionId
         parameters["chat_id"] = chatId
         parameters["message_thread_id"] = messageThreadId
         parameters["audio"] = audio
@@ -252,14 +306,15 @@ public struct TelegramAPI {
         parameters["thumbnail"] = thumbnail
         parameters["disable_notification"] = disableNotification
         parameters["protect_content"] = protectContent
-        parameters["reply_to_message_id"] = replyToMessageId
-        parameters["allow_sending_without_reply"] = allowSendingWithoutReply
+        parameters["message_effect_id"] = messageEffectId
+        parameters["reply_parameters"] = replyParameters
         parameters["reply_markup"] = replyMarkup
         return Request(method: "sendAudio", body: parameters)
     }
 
     /// Use this method to send general files. On success, the sent Message is returned. Bots can currently send files of any type of up to 50 MB in size, this limit may be changed in the future.
     ///
+    /// - parameter businessConnectionId:  Unique identifier of the business connection on behalf of which the message will be sent
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter messageThreadId:  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
     /// - parameter document:  File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
@@ -270,14 +325,15 @@ public struct TelegramAPI {
     /// - parameter disableContentTypeDetection:  Disables automatic server-side content type detection for files uploaded using multipart/form-data
     /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
     /// - parameter protectContent:  Protects the contents of the sent message from forwarding and saving
-    /// - parameter replyToMessageId:  If the message is a reply, ID of the original message
-    /// - parameter allowSendingWithoutReply:  Pass True if the message should be sent even if the specified replied-to message is not found
-    /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+    /// - parameter messageEffectId:  Unique identifier of the message effect to be added to the message; for private chats only
+    /// - parameter replyParameters:  Description of the message to reply to
+    /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendDocument(chatId: ChatId, messageThreadId: Int? = nil, document: FileOrPath, thumbnail: FileOrPath? = nil, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, disableContentTypeDetection: Bool? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, replyToMessageId: Int? = nil, allowSendingWithoutReply: Bool? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static public func sendDocument(businessConnectionId: String? = nil, chatId: ChatId, messageThreadId: Int? = nil, document: FileOrPath, thumbnail: FileOrPath? = nil, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, disableContentTypeDetection: Bool? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, messageEffectId: String? = nil, replyParameters: ReplyParameters? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
+        parameters["business_connection_id"] = businessConnectionId
         parameters["chat_id"] = chatId
         parameters["message_thread_id"] = messageThreadId
         parameters["document"] = document
@@ -288,14 +344,15 @@ public struct TelegramAPI {
         parameters["disable_content_type_detection"] = disableContentTypeDetection
         parameters["disable_notification"] = disableNotification
         parameters["protect_content"] = protectContent
-        parameters["reply_to_message_id"] = replyToMessageId
-        parameters["allow_sending_without_reply"] = allowSendingWithoutReply
+        parameters["message_effect_id"] = messageEffectId
+        parameters["reply_parameters"] = replyParameters
         parameters["reply_markup"] = replyMarkup
         return Request(method: "sendDocument", body: parameters)
     }
 
     /// Use this method to send video files, Telegram clients support MPEG4 videos (other formats may be sent as Document). On success, the sent Message is returned. Bots can currently send video files of up to 50 MB in size, this limit may be changed in the future.
     ///
+    /// - parameter businessConnectionId:  Unique identifier of the business connection on behalf of which the message will be sent
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter messageThreadId:  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
     /// - parameter video:  Video to send. Pass a file_id as String to send a video that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a video from the Internet, or upload a new video using multipart/form-data. More information on Sending Files »
@@ -306,18 +363,20 @@ public struct TelegramAPI {
     /// - parameter caption:  Video caption (may also be used when resending videos by file_id), 0-1024 characters after entities parsing
     /// - parameter parseMode:  Mode for parsing entities in the video caption. See formatting options for more details.
     /// - parameter captionEntities:  A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
+    /// - parameter showCaptionAboveMedia:  Pass True, if the caption must be shown above the message media
     /// - parameter hasSpoiler:  Pass True if the video needs to be covered with a spoiler animation
     /// - parameter supportsStreaming:  Pass True if the uploaded video is suitable for streaming
     /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
     /// - parameter protectContent:  Protects the contents of the sent message from forwarding and saving
-    /// - parameter replyToMessageId:  If the message is a reply, ID of the original message
-    /// - parameter allowSendingWithoutReply:  Pass True if the message should be sent even if the specified replied-to message is not found
-    /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+    /// - parameter messageEffectId:  Unique identifier of the message effect to be added to the message; for private chats only
+    /// - parameter replyParameters:  Description of the message to reply to
+    /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendVideo(chatId: ChatId, messageThreadId: Int? = nil, video: FileOrPath, duration: Int? = nil, width: Int? = nil, height: Int? = nil, thumbnail: FileOrPath? = nil, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, hasSpoiler: Bool? = nil, supportsStreaming: Bool? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, replyToMessageId: Int? = nil, allowSendingWithoutReply: Bool? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static public func sendVideo(businessConnectionId: String? = nil, chatId: ChatId, messageThreadId: Int? = nil, video: FileOrPath, duration: Int? = nil, width: Int? = nil, height: Int? = nil, thumbnail: FileOrPath? = nil, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, showCaptionAboveMedia: Bool? = nil, hasSpoiler: Bool? = nil, supportsStreaming: Bool? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, messageEffectId: String? = nil, replyParameters: ReplyParameters? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
+        parameters["business_connection_id"] = businessConnectionId
         parameters["chat_id"] = chatId
         parameters["message_thread_id"] = messageThreadId
         parameters["video"] = video
@@ -328,18 +387,20 @@ public struct TelegramAPI {
         parameters["caption"] = caption
         parameters["parse_mode"] = parseMode
         parameters["caption_entities"] = captionEntities
+        parameters["show_caption_above_media"] = showCaptionAboveMedia
         parameters["has_spoiler"] = hasSpoiler
         parameters["supports_streaming"] = supportsStreaming
         parameters["disable_notification"] = disableNotification
         parameters["protect_content"] = protectContent
-        parameters["reply_to_message_id"] = replyToMessageId
-        parameters["allow_sending_without_reply"] = allowSendingWithoutReply
+        parameters["message_effect_id"] = messageEffectId
+        parameters["reply_parameters"] = replyParameters
         parameters["reply_markup"] = replyMarkup
         return Request(method: "sendVideo", body: parameters)
     }
 
     /// Use this method to send animation files (GIF or H.264/MPEG-4 AVC video without sound). On success, the sent Message is returned. Bots can currently send animation files of up to 50 MB in size, this limit may be changed in the future.
     ///
+    /// - parameter businessConnectionId:  Unique identifier of the business connection on behalf of which the message will be sent
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter messageThreadId:  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
     /// - parameter animation:  Animation to send. Pass a file_id as String to send an animation that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using multipart/form-data. More information on Sending Files »
@@ -350,17 +411,19 @@ public struct TelegramAPI {
     /// - parameter caption:  Animation caption (may also be used when resending animation by file_id), 0-1024 characters after entities parsing
     /// - parameter parseMode:  Mode for parsing entities in the animation caption. See formatting options for more details.
     /// - parameter captionEntities:  A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
+    /// - parameter showCaptionAboveMedia:  Pass True, if the caption must be shown above the message media
     /// - parameter hasSpoiler:  Pass True if the animation needs to be covered with a spoiler animation
     /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
     /// - parameter protectContent:  Protects the contents of the sent message from forwarding and saving
-    /// - parameter replyToMessageId:  If the message is a reply, ID of the original message
-    /// - parameter allowSendingWithoutReply:  Pass True if the message should be sent even if the specified replied-to message is not found
-    /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+    /// - parameter messageEffectId:  Unique identifier of the message effect to be added to the message; for private chats only
+    /// - parameter replyParameters:  Description of the message to reply to
+    /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendAnimation(chatId: ChatId, messageThreadId: Int? = nil, animation: FileOrPath, duration: Int? = nil, width: Int? = nil, height: Int? = nil, thumbnail: FileOrPath? = nil, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, hasSpoiler: Bool? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, replyToMessageId: Int? = nil, allowSendingWithoutReply: Bool? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static public func sendAnimation(businessConnectionId: String? = nil, chatId: ChatId, messageThreadId: Int? = nil, animation: FileOrPath, duration: Int? = nil, width: Int? = nil, height: Int? = nil, thumbnail: FileOrPath? = nil, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, showCaptionAboveMedia: Bool? = nil, hasSpoiler: Bool? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, messageEffectId: String? = nil, replyParameters: ReplyParameters? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
+        parameters["business_connection_id"] = businessConnectionId
         parameters["chat_id"] = chatId
         parameters["message_thread_id"] = messageThreadId
         parameters["animation"] = animation
@@ -371,17 +434,19 @@ public struct TelegramAPI {
         parameters["caption"] = caption
         parameters["parse_mode"] = parseMode
         parameters["caption_entities"] = captionEntities
+        parameters["show_caption_above_media"] = showCaptionAboveMedia
         parameters["has_spoiler"] = hasSpoiler
         parameters["disable_notification"] = disableNotification
         parameters["protect_content"] = protectContent
-        parameters["reply_to_message_id"] = replyToMessageId
-        parameters["allow_sending_without_reply"] = allowSendingWithoutReply
+        parameters["message_effect_id"] = messageEffectId
+        parameters["reply_parameters"] = replyParameters
         parameters["reply_markup"] = replyMarkup
         return Request(method: "sendAnimation", body: parameters)
     }
 
-    /// Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. For this to work, your audio must be in an .OGG file encoded with OPUS (other formats may be sent as Audio or Document). On success, the sent Message is returned. Bots can currently send voice messages of up to 50 MB in size, this limit may be changed in the future.
+    /// Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. For this to work, your audio must be in an .OGG file encoded with OPUS, or in .MP3 format, or in .M4A format (other formats may be sent as Audio or Document). On success, the sent Message is returned. Bots can currently send voice messages of up to 50 MB in size, this limit may be changed in the future.
     ///
+    /// - parameter businessConnectionId:  Unique identifier of the business connection on behalf of which the message will be sent
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter messageThreadId:  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
     /// - parameter voice:  Audio file to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
@@ -391,14 +456,15 @@ public struct TelegramAPI {
     /// - parameter duration:  Duration of the voice message in seconds
     /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
     /// - parameter protectContent:  Protects the contents of the sent message from forwarding and saving
-    /// - parameter replyToMessageId:  If the message is a reply, ID of the original message
-    /// - parameter allowSendingWithoutReply:  Pass True if the message should be sent even if the specified replied-to message is not found
-    /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+    /// - parameter messageEffectId:  Unique identifier of the message effect to be added to the message; for private chats only
+    /// - parameter replyParameters:  Description of the message to reply to
+    /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendVoice(chatId: ChatId, messageThreadId: Int? = nil, voice: FileOrPath, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, duration: Int? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, replyToMessageId: Int? = nil, allowSendingWithoutReply: Bool? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static public func sendVoice(businessConnectionId: String? = nil, chatId: ChatId, messageThreadId: Int? = nil, voice: FileOrPath, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, duration: Int? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, messageEffectId: String? = nil, replyParameters: ReplyParameters? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
+        parameters["business_connection_id"] = businessConnectionId
         parameters["chat_id"] = chatId
         parameters["message_thread_id"] = messageThreadId
         parameters["voice"] = voice
@@ -408,14 +474,15 @@ public struct TelegramAPI {
         parameters["duration"] = duration
         parameters["disable_notification"] = disableNotification
         parameters["protect_content"] = protectContent
-        parameters["reply_to_message_id"] = replyToMessageId
-        parameters["allow_sending_without_reply"] = allowSendingWithoutReply
+        parameters["message_effect_id"] = messageEffectId
+        parameters["reply_parameters"] = replyParameters
         parameters["reply_markup"] = replyMarkup
         return Request(method: "sendVoice", body: parameters)
     }
 
     /// As of [v.4.0](https://telegram.org/blog/video-messages-and-telescope), Telegram clients support rounded square MPEG4 videos of up to 1 minute long. Use this method to send video messages. On success, the sent Message is returned.
     ///
+    /// - parameter businessConnectionId:  Unique identifier of the business connection on behalf of which the message will be sent
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter messageThreadId:  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
     /// - parameter videoNote:  Video note to send. Pass a file_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. More information on Sending Files ». Sending video notes by a URL is currently unsupported
@@ -424,14 +491,15 @@ public struct TelegramAPI {
     /// - parameter thumbnail:  Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail’s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;. More information on Sending Files »
     /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
     /// - parameter protectContent:  Protects the contents of the sent message from forwarding and saving
-    /// - parameter replyToMessageId:  If the message is a reply, ID of the original message
-    /// - parameter allowSendingWithoutReply:  Pass True if the message should be sent even if the specified replied-to message is not found
-    /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+    /// - parameter messageEffectId:  Unique identifier of the message effect to be added to the message; for private chats only
+    /// - parameter replyParameters:  Description of the message to reply to
+    /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendVideoNote(chatId: ChatId, messageThreadId: Int? = nil, videoNote: FileOrPath, duration: Int? = nil, length: Int? = nil, thumbnail: FileOrPath? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, replyToMessageId: Int? = nil, allowSendingWithoutReply: Bool? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static public func sendVideoNote(businessConnectionId: String? = nil, chatId: ChatId, messageThreadId: Int? = nil, videoNote: FileOrPath, duration: Int? = nil, length: Int? = nil, thumbnail: FileOrPath? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, messageEffectId: String? = nil, replyParameters: ReplyParameters? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
+        parameters["business_connection_id"] = businessConnectionId
         parameters["chat_id"] = chatId
         parameters["message_thread_id"] = messageThreadId
         parameters["video_note"] = videoNote
@@ -440,56 +508,94 @@ public struct TelegramAPI {
         parameters["thumbnail"] = thumbnail
         parameters["disable_notification"] = disableNotification
         parameters["protect_content"] = protectContent
-        parameters["reply_to_message_id"] = replyToMessageId
-        parameters["allow_sending_without_reply"] = allowSendingWithoutReply
+        parameters["message_effect_id"] = messageEffectId
+        parameters["reply_parameters"] = replyParameters
         parameters["reply_markup"] = replyMarkup
         return Request(method: "sendVideoNote", body: parameters)
     }
 
+    /// Use this method to send paid media. On success, the sent Message is returned.
+    ///
+    /// - parameter businessConnectionId:  Unique identifier of the business connection on behalf of which the message will be sent
+    /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername). If the chat is a channel, all Telegram Star proceeds from this media will be credited to the chat’s balance. Otherwise, they will be credited to the bot’s balance.
+    /// - parameter starCount:  The number of Telegram Stars that must be paid to buy access to the media
+    /// - parameter media:  A JSON-serialized array describing the media to be sent; up to 10 items
+    /// - parameter caption:  Media caption, 0-1024 characters after entities parsing
+    /// - parameter parseMode:  Mode for parsing entities in the media caption. See formatting options for more details.
+    /// - parameter captionEntities:  A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
+    /// - parameter showCaptionAboveMedia:  Pass True, if the caption must be shown above the message media
+    /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
+    /// - parameter protectContent:  Protects the contents of the sent message from forwarding and saving
+    /// - parameter replyParameters:  Description of the message to reply to
+    /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
+    ///
+    /// - returns: The new `TelegramAPI.Request` instance.
+    ///
+    static public func sendPaidMedia(businessConnectionId: String? = nil, chatId: ChatId, starCount: Int, media: [InputPaidMedia], caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, showCaptionAboveMedia: Bool? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, replyParameters: ReplyParameters? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+        var parameters = [String: Any]()
+        parameters["business_connection_id"] = businessConnectionId
+        parameters["chat_id"] = chatId
+        parameters["star_count"] = starCount
+        parameters["media"] = media
+        parameters["caption"] = caption
+        parameters["parse_mode"] = parseMode
+        parameters["caption_entities"] = captionEntities
+        parameters["show_caption_above_media"] = showCaptionAboveMedia
+        parameters["disable_notification"] = disableNotification
+        parameters["protect_content"] = protectContent
+        parameters["reply_parameters"] = replyParameters
+        parameters["reply_markup"] = replyMarkup
+        return Request(method: "sendPaidMedia", body: parameters)
+    }
+
     /// Use this method to send a group of photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of Messages that were sent is returned.
     ///
+    /// - parameter businessConnectionId:  Unique identifier of the business connection on behalf of which the message will be sent
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter messageThreadId:  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
     /// - parameter media:  A JSON-serialized array describing messages to be sent, must include 2-10 items
     /// - parameter disableNotification:  Sends messages [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
     /// - parameter protectContent:  Protects the contents of the sent messages from forwarding and saving
-    /// - parameter replyToMessageId:  If the messages are a reply, ID of the original message
-    /// - parameter allowSendingWithoutReply:  Pass True if the message should be sent even if the specified replied-to message is not found
+    /// - parameter messageEffectId:  Unique identifier of the message effect to be added to the message; for private chats only
+    /// - parameter replyParameters:  Description of the message to reply to
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendMediaGroup(chatId: ChatId, messageThreadId: Int? = nil, media: [Either<InputMediaVideo, Either<InputMediaPhoto, Either<InputMediaDocument, InputMediaAudio>>>], disableNotification: Bool? = nil, protectContent: Bool? = nil, replyToMessageId: Int? = nil, allowSendingWithoutReply: Bool? = nil) -> Request {
+    static public func sendMediaGroup(businessConnectionId: String? = nil, chatId: ChatId, messageThreadId: Int? = nil, media: [Either<InputMediaVideo, Either<InputMediaPhoto, Either<InputMediaDocument, InputMediaAudio>>>], disableNotification: Bool? = nil, protectContent: Bool? = nil, messageEffectId: String? = nil, replyParameters: ReplyParameters? = nil) -> Request {
         var parameters = [String: Any]()
+        parameters["business_connection_id"] = businessConnectionId
         parameters["chat_id"] = chatId
         parameters["message_thread_id"] = messageThreadId
         parameters["media"] = media
         parameters["disable_notification"] = disableNotification
         parameters["protect_content"] = protectContent
-        parameters["reply_to_message_id"] = replyToMessageId
-        parameters["allow_sending_without_reply"] = allowSendingWithoutReply
+        parameters["message_effect_id"] = messageEffectId
+        parameters["reply_parameters"] = replyParameters
         return Request(method: "sendMediaGroup", body: parameters)
     }
 
     /// Use this method to send point on the map. On success, the sent Message is returned.
     ///
+    /// - parameter businessConnectionId:  Unique identifier of the business connection on behalf of which the message will be sent
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter messageThreadId:  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
     /// - parameter latitude:  Latitude of the location
     /// - parameter longitude:  Longitude of the location
     /// - parameter horizontalAccuracy:  The radius of uncertainty for the location, measured in meters; 0-1500
-    /// - parameter livePeriod:  Period in seconds for which the location will be updated (see [Live Locations](https://telegram.org/blog/live-locations), should be between 60 and 86400.
+    /// - parameter livePeriod:  Period in seconds during which the location will be updated (see [Live Locations](https://telegram.org/blog/live-locations), should be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely.
     /// - parameter heading:  For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
     /// - parameter proximityAlertRadius:  For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
     /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
     /// - parameter protectContent:  Protects the contents of the sent message from forwarding and saving
-    /// - parameter replyToMessageId:  If the message is a reply, ID of the original message
-    /// - parameter allowSendingWithoutReply:  Pass True if the message should be sent even if the specified replied-to message is not found
-    /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+    /// - parameter messageEffectId:  Unique identifier of the message effect to be added to the message; for private chats only
+    /// - parameter replyParameters:  Description of the message to reply to
+    /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendLocation(chatId: ChatId, messageThreadId: Int? = nil, latitude: Float, longitude: Float, horizontalAccuracy: Float? = nil, livePeriod: Int? = nil, heading: Int? = nil, proximityAlertRadius: Int? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, replyToMessageId: Int? = nil, allowSendingWithoutReply: Bool? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static public func sendLocation(businessConnectionId: String? = nil, chatId: ChatId, messageThreadId: Int? = nil, latitude: Float, longitude: Float, horizontalAccuracy: Float? = nil, livePeriod: Int? = nil, heading: Int? = nil, proximityAlertRadius: Int? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, messageEffectId: String? = nil, replyParameters: ReplyParameters? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
+        parameters["business_connection_id"] = businessConnectionId
         parameters["chat_id"] = chatId
         parameters["message_thread_id"] = messageThreadId
         parameters["latitude"] = latitude
@@ -500,14 +606,15 @@ public struct TelegramAPI {
         parameters["proximity_alert_radius"] = proximityAlertRadius
         parameters["disable_notification"] = disableNotification
         parameters["protect_content"] = protectContent
-        parameters["reply_to_message_id"] = replyToMessageId
-        parameters["allow_sending_without_reply"] = allowSendingWithoutReply
+        parameters["message_effect_id"] = messageEffectId
+        parameters["reply_parameters"] = replyParameters
         parameters["reply_markup"] = replyMarkup
         return Request(method: "sendLocation", body: parameters)
     }
 
     /// Use this method to send information about a venue. On success, the sent Message is returned.
     ///
+    /// - parameter businessConnectionId:  Unique identifier of the business connection on behalf of which the message will be sent
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter messageThreadId:  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
     /// - parameter latitude:  Latitude of the venue
@@ -520,14 +627,15 @@ public struct TelegramAPI {
     /// - parameter googlePlaceType:  Google Places type of the venue. (See [supported types](https://developers.google.com/places/web-service/supported_types).)
     /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
     /// - parameter protectContent:  Protects the contents of the sent message from forwarding and saving
-    /// - parameter replyToMessageId:  If the message is a reply, ID of the original message
-    /// - parameter allowSendingWithoutReply:  Pass True if the message should be sent even if the specified replied-to message is not found
-    /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+    /// - parameter messageEffectId:  Unique identifier of the message effect to be added to the message; for private chats only
+    /// - parameter replyParameters:  Description of the message to reply to
+    /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendVenue(chatId: ChatId, messageThreadId: Int? = nil, latitude: Float, longitude: Float, title: String, address: String, foursquareId: String? = nil, foursquareType: String? = nil, googlePlaceId: String? = nil, googlePlaceType: String? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, replyToMessageId: Int? = nil, allowSendingWithoutReply: Bool? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static public func sendVenue(businessConnectionId: String? = nil, chatId: ChatId, messageThreadId: Int? = nil, latitude: Float, longitude: Float, title: String, address: String, foursquareId: String? = nil, foursquareType: String? = nil, googlePlaceId: String? = nil, googlePlaceType: String? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, messageEffectId: String? = nil, replyParameters: ReplyParameters? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
+        parameters["business_connection_id"] = businessConnectionId
         parameters["chat_id"] = chatId
         parameters["message_thread_id"] = messageThreadId
         parameters["latitude"] = latitude
@@ -540,14 +648,15 @@ public struct TelegramAPI {
         parameters["google_place_type"] = googlePlaceType
         parameters["disable_notification"] = disableNotification
         parameters["protect_content"] = protectContent
-        parameters["reply_to_message_id"] = replyToMessageId
-        parameters["allow_sending_without_reply"] = allowSendingWithoutReply
+        parameters["message_effect_id"] = messageEffectId
+        parameters["reply_parameters"] = replyParameters
         parameters["reply_markup"] = replyMarkup
         return Request(method: "sendVenue", body: parameters)
     }
 
     /// Use this method to send phone contacts. On success, the sent Message is returned.
     ///
+    /// - parameter businessConnectionId:  Unique identifier of the business connection on behalf of which the message will be sent
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter messageThreadId:  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
     /// - parameter phoneNumber:  Contact’s phone number
@@ -556,14 +665,15 @@ public struct TelegramAPI {
     /// - parameter vcard:  Additional data about the contact in the form of a [vCard](https://en.wikipedia.org/wiki/VCard), 0-2048 bytes
     /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
     /// - parameter protectContent:  Protects the contents of the sent message from forwarding and saving
-    /// - parameter replyToMessageId:  If the message is a reply, ID of the original message
-    /// - parameter allowSendingWithoutReply:  Pass True if the message should be sent even if the specified replied-to message is not found
-    /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+    /// - parameter messageEffectId:  Unique identifier of the message effect to be added to the message; for private chats only
+    /// - parameter replyParameters:  Description of the message to reply to
+    /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendContact(chatId: ChatId, messageThreadId: Int? = nil, phoneNumber: String, firstName: String, lastName: String? = nil, vcard: String? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, replyToMessageId: Int? = nil, allowSendingWithoutReply: Bool? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static public func sendContact(businessConnectionId: String? = nil, chatId: ChatId, messageThreadId: Int? = nil, phoneNumber: String, firstName: String, lastName: String? = nil, vcard: String? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, messageEffectId: String? = nil, replyParameters: ReplyParameters? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
+        parameters["business_connection_id"] = businessConnectionId
         parameters["chat_id"] = chatId
         parameters["message_thread_id"] = messageThreadId
         parameters["phone_number"] = phoneNumber
@@ -572,41 +682,47 @@ public struct TelegramAPI {
         parameters["vcard"] = vcard
         parameters["disable_notification"] = disableNotification
         parameters["protect_content"] = protectContent
-        parameters["reply_to_message_id"] = replyToMessageId
-        parameters["allow_sending_without_reply"] = allowSendingWithoutReply
+        parameters["message_effect_id"] = messageEffectId
+        parameters["reply_parameters"] = replyParameters
         parameters["reply_markup"] = replyMarkup
         return Request(method: "sendContact", body: parameters)
     }
 
     /// Use this method to send a native poll. On success, the sent Message is returned.
     ///
+    /// - parameter businessConnectionId:  Unique identifier of the business connection on behalf of which the message will be sent
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter messageThreadId:  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
     /// - parameter question:  Poll question, 1-300 characters
-    /// - parameter options:  A JSON-serialized list of answer options, 2-10 strings 1-100 characters each
+    /// - parameter questionParseMode:  Mode for parsing entities in the question. See formatting options for more details. Currently, only custom emoji entities are allowed
+    /// - parameter questionEntities:  A JSON-serialized list of special entities that appear in the poll question. It can be specified instead of question_parse_mode
+    /// - parameter options:  A JSON-serialized list of 2-10 answer options
     /// - parameter isAnonymous:  True, if the poll needs to be anonymous, defaults to True
     /// - parameter type:  Poll type, “quiz” or “regular”, defaults to “regular”
     /// - parameter allowsMultipleAnswers:  True, if the poll allows multiple answers, ignored for polls in quiz mode, defaults to False
     /// - parameter correctOptionId:  0-based identifier of the correct answer option, required for polls in quiz mode
     /// - parameter explanation:  Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 characters with at most 2 line feeds after entities parsing
     /// - parameter explanationParseMode:  Mode for parsing entities in the explanation. See formatting options for more details.
-    /// - parameter explanationEntities:  A JSON-serialized list of special entities that appear in the poll explanation, which can be specified instead of parse_mode
+    /// - parameter explanationEntities:  A JSON-serialized list of special entities that appear in the poll explanation. It can be specified instead of explanation_parse_mode
     /// - parameter openPeriod:  Amount of time in seconds the poll will be active after creation, 5-600. Can’t be used together with close_date.
     /// - parameter closeDate:  Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 600 seconds in the future. Can’t be used together with open_period.
     /// - parameter isClosed:  Pass True if the poll needs to be immediately closed. This can be useful for poll preview.
     /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
     /// - parameter protectContent:  Protects the contents of the sent message from forwarding and saving
-    /// - parameter replyToMessageId:  If the message is a reply, ID of the original message
-    /// - parameter allowSendingWithoutReply:  Pass True if the message should be sent even if the specified replied-to message is not found
-    /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+    /// - parameter messageEffectId:  Unique identifier of the message effect to be added to the message; for private chats only
+    /// - parameter replyParameters:  Description of the message to reply to
+    /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendPoll(chatId: ChatId, messageThreadId: Int? = nil, question: String, options: [String], isAnonymous: Bool? = nil, type: String? = nil, allowsMultipleAnswers: Bool? = nil, correctOptionId: Int? = nil, explanation: String? = nil, explanationParseMode: String? = nil, explanationEntities: [MessageEntity]? = nil, openPeriod: Int? = nil, closeDate: Int? = nil, isClosed: Bool? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, replyToMessageId: Int? = nil, allowSendingWithoutReply: Bool? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static public func sendPoll(businessConnectionId: String? = nil, chatId: ChatId, messageThreadId: Int? = nil, question: String, questionParseMode: String? = nil, questionEntities: [MessageEntity]? = nil, options: [InputPollOption], isAnonymous: Bool? = nil, type: String? = nil, allowsMultipleAnswers: Bool? = nil, correctOptionId: Int? = nil, explanation: String? = nil, explanationParseMode: String? = nil, explanationEntities: [MessageEntity]? = nil, openPeriod: Int? = nil, closeDate: Int? = nil, isClosed: Bool? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, messageEffectId: String? = nil, replyParameters: ReplyParameters? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
+        parameters["business_connection_id"] = businessConnectionId
         parameters["chat_id"] = chatId
         parameters["message_thread_id"] = messageThreadId
         parameters["question"] = question
+        parameters["question_parse_mode"] = questionParseMode
+        parameters["question_entities"] = questionEntities
         parameters["options"] = options
         parameters["is_anonymous"] = isAnonymous
         parameters["type"] = type
@@ -620,52 +736,74 @@ public struct TelegramAPI {
         parameters["is_closed"] = isClosed
         parameters["disable_notification"] = disableNotification
         parameters["protect_content"] = protectContent
-        parameters["reply_to_message_id"] = replyToMessageId
-        parameters["allow_sending_without_reply"] = allowSendingWithoutReply
+        parameters["message_effect_id"] = messageEffectId
+        parameters["reply_parameters"] = replyParameters
         parameters["reply_markup"] = replyMarkup
         return Request(method: "sendPoll", body: parameters)
     }
 
     /// Use this method to send an animated emoji that will display a random value. On success, the sent Message is returned.
     ///
+    /// - parameter businessConnectionId:  Unique identifier of the business connection on behalf of which the message will be sent
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter messageThreadId:  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
     /// - parameter emoji:  Emoji on which the dice throw animation is based. Currently, must be one of “”, “”, “”, “”, “”, or “”. Dice can have values 1-6 for “”, “” and “”, values 1-5 for “” and “”, and values 1-64 for “”. Defaults to “”
     /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
     /// - parameter protectContent:  Protects the contents of the sent message from forwarding
-    /// - parameter replyToMessageId:  If the message is a reply, ID of the original message
-    /// - parameter allowSendingWithoutReply:  Pass True if the message should be sent even if the specified replied-to message is not found
-    /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+    /// - parameter messageEffectId:  Unique identifier of the message effect to be added to the message; for private chats only
+    /// - parameter replyParameters:  Description of the message to reply to
+    /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendDice(chatId: ChatId, messageThreadId: Int? = nil, emoji: String? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, replyToMessageId: Int? = nil, allowSendingWithoutReply: Bool? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static public func sendDice(businessConnectionId: String? = nil, chatId: ChatId, messageThreadId: Int? = nil, emoji: String? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, messageEffectId: String? = nil, replyParameters: ReplyParameters? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
         var parameters = [String: Any]()
+        parameters["business_connection_id"] = businessConnectionId
         parameters["chat_id"] = chatId
         parameters["message_thread_id"] = messageThreadId
         parameters["emoji"] = emoji
         parameters["disable_notification"] = disableNotification
         parameters["protect_content"] = protectContent
-        parameters["reply_to_message_id"] = replyToMessageId
-        parameters["allow_sending_without_reply"] = allowSendingWithoutReply
+        parameters["message_effect_id"] = messageEffectId
+        parameters["reply_parameters"] = replyParameters
         parameters["reply_markup"] = replyMarkup
         return Request(method: "sendDice", body: parameters)
     }
 
     /// We only recommend using this method when a response from the bot will take a noticeable amount of time to arrive.
     ///
+    /// - parameter businessConnectionId:  Unique identifier of the business connection on behalf of which the action will be sent
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-    /// - parameter messageThreadId:  Unique identifier for the target message thread; supergroups only
+    /// - parameter messageThreadId:  Unique identifier for the target message thread; for supergroups only
     /// - parameter action:  Type of action to broadcast. Choose one, depending on what the user is about to receive: typing for text messages, upload_photo for photos, record_video or upload_video for videos, record_voice or upload_voice for voice notes, upload_document for general files, choose_sticker for stickers, find_location for location data, record_video_note or upload_video_note for video notes.
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendChatAction(chatId: ChatId, messageThreadId: Int? = nil, action: String) -> Request {
+    static public func sendChatAction(businessConnectionId: String? = nil, chatId: ChatId, messageThreadId: Int? = nil, action: String) -> Request {
         var parameters = [String: Any]()
+        parameters["business_connection_id"] = businessConnectionId
         parameters["chat_id"] = chatId
         parameters["message_thread_id"] = messageThreadId
         parameters["action"] = action
         return Request(method: "sendChatAction", body: parameters)
+    }
+
+    /// Use this method to change the chosen reactions on a message. Service messages can’t be reacted to. Automatically forwarded messages from a channel to its discussion group have the same available reactions as messages in the channel. Bots can’t use paid reactions. Returns True on success.
+    ///
+    /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+    /// - parameter messageId:  Identifier of the target message. If the message belongs to a media group, the reaction is set to the first non-deleted message in the group instead.
+    /// - parameter reaction:  A JSON-serialized list of reaction types to set on the message. Currently, as non-premium users, bots can set up to one reaction per message. A custom emoji reaction can be used if it is either already present on the message or explicitly allowed by chat administrators. Paid reactions can’t be used by bots.
+    /// - parameter isBig:  Pass True to set the reaction with a big animation
+    ///
+    /// - returns: The new `TelegramAPI.Request` instance.
+    ///
+    static public func setMessageReaction(chatId: ChatId, messageId: Int, reaction: [ReactionType]? = nil, isBig: Bool? = nil) -> Request {
+        var parameters = [String: Any]()
+        parameters["chat_id"] = chatId
+        parameters["message_id"] = messageId
+        parameters["reaction"] = reaction
+        parameters["is_big"] = isBig
+        return Request(method: "setMessageReaction", body: parameters)
     }
 
     /// Use this method to get a list of profile pictures for a user. Returns a UserProfilePhotos object.
@@ -755,24 +893,24 @@ public struct TelegramAPI {
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter userId:  Unique identifier of the target user
     /// - parameter isAnonymous:  Pass True if the administrator’s presence in the chat is hidden
-    /// - parameter canManageChat:  Pass True if the administrator can access the chat event log, boost list in channels, see channel members, report spam messages, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
+    /// - parameter canManageChat:  Pass True if the administrator can access the chat event log, get boost list, see hidden supergroup and channel members, report spam messages and ignore slow mode. Implied by any other administrator privilege.
     /// - parameter canDeleteMessages:  Pass True if the administrator can delete messages of other users
     /// - parameter canManageVideoChats:  Pass True if the administrator can manage video chats
     /// - parameter canRestrictMembers:  Pass True if the administrator can restrict, ban or unban chat members, or access supergroup statistics
     /// - parameter canPromoteMembers:  Pass True if the administrator can add new administrators with a subset of their own privileges or demote administrators that they have promoted, directly or indirectly (promoted by administrators that were appointed by him)
     /// - parameter canChangeInfo:  Pass True if the administrator can change chat title, photo and other settings
     /// - parameter canInviteUsers:  Pass True if the administrator can invite new users to the chat
-    /// - parameter canPostMessages:  Pass True if the administrator can post messages in the channel, or access channel statistics; channels only
-    /// - parameter canEditMessages:  Pass True if the administrator can edit messages of other users and can pin messages; channels only
-    /// - parameter canPinMessages:  Pass True if the administrator can pin messages, supergroups only
-    /// - parameter canPostStories:  Pass True if the administrator can post stories in the channel; channels only
-    /// - parameter canEditStories:  Pass True if the administrator can edit stories posted by other users; channels only
-    /// - parameter canDeleteStories:  Pass True if the administrator can delete stories posted by other users; channels only
-    /// - parameter canManageTopics:  Pass True if the user is allowed to create, rename, close, and reopen forum topics, supergroups only
+    /// - parameter canPostStories:  Pass True if the administrator can post stories to the chat
+    /// - parameter canEditStories:  Pass True if the administrator can edit stories posted by other users, post stories to the chat page, pin chat stories, and access the chat’s story archive
+    /// - parameter canDeleteStories:  Pass True if the administrator can delete stories posted by other users
+    /// - parameter canPostMessages:  Pass True if the administrator can post messages in the channel, or access channel statistics; for channels only
+    /// - parameter canEditMessages:  Pass True if the administrator can edit messages of other users and can pin messages; for channels only
+    /// - parameter canPinMessages:  Pass True if the administrator can pin messages; for supergroups only
+    /// - parameter canManageTopics:  Pass True if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func promoteChatMember(chatId: ChatId, userId: Int, isAnonymous: Bool? = nil, canManageChat: Bool? = nil, canDeleteMessages: Bool? = nil, canManageVideoChats: Bool? = nil, canRestrictMembers: Bool? = nil, canPromoteMembers: Bool? = nil, canChangeInfo: Bool? = nil, canInviteUsers: Bool? = nil, canPostMessages: Bool? = nil, canEditMessages: Bool? = nil, canPinMessages: Bool? = nil, canPostStories: Bool? = nil, canEditStories: Bool? = nil, canDeleteStories: Bool? = nil, canManageTopics: Bool? = nil) -> Request {
+    static public func promoteChatMember(chatId: ChatId, userId: Int, isAnonymous: Bool? = nil, canManageChat: Bool? = nil, canDeleteMessages: Bool? = nil, canManageVideoChats: Bool? = nil, canRestrictMembers: Bool? = nil, canPromoteMembers: Bool? = nil, canChangeInfo: Bool? = nil, canInviteUsers: Bool? = nil, canPostStories: Bool? = nil, canEditStories: Bool? = nil, canDeleteStories: Bool? = nil, canPostMessages: Bool? = nil, canEditMessages: Bool? = nil, canPinMessages: Bool? = nil, canManageTopics: Bool? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["user_id"] = userId
@@ -784,12 +922,12 @@ public struct TelegramAPI {
         parameters["can_promote_members"] = canPromoteMembers
         parameters["can_change_info"] = canChangeInfo
         parameters["can_invite_users"] = canInviteUsers
-        parameters["can_post_messages"] = canPostMessages
-        parameters["can_edit_messages"] = canEditMessages
-        parameters["can_pin_messages"] = canPinMessages
         parameters["can_post_stories"] = canPostStories
         parameters["can_edit_stories"] = canEditStories
         parameters["can_delete_stories"] = canDeleteStories
+        parameters["can_post_messages"] = canPostMessages
+        parameters["can_edit_messages"] = canEditMessages
+        parameters["can_pin_messages"] = canPinMessages
         parameters["can_manage_topics"] = canManageTopics
         return Request(method: "promoteChatMember", body: parameters)
     }
@@ -908,6 +1046,40 @@ public struct TelegramAPI {
         return Request(method: "editChatInviteLink", body: parameters)
     }
 
+    /// Use this method to create a [subscription invite link](https://telegram.org/blog/superchannels-star-reactions-subscriptions#star-subscriptions) for a channel chat. The bot must have the can_invite_users administrator rights. The link can be edited using the method editChatSubscriptionInviteLink or revoked using the method revokeChatInviteLink. Returns the new invite link as a ChatInviteLink object.
+    ///
+    /// - parameter chatId:  Unique identifier for the target channel chat or username of the target channel (in the format @channelusername)
+    /// - parameter name:  Invite link name; 0-32 characters
+    /// - parameter subscriptionPeriod:  The number of seconds the subscription will be active for before the next payment. Currently, it must always be 2592000 (30 days).
+    /// - parameter subscriptionPrice:  The amount of Telegram Stars a user must pay initially and after each subsequent subscription period to be a member of the chat; 1-2500
+    ///
+    /// - returns: The new `TelegramAPI.Request` instance.
+    ///
+    static public func createChatSubscriptionInviteLink(chatId: ChatId, name: String? = nil, subscriptionPeriod: Int, subscriptionPrice: Int) -> Request {
+        var parameters = [String: Any]()
+        parameters["chat_id"] = chatId
+        parameters["name"] = name
+        parameters["subscription_period"] = subscriptionPeriod
+        parameters["subscription_price"] = subscriptionPrice
+        return Request(method: "createChatSubscriptionInviteLink", body: parameters)
+    }
+
+    /// Use this method to edit a subscription invite link created by the bot. The bot must have the can_invite_users administrator rights. Returns the edited invite link as a ChatInviteLink object.
+    ///
+    /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+    /// - parameter inviteLink:  The invite link to edit
+    /// - parameter name:  Invite link name; 0-32 characters
+    ///
+    /// - returns: The new `TelegramAPI.Request` instance.
+    ///
+    static public func editChatSubscriptionInviteLink(chatId: ChatId, inviteLink: String, name: String? = nil) -> Request {
+        var parameters = [String: Any]()
+        parameters["chat_id"] = chatId
+        parameters["invite_link"] = inviteLink
+        parameters["name"] = name
+        return Request(method: "editChatSubscriptionInviteLink", body: parameters)
+    }
+
     /// Use this method to revoke an invite link created by the bot. If the primary link is revoked, a new link is automatically generated. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns the revoked invite link as ChatInviteLink object.
     ///
     /// - parameter chatId:  Unique identifier of the target chat or username of the target channel (in the format @channelusername)
@@ -1006,14 +1178,16 @@ public struct TelegramAPI {
 
     /// Use this method to add a message to the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the ’can_pin_messages’ administrator right in a supergroup or ’can_edit_messages’ administrator right in a channel. Returns True on success.
     ///
+    /// - parameter businessConnectionId:  Unique identifier of the business connection on behalf of which the message will be pinned
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter messageId:  Identifier of a message to pin
     /// - parameter disableNotification:  Pass True if it is not necessary to send a notification to all chat members about the new pinned message. Notifications are always disabled in channels and private chats.
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func pinChatMessage(chatId: ChatId, messageId: Int, disableNotification: Bool? = nil) -> Request {
+    static public func pinChatMessage(businessConnectionId: String? = nil, chatId: ChatId, messageId: Int, disableNotification: Bool? = nil) -> Request {
         var parameters = [String: Any]()
+        parameters["business_connection_id"] = businessConnectionId
         parameters["chat_id"] = chatId
         parameters["message_id"] = messageId
         parameters["disable_notification"] = disableNotification
@@ -1022,13 +1196,15 @@ public struct TelegramAPI {
 
     /// Use this method to remove a message from the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the ’can_pin_messages’ administrator right in a supergroup or ’can_edit_messages’ administrator right in a channel. Returns True on success.
     ///
+    /// - parameter businessConnectionId:  Unique identifier of the business connection on behalf of which the message will be unpinned
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-    /// - parameter messageId:  Identifier of a message to unpin. If not specified, the most recent pinned message (by sending date) will be unpinned.
+    /// - parameter messageId:  Identifier of the message to unpin. Required if business_connection_id is specified. If not specified, the most recent pinned message (by sending date) will be unpinned.
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func unpinChatMessage(chatId: ChatId, messageId: Int? = nil) -> Request {
+    static public func unpinChatMessage(businessConnectionId: String? = nil, chatId: ChatId, messageId: Int? = nil) -> Request {
         var parameters = [String: Any]()
+        parameters["business_connection_id"] = businessConnectionId
         parameters["chat_id"] = chatId
         parameters["message_id"] = messageId
         return Request(method: "unpinChatMessage", body: parameters)
@@ -1058,7 +1234,7 @@ public struct TelegramAPI {
         return Request(method: "leaveChat", body: parameters)
     }
 
-    /// Use this method to get up to date information about the chat (current name of the user for one-on-one conversations, current username of a user, group or channel, etc.). Returns a Chat object on success.
+    /// Use this method to get up-to-date information about the chat. Returns a ChatFullInfo object on success.
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
     ///
@@ -1160,7 +1336,7 @@ public struct TelegramAPI {
         return Request(method: "createForumTopic", body: parameters)
     }
 
-    /// Use this method to edit name and icon of a topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have can_manage_topics administrator rights, unless it is the creator of the topic. Returns True on success.
+    /// Use this method to edit name and icon of a topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights, unless it is the creator of the topic. Returns True on success.
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
     /// - parameter messageThreadId:  Unique identifier for the target message thread of the forum topic
@@ -1234,7 +1410,7 @@ public struct TelegramAPI {
         return Request(method: "unpinAllForumTopicMessages", body: parameters)
     }
 
-    /// Use this method to edit the name of the ’General’ topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have can_manage_topics administrator rights. Returns True on success.
+    /// Use this method to edit the name of the ’General’ topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. Returns True on success.
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
     /// - parameter name:  New topic name, 1-128 characters
@@ -1326,6 +1502,32 @@ public struct TelegramAPI {
         parameters["url"] = url
         parameters["cache_time"] = cacheTime
         return Request(method: "answerCallbackQuery", body: parameters)
+    }
+
+    /// Use this method to get the list of boosts added to a chat by a user. Requires administrator rights in the chat. Returns a UserChatBoosts object.
+    ///
+    /// - parameter chatId:  Unique identifier for the chat or username of the channel (in the format @channelusername)
+    /// - parameter userId:  Unique identifier of the target user
+    ///
+    /// - returns: The new `TelegramAPI.Request` instance.
+    ///
+    static public func getUserChatBoosts(chatId: ChatId, userId: Int) -> Request {
+        var parameters = [String: Any]()
+        parameters["chat_id"] = chatId
+        parameters["user_id"] = userId
+        return Request(method: "getUserChatBoosts", body: parameters)
+    }
+
+    /// Use this method to get information about the connection of the bot with a business account. Returns a BusinessConnection object on success.
+    ///
+    /// - parameter businessConnectionId:  Unique identifier of the business connection
+    ///
+    /// - returns: The new `TelegramAPI.Request` instance.
+    ///
+    static public func getBusinessConnection(businessConnectionId: String) -> Request {
+        var parameters = [String: Any]()
+        parameters["business_connection_id"] = businessConnectionId
+        return Request(method: "getBusinessConnection", body: parameters)
     }
 
     /// Use this method to change the list of the bot’s commands. See this manual for more details about bot commands. Returns True on success.
@@ -1502,58 +1704,65 @@ public struct TelegramAPI {
         return Request(method: "getMyDefaultAdministratorRights", body: parameters)
     }
 
-    /// Use this method to edit text and game messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
+    /// Use this method to edit text and game messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
     ///
+    /// - parameter businessConnectionId:  Unique identifier of the business connection on behalf of which the message to be edited was sent
     /// - parameter chatId:  Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter messageId:  Required if inline_message_id is not specified. Identifier of the message to edit
     /// - parameter inlineMessageId:  Required if chat_id and message_id are not specified. Identifier of the inline message
     /// - parameter text:  New text of the message, 1-4096 characters after entities parsing
     /// - parameter parseMode:  Mode for parsing entities in the message text. See formatting options for more details.
     /// - parameter entities:  A JSON-serialized list of special entities that appear in message text, which can be specified instead of parse_mode
-    /// - parameter disableWebPagePreview:  Disables link previews for links in this message
+    /// - parameter linkPreviewOptions:  Link preview generation options for the message
     /// - parameter replyMarkup:  A JSON-serialized object for an inline keyboard.
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func editMessageText(chatId: ChatId? = nil, messageId: Int? = nil, inlineMessageId: String? = nil, text: String, parseMode: String? = nil, entities: [MessageEntity]? = nil, disableWebPagePreview: Bool? = nil, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
+    static public func editMessageText(businessConnectionId: String? = nil, chatId: ChatId? = nil, messageId: Int? = nil, inlineMessageId: String? = nil, text: String, parseMode: String? = nil, entities: [MessageEntity]? = nil, linkPreviewOptions: LinkPreviewOptions? = nil, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
         var parameters = [String: Any]()
+        parameters["business_connection_id"] = businessConnectionId
         parameters["chat_id"] = chatId
         parameters["message_id"] = messageId
         parameters["inline_message_id"] = inlineMessageId
         parameters["text"] = text
         parameters["parse_mode"] = parseMode
         parameters["entities"] = entities
-        parameters["disable_web_page_preview"] = disableWebPagePreview
+        parameters["link_preview_options"] = linkPreviewOptions
         parameters["reply_markup"] = replyMarkup
         return Request(method: "editMessageText", body: parameters)
     }
 
-    /// Use this method to edit captions of messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
+    /// Use this method to edit captions of messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
     ///
+    /// - parameter businessConnectionId:  Unique identifier of the business connection on behalf of which the message to be edited was sent
     /// - parameter chatId:  Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter messageId:  Required if inline_message_id is not specified. Identifier of the message to edit
     /// - parameter inlineMessageId:  Required if chat_id and message_id are not specified. Identifier of the inline message
     /// - parameter caption:  New caption of the message, 0-1024 characters after entities parsing
     /// - parameter parseMode:  Mode for parsing entities in the message caption. See formatting options for more details.
     /// - parameter captionEntities:  A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
+    /// - parameter showCaptionAboveMedia:  Pass True, if the caption must be shown above the message media. Supported only for animation, photo and video messages.
     /// - parameter replyMarkup:  A JSON-serialized object for an inline keyboard.
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func editMessageCaption(chatId: ChatId? = nil, messageId: Int? = nil, inlineMessageId: String? = nil, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
+    static public func editMessageCaption(businessConnectionId: String? = nil, chatId: ChatId? = nil, messageId: Int? = nil, inlineMessageId: String? = nil, caption: String? = nil, parseMode: String? = nil, captionEntities: [MessageEntity]? = nil, showCaptionAboveMedia: Bool? = nil, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
         var parameters = [String: Any]()
+        parameters["business_connection_id"] = businessConnectionId
         parameters["chat_id"] = chatId
         parameters["message_id"] = messageId
         parameters["inline_message_id"] = inlineMessageId
         parameters["caption"] = caption
         parameters["parse_mode"] = parseMode
         parameters["caption_entities"] = captionEntities
+        parameters["show_caption_above_media"] = showCaptionAboveMedia
         parameters["reply_markup"] = replyMarkup
         return Request(method: "editMessageCaption", body: parameters)
     }
 
-    /// Use this method to edit animation, audio, document, photo, or video messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo or a video otherwise. When an inline message is edited, a new file can’t be uploaded; use a previously uploaded file via its file_id or specify a URL. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
+    /// Use this method to edit animation, audio, document, photo, or video messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo or a video otherwise. When an inline message is edited, a new file can’t be uploaded; use a previously uploaded file via its file_id or specify a URL. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
     ///
+    /// - parameter businessConnectionId:  Unique identifier of the business connection on behalf of which the message to be edited was sent
     /// - parameter chatId:  Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter messageId:  Required if inline_message_id is not specified. Identifier of the message to edit
     /// - parameter inlineMessageId:  Required if chat_id and message_id are not specified. Identifier of the inline message
@@ -1562,8 +1771,9 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func editMessageMedia(chatId: ChatId? = nil, messageId: Int? = nil, inlineMessageId: String? = nil, media: InputMedia, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
+    static public func editMessageMedia(businessConnectionId: String? = nil, chatId: ChatId? = nil, messageId: Int? = nil, inlineMessageId: String? = nil, media: InputMedia, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
         var parameters = [String: Any]()
+        parameters["business_connection_id"] = businessConnectionId
         parameters["chat_id"] = chatId
         parameters["message_id"] = messageId
         parameters["inline_message_id"] = inlineMessageId
@@ -1574,11 +1784,13 @@ public struct TelegramAPI {
 
     /// Use this method to edit live location messages. A location can be edited until its live_period expires or editing is explicitly disabled by a call to stopMessageLiveLocation. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
     ///
+    /// - parameter businessConnectionId:  Unique identifier of the business connection on behalf of which the message to be edited was sent
     /// - parameter chatId:  Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter messageId:  Required if inline_message_id is not specified. Identifier of the message to edit
     /// - parameter inlineMessageId:  Required if chat_id and message_id are not specified. Identifier of the inline message
     /// - parameter latitude:  Latitude of new location
     /// - parameter longitude:  Longitude of new location
+    /// - parameter livePeriod:  New period in seconds during which the location can be updated, starting from the message send date. If 0x7FFFFFFF is specified, then the location can be updated forever. Otherwise, the new value must not exceed the current live_period by more than a day, and the live location expiration date must remain within the next 90 days. If not specified, then live_period remains unchanged
     /// - parameter horizontalAccuracy:  The radius of uncertainty for the location, measured in meters; 0-1500
     /// - parameter heading:  Direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
     /// - parameter proximityAlertRadius:  The maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
@@ -1586,13 +1798,15 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func editMessageLiveLocation(chatId: ChatId? = nil, messageId: Int? = nil, inlineMessageId: String? = nil, latitude: Float, longitude: Float, horizontalAccuracy: Float? = nil, heading: Int? = nil, proximityAlertRadius: Int? = nil, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
+    static public func editMessageLiveLocation(businessConnectionId: String? = nil, chatId: ChatId? = nil, messageId: Int? = nil, inlineMessageId: String? = nil, latitude: Float, longitude: Float, livePeriod: Int? = nil, horizontalAccuracy: Float? = nil, heading: Int? = nil, proximityAlertRadius: Int? = nil, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
         var parameters = [String: Any]()
+        parameters["business_connection_id"] = businessConnectionId
         parameters["chat_id"] = chatId
         parameters["message_id"] = messageId
         parameters["inline_message_id"] = inlineMessageId
         parameters["latitude"] = latitude
         parameters["longitude"] = longitude
+        parameters["live_period"] = livePeriod
         parameters["horizontal_accuracy"] = horizontalAccuracy
         parameters["heading"] = heading
         parameters["proximity_alert_radius"] = proximityAlertRadius
@@ -1602,6 +1816,7 @@ public struct TelegramAPI {
 
     /// Use this method to stop updating a live location message before live_period expires. On success, if the message is not an inline message, the edited Message is returned, otherwise True is returned.
     ///
+    /// - parameter businessConnectionId:  Unique identifier of the business connection on behalf of which the message to be edited was sent
     /// - parameter chatId:  Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter messageId:  Required if inline_message_id is not specified. Identifier of the message with live location to stop
     /// - parameter inlineMessageId:  Required if chat_id and message_id are not specified. Identifier of the inline message
@@ -1609,8 +1824,9 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func stopMessageLiveLocation(chatId: ChatId? = nil, messageId: Int? = nil, inlineMessageId: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
+    static public func stopMessageLiveLocation(businessConnectionId: String? = nil, chatId: ChatId? = nil, messageId: Int? = nil, inlineMessageId: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
         var parameters = [String: Any]()
+        parameters["business_connection_id"] = businessConnectionId
         parameters["chat_id"] = chatId
         parameters["message_id"] = messageId
         parameters["inline_message_id"] = inlineMessageId
@@ -1618,8 +1834,9 @@ public struct TelegramAPI {
         return Request(method: "stopMessageLiveLocation", body: parameters)
     }
 
-    /// Use this method to edit only the reply markup of messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
+    /// Use this method to edit only the reply markup of messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
     ///
+    /// - parameter businessConnectionId:  Unique identifier of the business connection on behalf of which the message to be edited was sent
     /// - parameter chatId:  Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter messageId:  Required if inline_message_id is not specified. Identifier of the message to edit
     /// - parameter inlineMessageId:  Required if chat_id and message_id are not specified. Identifier of the inline message
@@ -1627,8 +1844,9 @@ public struct TelegramAPI {
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func editMessageReplyMarkup(chatId: ChatId? = nil, messageId: Int? = nil, inlineMessageId: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
+    static public func editMessageReplyMarkup(businessConnectionId: String? = nil, chatId: ChatId? = nil, messageId: Int? = nil, inlineMessageId: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
         var parameters = [String: Any]()
+        parameters["business_connection_id"] = businessConnectionId
         parameters["chat_id"] = chatId
         parameters["message_id"] = messageId
         parameters["inline_message_id"] = inlineMessageId
@@ -1638,14 +1856,16 @@ public struct TelegramAPI {
 
     /// Use this method to stop a poll which was sent by the bot. On success, the stopped Poll is returned.
     ///
+    /// - parameter businessConnectionId:  Unique identifier of the business connection on behalf of which the message to be edited was sent
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     /// - parameter messageId:  Identifier of the original message with the poll
     /// - parameter replyMarkup:  A JSON-serialized object for a new message inline keyboard.
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func stopPoll(chatId: ChatId, messageId: Int, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
+    static public func stopPoll(businessConnectionId: String? = nil, chatId: ChatId, messageId: Int, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
         var parameters = [String: Any]()
+        parameters["business_connection_id"] = businessConnectionId
         parameters["chat_id"] = chatId
         parameters["message_id"] = messageId
         parameters["reply_markup"] = replyMarkup
@@ -1666,30 +1886,46 @@ public struct TelegramAPI {
         return Request(method: "deleteMessage", body: parameters)
     }
 
-    /// Use this method to send static .WEBP, [animated](https://telegram.org/blog/animated-stickers) .TGS, or [video](https://telegram.org/blog/video-stickers-better-reactions) .WEBM stickers. On success, the sent Message is returned.
+    /// Use this method to delete multiple messages simultaneously. If some of the specified messages can’t be found, they are skipped. Returns True on success.
     ///
     /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-    /// - parameter messageThreadId:  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
-    /// - parameter sticker:  Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP sticker from the Internet, or upload a new .WEBP or .TGS sticker using multipart/form-data. More information on Sending Files ». Video stickers can only be sent by a file_id. Animated stickers can’t be sent via an HTTP URL.
-    /// - parameter emoji:  Emoji associated with the sticker; only for just uploaded stickers
-    /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
-    /// - parameter protectContent:  Protects the contents of the sent message from forwarding and saving
-    /// - parameter replyToMessageId:  If the message is a reply, ID of the original message
-    /// - parameter allowSendingWithoutReply:  Pass True if the message should be sent even if the specified replied-to message is not found
-    /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+    /// - parameter messageIds:  A JSON-serialized list of 1-100 identifiers of messages to delete. See deleteMessage for limitations on which messages can be deleted
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendSticker(chatId: ChatId, messageThreadId: Int? = nil, sticker: FileOrPath, emoji: String? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, replyToMessageId: Int? = nil, allowSendingWithoutReply: Bool? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+    static public func deleteMessages(chatId: ChatId, messageIds: [Int]) -> Request {
         var parameters = [String: Any]()
+        parameters["chat_id"] = chatId
+        parameters["message_ids"] = messageIds
+        return Request(method: "deleteMessages", body: parameters)
+    }
+
+    /// Use this method to send static .WEBP, [animated](https://telegram.org/blog/animated-stickers) .TGS, or [video](https://telegram.org/blog/video-stickers-better-reactions) .WEBM stickers. On success, the sent Message is returned.
+    ///
+    /// - parameter businessConnectionId:  Unique identifier of the business connection on behalf of which the message will be sent
+    /// - parameter chatId:  Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+    /// - parameter messageThreadId:  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+    /// - parameter sticker:  Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP sticker from the Internet, or upload a new .WEBP, .TGS, or .WEBM sticker using multipart/form-data. More information on Sending Files ». Video and animated stickers can’t be sent via an HTTP URL.
+    /// - parameter emoji:  Emoji associated with the sticker; only for just uploaded stickers
+    /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
+    /// - parameter protectContent:  Protects the contents of the sent message from forwarding and saving
+    /// - parameter messageEffectId:  Unique identifier of the message effect to be added to the message; for private chats only
+    /// - parameter replyParameters:  Description of the message to reply to
+    /// - parameter replyMarkup:  Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
+    ///
+    /// - returns: The new `TelegramAPI.Request` instance.
+    ///
+    static public func sendSticker(businessConnectionId: String? = nil, chatId: ChatId, messageThreadId: Int? = nil, sticker: FileOrPath, emoji: String? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, messageEffectId: String? = nil, replyParameters: ReplyParameters? = nil, replyMarkup: ReplyMarkup? = nil) -> Request {
+        var parameters = [String: Any]()
+        parameters["business_connection_id"] = businessConnectionId
         parameters["chat_id"] = chatId
         parameters["message_thread_id"] = messageThreadId
         parameters["sticker"] = sticker
         parameters["emoji"] = emoji
         parameters["disable_notification"] = disableNotification
         parameters["protect_content"] = protectContent
-        parameters["reply_to_message_id"] = replyToMessageId
-        parameters["allow_sending_without_reply"] = allowSendingWithoutReply
+        parameters["message_effect_id"] = messageEffectId
+        parameters["reply_parameters"] = replyParameters
         parameters["reply_markup"] = replyMarkup
         return Request(method: "sendSticker", body: parameters)
     }
@@ -1708,7 +1944,7 @@ public struct TelegramAPI {
 
     /// Use this method to get information about custom emoji stickers by their identifiers. Returns an Array of Sticker objects.
     ///
-    /// - parameter customEmojiIds:  List of custom emoji identifiers. At most 200 custom emoji identifiers can be specified.
+    /// - parameter customEmojiIds:  A JSON-serialized list of custom emoji identifiers. At most 200 custom emoji identifiers can be specified.
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
@@ -1718,7 +1954,7 @@ public struct TelegramAPI {
         return Request(method: "getCustomEmojiStickers", body: parameters)
     }
 
-    /// Use this method to upload a file with a sticker for later use in the createNewStickerSet and addStickerToSet methods (the file can be used multiple times). Returns the uploaded File on success.
+    /// Use this method to upload a file with a sticker for later use in the createNewStickerSet, addStickerToSet, or replaceStickerInSet methods (the file can be used multiple times). Returns the uploaded File on success.
     ///
     /// - parameter userId:  User identifier of sticker file owner
     /// - parameter sticker:  A file with the sticker in .WEBP, .PNG, .TGS, or .WEBM format. See [https://core.telegram.org/stickers](https://core.telegram.org/stickers) for technical requirements. More information on Sending Files »
@@ -1740,25 +1976,23 @@ public struct TelegramAPI {
     /// - parameter name:  Short name of sticker set, to be used in t.me/addstickers/ URLs (e.g., animals). Can contain only English letters, digits and underscores. Must begin with a letter, can’t contain consecutive underscores and must end in &quot;_by_&lt;bot_username&gt;&quot;. &lt;bot_username&gt; is case insensitive. 1-64 characters.
     /// - parameter title:  Sticker set title, 1-64 characters
     /// - parameter stickers:  A JSON-serialized list of 1-50 initial stickers to be added to the sticker set
-    /// - parameter stickerFormat:  Format of stickers in the set, must be one of “static”, “animated”, “video”
     /// - parameter stickerType:  Type of stickers in the set, pass “regular”, “mask”, or “custom_emoji”. By default, a regular sticker set is created.
     /// - parameter needsRepainting:  Pass True if stickers in the sticker set must be repainted to the color of text when used in messages, the accent color if used as emoji status, white on chat photos, or another appropriate color based on context; for custom emoji sticker sets only
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func createNewStickerSet(userId: Int, name: String, title: String, stickers: [InputSticker], stickerFormat: String, stickerType: String? = nil, needsRepainting: Bool? = nil) -> Request {
+    static public func createNewStickerSet(userId: Int, name: String, title: String, stickers: [InputSticker], stickerType: String? = nil, needsRepainting: Bool? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["user_id"] = userId
         parameters["name"] = name
         parameters["title"] = title
         parameters["stickers"] = stickers
-        parameters["sticker_format"] = stickerFormat
         parameters["sticker_type"] = stickerType
         parameters["needs_repainting"] = needsRepainting
         return Request(method: "createNewStickerSet", body: parameters)
     }
 
-    /// Use this method to add a new sticker to a set created by the bot. The format of the added sticker must match the format of the other stickers in the set. Emoji sticker sets can have up to 200 stickers. Animated and video sticker sets can have up to 50 stickers. Static sticker sets can have up to 120 stickers. Returns True on success.
+    /// Use this method to add a new sticker to a set created by the bot. Emoji sticker sets can have up to 200 stickers. Other sticker sets can have up to 120 stickers. Returns True on success.
     ///
     /// - parameter userId:  User identifier of sticker set owner
     /// - parameter name:  Sticker set name
@@ -1798,6 +2032,24 @@ public struct TelegramAPI {
         var parameters = [String: Any]()
         parameters["sticker"] = sticker
         return Request(method: "deleteStickerFromSet", body: parameters)
+    }
+
+    /// Use this method to replace an existing sticker in a sticker set with a new one. The method is equivalent to calling deleteStickerFromSet, then addStickerToSet, then setStickerPositionInSet. Returns True on success.
+    ///
+    /// - parameter userId:  User identifier of the sticker set owner
+    /// - parameter name:  Sticker set name
+    /// - parameter oldSticker:  File identifier of the replaced sticker
+    /// - parameter sticker:  A JSON-serialized object with information about the added sticker. If exactly the same sticker had already been added to the set, then the set remains unchanged.
+    ///
+    /// - returns: The new `TelegramAPI.Request` instance.
+    ///
+    static public func replaceStickerInSet(userId: Int, name: String, oldSticker: String, sticker: InputSticker) -> Request {
+        var parameters = [String: Any]()
+        parameters["user_id"] = userId
+        parameters["name"] = name
+        parameters["old_sticker"] = oldSticker
+        parameters["sticker"] = sticker
+        return Request(method: "replaceStickerInSet", body: parameters)
     }
 
     /// Use this method to change the list of emoji assigned to a regular or custom emoji sticker. The sticker must belong to a sticker set created by the bot. Returns True on success.
@@ -1860,15 +2112,17 @@ public struct TelegramAPI {
     ///
     /// - parameter name:  Sticker set name
     /// - parameter userId:  User identifier of the sticker set owner
-    /// - parameter thumbnail:  A .WEBP or .PNG image with the thumbnail, must be up to 128 kilobytes in size and have a width and height of exactly 100px, or a .TGS animation with a thumbnail up to 32 kilobytes in size (see [https://core.telegram.org/stickers#animated-sticker-requirements](https://core.telegram.org/stickers#animated-sticker-requirements) for animated sticker technical requirements), or a WEBM video with the thumbnail up to 32 kilobytes in size; see [https://core.telegram.org/stickers#video-sticker-requirements](https://core.telegram.org/stickers#video-sticker-requirements) for video sticker technical requirements. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files ». Animated and video sticker set thumbnails can’t be uploaded via HTTP URL. If omitted, then the thumbnail is dropped and the first sticker is used as the thumbnail.
+    /// - parameter thumbnail:  A .WEBP or .PNG image with the thumbnail, must be up to 128 kilobytes in size and have a width and height of exactly 100px, or a .TGS animation with a thumbnail up to 32 kilobytes in size (see [https://core.telegram.org/stickers#animation-requirements](https://core.telegram.org/stickers#animation-requirements) for animated sticker technical requirements), or a WEBM video with the thumbnail up to 32 kilobytes in size; see [https://core.telegram.org/stickers#video-requirements](https://core.telegram.org/stickers#video-requirements) for video sticker technical requirements. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files ». Animated and video sticker set thumbnails can’t be uploaded via HTTP URL. If omitted, then the thumbnail is dropped and the first sticker is used as the thumbnail.
+    /// - parameter format:  Format of the thumbnail, must be one of “static” for a .WEBP or .PNG image, “animated” for a .TGS animation, or “video” for a WEBM video
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func setStickerSetThumbnail(name: String, userId: Int, thumbnail: FileOrPath? = nil) -> Request {
+    static public func setStickerSetThumbnail(name: String, userId: Int, thumbnail: FileOrPath? = nil, format: String) -> Request {
         var parameters = [String: Any]()
         parameters["name"] = name
         parameters["user_id"] = userId
         parameters["thumbnail"] = thumbnail
+        parameters["format"] = format
         return Request(method: "setStickerSetThumbnail", body: parameters)
     }
 
@@ -1941,10 +2195,10 @@ public struct TelegramAPI {
     /// - parameter title:  Product name, 1-32 characters
     /// - parameter description:  Product description, 1-255 characters
     /// - parameter payload:  Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal processes.
-    /// - parameter providerToken:  Payment provider token, obtained via [@BotFather](https://t.me/botfather)
-    /// - parameter currency:  Three-letter ISO 4217 currency code, see more on currencies
-    /// - parameter prices:  Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.)
-    /// - parameter maxTipAmount:  The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0
+    /// - parameter providerToken:  Payment provider token, obtained via [@BotFather](https://t.me/botfather). Pass an empty string for payments in [Telegram Stars](https://t.me/BotNews/90).
+    /// - parameter currency:  Three-letter ISO 4217 currency code, see more on currencies. Pass “XTR” for payments in [Telegram Stars](https://t.me/BotNews/90).
+    /// - parameter prices:  Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.). Must contain exactly one item for payments in [Telegram Stars](https://t.me/BotNews/90).
+    /// - parameter maxTipAmount:  The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0. Not supported for payments in [Telegram Stars](https://t.me/BotNews/90).
     /// - parameter suggestedTipAmounts:  A JSON-serialized array of suggested amounts of tips in the smallest units of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount.
     /// - parameter startParameter:  Unique deep-linking parameter. If left empty, forwarded copies of the sent message will have a Pay button, allowing multiple users to pay directly from the forwarded message, using the same invoice. If non-empty, forwarded copies of the sent message will have a URL button with a deep link to the bot (instead of a Pay button), with the value used as the start parameter
     /// - parameter providerData:  JSON-serialized data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider.
@@ -1952,22 +2206,22 @@ public struct TelegramAPI {
     /// - parameter photoSize:  Photo size in bytes
     /// - parameter photoWidth:  Photo width
     /// - parameter photoHeight:  Photo height
-    /// - parameter needName:  Pass True if you require the user’s full name to complete the order
-    /// - parameter needPhoneNumber:  Pass True if you require the user’s phone number to complete the order
-    /// - parameter needEmail:  Pass True if you require the user’s email address to complete the order
-    /// - parameter needShippingAddress:  Pass True if you require the user’s shipping address to complete the order
-    /// - parameter sendPhoneNumberToProvider:  Pass True if the user’s phone number should be sent to provider
-    /// - parameter sendEmailToProvider:  Pass True if the user’s email address should be sent to provider
-    /// - parameter isFlexible:  Pass True if the final price depends on the shipping method
+    /// - parameter needName:  Pass True if you require the user’s full name to complete the order. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
+    /// - parameter needPhoneNumber:  Pass True if you require the user’s phone number to complete the order. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
+    /// - parameter needEmail:  Pass True if you require the user’s email address to complete the order. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
+    /// - parameter needShippingAddress:  Pass True if you require the user’s shipping address to complete the order. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
+    /// - parameter sendPhoneNumberToProvider:  Pass True if the user’s phone number should be sent to the provider. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
+    /// - parameter sendEmailToProvider:  Pass True if the user’s email address should be sent to the provider. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
+    /// - parameter isFlexible:  Pass True if the final price depends on the shipping method. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
     /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
     /// - parameter protectContent:  Protects the contents of the sent message from forwarding and saving
-    /// - parameter replyToMessageId:  If the message is a reply, ID of the original message
-    /// - parameter allowSendingWithoutReply:  Pass True if the message should be sent even if the specified replied-to message is not found
+    /// - parameter messageEffectId:  Unique identifier of the message effect to be added to the message; for private chats only
+    /// - parameter replyParameters:  Description of the message to reply to
     /// - parameter replyMarkup:  A JSON-serialized object for an inline keyboard. If empty, one ’Pay total price’ button will be shown. If not empty, the first button must be a Pay button.
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendInvoice(chatId: ChatId, messageThreadId: Int? = nil, title: String, description: String, payload: String, providerToken: String, currency: String, prices: [LabeledPrice], maxTipAmount: Int? = nil, suggestedTipAmounts: [Int]? = nil, startParameter: String? = nil, providerData: String? = nil, photoUrl: String? = nil, photoSize: Int? = nil, photoWidth: Int? = nil, photoHeight: Int? = nil, needName: Bool? = nil, needPhoneNumber: Bool? = nil, needEmail: Bool? = nil, needShippingAddress: Bool? = nil, sendPhoneNumberToProvider: Bool? = nil, sendEmailToProvider: Bool? = nil, isFlexible: Bool? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, replyToMessageId: Int? = nil, allowSendingWithoutReply: Bool? = nil, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
+    static public func sendInvoice(chatId: ChatId, messageThreadId: Int? = nil, title: String, description: String, payload: String, providerToken: String? = nil, currency: String, prices: [LabeledPrice], maxTipAmount: Int? = nil, suggestedTipAmounts: [Int]? = nil, startParameter: String? = nil, providerData: String? = nil, photoUrl: String? = nil, photoSize: Int? = nil, photoWidth: Int? = nil, photoHeight: Int? = nil, needName: Bool? = nil, needPhoneNumber: Bool? = nil, needEmail: Bool? = nil, needShippingAddress: Bool? = nil, sendPhoneNumberToProvider: Bool? = nil, sendEmailToProvider: Bool? = nil, isFlexible: Bool? = nil, disableNotification: Bool? = nil, protectContent: Bool? = nil, messageEffectId: String? = nil, replyParameters: ReplyParameters? = nil, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["chat_id"] = chatId
         parameters["message_thread_id"] = messageThreadId
@@ -1994,8 +2248,8 @@ public struct TelegramAPI {
         parameters["is_flexible"] = isFlexible
         parameters["disable_notification"] = disableNotification
         parameters["protect_content"] = protectContent
-        parameters["reply_to_message_id"] = replyToMessageId
-        parameters["allow_sending_without_reply"] = allowSendingWithoutReply
+        parameters["message_effect_id"] = messageEffectId
+        parameters["reply_parameters"] = replyParameters
         parameters["reply_markup"] = replyMarkup
         return Request(method: "sendInvoice", body: parameters)
     }
@@ -2005,27 +2259,27 @@ public struct TelegramAPI {
     /// - parameter title:  Product name, 1-32 characters
     /// - parameter description:  Product description, 1-255 characters
     /// - parameter payload:  Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal processes.
-    /// - parameter providerToken:  Payment provider token, obtained via [BotFather](https://t.me/botfather)
-    /// - parameter currency:  Three-letter ISO 4217 currency code, see more on currencies
-    /// - parameter prices:  Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.)
-    /// - parameter maxTipAmount:  The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0
+    /// - parameter providerToken:  Payment provider token, obtained via [@BotFather](https://t.me/botfather). Pass an empty string for payments in [Telegram Stars](https://t.me/BotNews/90).
+    /// - parameter currency:  Three-letter ISO 4217 currency code, see more on currencies. Pass “XTR” for payments in [Telegram Stars](https://t.me/BotNews/90).
+    /// - parameter prices:  Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.). Must contain exactly one item for payments in [Telegram Stars](https://t.me/BotNews/90).
+    /// - parameter maxTipAmount:  The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0. Not supported for payments in [Telegram Stars](https://t.me/BotNews/90).
     /// - parameter suggestedTipAmounts:  A JSON-serialized array of suggested amounts of tips in the smallest units of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount.
     /// - parameter providerData:  JSON-serialized data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider.
     /// - parameter photoUrl:  URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service.
     /// - parameter photoSize:  Photo size in bytes
     /// - parameter photoWidth:  Photo width
     /// - parameter photoHeight:  Photo height
-    /// - parameter needName:  Pass True if you require the user’s full name to complete the order
-    /// - parameter needPhoneNumber:  Pass True if you require the user’s phone number to complete the order
-    /// - parameter needEmail:  Pass True if you require the user’s email address to complete the order
-    /// - parameter needShippingAddress:  Pass True if you require the user’s shipping address to complete the order
-    /// - parameter sendPhoneNumberToProvider:  Pass True if the user’s phone number should be sent to the provider
-    /// - parameter sendEmailToProvider:  Pass True if the user’s email address should be sent to the provider
-    /// - parameter isFlexible:  Pass True if the final price depends on the shipping method
+    /// - parameter needName:  Pass True if you require the user’s full name to complete the order. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
+    /// - parameter needPhoneNumber:  Pass True if you require the user’s phone number to complete the order. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
+    /// - parameter needEmail:  Pass True if you require the user’s email address to complete the order. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
+    /// - parameter needShippingAddress:  Pass True if you require the user’s shipping address to complete the order. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
+    /// - parameter sendPhoneNumberToProvider:  Pass True if the user’s phone number should be sent to the provider. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
+    /// - parameter sendEmailToProvider:  Pass True if the user’s email address should be sent to the provider. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
+    /// - parameter isFlexible:  Pass True if the final price depends on the shipping method. Ignored for payments in [Telegram Stars](https://t.me/BotNews/90).
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func createInvoiceLink(title: String, description: String, payload: String, providerToken: String, currency: String, prices: [LabeledPrice], maxTipAmount: Int? = nil, suggestedTipAmounts: [Int]? = nil, providerData: String? = nil, photoUrl: String? = nil, photoSize: Int? = nil, photoWidth: Int? = nil, photoHeight: Int? = nil, needName: Bool? = nil, needPhoneNumber: Bool? = nil, needEmail: Bool? = nil, needShippingAddress: Bool? = nil, sendPhoneNumberToProvider: Bool? = nil, sendEmailToProvider: Bool? = nil, isFlexible: Bool? = nil) -> Request {
+    static public func createInvoiceLink(title: String, description: String, payload: String, providerToken: String? = nil, currency: String, prices: [LabeledPrice], maxTipAmount: Int? = nil, suggestedTipAmounts: [Int]? = nil, providerData: String? = nil, photoUrl: String? = nil, photoSize: Int? = nil, photoWidth: Int? = nil, photoHeight: Int? = nil, needName: Bool? = nil, needPhoneNumber: Bool? = nil, needEmail: Bool? = nil, needShippingAddress: Bool? = nil, sendPhoneNumberToProvider: Bool? = nil, sendEmailToProvider: Bool? = nil, isFlexible: Bool? = nil) -> Request {
         var parameters = [String: Any]()
         parameters["title"] = title
         parameters["description"] = description
@@ -2084,6 +2338,34 @@ public struct TelegramAPI {
         return Request(method: "answerPreCheckoutQuery", body: parameters)
     }
 
+    /// Returns the bot’s Telegram Star transactions in chronological order. On success, returns a StarTransactions object.
+    ///
+    /// - parameter offset:  Number of transactions to skip in the response
+    /// - parameter limit:  The maximum number of transactions to be retrieved. Values between 1-100 are accepted. Defaults to 100.
+    ///
+    /// - returns: The new `TelegramAPI.Request` instance.
+    ///
+    static public func getStarTransactions(offset: Int? = nil, limit: Int? = nil) -> Request {
+        var parameters = [String: Any]()
+        parameters["offset"] = offset
+        parameters["limit"] = limit
+        return Request(method: "getStarTransactions", body: parameters)
+    }
+
+    /// Refunds a successful payment in [Telegram Stars](https://t.me/BotNews/90). Returns True on success.
+    ///
+    /// - parameter userId:  Identifier of the user whose payment will be refunded
+    /// - parameter telegramPaymentChargeId:  Telegram payment identifier
+    ///
+    /// - returns: The new `TelegramAPI.Request` instance.
+    ///
+    static public func refundStarPayment(userId: Int, telegramPaymentChargeId: String) -> Request {
+        var parameters = [String: Any]()
+        parameters["user_id"] = userId
+        parameters["telegram_payment_charge_id"] = telegramPaymentChargeId
+        return Request(method: "refundStarPayment", body: parameters)
+    }
+
     /// Use this if the data submitted by the user doesn’t satisfy the standards your service requires for any reason. For example, if a birthday date seems invalid, a submitted document is blurry, a scan shows evidence of tampering, etc. Supply some details in the error message to make sure the user knows how to correct the issues.
     ///
     /// - parameter userId:  User identifier
@@ -2100,26 +2382,28 @@ public struct TelegramAPI {
 
     /// Use this method to send a game. On success, the sent Message is returned.
     ///
+    /// - parameter businessConnectionId:  Unique identifier of the business connection on behalf of which the message will be sent
     /// - parameter chatId:  Unique identifier for the target chat
     /// - parameter messageThreadId:  Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
     /// - parameter gameShortName:  Short name of the game, serves as the unique identifier for the game. Set up your games via [@BotFather](https://t.me/botfather).
     /// - parameter disableNotification:  Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
     /// - parameter protectContent:  Protects the contents of the sent message from forwarding and saving
-    /// - parameter replyToMessageId:  If the message is a reply, ID of the original message
-    /// - parameter allowSendingWithoutReply:  Pass True if the message should be sent even if the specified replied-to message is not found
+    /// - parameter messageEffectId:  Unique identifier of the message effect to be added to the message; for private chats only
+    /// - parameter replyParameters:  Description of the message to reply to
     /// - parameter replyMarkup:  A JSON-serialized object for an inline keyboard. If empty, one ’Play game_title’ button will be shown. If not empty, the first button must launch the game.
     ///
     /// - returns: The new `TelegramAPI.Request` instance.
     ///
-    static public func sendGame(chatId: Int, messageThreadId: Int? = nil, gameShortName: String, disableNotification: Bool? = nil, protectContent: Bool? = nil, replyToMessageId: Int? = nil, allowSendingWithoutReply: Bool? = nil, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
+    static public func sendGame(businessConnectionId: String? = nil, chatId: Int, messageThreadId: Int? = nil, gameShortName: String, disableNotification: Bool? = nil, protectContent: Bool? = nil, messageEffectId: String? = nil, replyParameters: ReplyParameters? = nil, replyMarkup: InlineKeyboardMarkup? = nil) -> Request {
         var parameters = [String: Any]()
+        parameters["business_connection_id"] = businessConnectionId
         parameters["chat_id"] = chatId
         parameters["message_thread_id"] = messageThreadId
         parameters["game_short_name"] = gameShortName
         parameters["disable_notification"] = disableNotification
         parameters["protect_content"] = protectContent
-        parameters["reply_to_message_id"] = replyToMessageId
-        parameters["allow_sending_without_reply"] = allowSendingWithoutReply
+        parameters["message_effect_id"] = messageEffectId
+        parameters["reply_parameters"] = replyParameters
         parameters["reply_markup"] = replyMarkup
         return Request(method: "sendGame", body: parameters)
     }
