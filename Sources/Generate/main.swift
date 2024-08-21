@@ -14,16 +14,18 @@ let today = dateFormatter.string(from: Date())
 
 func commonPrefix(in strings: [String]) -> String {
     guard let first = strings.first else { return "" }
-    return strings.reduce(first) { commonPrefix, str in
+    let prefix = strings.reduce(first) { commonPrefix, str in
         String(zip(commonPrefix, str).prefix(while: { $0.0 == $0.1 }).map { $0.0 })
     }
+    return strings.contains(prefix) ? "" : prefix
 }
 
 func commonSuffix(in strings: [String]) -> String {
     guard let first = strings.first else { return "" }
-    return strings.reduce(first) { commonSuffix, str in
+    let suffix = strings.reduce(first) { commonSuffix, str in
         String(zip(commonSuffix.reversed(), str.reversed()).prefix(while: { $0.0 == $0.1 }).map { $0.0 }.reversed())
     }
+    return strings.contains(suffix) ? "" : suffix
 }
 
 class ParsingController {

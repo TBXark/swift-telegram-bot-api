@@ -10,7 +10,6 @@ import Foundation
 
 extension TelegramAPI {
 
-
     /// Telegram Request wrapper
     /// Authorizing your bot
     ///
@@ -139,7 +138,7 @@ extension TelegramAPI {
             }
         }
     }
-    
+
     /// ReplyMarkup: InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply
     public enum ReplyMarkup: Codable {
 
@@ -1507,35 +1506,35 @@ extension TelegramAPI {
     /// This object describes a message that can be inaccessible to the bot. It can be one of
     public enum MaybeInaccessibleMessage: Codable {
 
-        case (Message)
-        case inaccessible(InaccessibleMessage)
+        case message(Message)
+        case inaccessibleMessage(InaccessibleMessage)
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            if let  = try? container.decode(Message.self) {
-                self = .()
-            } else if let inaccessible = try? container.decode(InaccessibleMessage.self) {
-                self = .inaccessible(inaccessible)
+            if let message = try? container.decode(Message.self) {
+                self = .message(message)
+            } else if let inaccessibleMessage = try? container.decode(InaccessibleMessage.self) {
+                self = .inaccessibleMessage(inaccessibleMessage)
             } else {
                 throw NSError(domain: "org.telegram.api", code: -1, userInfo: ["name": "MaybeInaccessibleMessage"])
             }
         }
 
-        public init(_ : Message) {
-            self = .()
+        public init(_ message: Message) {
+            self = .message(message)
         }
 
-        public init(_ inaccessible: InaccessibleMessage) {
-            self = .inaccessible(inaccessible)
+        public init(_ inaccessibleMessage: InaccessibleMessage) {
+            self = .inaccessibleMessage(inaccessibleMessage)
         }
 
         public func encode(to encoder: Encoder) throws {
             var container = encoder.singleValueContainer()
             switch self {
-            case .(let ):
-                try container.encode()
-            case .inaccessible(let inaccessible):
-                try container.encode(inaccessible)
+            case .message(let message):
+                try container.encode(message)
+            case .inaccessibleMessage(let inaccessibleMessage):
+                try container.encode(inaccessibleMessage)
             }
         }
     }
