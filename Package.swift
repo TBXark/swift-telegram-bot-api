@@ -5,13 +5,11 @@ import PackageDescription
 let package = Package(
     name: "TelegramBotAPI",
     products: [
-        .executable(name: "Generate", targets: ["Generate"]),
         .library(name: "TelegramBotAPI", targets: ["TelegramBotAPI"])
     ],
     dependencies: [
     ],
     targets: [
-        .target(name: "Generate", dependencies: []),
         .target(name: "TelegramBotAPI", dependencies: [])
     ]
 )
