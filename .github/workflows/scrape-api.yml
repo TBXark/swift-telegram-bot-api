@@ -1,0 +1,39 @@
+
+name: Scrape API
+
+on:
+    workflow_dispatch: {}
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.23'
+
+    - name: Generate
+      run: |
+        make init
+        make gen
+        make test
+    
+    - name: Open Pull Request
+      uses: peter-evans/create-pull-request@v6
+      with:
+        commit-message: >
+          chore: Bump bot API version
+        title: >
+          Update bot API docs based on the latest changes
+        body: >
+          This is an automated PR. Please check the diff, and the action logs, to check for any funky behaviour.
+        branch: automated/bot-api-update
+        reviewers: TBXark
+        assignees: TBXark
+        labels: automated
+        delete-branch: true
