@@ -11644,7 +11644,7 @@ extension TelegramAPI {
         public let ok: Bool
         /** Array of ShippingOption | Required if ok is True. A JSON-serialized array of available shipping options. */
         public let shipping_options: Array<ShippingOption>?
-        /** String | Required if ok is False. Error message in human readable form that explains why it is impossible to complete the order (e.g. "Sorry, delivery to your desired address is unavailable'). Telegram will display this message to the user. */
+        /** String | Required if ok is False. Error message in human readable form that explains why it is impossible to complete the order (e.g. "Sorry, delivery to your desired address is unavailable"). Telegram will display this message to the user. */
         public let error_message: String?
         public init(shipping_query_id: String ,ok: Bool ,shipping_options: Array<ShippingOption>? = nil ,error_message: String? = nil) {
             self.shipping_query_id = shipping_query_id
