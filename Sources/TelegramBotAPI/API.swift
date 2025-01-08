@@ -22,54 +22,54 @@ public struct TelegramAPI {
 extension TelegramAPI {
     public enum ChatType: String, Codable {
         case `private` = "private"
-        case `group` = "group"
-        case `supergroup` = "supergroup"
-        case `channel` = "channel"
+        case group = "group"
+        case supergroup = "supergroup"
+        case channel = "channel"
     }
 }
 
 extension TelegramAPI {
     public enum ChatAction: String, Codable {
-        case `typing` = "typing"
-        case `upload_photo` = "upload_photo"
-        case `record_video` = "record_video"
-        case `upload_video` = "upload_video"
-        case `record_voice` = "record_voice"
-        case `upload_voice` = "upload_voice"
-        case `upload_document` = "upload_document"
-        case `find_location` = "find_location"
-        case `record_video_note` = "record_video_note"
-        case `upload_video_note` = "upload_video_note"
+        case typing = "typing"
+        case upload_photo = "upload_photo"
+        case record_video = "record_video"
+        case upload_video = "upload_video"
+        case record_voice = "record_voice"
+        case upload_voice = "upload_voice"
+        case upload_document = "upload_document"
+        case find_location = "find_location"
+        case record_video_note = "record_video_note"
+        case upload_video_note = "upload_video_note"
     }
 }
 
 extension TelegramAPI {
     public enum MessageEntityType: String, Codable {
-        case `mention` = "mention"
-        case `hashtag` = "hashtag"
-        case `cashtag` = "cashtag"
-        case `bot_command` = "bot_command"
-        case `url` = "url"
-        case `email` = "email"
-        case `phone_number` = "phone_number"
-        case `bold` = "bold"
-        case `italic` = "italic"
-        case `underline` = "underline"
-        case `strikethrough` = "strikethrough"
-        case `code` = "code"
-        case `pre` = "pre"
-        case `text_link` = "text_link"
-        case `text_mention` = "text_mention"
-        case `spoiler` = "spoiler"
-        case `custom_emoji` = "custom_emoji"
+        case mention = "mention"
+        case hashtag = "hashtag"
+        case cashtag = "cashtag"
+        case bot_command = "bot_command"
+        case url = "url"
+        case email = "email"
+        case phone_number = "phone_number"
+        case bold = "bold"
+        case italic = "italic"
+        case underline = "underline"
+        case strikethrough = "strikethrough"
+        case code = "code"
+        case pre = "pre"
+        case text_link = "text_link"
+        case text_mention = "text_mention"
+        case spoiler = "spoiler"
+        case custom_emoji = "custom_emoji"
     }
 }
 
 extension TelegramAPI {
     public enum ParseMode: String, Codable {
-        case `Markdown` = "Markdown"
-        case `MarkdownV2` = "MarkdownV2"
-        case `HTML` = "HTML"
+        case Markdown = "Markdown"
+        case MarkdownV2 = "MarkdownV2"
+        case HTML = "HTML"
     }
 }
 
@@ -128,7 +128,8 @@ extension TelegramAPI {
         public let chat_boost: ChatBoostUpdated?
         /** ChatBoostRemoved | Optional. A boost was removed from a chat. The bot must be an administrator in the chat to receive these updates. */
         public let removed_chat_boost: ChatBoostRemoved?
-        public init(update_id: Int ,message: Message? = nil ,edited_message: Message? = nil ,channel_post: Message? = nil ,edited_channel_post: Message? = nil ,business_connection: BusinessConnection? = nil ,business_message: Message? = nil ,edited_business_message: Message? = nil ,deleted_business_messages: BusinessMessagesDeleted? = nil ,message_reaction: MessageReactionUpdated? = nil ,message_reaction_count: MessageReactionCountUpdated? = nil ,inline_query: InlineQuery? = nil ,chosen_inline_result: ChosenInlineResult? = nil ,callback_query: CallbackQuery? = nil ,shipping_query: ShippingQuery? = nil ,pre_checkout_query: PreCheckoutQuery? = nil ,purchased_paid_media: PaidMediaPurchased? = nil ,poll: Poll? = nil ,poll_answer: PollAnswer? = nil ,my_chat_member: ChatMemberUpdated? = nil ,chat_member: ChatMemberUpdated? = nil ,chat_join_request: ChatJoinRequest? = nil ,chat_boost: ChatBoostUpdated? = nil ,removed_chat_boost: ChatBoostRemoved? = nil) {
+
+        public init(update_id: Int, message: Message? = nil, edited_message: Message? = nil, channel_post: Message? = nil, edited_channel_post: Message? = nil, business_connection: BusinessConnection? = nil, business_message: Message? = nil, edited_business_message: Message? = nil, deleted_business_messages: BusinessMessagesDeleted? = nil, message_reaction: MessageReactionUpdated? = nil, message_reaction_count: MessageReactionCountUpdated? = nil, inline_query: InlineQuery? = nil, chosen_inline_result: ChosenInlineResult? = nil, callback_query: CallbackQuery? = nil, shipping_query: ShippingQuery? = nil, pre_checkout_query: PreCheckoutQuery? = nil, purchased_paid_media: PaidMediaPurchased? = nil, poll: Poll? = nil, poll_answer: PollAnswer? = nil, my_chat_member: ChatMemberUpdated? = nil, chat_member: ChatMemberUpdated? = nil, chat_join_request: ChatJoinRequest? = nil, chat_boost: ChatBoostUpdated? = nil, removed_chat_boost: ChatBoostRemoved? = nil) {
             self.update_id = update_id
             self.message = message
             self.edited_message = edited_message
@@ -181,7 +182,8 @@ extension TelegramAPI {
         public let max_connections: Int?
         /** Array of String | Optional. A list of update types the bot is subscribed to. Defaults to all update types except chat_member */
         public let allowed_updates: Array<String>?
-        public init(url: String ,has_custom_certificate: Bool ,pending_update_count: Int ,ip_address: String? = nil ,last_error_date: Int? = nil ,last_error_message: String? = nil ,last_synchronization_error_date: Int? = nil ,max_connections: Int? = nil ,allowed_updates: Array<String>? = nil) {
+
+        public init(url: String, has_custom_certificate: Bool, pending_update_count: Int, ip_address: String? = nil, last_error_date: Int? = nil, last_error_message: String? = nil, last_synchronization_error_date: Int? = nil, max_connections: Int? = nil, allowed_updates: Array<String>? = nil) {
             self.url = url
             self.has_custom_certificate = has_custom_certificate
             self.pending_update_count = pending_update_count
@@ -227,7 +229,8 @@ extension TelegramAPI {
         public let can_connect_to_business: Bool?
         /** Boolean | Optional. True, if the bot has a main Web App. Returned only in getMe. */
         public let has_main_web_app: Bool?
-        public init(id: Int ,is_bot: Bool ,first_name: String ,last_name: String? = nil ,username: String? = nil ,language_code: String? = nil ,is_premium: Bool? = nil ,added_to_attachment_menu: Bool? = nil ,can_join_groups: Bool? = nil ,can_read_all_group_messages: Bool? = nil ,supports_inline_queries: Bool? = nil ,can_connect_to_business: Bool? = nil ,has_main_web_app: Bool? = nil) {
+
+        public init(id: Int, is_bot: Bool, first_name: String, last_name: String? = nil, username: String? = nil, language_code: String? = nil, is_premium: Bool? = nil, added_to_attachment_menu: Bool? = nil, can_join_groups: Bool? = nil, can_read_all_group_messages: Bool? = nil, supports_inline_queries: Bool? = nil, can_connect_to_business: Bool? = nil, has_main_web_app: Bool? = nil) {
             self.id = id
             self.is_bot = is_bot
             self.first_name = first_name
@@ -265,7 +268,8 @@ extension TelegramAPI {
         public let last_name: String?
         /** Boolean | Optional. True, if the supergroup chat is a forum (has topics enabled) */
         public let is_forum: Bool?
-        public init(id: Int ,type: ChatType ,title: String? = nil ,username: String? = nil ,first_name: String? = nil ,last_name: String? = nil ,is_forum: Bool? = nil) {
+
+        public init(id: Int, type: ChatType, title: String? = nil, username: String? = nil, first_name: String? = nil, last_name: String? = nil, is_forum: Bool? = nil) {
             self.id = id
             self.type = type
             self.title = title
@@ -371,7 +375,8 @@ extension TelegramAPI {
         public let linked_chat_id: Int?
         /** ChatLocation | Optional. For supergroups, the location to which the supergroup is connected */
         public let location: ChatLocation?
-        public init(id: Int ,type: ChatType ,title: String? = nil ,username: String? = nil ,first_name: String? = nil ,last_name: String? = nil ,is_forum: Bool? = nil ,accent_color_id: Int ,max_reaction_count: Int ,photo: ChatPhoto? = nil ,active_usernames: Array<String>? = nil ,birthdate: Birthdate? = nil ,business_intro: BusinessIntro? = nil ,business_location: BusinessLocation? = nil ,business_opening_hours: BusinessOpeningHours? = nil ,personal_chat: Chat? = nil ,available_reactions: Array<ReactionType>? = nil ,background_custom_emoji_id: String? = nil ,profile_accent_color_id: Int? = nil ,profile_background_custom_emoji_id: String? = nil ,emoji_status_custom_emoji_id: String? = nil ,emoji_status_expiration_date: Int? = nil ,bio: String? = nil ,has_private_forwards: Bool? = nil ,has_restricted_voice_and_video_messages: Bool? = nil ,join_to_send_messages: Bool? = nil ,join_by_request: Bool? = nil ,description: String? = nil ,invite_link: String? = nil ,pinned_message: Message? = nil ,permissions: ChatPermissions? = nil ,can_send_paid_media: Bool? = nil ,slow_mode_delay: Int? = nil ,unrestrict_boost_count: Int? = nil ,message_auto_delete_time: Int? = nil ,has_aggressive_anti_spam_enabled: Bool? = nil ,has_hidden_members: Bool? = nil ,has_protected_content: Bool? = nil ,has_visible_history: Bool? = nil ,sticker_set_name: String? = nil ,can_set_sticker_set: Bool? = nil ,custom_emoji_sticker_set_name: String? = nil ,linked_chat_id: Int? = nil ,location: ChatLocation? = nil) {
+
+        public init(id: Int, type: ChatType, title: String? = nil, username: String? = nil, first_name: String? = nil, last_name: String? = nil, is_forum: Bool? = nil, accent_color_id: Int, max_reaction_count: Int, photo: ChatPhoto? = nil, active_usernames: Array<String>? = nil, birthdate: Birthdate? = nil, business_intro: BusinessIntro? = nil, business_location: BusinessLocation? = nil, business_opening_hours: BusinessOpeningHours? = nil, personal_chat: Chat? = nil, available_reactions: Array<ReactionType>? = nil, background_custom_emoji_id: String? = nil, profile_accent_color_id: Int? = nil, profile_background_custom_emoji_id: String? = nil, emoji_status_custom_emoji_id: String? = nil, emoji_status_expiration_date: Int? = nil, bio: String? = nil, has_private_forwards: Bool? = nil, has_restricted_voice_and_video_messages: Bool? = nil, join_to_send_messages: Bool? = nil, join_by_request: Bool? = nil, description: String? = nil, invite_link: String? = nil, pinned_message: Message? = nil, permissions: ChatPermissions? = nil, can_send_paid_media: Bool? = nil, slow_mode_delay: Int? = nil, unrestrict_boost_count: Int? = nil, message_auto_delete_time: Int? = nil, has_aggressive_anti_spam_enabled: Bool? = nil, has_hidden_members: Bool? = nil, has_protected_content: Bool? = nil, has_visible_history: Bool? = nil, sticker_set_name: String? = nil, can_set_sticker_set: Bool? = nil, custom_emoji_sticker_set_name: String? = nil, linked_chat_id: Int? = nil, location: ChatLocation? = nil) {
             self.id = id
             self.type = type
             self.title = title
@@ -596,7 +601,8 @@ extension TelegramAPI {
         public let web_app_data: WebAppData?
         /** InlineKeyboardMarkup | Optional. Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons. */
         public let reply_markup: InlineKeyboardMarkup?
-        public init(message_id: Int ,message_thread_id: Int? = nil ,from: User? = nil ,sender_chat: Chat? = nil ,sender_boost_count: Int? = nil ,sender_business_bot: User? = nil ,date: Int ,business_connection_id: String? = nil ,chat: Chat ,forward_origin: MessageOrigin? = nil ,is_topic_message: Bool? = nil ,is_automatic_forward: Bool? = nil ,reply_to_message: ValueWrapper<Message>? = nil ,external_reply: ExternalReplyInfo? = nil ,quote: TextQuote? = nil ,reply_to_story: Story? = nil ,via_bot: User? = nil ,edit_date: Int? = nil ,has_protected_content: Bool? = nil ,is_from_offline: Bool? = nil ,media_group_id: String? = nil ,author_signature: String? = nil ,text: String? = nil ,entities: Array<MessageEntity>? = nil ,link_preview_options: LinkPreviewOptions? = nil ,effect_id: String? = nil ,animation: Animation? = nil ,audio: Audio? = nil ,document: Document? = nil ,paid_media: PaidMediaInfo? = nil ,photo: Array<PhotoSize>? = nil ,sticker: Sticker? = nil ,story: Story? = nil ,video: Video? = nil ,video_note: VideoNote? = nil ,voice: Voice? = nil ,caption: String? = nil ,caption_entities: Array<MessageEntity>? = nil ,show_caption_above_media: Bool? = nil ,has_media_spoiler: Bool? = nil ,contact: Contact? = nil ,dice: Dice? = nil ,game: Game? = nil ,poll: Poll? = nil ,venue: Venue? = nil ,location: Location? = nil ,new_chat_members: Array<User>? = nil ,left_chat_member: User? = nil ,new_chat_title: String? = nil ,new_chat_photo: Array<PhotoSize>? = nil ,delete_chat_photo: Bool? = nil ,group_chat_created: Bool? = nil ,supergroup_chat_created: Bool? = nil ,channel_chat_created: Bool? = nil ,message_auto_delete_timer_changed: MessageAutoDeleteTimerChanged? = nil ,migrate_to_chat_id: Int? = nil ,migrate_from_chat_id: Int? = nil ,pinned_message: MaybeInaccessibleMessage? = nil ,invoice: Invoice? = nil ,successful_payment: SuccessfulPayment? = nil ,refunded_payment: RefundedPayment? = nil ,users_shared: UsersShared? = nil ,chat_shared: ChatShared? = nil ,connected_website: String? = nil ,write_access_allowed: WriteAccessAllowed? = nil ,passport_data: PassportData? = nil ,proximity_alert_triggered: ProximityAlertTriggered? = nil ,boost_added: ChatBoostAdded? = nil ,chat_background_set: ChatBackground? = nil ,forum_topic_created: ForumTopicCreated? = nil ,forum_topic_edited: ForumTopicEdited? = nil ,forum_topic_closed: ForumTopicClosed? = nil ,forum_topic_reopened: ForumTopicReopened? = nil ,general_forum_topic_hidden: GeneralForumTopicHidden? = nil ,general_forum_topic_unhidden: GeneralForumTopicUnhidden? = nil ,giveaway_created: GiveawayCreated? = nil ,giveaway: Giveaway? = nil ,giveaway_winners: GiveawayWinners? = nil ,giveaway_completed: GiveawayCompleted? = nil ,video_chat_scheduled: VideoChatScheduled? = nil ,video_chat_started: VideoChatStarted? = nil ,video_chat_ended: VideoChatEnded? = nil ,video_chat_participants_invited: VideoChatParticipantsInvited? = nil ,web_app_data: WebAppData? = nil ,reply_markup: InlineKeyboardMarkup? = nil) {
+
+        public init(message_id: Int, message_thread_id: Int? = nil, from: User? = nil, sender_chat: Chat? = nil, sender_boost_count: Int? = nil, sender_business_bot: User? = nil, date: Int, business_connection_id: String? = nil, chat: Chat, forward_origin: MessageOrigin? = nil, is_topic_message: Bool? = nil, is_automatic_forward: Bool? = nil, reply_to_message: ValueWrapper<Message>? = nil, external_reply: ExternalReplyInfo? = nil, quote: TextQuote? = nil, reply_to_story: Story? = nil, via_bot: User? = nil, edit_date: Int? = nil, has_protected_content: Bool? = nil, is_from_offline: Bool? = nil, media_group_id: String? = nil, author_signature: String? = nil, text: String? = nil, entities: Array<MessageEntity>? = nil, link_preview_options: LinkPreviewOptions? = nil, effect_id: String? = nil, animation: Animation? = nil, audio: Audio? = nil, document: Document? = nil, paid_media: PaidMediaInfo? = nil, photo: Array<PhotoSize>? = nil, sticker: Sticker? = nil, story: Story? = nil, video: Video? = nil, video_note: VideoNote? = nil, voice: Voice? = nil, caption: String? = nil, caption_entities: Array<MessageEntity>? = nil, show_caption_above_media: Bool? = nil, has_media_spoiler: Bool? = nil, contact: Contact? = nil, dice: Dice? = nil, game: Game? = nil, poll: Poll? = nil, venue: Venue? = nil, location: Location? = nil, new_chat_members: Array<User>? = nil, left_chat_member: User? = nil, new_chat_title: String? = nil, new_chat_photo: Array<PhotoSize>? = nil, delete_chat_photo: Bool? = nil, group_chat_created: Bool? = nil, supergroup_chat_created: Bool? = nil, channel_chat_created: Bool? = nil, message_auto_delete_timer_changed: MessageAutoDeleteTimerChanged? = nil, migrate_to_chat_id: Int? = nil, migrate_from_chat_id: Int? = nil, pinned_message: MaybeInaccessibleMessage? = nil, invoice: Invoice? = nil, successful_payment: SuccessfulPayment? = nil, refunded_payment: RefundedPayment? = nil, users_shared: UsersShared? = nil, chat_shared: ChatShared? = nil, connected_website: String? = nil, write_access_allowed: WriteAccessAllowed? = nil, passport_data: PassportData? = nil, proximity_alert_triggered: ProximityAlertTriggered? = nil, boost_added: ChatBoostAdded? = nil, chat_background_set: ChatBackground? = nil, forum_topic_created: ForumTopicCreated? = nil, forum_topic_edited: ForumTopicEdited? = nil, forum_topic_closed: ForumTopicClosed? = nil, forum_topic_reopened: ForumTopicReopened? = nil, general_forum_topic_hidden: GeneralForumTopicHidden? = nil, general_forum_topic_unhidden: GeneralForumTopicUnhidden? = nil, giveaway_created: GiveawayCreated? = nil, giveaway: Giveaway? = nil, giveaway_winners: GiveawayWinners? = nil, giveaway_completed: GiveawayCompleted? = nil, video_chat_scheduled: VideoChatScheduled? = nil, video_chat_started: VideoChatStarted? = nil, video_chat_ended: VideoChatEnded? = nil, video_chat_participants_invited: VideoChatParticipantsInvited? = nil, web_app_data: WebAppData? = nil, reply_markup: InlineKeyboardMarkup? = nil) {
             self.message_id = message_id
             self.message_thread_id = message_thread_id
             self.from = from
@@ -694,6 +700,7 @@ extension TelegramAPI {
     public struct MessageId: Codable {
         /** Integer | Unique message identifier. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent */
         public let message_id: Int
+
         public init(message_id: Int) {
             self.message_id = message_id
         }
@@ -712,7 +719,8 @@ extension TelegramAPI {
         public let message_id: Int
         /** Integer | Always 0. The field can be used to differentiate regular and inaccessible messages. */
         public let date: Int
-        public init(chat: Chat ,message_id: Int ,date: Int) {
+
+        public init(chat: Chat, message_id: Int, date: Int) {
             self.chat = chat
             self.message_id = message_id
             self.date = date
@@ -775,7 +783,8 @@ extension TelegramAPI {
         public let language: String?
         /** String | Optional. For "custom_emoji" only, unique identifier of the custom emoji. Use getCustomEmojiStickers to get full information about the sticker */
         public let custom_emoji_id: String?
-        public init(type: MessageEntityType ,offset: Int ,length: Int ,url: String? = nil ,user: User? = nil ,language: String? = nil ,custom_emoji_id: String? = nil) {
+
+        public init(type: MessageEntityType, offset: Int, length: Int, url: String? = nil, user: User? = nil, language: String? = nil, custom_emoji_id: String? = nil) {
             self.type = type
             self.offset = offset
             self.length = length
@@ -801,7 +810,8 @@ extension TelegramAPI {
         public let position: Int
         /** Boolean | Optional. True, if the quote was chosen manually by the message sender. Otherwise, the quote was added automatically by the server. */
         public let is_manual: Bool?
-        public init(text: String ,entities: Array<MessageEntity>? = nil ,position: Int ,is_manual: Bool? = nil) {
+
+        public init(text: String, entities: Array<MessageEntity>? = nil, position: Int, is_manual: Bool? = nil) {
             self.text = text
             self.entities = entities
             self.position = position
@@ -864,7 +874,8 @@ extension TelegramAPI {
         public let poll: Poll?
         /** Venue | Optional. Message is a venue, information about the venue */
         public let venue: Venue?
-        public init(origin: MessageOrigin ,chat: Chat? = nil ,message_id: Int? = nil ,link_preview_options: LinkPreviewOptions? = nil ,animation: Animation? = nil ,audio: Audio? = nil ,document: Document? = nil ,paid_media: PaidMediaInfo? = nil ,photo: Array<PhotoSize>? = nil ,sticker: Sticker? = nil ,story: Story? = nil ,video: Video? = nil ,video_note: VideoNote? = nil ,voice: Voice? = nil ,has_media_spoiler: Bool? = nil ,contact: Contact? = nil ,dice: Dice? = nil ,game: Game? = nil ,giveaway: Giveaway? = nil ,giveaway_winners: GiveawayWinners? = nil ,invoice: Invoice? = nil ,location: Location? = nil ,poll: Poll? = nil ,venue: Venue? = nil) {
+
+        public init(origin: MessageOrigin, chat: Chat? = nil, message_id: Int? = nil, link_preview_options: LinkPreviewOptions? = nil, animation: Animation? = nil, audio: Audio? = nil, document: Document? = nil, paid_media: PaidMediaInfo? = nil, photo: Array<PhotoSize>? = nil, sticker: Sticker? = nil, story: Story? = nil, video: Video? = nil, video_note: VideoNote? = nil, voice: Voice? = nil, has_media_spoiler: Bool? = nil, contact: Contact? = nil, dice: Dice? = nil, game: Game? = nil, giveaway: Giveaway? = nil, giveaway_winners: GiveawayWinners? = nil, invoice: Invoice? = nil, location: Location? = nil, poll: Poll? = nil, venue: Venue? = nil) {
             self.origin = origin
             self.chat = chat
             self.message_id = message_id
@@ -913,7 +924,8 @@ extension TelegramAPI {
         public let quote_entities: Array<MessageEntity>?
         /** Integer | Optional. Position of the quote in the original message in UTF-16 code units */
         public let quote_position: Int?
-        public init(message_id: Int ,chat_id: Either2<Int, String>? = nil ,allow_sending_without_reply: Bool? = nil ,quote: String? = nil ,quote_parse_mode: String? = nil ,quote_entities: Array<MessageEntity>? = nil ,quote_position: Int? = nil) {
+
+        public init(message_id: Int, chat_id: Either2<Int, String>? = nil, allow_sending_without_reply: Bool? = nil, quote: String? = nil, quote_parse_mode: String? = nil, quote_entities: Array<MessageEntity>? = nil, quote_position: Int? = nil) {
             self.message_id = message_id
             self.chat_id = chat_id
             self.allow_sending_without_reply = allow_sending_without_reply
@@ -986,7 +998,8 @@ extension TelegramAPI {
         public let date: Int
         /** User | User that sent the message originally */
         public let sender_user: User
-        public init(type: String ,date: Int ,sender_user: User) {
+
+        public init(type: String, date: Int, sender_user: User) {
             self.type = type
             self.date = date
             self.sender_user = sender_user
@@ -1006,7 +1019,8 @@ extension TelegramAPI {
         public let date: Int
         /** String | Name of the user that sent the message originally */
         public let sender_user_name: String
-        public init(type: String ,date: Int ,sender_user_name: String) {
+
+        public init(type: String, date: Int, sender_user_name: String) {
             self.type = type
             self.date = date
             self.sender_user_name = sender_user_name
@@ -1028,7 +1042,8 @@ extension TelegramAPI {
         public let sender_chat: Chat
         /** String | Optional. For messages originally sent by an anonymous chat administrator, original message author signature */
         public let author_signature: String?
-        public init(type: String ,date: Int ,sender_chat: Chat ,author_signature: String? = nil) {
+
+        public init(type: String, date: Int, sender_chat: Chat, author_signature: String? = nil) {
             self.type = type
             self.date = date
             self.sender_chat = sender_chat
@@ -1053,7 +1068,8 @@ extension TelegramAPI {
         public let message_id: Int
         /** String | Optional. Signature of the original post author */
         public let author_signature: String?
-        public init(type: String ,date: Int ,chat: Chat ,message_id: Int ,author_signature: String? = nil) {
+
+        public init(type: String, date: Int, chat: Chat, message_id: Int, author_signature: String? = nil) {
             self.type = type
             self.date = date
             self.chat = chat
@@ -1079,7 +1095,8 @@ extension TelegramAPI {
         public let height: Int
         /** Integer | Optional. File size in bytes */
         public let file_size: Int?
-        public init(file_id: String ,file_unique_id: String ,width: Int ,height: Int ,file_size: Int? = nil) {
+
+        public init(file_id: String, file_unique_id: String, width: Int, height: Int, file_size: Int? = nil) {
             self.file_id = file_id
             self.file_unique_id = file_unique_id
             self.width = width
@@ -1113,7 +1130,8 @@ extension TelegramAPI {
         public let mime_type: String?
         /** Integer | Optional. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value. */
         public let file_size: Int?
-        public init(file_id: String ,file_unique_id: String ,width: Int ,height: Int ,duration: Int ,thumbnail: PhotoSize? = nil ,file_name: String? = nil ,mime_type: String? = nil ,file_size: Int? = nil) {
+
+        public init(file_id: String, file_unique_id: String, width: Int, height: Int, duration: Int, thumbnail: PhotoSize? = nil, file_name: String? = nil, mime_type: String? = nil, file_size: Int? = nil) {
             self.file_id = file_id
             self.file_unique_id = file_unique_id
             self.width = width
@@ -1151,7 +1169,8 @@ extension TelegramAPI {
         public let file_size: Int?
         /** PhotoSize | Optional. Thumbnail of the album cover to which the music file belongs */
         public let thumbnail: PhotoSize?
-        public init(file_id: String ,file_unique_id: String ,duration: Int ,performer: String? = nil ,title: String? = nil ,file_name: String? = nil ,mime_type: String? = nil ,file_size: Int? = nil ,thumbnail: PhotoSize? = nil) {
+
+        public init(file_id: String, file_unique_id: String, duration: Int, performer: String? = nil, title: String? = nil, file_name: String? = nil, mime_type: String? = nil, file_size: Int? = nil, thumbnail: PhotoSize? = nil) {
             self.file_id = file_id
             self.file_unique_id = file_unique_id
             self.duration = duration
@@ -1183,7 +1202,8 @@ extension TelegramAPI {
         public let mime_type: String?
         /** Integer | Optional. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value. */
         public let file_size: Int?
-        public init(file_id: String ,file_unique_id: String ,thumbnail: PhotoSize? = nil ,file_name: String? = nil ,mime_type: String? = nil ,file_size: Int? = nil) {
+
+        public init(file_id: String, file_unique_id: String, thumbnail: PhotoSize? = nil, file_name: String? = nil, mime_type: String? = nil, file_size: Int? = nil) {
             self.file_id = file_id
             self.file_unique_id = file_unique_id
             self.thumbnail = thumbnail
@@ -1204,7 +1224,8 @@ extension TelegramAPI {
         public let chat: Chat
         /** Integer | Unique identifier for the story in the chat */
         public let id: Int
-        public init(chat: Chat ,id: Int) {
+
+        public init(chat: Chat, id: Int) {
             self.chat = chat
             self.id = id
         }
@@ -1235,7 +1256,8 @@ extension TelegramAPI {
         public let mime_type: String?
         /** Integer | Optional. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value. */
         public let file_size: Int?
-        public init(file_id: String ,file_unique_id: String ,width: Int ,height: Int ,duration: Int ,thumbnail: PhotoSize? = nil ,file_name: String? = nil ,mime_type: String? = nil ,file_size: Int? = nil) {
+
+        public init(file_id: String, file_unique_id: String, width: Int, height: Int, duration: Int, thumbnail: PhotoSize? = nil, file_name: String? = nil, mime_type: String? = nil, file_size: Int? = nil) {
             self.file_id = file_id
             self.file_unique_id = file_unique_id
             self.width = width
@@ -1267,7 +1289,8 @@ extension TelegramAPI {
         public let thumbnail: PhotoSize?
         /** Integer | Optional. File size in bytes */
         public let file_size: Int?
-        public init(file_id: String ,file_unique_id: String ,length: Int ,duration: Int ,thumbnail: PhotoSize? = nil ,file_size: Int? = nil) {
+
+        public init(file_id: String, file_unique_id: String, length: Int, duration: Int, thumbnail: PhotoSize? = nil, file_size: Int? = nil) {
             self.file_id = file_id
             self.file_unique_id = file_unique_id
             self.length = length
@@ -1294,7 +1317,8 @@ extension TelegramAPI {
         public let mime_type: String?
         /** Integer | Optional. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value. */
         public let file_size: Int?
-        public init(file_id: String ,file_unique_id: String ,duration: Int ,mime_type: String? = nil ,file_size: Int? = nil) {
+
+        public init(file_id: String, file_unique_id: String, duration: Int, mime_type: String? = nil, file_size: Int? = nil) {
             self.file_id = file_id
             self.file_unique_id = file_unique_id
             self.duration = duration
@@ -1314,7 +1338,8 @@ extension TelegramAPI {
         public let star_count: Int
         /** Array of PaidMedia | Information about the paid media */
         public let paid_media: Array<PaidMedia>
-        public init(star_count: Int ,paid_media: Array<PaidMedia>) {
+
+        public init(star_count: Int, paid_media: Array<PaidMedia>) {
             self.star_count = star_count
             self.paid_media = paid_media
         }
@@ -1377,7 +1402,8 @@ extension TelegramAPI {
         public let height: Int?
         /** Integer | Optional. Duration of the media in seconds as defined by the sender */
         public let duration: Int?
-        public init(type: String ,width: Int? = nil ,height: Int? = nil ,duration: Int? = nil) {
+
+        public init(type: String, width: Int? = nil, height: Int? = nil, duration: Int? = nil) {
             self.type = type
             self.width = width
             self.height = height
@@ -1396,7 +1422,8 @@ extension TelegramAPI {
         public let type: String
         /** Array of PhotoSize | The photo */
         public let photo: Array<PhotoSize>
-        public init(type: String ,photo: Array<PhotoSize>) {
+
+        public init(type: String, photo: Array<PhotoSize>) {
             self.type = type
             self.photo = photo
         }
@@ -1413,7 +1440,8 @@ extension TelegramAPI {
         public let type: String
         /** Video | The video */
         public let video: Video
-        public init(type: String ,video: Video) {
+
+        public init(type: String, video: Video) {
             self.type = type
             self.video = video
         }
@@ -1436,7 +1464,8 @@ extension TelegramAPI {
         public let user_id: Int?
         /** String | Optional. Additional data about the contact in the form of a vCard */
         public let vcard: String?
-        public init(phone_number: String ,first_name: String ,last_name: String? = nil ,user_id: Int? = nil ,vcard: String? = nil) {
+
+        public init(phone_number: String, first_name: String, last_name: String? = nil, user_id: Int? = nil, vcard: String? = nil) {
             self.phone_number = phone_number
             self.first_name = first_name
             self.last_name = last_name
@@ -1456,7 +1485,8 @@ extension TelegramAPI {
         public let emoji: String
         /** Integer | Value of the dice, 1-6 for "🎲", "🎯" and "🎳" base emoji, 1-5 for "🏀" and "⚽" base emoji, 1-64 for "🎰" base emoji */
         public let value: Int
-        public init(emoji: String ,value: Int) {
+
+        public init(emoji: String, value: Int) {
             self.emoji = emoji
             self.value = value
         }
@@ -1475,7 +1505,8 @@ extension TelegramAPI {
         public let text_entities: Array<MessageEntity>?
         /** Integer | Number of users that voted for this option */
         public let voter_count: Int
-        public init(text: String ,text_entities: Array<MessageEntity>? = nil ,voter_count: Int) {
+
+        public init(text: String, text_entities: Array<MessageEntity>? = nil, voter_count: Int) {
             self.text = text
             self.text_entities = text_entities
             self.voter_count = voter_count
@@ -1495,7 +1526,8 @@ extension TelegramAPI {
         public let text_parse_mode: String?
         /** Array of MessageEntity | Optional. A JSON-serialized list of special entities that appear in the poll option text. It can be specified instead of text_parse_mode */
         public let text_entities: Array<MessageEntity>?
-        public init(text: String ,text_parse_mode: String? = nil ,text_entities: Array<MessageEntity>? = nil) {
+
+        public init(text: String, text_parse_mode: String? = nil, text_entities: Array<MessageEntity>? = nil) {
             self.text = text
             self.text_parse_mode = text_parse_mode
             self.text_entities = text_entities
@@ -1517,7 +1549,8 @@ extension TelegramAPI {
         public let user: User?
         /** Array of Integer | 0-based identifiers of chosen answer options. May be empty if the vote was retracted. */
         public let option_ids: Array<Int>
-        public init(poll_id: String ,voter_chat: Chat? = nil ,user: User? = nil ,option_ids: Array<Int>) {
+
+        public init(poll_id: String, voter_chat: Chat? = nil, user: User? = nil, option_ids: Array<Int>) {
             self.poll_id = poll_id
             self.voter_chat = voter_chat
             self.user = user
@@ -1560,7 +1593,8 @@ extension TelegramAPI {
         public let open_period: Int?
         /** Integer | Optional. Point in time (Unix timestamp) when the poll will be automatically closed */
         public let close_date: Int?
-        public init(id: String ,question: String ,question_entities: Array<MessageEntity>? = nil ,options: Array<PollOption> ,total_voter_count: Int ,is_closed: Bool ,is_anonymous: Bool ,type: String ,allows_multiple_answers: Bool ,correct_option_id: Int? = nil ,explanation: String? = nil ,explanation_entities: Array<MessageEntity>? = nil ,open_period: Int? = nil ,close_date: Int? = nil) {
+
+        public init(id: String, question: String, question_entities: Array<MessageEntity>? = nil, options: Array<PollOption>, total_voter_count: Int, is_closed: Bool, is_anonymous: Bool, type: String, allows_multiple_answers: Bool, correct_option_id: Int? = nil, explanation: String? = nil, explanation_entities: Array<MessageEntity>? = nil, open_period: Int? = nil, close_date: Int? = nil) {
             self.id = id
             self.question = question
             self.question_entities = question_entities
@@ -1597,7 +1631,8 @@ extension TelegramAPI {
         public let heading: Int?
         /** Integer | Optional. The maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only. */
         public let proximity_alert_radius: Int?
-        public init(latitude: Float ,longitude: Float ,horizontal_accuracy: Float? = nil ,live_period: Int? = nil ,heading: Int? = nil ,proximity_alert_radius: Int? = nil) {
+
+        public init(latitude: Float, longitude: Float, horizontal_accuracy: Float? = nil, live_period: Int? = nil, heading: Int? = nil, proximity_alert_radius: Int? = nil) {
             self.latitude = latitude
             self.longitude = longitude
             self.horizontal_accuracy = horizontal_accuracy
@@ -1628,7 +1663,8 @@ extension TelegramAPI {
         public let google_place_id: String?
         /** String | Optional. Google Places type of the venue. (See supported types.) */
         public let google_place_type: String?
-        public init(location: Location ,title: String ,address: String ,foursquare_id: String? = nil ,foursquare_type: String? = nil ,google_place_id: String? = nil ,google_place_type: String? = nil) {
+
+        public init(location: Location, title: String, address: String, foursquare_id: String? = nil, foursquare_type: String? = nil, google_place_id: String? = nil, google_place_type: String? = nil) {
             self.location = location
             self.title = title
             self.address = address
@@ -1650,7 +1686,8 @@ extension TelegramAPI {
         public let data: String
         /** String | Text of the web_app keyboard button from which the Web App was opened. Be aware that a bad client can send arbitrary data in this field. */
         public let button_text: String
-        public init(data: String ,button_text: String) {
+
+        public init(data: String, button_text: String) {
             self.data = data
             self.button_text = button_text
         }
@@ -1669,7 +1706,8 @@ extension TelegramAPI {
         public let watcher: User
         /** Integer | The distance between the users */
         public let distance: Int
-        public init(traveler: User ,watcher: User ,distance: Int) {
+
+        public init(traveler: User, watcher: User, distance: Int) {
             self.traveler = traveler
             self.watcher = watcher
             self.distance = distance
@@ -1685,6 +1723,7 @@ extension TelegramAPI {
     public struct MessageAutoDeleteTimerChanged: Codable {
         /** Integer | New auto-delete time for messages in the chat; in seconds */
         public let message_auto_delete_time: Int
+
         public init(message_auto_delete_time: Int) {
             self.message_auto_delete_time = message_auto_delete_time
         }
@@ -1699,6 +1738,7 @@ extension TelegramAPI {
     public struct ChatBoostAdded: Codable {
         /** Integer | Number of boosts added by the user */
         public let boost_count: Int
+
         public init(boost_count: Int) {
             self.boost_count = boost_count
         }
@@ -1757,7 +1797,8 @@ extension TelegramAPI {
         public let type: String
         /** Integer | The color of the background fill in the RGB24 format */
         public let color: Int
-        public init(type: String ,color: Int) {
+
+        public init(type: String, color: Int) {
             self.type = type
             self.color = color
         }
@@ -1778,7 +1819,8 @@ extension TelegramAPI {
         public let bottom_color: Int
         /** Integer | Clockwise rotation angle of the background fill in degrees; 0-359 */
         public let rotation_angle: Int
-        public init(type: String ,top_color: Int ,bottom_color: Int ,rotation_angle: Int) {
+
+        public init(type: String, top_color: Int, bottom_color: Int, rotation_angle: Int) {
             self.type = type
             self.top_color = top_color
             self.bottom_color = bottom_color
@@ -1797,7 +1839,8 @@ extension TelegramAPI {
         public let type: String
         /** Array of Integer | A list of the 3 or 4 base colors that are used to generate the freeform gradient in the RGB24 format */
         public let colors: Array<Int>
-        public init(type: String ,colors: Array<Int>) {
+
+        public init(type: String, colors: Array<Int>) {
             self.type = type
             self.colors = colors
         }
@@ -1865,7 +1908,8 @@ extension TelegramAPI {
         public let fill: BackgroundFill
         /** Integer | Dimming of the background in dark themes, as a percentage; 0-100 */
         public let dark_theme_dimming: Int
-        public init(type: String ,fill: BackgroundFill ,dark_theme_dimming: Int) {
+
+        public init(type: String, fill: BackgroundFill, dark_theme_dimming: Int) {
             self.type = type
             self.fill = fill
             self.dark_theme_dimming = dark_theme_dimming
@@ -1889,7 +1933,8 @@ extension TelegramAPI {
         public let is_blurred: Bool?
         /** Boolean | Optional. True, if the background moves slightly when the device is tilted */
         public let is_moving: Bool?
-        public init(type: String ,document: Document ,dark_theme_dimming: Int ,is_blurred: Bool? = nil ,is_moving: Bool? = nil) {
+
+        public init(type: String, document: Document, dark_theme_dimming: Int, is_blurred: Bool? = nil, is_moving: Bool? = nil) {
             self.type = type
             self.document = document
             self.dark_theme_dimming = dark_theme_dimming
@@ -1917,7 +1962,8 @@ extension TelegramAPI {
         public let is_inverted: Bool?
         /** Boolean | Optional. True, if the background moves slightly when the device is tilted */
         public let is_moving: Bool?
-        public init(type: String ,document: Document ,fill: BackgroundFill ,intensity: Int ,is_inverted: Bool? = nil ,is_moving: Bool? = nil) {
+
+        public init(type: String, document: Document, fill: BackgroundFill, intensity: Int, is_inverted: Bool? = nil, is_moving: Bool? = nil) {
             self.type = type
             self.document = document
             self.fill = fill
@@ -1938,7 +1984,8 @@ extension TelegramAPI {
         public let type: String
         /** String | Name of the chat theme, which is usually an emoji */
         public let theme_name: String
-        public init(type: String ,theme_name: String) {
+
+        public init(type: String, theme_name: String) {
             self.type = type
             self.theme_name = theme_name
         }
@@ -1953,6 +2000,7 @@ extension TelegramAPI {
     public struct ChatBackground: Codable {
         /** BackgroundType | Type of the background */
         public let type: BackgroundType
+
         public init(type: BackgroundType) {
             self.type = type
         }
@@ -1971,7 +2019,8 @@ extension TelegramAPI {
         public let icon_color: Int
         /** String | Optional. Unique identifier of the custom emoji shown as the topic icon */
         public let icon_custom_emoji_id: String?
-        public init(name: String ,icon_color: Int ,icon_custom_emoji_id: String? = nil) {
+
+        public init(name: String, icon_color: Int, icon_custom_emoji_id: String? = nil) {
             self.name = name
             self.icon_color = icon_color
             self.icon_custom_emoji_id = icon_custom_emoji_id
@@ -1985,6 +2034,7 @@ extension TelegramAPI {
      * This object represents a service message about a forum topic closed in the chat. Currently holds no information.
     */
     public struct ForumTopicClosed: Codable {
+
         public init() {
         }
     }
@@ -2000,7 +2050,8 @@ extension TelegramAPI {
         public let name: String?
         /** String | Optional. New identifier of the custom emoji shown as the topic icon, if it was edited; an empty string if the icon was removed */
         public let icon_custom_emoji_id: String?
-        public init(name: String? = nil ,icon_custom_emoji_id: String? = nil) {
+
+        public init(name: String? = nil, icon_custom_emoji_id: String? = nil) {
             self.name = name
             self.icon_custom_emoji_id = icon_custom_emoji_id
         }
@@ -2013,6 +2064,7 @@ extension TelegramAPI {
      * This object represents a service message about a forum topic reopened in the chat. Currently holds no information.
     */
     public struct ForumTopicReopened: Codable {
+
         public init() {
         }
     }
@@ -2024,6 +2076,7 @@ extension TelegramAPI {
      * This object represents a service message about General forum topic hidden in the chat. Currently holds no information.
     */
     public struct GeneralForumTopicHidden: Codable {
+
         public init() {
         }
     }
@@ -2035,6 +2088,7 @@ extension TelegramAPI {
      * This object represents a service message about General forum topic unhidden in the chat. Currently holds no information.
     */
     public struct GeneralForumTopicUnhidden: Codable {
+
         public init() {
         }
     }
@@ -2056,7 +2110,8 @@ extension TelegramAPI {
         public let username: String?
         /** Array of PhotoSize | Optional. Available sizes of the chat photo, if the photo was requested by the bot */
         public let photo: Array<PhotoSize>?
-        public init(user_id: Int ,first_name: String? = nil ,last_name: String? = nil ,username: String? = nil ,photo: Array<PhotoSize>? = nil) {
+
+        public init(user_id: Int, first_name: String? = nil, last_name: String? = nil, username: String? = nil, photo: Array<PhotoSize>? = nil) {
             self.user_id = user_id
             self.first_name = first_name
             self.last_name = last_name
@@ -2076,7 +2131,8 @@ extension TelegramAPI {
         public let request_id: Int
         /** Array of SharedUser | Information about users shared with the bot. */
         public let users: Array<SharedUser>
-        public init(request_id: Int ,users: Array<SharedUser>) {
+
+        public init(request_id: Int, users: Array<SharedUser>) {
             self.request_id = request_id
             self.users = users
         }
@@ -2099,7 +2155,8 @@ extension TelegramAPI {
         public let username: String?
         /** Array of PhotoSize | Optional. Available sizes of the chat photo, if the photo was requested by the bot */
         public let photo: Array<PhotoSize>?
-        public init(request_id: Int ,chat_id: Int ,title: String? = nil ,username: String? = nil ,photo: Array<PhotoSize>? = nil) {
+
+        public init(request_id: Int, chat_id: Int, title: String? = nil, username: String? = nil, photo: Array<PhotoSize>? = nil) {
             self.request_id = request_id
             self.chat_id = chat_id
             self.title = title
@@ -2121,7 +2178,8 @@ extension TelegramAPI {
         public let web_app_name: String?
         /** Boolean | Optional. True, if the access was granted when the bot was added to the attachment or side menu */
         public let from_attachment_menu: Bool?
-        public init(from_request: Bool? = nil ,web_app_name: String? = nil ,from_attachment_menu: Bool? = nil) {
+
+        public init(from_request: Bool? = nil, web_app_name: String? = nil, from_attachment_menu: Bool? = nil) {
             self.from_request = from_request
             self.web_app_name = web_app_name
             self.from_attachment_menu = from_attachment_menu
@@ -2137,6 +2195,7 @@ extension TelegramAPI {
     public struct VideoChatScheduled: Codable {
         /** Integer | Point in time (Unix timestamp) when the video chat is supposed to be started by a chat administrator */
         public let start_date: Int
+
         public init(start_date: Int) {
             self.start_date = start_date
         }
@@ -2149,6 +2208,7 @@ extension TelegramAPI {
      * This object represents a service message about a video chat started in the chat. Currently holds no information.
     */
     public struct VideoChatStarted: Codable {
+
         public init() {
         }
     }
@@ -2162,6 +2222,7 @@ extension TelegramAPI {
     public struct VideoChatEnded: Codable {
         /** Integer | Video chat duration in seconds */
         public let duration: Int
+
         public init(duration: Int) {
             self.duration = duration
         }
@@ -2176,6 +2237,7 @@ extension TelegramAPI {
     public struct VideoChatParticipantsInvited: Codable {
         /** Array of User | New members that were invited to the video chat */
         public let users: Array<User>
+
         public init(users: Array<User>) {
             self.users = users
         }
@@ -2190,6 +2252,7 @@ extension TelegramAPI {
     public struct GiveawayCreated: Codable {
         /** Integer | Optional. The number of Telegram Stars to be split between giveaway winners; for Telegram Star giveaways only */
         public let prize_star_count: Int?
+
         public init(prize_star_count: Int? = nil) {
             self.prize_star_count = prize_star_count
         }
@@ -2220,7 +2283,8 @@ extension TelegramAPI {
         public let prize_star_count: Int?
         /** Integer | Optional. The number of months the Telegram Premium subscription won from the giveaway will be active for; for Telegram Premium giveaways only */
         public let premium_subscription_month_count: Int?
-        public init(chats: Array<Chat> ,winners_selection_date: Int ,winner_count: Int ,only_new_members: Bool? = nil ,has_public_winners: Bool? = nil ,prize_description: String? = nil ,country_codes: Array<String>? = nil ,prize_star_count: Int? = nil ,premium_subscription_month_count: Int? = nil) {
+
+        public init(chats: Array<Chat>, winners_selection_date: Int, winner_count: Int, only_new_members: Bool? = nil, has_public_winners: Bool? = nil, prize_description: String? = nil, country_codes: Array<String>? = nil, prize_star_count: Int? = nil, premium_subscription_month_count: Int? = nil) {
             self.chats = chats
             self.winners_selection_date = winners_selection_date
             self.winner_count = winner_count
@@ -2264,7 +2328,8 @@ extension TelegramAPI {
         public let was_refunded: Bool?
         /** String | Optional. Description of additional giveaway prize */
         public let prize_description: String?
-        public init(chat: Chat ,giveaway_message_id: Int ,winners_selection_date: Int ,winner_count: Int ,winners: Array<User> ,additional_chat_count: Int? = nil ,prize_star_count: Int? = nil ,premium_subscription_month_count: Int? = nil ,unclaimed_prize_count: Int? = nil ,only_new_members: Bool? = nil ,was_refunded: Bool? = nil ,prize_description: String? = nil) {
+
+        public init(chat: Chat, giveaway_message_id: Int, winners_selection_date: Int, winner_count: Int, winners: Array<User>, additional_chat_count: Int? = nil, prize_star_count: Int? = nil, premium_subscription_month_count: Int? = nil, unclaimed_prize_count: Int? = nil, only_new_members: Bool? = nil, was_refunded: Bool? = nil, prize_description: String? = nil) {
             self.chat = chat
             self.giveaway_message_id = giveaway_message_id
             self.winners_selection_date = winners_selection_date
@@ -2295,7 +2360,8 @@ extension TelegramAPI {
         public let giveaway_message: ValueWrapper<Message>?
         /** Boolean | Optional. True, if the giveaway is a Telegram Star giveaway. Otherwise, currently, the giveaway is a Telegram Premium giveaway. */
         public let is_star_giveaway: Bool?
-        public init(winner_count: Int ,unclaimed_prize_count: Int? = nil ,giveaway_message: ValueWrapper<Message>? = nil ,is_star_giveaway: Bool? = nil) {
+
+        public init(winner_count: Int, unclaimed_prize_count: Int? = nil, giveaway_message: ValueWrapper<Message>? = nil, is_star_giveaway: Bool? = nil) {
             self.winner_count = winner_count
             self.unclaimed_prize_count = unclaimed_prize_count
             self.giveaway_message = giveaway_message
@@ -2320,7 +2386,8 @@ extension TelegramAPI {
         public let prefer_large_media: Bool?
         /** Boolean | Optional. True, if the link preview must be shown above the message text; otherwise, the link preview will be shown below the message text */
         public let show_above_text: Bool?
-        public init(is_disabled: Bool? = nil ,url: String? = nil ,prefer_small_media: Bool? = nil ,prefer_large_media: Bool? = nil ,show_above_text: Bool? = nil) {
+
+        public init(is_disabled: Bool? = nil, url: String? = nil, prefer_small_media: Bool? = nil, prefer_large_media: Bool? = nil, show_above_text: Bool? = nil) {
             self.is_disabled = is_disabled
             self.url = url
             self.prefer_small_media = prefer_small_media
@@ -2340,7 +2407,8 @@ extension TelegramAPI {
         public let total_count: Int
         /** Array of Array of PhotoSize | Requested profile pictures (in up to 4 sizes each) */
         public let photos: Array<Array<PhotoSize>>
-        public init(total_count: Int ,photos: Array<Array<PhotoSize>>) {
+
+        public init(total_count: Int, photos: Array<Array<PhotoSize>>) {
             self.total_count = total_count
             self.photos = photos
         }
@@ -2361,7 +2429,8 @@ extension TelegramAPI {
         public let file_size: Int?
         /** String | Optional. File path. Use https://api.telegram.org/file/bot<token>/<file_path> to get the file. */
         public let file_path: String?
-        public init(file_id: String ,file_unique_id: String ,file_size: Int? = nil ,file_path: String? = nil) {
+
+        public init(file_id: String, file_unique_id: String, file_size: Int? = nil, file_path: String? = nil) {
             self.file_id = file_id
             self.file_unique_id = file_unique_id
             self.file_size = file_size
@@ -2378,6 +2447,7 @@ extension TelegramAPI {
     public struct WebAppInfo: Codable {
         /** String | An HTTPS URL of a Web App to be opened with additional data as specified in Initializing Web Apps */
         public let url: String
+
         public init(url: String) {
             self.url = url
         }
@@ -2402,7 +2472,8 @@ extension TelegramAPI {
         public let input_field_placeholder: String?
         /** Boolean | Optional. Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message. Example: A user requests to change the bot's language, bot replies to the request with a keyboard to select the new language. Other users in the group don't see the keyboard. */
         public let selective: Bool?
-        public init(keyboard: Array<Array<KeyboardButton>> ,is_persistent: Bool? = nil ,resize_keyboard: Bool? = nil ,one_time_keyboard: Bool? = nil ,input_field_placeholder: String? = nil ,selective: Bool? = nil) {
+
+        public init(keyboard: Array<Array<KeyboardButton>>, is_persistent: Bool? = nil, resize_keyboard: Bool? = nil, one_time_keyboard: Bool? = nil, input_field_placeholder: String? = nil, selective: Bool? = nil) {
             self.keyboard = keyboard
             self.is_persistent = is_persistent
             self.resize_keyboard = resize_keyboard
@@ -2434,7 +2505,8 @@ extension TelegramAPI {
         public let request_poll: KeyboardButtonPollType?
         /** WebAppInfo | Optional. If specified, the described Web App will be launched when the button is pressed. The Web App will be able to send a "web_app_data" service message. Available in private chats only. */
         public let web_app: WebAppInfo?
-        public init(text: String ,request_users: KeyboardButtonRequestUsers? = nil ,request_chat: KeyboardButtonRequestChat? = nil ,request_contact: Bool? = nil ,request_location: Bool? = nil ,request_poll: KeyboardButtonPollType? = nil ,web_app: WebAppInfo? = nil) {
+
+        public init(text: String, request_users: KeyboardButtonRequestUsers? = nil, request_chat: KeyboardButtonRequestChat? = nil, request_contact: Bool? = nil, request_location: Bool? = nil, request_poll: KeyboardButtonPollType? = nil, web_app: WebAppInfo? = nil) {
             self.text = text
             self.request_users = request_users
             self.request_chat = request_chat
@@ -2466,7 +2538,8 @@ extension TelegramAPI {
         public let request_username: Bool?
         /** Boolean | Optional. Pass True to request the users' photos */
         public let request_photo: Bool?
-        public init(request_id: Int ,user_is_bot: Bool? = nil ,user_is_premium: Bool? = nil ,max_quantity: Int? = nil ,request_name: Bool? = nil ,request_username: Bool? = nil ,request_photo: Bool? = nil) {
+
+        public init(request_id: Int, user_is_bot: Bool? = nil, user_is_premium: Bool? = nil, max_quantity: Int? = nil, request_name: Bool? = nil, request_username: Bool? = nil, request_photo: Bool? = nil) {
             self.request_id = request_id
             self.user_is_bot = user_is_bot
             self.user_is_premium = user_is_premium
@@ -2506,7 +2579,8 @@ extension TelegramAPI {
         public let request_username: Bool?
         /** Boolean | Optional. Pass True to request the chat's photo */
         public let request_photo: Bool?
-        public init(request_id: Int ,chat_is_channel: Bool ,chat_is_forum: Bool? = nil ,chat_has_username: Bool? = nil ,chat_is_created: Bool? = nil ,user_administrator_rights: ChatAdministratorRights? = nil ,bot_administrator_rights: ChatAdministratorRights? = nil ,bot_is_member: Bool? = nil ,request_title: Bool? = nil ,request_username: Bool? = nil ,request_photo: Bool? = nil) {
+
+        public init(request_id: Int, chat_is_channel: Bool, chat_is_forum: Bool? = nil, chat_has_username: Bool? = nil, chat_is_created: Bool? = nil, user_administrator_rights: ChatAdministratorRights? = nil, bot_administrator_rights: ChatAdministratorRights? = nil, bot_is_member: Bool? = nil, request_title: Bool? = nil, request_username: Bool? = nil, request_photo: Bool? = nil) {
             self.request_id = request_id
             self.chat_is_channel = chat_is_channel
             self.chat_is_forum = chat_is_forum
@@ -2530,6 +2604,7 @@ extension TelegramAPI {
     public struct KeyboardButtonPollType: Codable {
         /** String | Optional. If quiz is passed, the user will be allowed to create only polls in the quiz mode. If regular is passed, only regular polls will be allowed. Otherwise, the user will be allowed to create a poll of any type. */
         public let type: String?
+
         public init(type: String? = nil) {
             self.type = type
         }
@@ -2546,7 +2621,8 @@ extension TelegramAPI {
         public let remove_keyboard: Bool
         /** Boolean | Optional. Use this parameter if you want to remove the keyboard for specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message. Example: A user votes in a poll, bot returns confirmation message in reply to the vote and removes the keyboard for that user, while still showing the keyboard with poll options to users who haven't voted yet. */
         public let selective: Bool?
-        public init(remove_keyboard: Bool ,selective: Bool? = nil) {
+
+        public init(remove_keyboard: Bool, selective: Bool? = nil) {
             self.remove_keyboard = remove_keyboard
             self.selective = selective
         }
@@ -2561,6 +2637,7 @@ extension TelegramAPI {
     public struct InlineKeyboardMarkup: Codable {
         /** Array of Array of InlineKeyboardButton | Array of button rows, each represented by an Array of InlineKeyboardButton objects */
         public let inline_keyboard: Array<Array<InlineKeyboardButton>>
+
         public init(inline_keyboard: Array<Array<InlineKeyboardButton>>) {
             self.inline_keyboard = inline_keyboard
         }
@@ -2595,7 +2672,8 @@ extension TelegramAPI {
         public let callback_game: CallbackGame?
         /** Boolean | Optional. Specify True, to send a Pay button. Substrings "⭐" and "XTR" in the buttons's text will be replaced with a Telegram Star icon. NOTE: This type of button must always be the first button in the first row and can only be used in invoice messages. */
         public let pay: Bool?
-        public init(text: String ,url: String? = nil ,callback_data: String? = nil ,web_app: WebAppInfo? = nil ,login_url: LoginUrl? = nil ,switch_inline_query: String? = nil ,switch_inline_query_current_chat: String? = nil ,switch_inline_query_chosen_chat: SwitchInlineQueryChosenChat? = nil ,copy_text: CopyTextButton? = nil ,callback_game: CallbackGame? = nil ,pay: Bool? = nil) {
+
+        public init(text: String, url: String? = nil, callback_data: String? = nil, web_app: WebAppInfo? = nil, login_url: LoginUrl? = nil, switch_inline_query: String? = nil, switch_inline_query_current_chat: String? = nil, switch_inline_query_chosen_chat: SwitchInlineQueryChosenChat? = nil, copy_text: CopyTextButton? = nil, callback_game: CallbackGame? = nil, pay: Bool? = nil) {
             self.text = text
             self.url = url
             self.callback_data = callback_data
@@ -2626,7 +2704,8 @@ extension TelegramAPI {
         public let bot_username: String?
         /** Boolean | Optional. Pass True to request the permission for your bot to send messages to the user. */
         public let request_write_access: Bool?
-        public init(url: String ,forward_text: String? = nil ,bot_username: String? = nil ,request_write_access: Bool? = nil) {
+
+        public init(url: String, forward_text: String? = nil, bot_username: String? = nil, request_write_access: Bool? = nil) {
             self.url = url
             self.forward_text = forward_text
             self.bot_username = bot_username
@@ -2651,7 +2730,8 @@ extension TelegramAPI {
         public let allow_group_chats: Bool?
         /** Boolean | Optional. True, if channel chats can be chosen */
         public let allow_channel_chats: Bool?
-        public init(query: String? = nil ,allow_user_chats: Bool? = nil ,allow_bot_chats: Bool? = nil ,allow_group_chats: Bool? = nil ,allow_channel_chats: Bool? = nil) {
+
+        public init(query: String? = nil, allow_user_chats: Bool? = nil, allow_bot_chats: Bool? = nil, allow_group_chats: Bool? = nil, allow_channel_chats: Bool? = nil) {
             self.query = query
             self.allow_user_chats = allow_user_chats
             self.allow_bot_chats = allow_bot_chats
@@ -2669,6 +2749,7 @@ extension TelegramAPI {
     public struct CopyTextButton: Codable {
         /** String | The text to be copied to the clipboard; 1-256 characters */
         public let text: String
+
         public init(text: String) {
             self.text = text
         }
@@ -2695,7 +2776,8 @@ extension TelegramAPI {
         public let data: String?
         /** String | Optional. Short name of a Game to be returned, serves as the unique identifier for the game */
         public let game_short_name: String?
-        public init(id: String ,from: User ,message: MaybeInaccessibleMessage? = nil ,inline_message_id: String? = nil ,chat_instance: String ,data: String? = nil ,game_short_name: String? = nil) {
+
+        public init(id: String, from: User, message: MaybeInaccessibleMessage? = nil, inline_message_id: String? = nil, chat_instance: String, data: String? = nil, game_short_name: String? = nil) {
             self.id = id
             self.from = from
             self.message = message
@@ -2719,7 +2801,8 @@ extension TelegramAPI {
         public let input_field_placeholder: String?
         /** Boolean | Optional. Use this parameter if you want to force reply from specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message. */
         public let selective: Bool?
-        public init(force_reply: Bool ,input_field_placeholder: String? = nil ,selective: Bool? = nil) {
+
+        public init(force_reply: Bool, input_field_placeholder: String? = nil, selective: Bool? = nil) {
             self.force_reply = force_reply
             self.input_field_placeholder = input_field_placeholder
             self.selective = selective
@@ -2741,7 +2824,8 @@ extension TelegramAPI {
         public let big_file_id: String
         /** String | Unique file identifier of big (640x640) chat photo, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file. */
         public let big_file_unique_id: String
-        public init(small_file_id: String ,small_file_unique_id: String ,big_file_id: String ,big_file_unique_id: String) {
+
+        public init(small_file_id: String, small_file_unique_id: String, big_file_id: String, big_file_unique_id: String) {
             self.small_file_id = small_file_id
             self.small_file_unique_id = small_file_unique_id
             self.big_file_id = big_file_id
@@ -2778,7 +2862,8 @@ extension TelegramAPI {
         public let subscription_period: Int?
         /** Integer | Optional. The amount of Telegram Stars a user must pay initially and after each subsequent subscription period to be a member of the chat using the link */
         public let subscription_price: Int?
-        public init(invite_link: String ,creator: User ,creates_join_request: Bool ,is_primary: Bool ,is_revoked: Bool ,name: String? = nil ,expire_date: Int? = nil ,member_limit: Int? = nil ,pending_join_request_count: Int? = nil ,subscription_period: Int? = nil ,subscription_price: Int? = nil) {
+
+        public init(invite_link: String, creator: User, creates_join_request: Bool, is_primary: Bool, is_revoked: Bool, name: String? = nil, expire_date: Int? = nil, member_limit: Int? = nil, pending_join_request_count: Int? = nil, subscription_period: Int? = nil, subscription_price: Int? = nil) {
             self.invite_link = invite_link
             self.creator = creator
             self.creates_join_request = creates_join_request
@@ -2830,7 +2915,8 @@ extension TelegramAPI {
         public let can_pin_messages: Bool?
         /** Boolean | Optional. True, if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only */
         public let can_manage_topics: Bool?
-        public init(is_anonymous: Bool ,can_manage_chat: Bool ,can_delete_messages: Bool ,can_manage_video_chats: Bool ,can_restrict_members: Bool ,can_promote_members: Bool ,can_change_info: Bool ,can_invite_users: Bool ,can_post_stories: Bool ,can_edit_stories: Bool ,can_delete_stories: Bool ,can_post_messages: Bool? = nil ,can_edit_messages: Bool? = nil ,can_pin_messages: Bool? = nil ,can_manage_topics: Bool? = nil) {
+
+        public init(is_anonymous: Bool, can_manage_chat: Bool, can_delete_messages: Bool, can_manage_video_chats: Bool, can_restrict_members: Bool, can_promote_members: Bool, can_change_info: Bool, can_invite_users: Bool, can_post_stories: Bool, can_edit_stories: Bool, can_delete_stories: Bool, can_post_messages: Bool? = nil, can_edit_messages: Bool? = nil, can_pin_messages: Bool? = nil, can_manage_topics: Bool? = nil) {
             self.is_anonymous = is_anonymous
             self.can_manage_chat = can_manage_chat
             self.can_delete_messages = can_delete_messages
@@ -2872,7 +2958,8 @@ extension TelegramAPI {
         public let via_join_request: Bool?
         /** Boolean | Optional. True, if the user joined the chat via a chat folder invite link */
         public let via_chat_folder_invite_link: Bool?
-        public init(chat: Chat ,from: User ,date: Int ,old_chat_member: ChatMember ,new_chat_member: ChatMember ,invite_link: ChatInviteLink? = nil ,via_join_request: Bool? = nil ,via_chat_folder_invite_link: Bool? = nil) {
+
+        public init(chat: Chat, from: User, date: Int, old_chat_member: ChatMember, new_chat_member: ChatMember, invite_link: ChatInviteLink? = nil, via_join_request: Bool? = nil, via_chat_folder_invite_link: Bool? = nil) {
             self.chat = chat
             self.from = from
             self.date = date
@@ -2962,7 +3049,8 @@ extension TelegramAPI {
         public let is_anonymous: Bool
         /** String | Optional. Custom title for this user */
         public let custom_title: String?
-        public init(status: String ,user: User ,is_anonymous: Bool ,custom_title: String? = nil) {
+
+        public init(status: String, user: User, is_anonymous: Bool, custom_title: String? = nil) {
             self.status = status
             self.user = user
             self.is_anonymous = is_anonymous
@@ -3015,7 +3103,8 @@ extension TelegramAPI {
         public let can_manage_topics: Bool?
         /** String | Optional. Custom title for this user */
         public let custom_title: String?
-        public init(status: String ,user: User ,can_be_edited: Bool ,is_anonymous: Bool ,can_manage_chat: Bool ,can_delete_messages: Bool ,can_manage_video_chats: Bool ,can_restrict_members: Bool ,can_promote_members: Bool ,can_change_info: Bool ,can_invite_users: Bool ,can_post_stories: Bool ,can_edit_stories: Bool ,can_delete_stories: Bool ,can_post_messages: Bool? = nil ,can_edit_messages: Bool? = nil ,can_pin_messages: Bool? = nil ,can_manage_topics: Bool? = nil ,custom_title: String? = nil) {
+
+        public init(status: String, user: User, can_be_edited: Bool, is_anonymous: Bool, can_manage_chat: Bool, can_delete_messages: Bool, can_manage_video_chats: Bool, can_restrict_members: Bool, can_promote_members: Bool, can_change_info: Bool, can_invite_users: Bool, can_post_stories: Bool, can_edit_stories: Bool, can_delete_stories: Bool, can_post_messages: Bool? = nil, can_edit_messages: Bool? = nil, can_pin_messages: Bool? = nil, can_manage_topics: Bool? = nil, custom_title: String? = nil) {
             self.status = status
             self.user = user
             self.can_be_edited = can_be_edited
@@ -3051,7 +3140,8 @@ extension TelegramAPI {
         public let user: User
         /** Integer | Optional. Date when the user's subscription will expire; Unix time */
         public let until_date: Int?
-        public init(status: String ,user: User ,until_date: Int? = nil) {
+
+        public init(status: String, user: User, until_date: Int? = nil) {
             self.status = status
             self.user = user
             self.until_date = until_date
@@ -3101,7 +3191,8 @@ extension TelegramAPI {
         public let can_manage_topics: Bool
         /** Integer | Date when restrictions will be lifted for this user; Unix time. If 0, then the user is restricted forever */
         public let until_date: Int
-        public init(status: String ,user: User ,is_member: Bool ,can_send_messages: Bool ,can_send_audios: Bool ,can_send_documents: Bool ,can_send_photos: Bool ,can_send_videos: Bool ,can_send_video_notes: Bool ,can_send_voice_notes: Bool ,can_send_polls: Bool ,can_send_other_messages: Bool ,can_add_web_page_previews: Bool ,can_change_info: Bool ,can_invite_users: Bool ,can_pin_messages: Bool ,can_manage_topics: Bool ,until_date: Int) {
+
+        public init(status: String, user: User, is_member: Bool, can_send_messages: Bool, can_send_audios: Bool, can_send_documents: Bool, can_send_photos: Bool, can_send_videos: Bool, can_send_video_notes: Bool, can_send_voice_notes: Bool, can_send_polls: Bool, can_send_other_messages: Bool, can_add_web_page_previews: Bool, can_change_info: Bool, can_invite_users: Bool, can_pin_messages: Bool, can_manage_topics: Bool, until_date: Int) {
             self.status = status
             self.user = user
             self.is_member = is_member
@@ -3134,7 +3225,8 @@ extension TelegramAPI {
         public let status: String
         /** User | Information about the user */
         public let user: User
-        public init(status: String ,user: User) {
+
+        public init(status: String, user: User) {
             self.status = status
             self.user = user
         }
@@ -3153,7 +3245,8 @@ extension TelegramAPI {
         public let user: User
         /** Integer | Date when restrictions will be lifted for this user; Unix time. If 0, then the user is banned forever */
         public let until_date: Int
-        public init(status: String ,user: User ,until_date: Int) {
+
+        public init(status: String, user: User, until_date: Int) {
             self.status = status
             self.user = user
             self.until_date = until_date
@@ -3179,7 +3272,8 @@ extension TelegramAPI {
         public let bio: String?
         /** ChatInviteLink | Optional. Chat invite link that was used by the user to send the join request */
         public let invite_link: ChatInviteLink?
-        public init(chat: Chat ,from: User ,user_chat_id: Int ,date: Int ,bio: String? = nil ,invite_link: ChatInviteLink? = nil) {
+
+        public init(chat: Chat, from: User, user_chat_id: Int, date: Int, bio: String? = nil, invite_link: ChatInviteLink? = nil) {
             self.chat = chat
             self.from = from
             self.user_chat_id = user_chat_id
@@ -3224,7 +3318,8 @@ extension TelegramAPI {
         public let can_pin_messages: Bool?
         /** Boolean | Optional. True, if the user is allowed to create forum topics. If omitted defaults to the value of can_pin_messages */
         public let can_manage_topics: Bool?
-        public init(can_send_messages: Bool? = nil ,can_send_audios: Bool? = nil ,can_send_documents: Bool? = nil ,can_send_photos: Bool? = nil ,can_send_videos: Bool? = nil ,can_send_video_notes: Bool? = nil ,can_send_voice_notes: Bool? = nil ,can_send_polls: Bool? = nil ,can_send_other_messages: Bool? = nil ,can_add_web_page_previews: Bool? = nil ,can_change_info: Bool? = nil ,can_invite_users: Bool? = nil ,can_pin_messages: Bool? = nil ,can_manage_topics: Bool? = nil) {
+
+        public init(can_send_messages: Bool? = nil, can_send_audios: Bool? = nil, can_send_documents: Bool? = nil, can_send_photos: Bool? = nil, can_send_videos: Bool? = nil, can_send_video_notes: Bool? = nil, can_send_voice_notes: Bool? = nil, can_send_polls: Bool? = nil, can_send_other_messages: Bool? = nil, can_add_web_page_previews: Bool? = nil, can_change_info: Bool? = nil, can_invite_users: Bool? = nil, can_pin_messages: Bool? = nil, can_manage_topics: Bool? = nil) {
             self.can_send_messages = can_send_messages
             self.can_send_audios = can_send_audios
             self.can_send_documents = can_send_documents
@@ -3255,7 +3350,8 @@ extension TelegramAPI {
         public let month: Int
         /** Integer | Optional. Year of the user's birth */
         public let year: Int?
-        public init(day: Int ,month: Int ,year: Int? = nil) {
+
+        public init(day: Int, month: Int, year: Int? = nil) {
             self.day = day
             self.month = month
             self.year = year
@@ -3275,7 +3371,8 @@ extension TelegramAPI {
         public let message: String?
         /** Sticker | Optional. Sticker of the business intro */
         public let sticker: Sticker?
-        public init(title: String? = nil ,message: String? = nil ,sticker: Sticker? = nil) {
+
+        public init(title: String? = nil, message: String? = nil, sticker: Sticker? = nil) {
             self.title = title
             self.message = message
             self.sticker = sticker
@@ -3293,7 +3390,8 @@ extension TelegramAPI {
         public let address: String
         /** Location | Optional. Location of the business */
         public let location: Location?
-        public init(address: String ,location: Location? = nil) {
+
+        public init(address: String, location: Location? = nil) {
             self.address = address
             self.location = location
         }
@@ -3310,7 +3408,8 @@ extension TelegramAPI {
         public let opening_minute: Int
         /** Integer | The minute's sequence number in a week, starting on Monday, marking the end of the time interval during which the business is open; 0 - 8 * 24 * 60 */
         public let closing_minute: Int
-        public init(opening_minute: Int ,closing_minute: Int) {
+
+        public init(opening_minute: Int, closing_minute: Int) {
             self.opening_minute = opening_minute
             self.closing_minute = closing_minute
         }
@@ -3327,7 +3426,8 @@ extension TelegramAPI {
         public let time_zone_name: String
         /** Array of BusinessOpeningHoursInterval | List of time intervals describing business opening hours */
         public let opening_hours: Array<BusinessOpeningHoursInterval>
-        public init(time_zone_name: String ,opening_hours: Array<BusinessOpeningHoursInterval>) {
+
+        public init(time_zone_name: String, opening_hours: Array<BusinessOpeningHoursInterval>) {
             self.time_zone_name = time_zone_name
             self.opening_hours = opening_hours
         }
@@ -3344,7 +3444,8 @@ extension TelegramAPI {
         public let location: Location
         /** String | Location address; 1-64 characters, as defined by the chat owner */
         public let address: String
-        public init(location: Location ,address: String) {
+
+        public init(location: Location, address: String) {
             self.location = location
             self.address = address
         }
@@ -3403,7 +3504,8 @@ extension TelegramAPI {
         public let type: String
         /** String | Reaction emoji. Currently, it can be one of "👍", "👎", "❤", "🔥", "🥰", "👏", "😁", "🤔", "🤯", "😱", "🤬", "😢", "🎉", "🤩", "🤮", "💩", "🙏", "👌", "🕊", "🤡", "🥱", "🥴", "😍", "🐳", "❤‍🔥", "🌚", "🌭", "💯", "🤣", "⚡", "🍌", "🏆", "💔", "🤨", "😐", "🍓", "🍾", "💋", "🖕", "😈", "😴", "😭", "🤓", "👻", "👨‍💻", "👀", "🎃", "🙈", "😇", "😨", "🤝", "✍", "🤗", "🫡", "🎅", "🎄", "☃", "💅", "🤪", "🗿", "🆒", "💘", "🙉", "🦄", "😘", "💊", "🙊", "😎", "👾", "🤷‍♂", "🤷", "🤷‍♀", "😡" */
         public let emoji: String
-        public init(type: String ,emoji: String) {
+
+        public init(type: String, emoji: String) {
             self.type = type
             self.emoji = emoji
         }
@@ -3420,7 +3522,8 @@ extension TelegramAPI {
         public let type: String
         /** String | Custom emoji identifier */
         public let custom_emoji_id: String
-        public init(type: String ,custom_emoji_id: String) {
+
+        public init(type: String, custom_emoji_id: String) {
             self.type = type
             self.custom_emoji_id = custom_emoji_id
         }
@@ -3435,6 +3538,7 @@ extension TelegramAPI {
     public struct ReactionTypePaid: Codable {
         /** String | Type of the reaction, always "paid" */
         public let type: String
+
         public init(type: String) {
             self.type = type
         }
@@ -3451,7 +3555,8 @@ extension TelegramAPI {
         public let type: ReactionType
         /** Integer | Number of times the reaction was added */
         public let total_count: Int
-        public init(type: ReactionType ,total_count: Int) {
+
+        public init(type: ReactionType, total_count: Int) {
             self.type = type
             self.total_count = total_count
         }
@@ -3478,7 +3583,8 @@ extension TelegramAPI {
         public let old_reaction: Array<ReactionType>
         /** Array of ReactionType | New list of reaction types that have been set by the user */
         public let new_reaction: Array<ReactionType>
-        public init(chat: Chat ,message_id: Int ,user: User? = nil ,actor_chat: Chat? = nil ,date: Int ,old_reaction: Array<ReactionType> ,new_reaction: Array<ReactionType>) {
+
+        public init(chat: Chat, message_id: Int, user: User? = nil, actor_chat: Chat? = nil, date: Int, old_reaction: Array<ReactionType>, new_reaction: Array<ReactionType>) {
             self.chat = chat
             self.message_id = message_id
             self.user = user
@@ -3504,7 +3610,8 @@ extension TelegramAPI {
         public let date: Int
         /** Array of ReactionCount | List of reactions that are present on the message */
         public let reactions: Array<ReactionCount>
-        public init(chat: Chat ,message_id: Int ,date: Int ,reactions: Array<ReactionCount>) {
+
+        public init(chat: Chat, message_id: Int, date: Int, reactions: Array<ReactionCount>) {
             self.chat = chat
             self.message_id = message_id
             self.date = date
@@ -3527,7 +3634,8 @@ extension TelegramAPI {
         public let icon_color: Int
         /** String | Optional. Unique identifier of the custom emoji shown as the topic icon */
         public let icon_custom_emoji_id: String?
-        public init(message_thread_id: Int ,name: String ,icon_color: Int ,icon_custom_emoji_id: String? = nil) {
+
+        public init(message_thread_id: Int, name: String, icon_color: Int, icon_custom_emoji_id: String? = nil) {
             self.message_thread_id = message_thread_id
             self.name = name
             self.icon_color = icon_color
@@ -3546,7 +3654,8 @@ extension TelegramAPI {
         public let command: String
         /** String | Description of the command; 1-256 characters. */
         public let description: String
-        public init(command: String ,description: String) {
+
+        public init(command: String, description: String) {
             self.command = command
             self.description = description
         }
@@ -3631,6 +3740,7 @@ extension TelegramAPI {
     public struct BotCommandScopeDefault: Codable {
         /** String | Scope type, must be default */
         public let type: String
+
         public init(type: String) {
             self.type = type
         }
@@ -3645,6 +3755,7 @@ extension TelegramAPI {
     public struct BotCommandScopeAllPrivateChats: Codable {
         /** String | Scope type, must be all_private_chats */
         public let type: String
+
         public init(type: String) {
             self.type = type
         }
@@ -3659,6 +3770,7 @@ extension TelegramAPI {
     public struct BotCommandScopeAllGroupChats: Codable {
         /** String | Scope type, must be all_group_chats */
         public let type: String
+
         public init(type: String) {
             self.type = type
         }
@@ -3673,6 +3785,7 @@ extension TelegramAPI {
     public struct BotCommandScopeAllChatAdministrators: Codable {
         /** String | Scope type, must be all_chat_administrators */
         public let type: String
+
         public init(type: String) {
             self.type = type
         }
@@ -3689,7 +3802,8 @@ extension TelegramAPI {
         public let type: String
         /** Integer or String | Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
         public let chat_id: Either2<Int, String>
-        public init(type: String ,chat_id: Either2<Int, String>) {
+
+        public init(type: String, chat_id: Either2<Int, String>) {
             self.type = type
             self.chat_id = chat_id
         }
@@ -3706,7 +3820,8 @@ extension TelegramAPI {
         public let type: String
         /** Integer or String | Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
         public let chat_id: Either2<Int, String>
-        public init(type: String ,chat_id: Either2<Int, String>) {
+
+        public init(type: String, chat_id: Either2<Int, String>) {
             self.type = type
             self.chat_id = chat_id
         }
@@ -3725,7 +3840,8 @@ extension TelegramAPI {
         public let chat_id: Either2<Int, String>
         /** Integer | Unique identifier of the target user */
         public let user_id: Int
-        public init(type: String ,chat_id: Either2<Int, String> ,user_id: Int) {
+
+        public init(type: String, chat_id: Either2<Int, String>, user_id: Int) {
             self.type = type
             self.chat_id = chat_id
             self.user_id = user_id
@@ -3741,6 +3857,7 @@ extension TelegramAPI {
     public struct BotName: Codable {
         /** String | The bot's name */
         public let name: String
+
         public init(name: String) {
             self.name = name
         }
@@ -3755,6 +3872,7 @@ extension TelegramAPI {
     public struct BotDescription: Codable {
         /** String | The bot's description */
         public let description: String
+
         public init(description: String) {
             self.description = description
         }
@@ -3769,6 +3887,7 @@ extension TelegramAPI {
     public struct BotShortDescription: Codable {
         /** String | The bot's short description */
         public let short_description: String
+
         public init(short_description: String) {
             self.short_description = short_description
         }
@@ -3826,6 +3945,7 @@ extension TelegramAPI {
     public struct MenuButtonCommands: Codable {
         /** String | Type of the button, must be commands */
         public let type: String
+
         public init(type: String) {
             self.type = type
         }
@@ -3844,7 +3964,8 @@ extension TelegramAPI {
         public let text: String
         /** WebAppInfo | Description of the Web App that will be launched when the user presses the button. The Web App will be able to send an arbitrary message on behalf of the user using the method answerWebAppQuery. Alternatively, a t.me link to a Web App of the bot can be specified in the object instead of the Web App's URL, in which case the Web App will be opened as if the user pressed the link. */
         public let web_app: WebAppInfo
-        public init(type: String ,text: String ,web_app: WebAppInfo) {
+
+        public init(type: String, text: String, web_app: WebAppInfo) {
             self.type = type
             self.text = text
             self.web_app = web_app
@@ -3860,6 +3981,7 @@ extension TelegramAPI {
     public struct MenuButtonDefault: Codable {
         /** String | Type of the button, must be default */
         public let type: String
+
         public init(type: String) {
             self.type = type
         }
@@ -3918,7 +4040,8 @@ extension TelegramAPI {
         public let source: String
         /** User | User that boosted the chat */
         public let user: User
-        public init(source: String ,user: User) {
+
+        public init(source: String, user: User) {
             self.source = source
             self.user = user
         }
@@ -3935,7 +4058,8 @@ extension TelegramAPI {
         public let source: String
         /** User | User for which the gift code was created */
         public let user: User
-        public init(source: String ,user: User) {
+
+        public init(source: String, user: User) {
             self.source = source
             self.user = user
         }
@@ -3958,7 +4082,8 @@ extension TelegramAPI {
         public let prize_star_count: Int?
         /** Boolean | Optional. True, if the giveaway was completed, but there was no user to win the prize */
         public let is_unclaimed: Bool?
-        public init(source: String ,giveaway_message_id: Int ,user: User? = nil ,prize_star_count: Int? = nil ,is_unclaimed: Bool? = nil) {
+
+        public init(source: String, giveaway_message_id: Int, user: User? = nil, prize_star_count: Int? = nil, is_unclaimed: Bool? = nil) {
             self.source = source
             self.giveaway_message_id = giveaway_message_id
             self.user = user
@@ -3982,7 +4107,8 @@ extension TelegramAPI {
         public let expiration_date: Int
         /** ChatBoostSource | Source of the added boost */
         public let source: ChatBoostSource
-        public init(boost_id: String ,add_date: Int ,expiration_date: Int ,source: ChatBoostSource) {
+
+        public init(boost_id: String, add_date: Int, expiration_date: Int, source: ChatBoostSource) {
             self.boost_id = boost_id
             self.add_date = add_date
             self.expiration_date = expiration_date
@@ -4001,7 +4127,8 @@ extension TelegramAPI {
         public let chat: Chat
         /** ChatBoost | Information about the chat boost */
         public let boost: ChatBoost
-        public init(chat: Chat ,boost: ChatBoost) {
+
+        public init(chat: Chat, boost: ChatBoost) {
             self.chat = chat
             self.boost = boost
         }
@@ -4022,7 +4149,8 @@ extension TelegramAPI {
         public let remove_date: Int
         /** ChatBoostSource | Source of the removed boost */
         public let source: ChatBoostSource
-        public init(chat: Chat ,boost_id: String ,remove_date: Int ,source: ChatBoostSource) {
+
+        public init(chat: Chat, boost_id: String, remove_date: Int, source: ChatBoostSource) {
             self.chat = chat
             self.boost_id = boost_id
             self.remove_date = remove_date
@@ -4039,6 +4167,7 @@ extension TelegramAPI {
     public struct UserChatBoosts: Codable {
         /** Array of ChatBoost | The list of boosts added to the chat by the user */
         public let boosts: Array<ChatBoost>
+
         public init(boosts: Array<ChatBoost>) {
             self.boosts = boosts
         }
@@ -4063,7 +4192,8 @@ extension TelegramAPI {
         public let can_reply: Bool
         /** Boolean | True, if the connection is active */
         public let is_enabled: Bool
-        public init(id: String ,user: User ,user_chat_id: Int ,date: Int ,can_reply: Bool ,is_enabled: Bool) {
+
+        public init(id: String, user: User, user_chat_id: Int, date: Int, can_reply: Bool, is_enabled: Bool) {
             self.id = id
             self.user = user
             self.user_chat_id = user_chat_id
@@ -4086,7 +4216,8 @@ extension TelegramAPI {
         public let chat: Chat
         /** Array of Integer | The list of identifiers of deleted messages in the chat of the business account */
         public let message_ids: Array<Int>
-        public init(business_connection_id: String ,chat: Chat ,message_ids: Array<Int>) {
+
+        public init(business_connection_id: String, chat: Chat, message_ids: Array<Int>) {
             self.business_connection_id = business_connection_id
             self.chat = chat
             self.message_ids = message_ids
@@ -4104,7 +4235,8 @@ extension TelegramAPI {
         public let migrate_to_chat_id: Int?
         /** Integer | Optional. In case of exceeding flood control, the number of seconds left to wait before the request can be repeated */
         public let retry_after: Int?
-        public init(migrate_to_chat_id: Int? = nil ,retry_after: Int? = nil) {
+
+        public init(migrate_to_chat_id: Int? = nil, retry_after: Int? = nil) {
             self.migrate_to_chat_id = migrate_to_chat_id
             self.retry_after = retry_after
         }
@@ -4187,7 +4319,8 @@ extension TelegramAPI {
         public let show_caption_above_media: Bool?
         /** Boolean | Optional. Pass True if the photo needs to be covered with a spoiler animation */
         public let has_spoiler: Bool?
-        public init(type: String ,media: String ,caption: String? = nil ,parse_mode: String? = nil ,caption_entities: Array<MessageEntity>? = nil ,show_caption_above_media: Bool? = nil ,has_spoiler: Bool? = nil) {
+
+        public init(type: String, media: String, caption: String? = nil, parse_mode: String? = nil, caption_entities: Array<MessageEntity>? = nil, show_caption_above_media: Bool? = nil, has_spoiler: Bool? = nil) {
             self.type = type
             self.media = media
             self.caption = caption
@@ -4229,7 +4362,8 @@ extension TelegramAPI {
         public let supports_streaming: Bool?
         /** Boolean | Optional. Pass True if the video needs to be covered with a spoiler animation */
         public let has_spoiler: Bool?
-        public init(type: String ,media: String ,thumbnail: Either2<InputFile, String>? = nil ,caption: String? = nil ,parse_mode: String? = nil ,caption_entities: Array<MessageEntity>? = nil ,show_caption_above_media: Bool? = nil ,width: Int? = nil ,height: Int? = nil ,duration: Int? = nil ,supports_streaming: Bool? = nil ,has_spoiler: Bool? = nil) {
+
+        public init(type: String, media: String, thumbnail: Either2<InputFile, String>? = nil, caption: String? = nil, parse_mode: String? = nil, caption_entities: Array<MessageEntity>? = nil, show_caption_above_media: Bool? = nil, width: Int? = nil, height: Int? = nil, duration: Int? = nil, supports_streaming: Bool? = nil, has_spoiler: Bool? = nil) {
             self.type = type
             self.media = media
             self.thumbnail = thumbnail
@@ -4274,7 +4408,8 @@ extension TelegramAPI {
         public let duration: Int?
         /** Boolean | Optional. Pass True if the animation needs to be covered with a spoiler animation */
         public let has_spoiler: Bool?
-        public init(type: String ,media: String ,thumbnail: Either2<InputFile, String>? = nil ,caption: String? = nil ,parse_mode: String? = nil ,caption_entities: Array<MessageEntity>? = nil ,show_caption_above_media: Bool? = nil ,width: Int? = nil ,height: Int? = nil ,duration: Int? = nil ,has_spoiler: Bool? = nil) {
+
+        public init(type: String, media: String, thumbnail: Either2<InputFile, String>? = nil, caption: String? = nil, parse_mode: String? = nil, caption_entities: Array<MessageEntity>? = nil, show_caption_above_media: Bool? = nil, width: Int? = nil, height: Int? = nil, duration: Int? = nil, has_spoiler: Bool? = nil) {
             self.type = type
             self.media = media
             self.thumbnail = thumbnail
@@ -4314,7 +4449,8 @@ extension TelegramAPI {
         public let performer: String?
         /** String | Optional. Title of the audio */
         public let title: String?
-        public init(type: String ,media: String ,thumbnail: Either2<InputFile, String>? = nil ,caption: String? = nil ,parse_mode: String? = nil ,caption_entities: Array<MessageEntity>? = nil ,duration: Int? = nil ,performer: String? = nil ,title: String? = nil) {
+
+        public init(type: String, media: String, thumbnail: Either2<InputFile, String>? = nil, caption: String? = nil, parse_mode: String? = nil, caption_entities: Array<MessageEntity>? = nil, duration: Int? = nil, performer: String? = nil, title: String? = nil) {
             self.type = type
             self.media = media
             self.thumbnail = thumbnail
@@ -4348,7 +4484,8 @@ extension TelegramAPI {
         public let caption_entities: Array<MessageEntity>?
         /** Boolean | Optional. Disables automatic server-side content type detection for files uploaded using multipart/form-data. Always True, if the document is sent as part of an album. */
         public let disable_content_type_detection: Bool?
-        public init(type: String ,media: String ,thumbnail: Either2<InputFile, String>? = nil ,caption: String? = nil ,parse_mode: String? = nil ,caption_entities: Array<MessageEntity>? = nil ,disable_content_type_detection: Bool? = nil) {
+
+        public init(type: String, media: String, thumbnail: Either2<InputFile, String>? = nil, caption: String? = nil, parse_mode: String? = nil, caption_entities: Array<MessageEntity>? = nil, disable_content_type_detection: Bool? = nil) {
             self.type = type
             self.media = media
             self.thumbnail = thumbnail
@@ -4413,7 +4550,8 @@ extension TelegramAPI {
         public let type: String
         /** String | File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass "attach://<file_attach_name>" to upload a new one using multipart/form-data under <file_attach_name> name. More information on Sending Files: https://core.telegram.org/bots/api#sending-files */
         public let media: String
-        public init(type: String ,media: String) {
+
+        public init(type: String, media: String) {
             self.type = type
             self.media = media
         }
@@ -4440,7 +4578,8 @@ extension TelegramAPI {
         public let duration: Int?
         /** Boolean | Optional. Pass True if the uploaded video is suitable for streaming */
         public let supports_streaming: Bool?
-        public init(type: String ,media: String ,thumbnail: Either2<InputFile, String>? = nil ,width: Int? = nil ,height: Int? = nil ,duration: Int? = nil ,supports_streaming: Bool? = nil) {
+
+        public init(type: String, media: String, thumbnail: Either2<InputFile, String>? = nil, width: Int? = nil, height: Int? = nil, duration: Int? = nil, supports_streaming: Bool? = nil) {
             self.type = type
             self.media = media
             self.thumbnail = thumbnail
@@ -4488,7 +4627,8 @@ extension TelegramAPI {
         public let needs_repainting: Bool?
         /** Integer | Optional. File size in bytes */
         public let file_size: Int?
-        public init(file_id: String ,file_unique_id: String ,type: String ,width: Int ,height: Int ,is_animated: Bool ,is_video: Bool ,thumbnail: PhotoSize? = nil ,emoji: String? = nil ,set_name: String? = nil ,premium_animation: File? = nil ,mask_position: MaskPosition? = nil ,custom_emoji_id: String? = nil ,needs_repainting: Bool? = nil ,file_size: Int? = nil) {
+
+        public init(file_id: String, file_unique_id: String, type: String, width: Int, height: Int, is_animated: Bool, is_video: Bool, thumbnail: PhotoSize? = nil, emoji: String? = nil, set_name: String? = nil, premium_animation: File? = nil, mask_position: MaskPosition? = nil, custom_emoji_id: String? = nil, needs_repainting: Bool? = nil, file_size: Int? = nil) {
             self.file_id = file_id
             self.file_unique_id = file_unique_id
             self.type = type
@@ -4524,7 +4664,8 @@ extension TelegramAPI {
         public let stickers: Array<Sticker>
         /** PhotoSize | Optional. Sticker set thumbnail in the .WEBP, .TGS, or .WEBM format */
         public let thumbnail: PhotoSize?
-        public init(name: String ,title: String ,sticker_type: String ,stickers: Array<Sticker> ,thumbnail: PhotoSize? = nil) {
+
+        public init(name: String, title: String, sticker_type: String, stickers: Array<Sticker>, thumbnail: PhotoSize? = nil) {
             self.name = name
             self.title = title
             self.sticker_type = sticker_type
@@ -4548,7 +4689,8 @@ extension TelegramAPI {
         public let y_shift: Float
         /** Float | Mask scaling coefficient. For example, 2.0 means double size. */
         public let scale: Float
-        public init(point: String ,x_shift: Float ,y_shift: Float ,scale: Float) {
+
+        public init(point: String, x_shift: Float, y_shift: Float, scale: Float) {
             self.point = point
             self.x_shift = x_shift
             self.y_shift = y_shift
@@ -4573,7 +4715,8 @@ extension TelegramAPI {
         public let mask_position: MaskPosition?
         /** Array of String | Optional. List of 0-20 search keywords for the sticker with total length of up to 64 characters. For "regular" and "custom_emoji" stickers only. */
         public let keywords: Array<String>?
-        public init(sticker: Either2<InputFile, String> ,format: String ,emoji_list: Array<String> ,mask_position: MaskPosition? = nil ,keywords: Array<String>? = nil) {
+
+        public init(sticker: Either2<InputFile, String>, format: String, emoji_list: Array<String>, mask_position: MaskPosition? = nil, keywords: Array<String>? = nil) {
             self.sticker = sticker
             self.format = format
             self.emoji_list = emoji_list
@@ -4601,7 +4744,8 @@ extension TelegramAPI {
         public let total_count: Int?
         /** Integer | Optional. The number of remaining gifts of this type that can be sent; for limited gifts only */
         public let remaining_count: Int?
-        public init(id: String ,sticker: Sticker ,star_count: Int ,upgrade_star_count: Int? = nil ,total_count: Int? = nil ,remaining_count: Int? = nil) {
+
+        public init(id: String, sticker: Sticker, star_count: Int, upgrade_star_count: Int? = nil, total_count: Int? = nil, remaining_count: Int? = nil) {
             self.id = id
             self.sticker = sticker
             self.star_count = star_count
@@ -4620,6 +4764,7 @@ extension TelegramAPI {
     public struct Gifts: Codable {
         /** Array of Gift | The list of gifts */
         public let gifts: Array<Gift>
+
         public init(gifts: Array<Gift>) {
             self.gifts = gifts
         }
@@ -4644,7 +4789,8 @@ extension TelegramAPI {
         public let chat_type: ChatType?
         /** Location | Optional. Sender location, only for bots that request user location */
         public let location: Location?
-        public init(id: String ,from: User ,query: String ,offset: String ,chat_type: ChatType? = nil ,location: Location? = nil) {
+
+        public init(id: String, from: User, query: String, offset: String, chat_type: ChatType? = nil, location: Location? = nil) {
             self.id = id
             self.from = from
             self.query = query
@@ -4667,7 +4813,8 @@ extension TelegramAPI {
         public let web_app: WebAppInfo?
         /** String | Optional. Deep-linking parameter for the /start message sent to the bot when a user presses the button. 1-64 characters, only A-Z, a-z, 0-9, _ and - are allowed. Example: An inline bot that sends YouTube videos can ask the user to connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a 'Connect your YouTube account' button above the results, or even before showing any. The user presses the button, switches to a private chat with the bot and, in doing so, passes a start parameter that instructs the bot to return an OAuth link. Once done, the bot can offer a switch_inline button so that the user can easily return to the chat where they wanted to use the bot's inline capabilities. */
         public let start_parameter: String?
-        public init(text: String ,web_app: WebAppInfo? = nil ,start_parameter: String? = nil) {
+
+        public init(text: String, web_app: WebAppInfo? = nil, start_parameter: String? = nil) {
             self.text = text
             self.web_app = web_app
             self.start_parameter = start_parameter
@@ -4863,7 +5010,8 @@ extension TelegramAPI {
         public let thumbnail_width: Int?
         /** Integer | Optional. Thumbnail height */
         public let thumbnail_height: Int?
-        public init(type: String ,id: String ,title: String ,input_message_content: InputMessageContent ,reply_markup: InlineKeyboardMarkup? = nil ,url: String? = nil ,description: String? = nil ,thumbnail_url: String? = nil ,thumbnail_width: Int? = nil ,thumbnail_height: Int? = nil) {
+
+        public init(type: String, id: String, title: String, input_message_content: InputMessageContent, reply_markup: InlineKeyboardMarkup? = nil, url: String? = nil, description: String? = nil, thumbnail_url: String? = nil, thumbnail_width: Int? = nil, thumbnail_height: Int? = nil) {
             self.type = type
             self.id = id
             self.title = title
@@ -4912,7 +5060,8 @@ extension TelegramAPI {
         public let reply_markup: InlineKeyboardMarkup?
         /** InputMessageContent | Optional. Content of the message to be sent instead of the photo */
         public let input_message_content: InputMessageContent?
-        public init(type: String ,id: String ,photo_url: String ,thumbnail_url: String ,photo_width: Int? = nil ,photo_height: Int? = nil ,title: String? = nil ,description: String? = nil ,caption: String? = nil ,parse_mode: String? = nil ,caption_entities: Array<MessageEntity>? = nil ,show_caption_above_media: Bool? = nil ,reply_markup: InlineKeyboardMarkup? = nil ,input_message_content: InputMessageContent? = nil) {
+
+        public init(type: String, id: String, photo_url: String, thumbnail_url: String, photo_width: Int? = nil, photo_height: Int? = nil, title: String? = nil, description: String? = nil, caption: String? = nil, parse_mode: String? = nil, caption_entities: Array<MessageEntity>? = nil, show_caption_above_media: Bool? = nil, reply_markup: InlineKeyboardMarkup? = nil, input_message_content: InputMessageContent? = nil) {
             self.type = type
             self.id = id
             self.photo_url = photo_url
@@ -4967,7 +5116,8 @@ extension TelegramAPI {
         public let reply_markup: InlineKeyboardMarkup?
         /** InputMessageContent | Optional. Content of the message to be sent instead of the GIF animation */
         public let input_message_content: InputMessageContent?
-        public init(type: String ,id: String ,gif_url: String ,gif_width: Int? = nil ,gif_height: Int? = nil ,gif_duration: Int? = nil ,thumbnail_url: String ,thumbnail_mime_type: String? = nil ,title: String? = nil ,caption: String? = nil ,parse_mode: String? = nil ,caption_entities: Array<MessageEntity>? = nil ,show_caption_above_media: Bool? = nil ,reply_markup: InlineKeyboardMarkup? = nil ,input_message_content: InputMessageContent? = nil) {
+
+        public init(type: String, id: String, gif_url: String, gif_width: Int? = nil, gif_height: Int? = nil, gif_duration: Int? = nil, thumbnail_url: String, thumbnail_mime_type: String? = nil, title: String? = nil, caption: String? = nil, parse_mode: String? = nil, caption_entities: Array<MessageEntity>? = nil, show_caption_above_media: Bool? = nil, reply_markup: InlineKeyboardMarkup? = nil, input_message_content: InputMessageContent? = nil) {
             self.type = type
             self.id = id
             self.gif_url = gif_url
@@ -5023,7 +5173,8 @@ extension TelegramAPI {
         public let reply_markup: InlineKeyboardMarkup?
         /** InputMessageContent | Optional. Content of the message to be sent instead of the video animation */
         public let input_message_content: InputMessageContent?
-        public init(type: String ,id: String ,mpeg4_url: String ,mpeg4_width: Int? = nil ,mpeg4_height: Int? = nil ,mpeg4_duration: Int? = nil ,thumbnail_url: String ,thumbnail_mime_type: String? = nil ,title: String? = nil ,caption: String? = nil ,parse_mode: String? = nil ,caption_entities: Array<MessageEntity>? = nil ,show_caption_above_media: Bool? = nil ,reply_markup: InlineKeyboardMarkup? = nil ,input_message_content: InputMessageContent? = nil) {
+
+        public init(type: String, id: String, mpeg4_url: String, mpeg4_width: Int? = nil, mpeg4_height: Int? = nil, mpeg4_duration: Int? = nil, thumbnail_url: String, thumbnail_mime_type: String? = nil, title: String? = nil, caption: String? = nil, parse_mode: String? = nil, caption_entities: Array<MessageEntity>? = nil, show_caption_above_media: Bool? = nil, reply_markup: InlineKeyboardMarkup? = nil, input_message_content: InputMessageContent? = nil) {
             self.type = type
             self.id = id
             self.mpeg4_url = mpeg4_url
@@ -5081,7 +5232,8 @@ extension TelegramAPI {
         public let reply_markup: InlineKeyboardMarkup?
         /** InputMessageContent | Optional. Content of the message to be sent instead of the video. This field is required if InlineQueryResultVideo is used to send an HTML-page as a result (e.g., a YouTube video). */
         public let input_message_content: InputMessageContent?
-        public init(type: String ,id: String ,video_url: String ,mime_type: String ,thumbnail_url: String ,title: String ,caption: String? = nil ,parse_mode: String? = nil ,caption_entities: Array<MessageEntity>? = nil ,show_caption_above_media: Bool? = nil ,video_width: Int? = nil ,video_height: Int? = nil ,video_duration: Int? = nil ,description: String? = nil ,reply_markup: InlineKeyboardMarkup? = nil ,input_message_content: InputMessageContent? = nil) {
+
+        public init(type: String, id: String, video_url: String, mime_type: String, thumbnail_url: String, title: String, caption: String? = nil, parse_mode: String? = nil, caption_entities: Array<MessageEntity>? = nil, show_caption_above_media: Bool? = nil, video_width: Int? = nil, video_height: Int? = nil, video_duration: Int? = nil, description: String? = nil, reply_markup: InlineKeyboardMarkup? = nil, input_message_content: InputMessageContent? = nil) {
             self.type = type
             self.id = id
             self.video_url = video_url
@@ -5130,7 +5282,8 @@ extension TelegramAPI {
         public let reply_markup: InlineKeyboardMarkup?
         /** InputMessageContent | Optional. Content of the message to be sent instead of the audio */
         public let input_message_content: InputMessageContent?
-        public init(type: String ,id: String ,audio_url: String ,title: String ,caption: String? = nil ,parse_mode: String? = nil ,caption_entities: Array<MessageEntity>? = nil ,performer: String? = nil ,audio_duration: Int? = nil ,reply_markup: InlineKeyboardMarkup? = nil ,input_message_content: InputMessageContent? = nil) {
+
+        public init(type: String, id: String, audio_url: String, title: String, caption: String? = nil, parse_mode: String? = nil, caption_entities: Array<MessageEntity>? = nil, performer: String? = nil, audio_duration: Int? = nil, reply_markup: InlineKeyboardMarkup? = nil, input_message_content: InputMessageContent? = nil) {
             self.type = type
             self.id = id
             self.audio_url = audio_url
@@ -5172,7 +5325,8 @@ extension TelegramAPI {
         public let reply_markup: InlineKeyboardMarkup?
         /** InputMessageContent | Optional. Content of the message to be sent instead of the voice recording */
         public let input_message_content: InputMessageContent?
-        public init(type: String ,id: String ,voice_url: String ,title: String ,caption: String? = nil ,parse_mode: String? = nil ,caption_entities: Array<MessageEntity>? = nil ,voice_duration: Int? = nil ,reply_markup: InlineKeyboardMarkup? = nil ,input_message_content: InputMessageContent? = nil) {
+
+        public init(type: String, id: String, voice_url: String, title: String, caption: String? = nil, parse_mode: String? = nil, caption_entities: Array<MessageEntity>? = nil, voice_duration: Int? = nil, reply_markup: InlineKeyboardMarkup? = nil, input_message_content: InputMessageContent? = nil) {
             self.type = type
             self.id = id
             self.voice_url = voice_url
@@ -5221,7 +5375,8 @@ extension TelegramAPI {
         public let thumbnail_width: Int?
         /** Integer | Optional. Thumbnail height */
         public let thumbnail_height: Int?
-        public init(type: String ,id: String ,title: String ,caption: String? = nil ,parse_mode: String? = nil ,caption_entities: Array<MessageEntity>? = nil ,document_url: String ,mime_type: String ,description: String? = nil ,reply_markup: InlineKeyboardMarkup? = nil ,input_message_content: InputMessageContent? = nil ,thumbnail_url: String? = nil ,thumbnail_width: Int? = nil ,thumbnail_height: Int? = nil) {
+
+        public init(type: String, id: String, title: String, caption: String? = nil, parse_mode: String? = nil, caption_entities: Array<MessageEntity>? = nil, document_url: String, mime_type: String, description: String? = nil, reply_markup: InlineKeyboardMarkup? = nil, input_message_content: InputMessageContent? = nil, thumbnail_url: String? = nil, thumbnail_width: Int? = nil, thumbnail_height: Int? = nil) {
             self.type = type
             self.id = id
             self.title = title
@@ -5274,7 +5429,8 @@ extension TelegramAPI {
         public let thumbnail_width: Int?
         /** Integer | Optional. Thumbnail height */
         public let thumbnail_height: Int?
-        public init(type: String ,id: String ,latitude: Float ,longitude: Float ,title: String ,horizontal_accuracy: Float? = nil ,live_period: Int? = nil ,heading: Int? = nil ,proximity_alert_radius: Int? = nil ,reply_markup: InlineKeyboardMarkup? = nil ,input_message_content: InputMessageContent? = nil ,thumbnail_url: String? = nil ,thumbnail_width: Int? = nil ,thumbnail_height: Int? = nil) {
+
+        public init(type: String, id: String, latitude: Float, longitude: Float, title: String, horizontal_accuracy: Float? = nil, live_period: Int? = nil, heading: Int? = nil, proximity_alert_radius: Int? = nil, reply_markup: InlineKeyboardMarkup? = nil, input_message_content: InputMessageContent? = nil, thumbnail_url: String? = nil, thumbnail_width: Int? = nil, thumbnail_height: Int? = nil) {
             self.type = type
             self.id = id
             self.latitude = latitude
@@ -5329,7 +5485,8 @@ extension TelegramAPI {
         public let thumbnail_width: Int?
         /** Integer | Optional. Thumbnail height */
         public let thumbnail_height: Int?
-        public init(type: String ,id: String ,latitude: Float ,longitude: Float ,title: String ,address: String ,foursquare_id: String? = nil ,foursquare_type: String? = nil ,google_place_id: String? = nil ,google_place_type: String? = nil ,reply_markup: InlineKeyboardMarkup? = nil ,input_message_content: InputMessageContent? = nil ,thumbnail_url: String? = nil ,thumbnail_width: Int? = nil ,thumbnail_height: Int? = nil) {
+
+        public init(type: String, id: String, latitude: Float, longitude: Float, title: String, address: String, foursquare_id: String? = nil, foursquare_type: String? = nil, google_place_id: String? = nil, google_place_type: String? = nil, reply_markup: InlineKeyboardMarkup? = nil, input_message_content: InputMessageContent? = nil, thumbnail_url: String? = nil, thumbnail_width: Int? = nil, thumbnail_height: Int? = nil) {
             self.type = type
             self.id = id
             self.latitude = latitude
@@ -5377,7 +5534,8 @@ extension TelegramAPI {
         public let thumbnail_width: Int?
         /** Integer | Optional. Thumbnail height */
         public let thumbnail_height: Int?
-        public init(type: String ,id: String ,phone_number: String ,first_name: String ,last_name: String? = nil ,vcard: String? = nil ,reply_markup: InlineKeyboardMarkup? = nil ,input_message_content: InputMessageContent? = nil ,thumbnail_url: String? = nil ,thumbnail_width: Int? = nil ,thumbnail_height: Int? = nil) {
+
+        public init(type: String, id: String, phone_number: String, first_name: String, last_name: String? = nil, vcard: String? = nil, reply_markup: InlineKeyboardMarkup? = nil, input_message_content: InputMessageContent? = nil, thumbnail_url: String? = nil, thumbnail_width: Int? = nil, thumbnail_height: Int? = nil) {
             self.type = type
             self.id = id
             self.phone_number = phone_number
@@ -5407,7 +5565,8 @@ extension TelegramAPI {
         public let game_short_name: String
         /** InlineKeyboardMarkup | Optional. Inline keyboard attached to the message */
         public let reply_markup: InlineKeyboardMarkup?
-        public init(type: String ,id: String ,game_short_name: String ,reply_markup: InlineKeyboardMarkup? = nil) {
+
+        public init(type: String, id: String, game_short_name: String, reply_markup: InlineKeyboardMarkup? = nil) {
             self.type = type
             self.id = id
             self.game_short_name = game_short_name
@@ -5444,7 +5603,8 @@ extension TelegramAPI {
         public let reply_markup: InlineKeyboardMarkup?
         /** InputMessageContent | Optional. Content of the message to be sent instead of the photo */
         public let input_message_content: InputMessageContent?
-        public init(type: String ,id: String ,photo_file_id: String ,title: String? = nil ,description: String? = nil ,caption: String? = nil ,parse_mode: String? = nil ,caption_entities: Array<MessageEntity>? = nil ,show_caption_above_media: Bool? = nil ,reply_markup: InlineKeyboardMarkup? = nil ,input_message_content: InputMessageContent? = nil) {
+
+        public init(type: String, id: String, photo_file_id: String, title: String? = nil, description: String? = nil, caption: String? = nil, parse_mode: String? = nil, caption_entities: Array<MessageEntity>? = nil, show_caption_above_media: Bool? = nil, reply_markup: InlineKeyboardMarkup? = nil, input_message_content: InputMessageContent? = nil) {
             self.type = type
             self.id = id
             self.photo_file_id = photo_file_id
@@ -5486,7 +5646,8 @@ extension TelegramAPI {
         public let reply_markup: InlineKeyboardMarkup?
         /** InputMessageContent | Optional. Content of the message to be sent instead of the GIF animation */
         public let input_message_content: InputMessageContent?
-        public init(type: String ,id: String ,gif_file_id: String ,title: String? = nil ,caption: String? = nil ,parse_mode: String? = nil ,caption_entities: Array<MessageEntity>? = nil ,show_caption_above_media: Bool? = nil ,reply_markup: InlineKeyboardMarkup? = nil ,input_message_content: InputMessageContent? = nil) {
+
+        public init(type: String, id: String, gif_file_id: String, title: String? = nil, caption: String? = nil, parse_mode: String? = nil, caption_entities: Array<MessageEntity>? = nil, show_caption_above_media: Bool? = nil, reply_markup: InlineKeyboardMarkup? = nil, input_message_content: InputMessageContent? = nil) {
             self.type = type
             self.id = id
             self.gif_file_id = gif_file_id
@@ -5527,7 +5688,8 @@ extension TelegramAPI {
         public let reply_markup: InlineKeyboardMarkup?
         /** InputMessageContent | Optional. Content of the message to be sent instead of the video animation */
         public let input_message_content: InputMessageContent?
-        public init(type: String ,id: String ,mpeg4_file_id: String ,title: String? = nil ,caption: String? = nil ,parse_mode: String? = nil ,caption_entities: Array<MessageEntity>? = nil ,show_caption_above_media: Bool? = nil ,reply_markup: InlineKeyboardMarkup? = nil ,input_message_content: InputMessageContent? = nil) {
+
+        public init(type: String, id: String, mpeg4_file_id: String, title: String? = nil, caption: String? = nil, parse_mode: String? = nil, caption_entities: Array<MessageEntity>? = nil, show_caption_above_media: Bool? = nil, reply_markup: InlineKeyboardMarkup? = nil, input_message_content: InputMessageContent? = nil) {
             self.type = type
             self.id = id
             self.mpeg4_file_id = mpeg4_file_id
@@ -5558,7 +5720,8 @@ extension TelegramAPI {
         public let reply_markup: InlineKeyboardMarkup?
         /** InputMessageContent | Optional. Content of the message to be sent instead of the sticker */
         public let input_message_content: InputMessageContent?
-        public init(type: String ,id: String ,sticker_file_id: String ,reply_markup: InlineKeyboardMarkup? = nil ,input_message_content: InputMessageContent? = nil) {
+
+        public init(type: String, id: String, sticker_file_id: String, reply_markup: InlineKeyboardMarkup? = nil, input_message_content: InputMessageContent? = nil) {
             self.type = type
             self.id = id
             self.sticker_file_id = sticker_file_id
@@ -5594,7 +5757,8 @@ extension TelegramAPI {
         public let reply_markup: InlineKeyboardMarkup?
         /** InputMessageContent | Optional. Content of the message to be sent instead of the file */
         public let input_message_content: InputMessageContent?
-        public init(type: String ,id: String ,title: String ,document_file_id: String ,description: String? = nil ,caption: String? = nil ,parse_mode: String? = nil ,caption_entities: Array<MessageEntity>? = nil ,reply_markup: InlineKeyboardMarkup? = nil ,input_message_content: InputMessageContent? = nil) {
+
+        public init(type: String, id: String, title: String, document_file_id: String, description: String? = nil, caption: String? = nil, parse_mode: String? = nil, caption_entities: Array<MessageEntity>? = nil, reply_markup: InlineKeyboardMarkup? = nil, input_message_content: InputMessageContent? = nil) {
             self.type = type
             self.id = id
             self.title = title
@@ -5637,7 +5801,8 @@ extension TelegramAPI {
         public let reply_markup: InlineKeyboardMarkup?
         /** InputMessageContent | Optional. Content of the message to be sent instead of the video */
         public let input_message_content: InputMessageContent?
-        public init(type: String ,id: String ,video_file_id: String ,title: String ,description: String? = nil ,caption: String? = nil ,parse_mode: String? = nil ,caption_entities: Array<MessageEntity>? = nil ,show_caption_above_media: Bool? = nil ,reply_markup: InlineKeyboardMarkup? = nil ,input_message_content: InputMessageContent? = nil) {
+
+        public init(type: String, id: String, video_file_id: String, title: String, description: String? = nil, caption: String? = nil, parse_mode: String? = nil, caption_entities: Array<MessageEntity>? = nil, show_caption_above_media: Bool? = nil, reply_markup: InlineKeyboardMarkup? = nil, input_message_content: InputMessageContent? = nil) {
             self.type = type
             self.id = id
             self.video_file_id = video_file_id
@@ -5677,7 +5842,8 @@ extension TelegramAPI {
         public let reply_markup: InlineKeyboardMarkup?
         /** InputMessageContent | Optional. Content of the message to be sent instead of the voice message */
         public let input_message_content: InputMessageContent?
-        public init(type: String ,id: String ,voice_file_id: String ,title: String ,caption: String? = nil ,parse_mode: String? = nil ,caption_entities: Array<MessageEntity>? = nil ,reply_markup: InlineKeyboardMarkup? = nil ,input_message_content: InputMessageContent? = nil) {
+
+        public init(type: String, id: String, voice_file_id: String, title: String, caption: String? = nil, parse_mode: String? = nil, caption_entities: Array<MessageEntity>? = nil, reply_markup: InlineKeyboardMarkup? = nil, input_message_content: InputMessageContent? = nil) {
             self.type = type
             self.id = id
             self.voice_file_id = voice_file_id
@@ -5713,7 +5879,8 @@ extension TelegramAPI {
         public let reply_markup: InlineKeyboardMarkup?
         /** InputMessageContent | Optional. Content of the message to be sent instead of the audio */
         public let input_message_content: InputMessageContent?
-        public init(type: String ,id: String ,audio_file_id: String ,caption: String? = nil ,parse_mode: String? = nil ,caption_entities: Array<MessageEntity>? = nil ,reply_markup: InlineKeyboardMarkup? = nil ,input_message_content: InputMessageContent? = nil) {
+
+        public init(type: String, id: String, audio_file_id: String, caption: String? = nil, parse_mode: String? = nil, caption_entities: Array<MessageEntity>? = nil, reply_markup: InlineKeyboardMarkup? = nil, input_message_content: InputMessageContent? = nil) {
             self.type = type
             self.id = id
             self.audio_file_id = audio_file_id
@@ -5796,7 +5963,8 @@ extension TelegramAPI {
         public let entities: Array<MessageEntity>?
         /** LinkPreviewOptions | Optional. Link preview generation options for the message */
         public let link_preview_options: LinkPreviewOptions?
-        public init(message_text: String ,parse_mode: String? = nil ,entities: Array<MessageEntity>? = nil ,link_preview_options: LinkPreviewOptions? = nil) {
+
+        public init(message_text: String, parse_mode: String? = nil, entities: Array<MessageEntity>? = nil, link_preview_options: LinkPreviewOptions? = nil) {
             self.message_text = message_text
             self.parse_mode = parse_mode
             self.entities = entities
@@ -5823,7 +5991,8 @@ extension TelegramAPI {
         public let heading: Int?
         /** Integer | Optional. For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified. */
         public let proximity_alert_radius: Int?
-        public init(latitude: Float ,longitude: Float ,horizontal_accuracy: Float? = nil ,live_period: Int? = nil ,heading: Int? = nil ,proximity_alert_radius: Int? = nil) {
+
+        public init(latitude: Float, longitude: Float, horizontal_accuracy: Float? = nil, live_period: Int? = nil, heading: Int? = nil, proximity_alert_radius: Int? = nil) {
             self.latitude = latitude
             self.longitude = longitude
             self.horizontal_accuracy = horizontal_accuracy
@@ -5856,7 +6025,8 @@ extension TelegramAPI {
         public let google_place_id: String?
         /** String | Optional. Google Places type of the venue. (See supported types.) */
         public let google_place_type: String?
-        public init(latitude: Float ,longitude: Float ,title: String ,address: String ,foursquare_id: String? = nil ,foursquare_type: String? = nil ,google_place_id: String? = nil ,google_place_type: String? = nil) {
+
+        public init(latitude: Float, longitude: Float, title: String, address: String, foursquare_id: String? = nil, foursquare_type: String? = nil, google_place_id: String? = nil, google_place_type: String? = nil) {
             self.latitude = latitude
             self.longitude = longitude
             self.title = title
@@ -5883,7 +6053,8 @@ extension TelegramAPI {
         public let last_name: String?
         /** String | Optional. Additional data about the contact in the form of a vCard, 0-2048 bytes */
         public let vcard: String?
-        public init(phone_number: String ,first_name: String ,last_name: String? = nil ,vcard: String? = nil) {
+
+        public init(phone_number: String, first_name: String, last_name: String? = nil, vcard: String? = nil) {
             self.phone_number = phone_number
             self.first_name = first_name
             self.last_name = last_name
@@ -5938,7 +6109,8 @@ extension TelegramAPI {
         public let send_email_to_provider: Bool?
         /** Boolean | Optional. Pass True if the final price depends on the shipping method. Ignored for payments in Telegram Stars. */
         public let is_flexible: Bool?
-        public init(title: String ,description: String ,payload: String ,provider_token: String? = nil ,currency: String ,prices: Array<LabeledPrice> ,max_tip_amount: Int? = nil ,suggested_tip_amounts: Array<Int>? = nil ,provider_data: String? = nil ,photo_url: String? = nil ,photo_size: Int? = nil ,photo_width: Int? = nil ,photo_height: Int? = nil ,need_name: Bool? = nil ,need_phone_number: Bool? = nil ,need_email: Bool? = nil ,need_shipping_address: Bool? = nil ,send_phone_number_to_provider: Bool? = nil ,send_email_to_provider: Bool? = nil ,is_flexible: Bool? = nil) {
+
+        public init(title: String, description: String, payload: String, provider_token: String? = nil, currency: String, prices: Array<LabeledPrice>, max_tip_amount: Int? = nil, suggested_tip_amounts: Array<Int>? = nil, provider_data: String? = nil, photo_url: String? = nil, photo_size: Int? = nil, photo_width: Int? = nil, photo_height: Int? = nil, need_name: Bool? = nil, need_phone_number: Bool? = nil, need_email: Bool? = nil, need_shipping_address: Bool? = nil, send_phone_number_to_provider: Bool? = nil, send_email_to_provider: Bool? = nil, is_flexible: Bool? = nil) {
             self.title = title
             self.description = description
             self.payload = payload
@@ -5980,7 +6152,8 @@ extension TelegramAPI {
         public let inline_message_id: String?
         /** String | The query that was used to obtain the result */
         public let query: String
-        public init(result_id: String ,from: User ,location: Location? = nil ,inline_message_id: String? = nil ,query: String) {
+
+        public init(result_id: String, from: User, location: Location? = nil, inline_message_id: String? = nil, query: String) {
             self.result_id = result_id
             self.from = from
             self.location = location
@@ -5998,6 +6171,7 @@ extension TelegramAPI {
     public struct SentWebAppMessage: Codable {
         /** String | Optional. Identifier of the sent inline message. Available only if there is an inline keyboard attached to the message. */
         public let inline_message_id: String?
+
         public init(inline_message_id: String? = nil) {
             self.inline_message_id = inline_message_id
         }
@@ -6014,7 +6188,8 @@ extension TelegramAPI {
         public let id: String
         /** Integer | Expiration date of the prepared message, in Unix time. Expired prepared messages can no longer be used */
         public let expiration_date: Int
-        public init(id: String ,expiration_date: Int) {
+
+        public init(id: String, expiration_date: Int) {
             self.id = id
             self.expiration_date = expiration_date
         }
@@ -6031,7 +6206,8 @@ extension TelegramAPI {
         public let label: String
         /** Integer | Price of the product in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). */
         public let amount: Int
-        public init(label: String ,amount: Int) {
+
+        public init(label: String, amount: Int) {
             self.label = label
             self.amount = amount
         }
@@ -6054,7 +6230,8 @@ extension TelegramAPI {
         public let currency: String
         /** Integer | Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). */
         public let total_amount: Int
-        public init(title: String ,description: String ,start_parameter: String ,currency: String ,total_amount: Int) {
+
+        public init(title: String, description: String, start_parameter: String, currency: String, total_amount: Int) {
             self.title = title
             self.description = description
             self.start_parameter = start_parameter
@@ -6082,7 +6259,8 @@ extension TelegramAPI {
         public let street_line2: String
         /** String | Address post code */
         public let post_code: String
-        public init(country_code: String ,state: String ,city: String ,street_line1: String ,street_line2: String ,post_code: String) {
+
+        public init(country_code: String, state: String, city: String, street_line1: String, street_line2: String, post_code: String) {
             self.country_code = country_code
             self.state = state
             self.city = city
@@ -6107,7 +6285,8 @@ extension TelegramAPI {
         public let email: String?
         /** ShippingAddress | Optional. User shipping address */
         public let shipping_address: ShippingAddress?
-        public init(name: String? = nil ,phone_number: String? = nil ,email: String? = nil ,shipping_address: ShippingAddress? = nil) {
+
+        public init(name: String? = nil, phone_number: String? = nil, email: String? = nil, shipping_address: ShippingAddress? = nil) {
             self.name = name
             self.phone_number = phone_number
             self.email = email
@@ -6128,7 +6307,8 @@ extension TelegramAPI {
         public let title: String
         /** Array of LabeledPrice | List of price portions */
         public let prices: Array<LabeledPrice>
-        public init(id: String ,title: String ,prices: Array<LabeledPrice>) {
+
+        public init(id: String, title: String, prices: Array<LabeledPrice>) {
             self.id = id
             self.title = title
             self.prices = prices
@@ -6139,7 +6319,7 @@ extension TelegramAPI {
 extension TelegramAPI {
     /**
      * https://core.telegram.org/bots/api#successfulpayment  
-     * This object contains basic information about a successful payment.
+     * This object contains basic information about a successful payment. Note that if the buyer initiates a chargeback with the relevant payment provider following this transaction, the funds may be debited from your balance. This is outside of Telegram's control.
     */
     public struct SuccessfulPayment: Codable {
         /** String | Three-letter ISO 4217 currency code, or "XTR" for payments in Telegram Stars */
@@ -6162,7 +6342,8 @@ extension TelegramAPI {
         public let telegram_payment_charge_id: String
         /** String | Provider payment identifier */
         public let provider_payment_charge_id: String
-        public init(currency: String ,total_amount: Int ,invoice_payload: String ,subscription_expiration_date: Int? = nil ,is_recurring: Bool? = nil ,is_first_recurring: Bool? = nil ,shipping_option_id: String? = nil ,order_info: OrderInfo? = nil ,telegram_payment_charge_id: String ,provider_payment_charge_id: String) {
+
+        public init(currency: String, total_amount: Int, invoice_payload: String, subscription_expiration_date: Int? = nil, is_recurring: Bool? = nil, is_first_recurring: Bool? = nil, shipping_option_id: String? = nil, order_info: OrderInfo? = nil, telegram_payment_charge_id: String, provider_payment_charge_id: String) {
             self.currency = currency
             self.total_amount = total_amount
             self.invoice_payload = invoice_payload
@@ -6193,7 +6374,8 @@ extension TelegramAPI {
         public let telegram_payment_charge_id: String
         /** String | Optional. Provider payment identifier */
         public let provider_payment_charge_id: String?
-        public init(currency: String ,total_amount: Int ,invoice_payload: String ,telegram_payment_charge_id: String ,provider_payment_charge_id: String? = nil) {
+
+        public init(currency: String, total_amount: Int, invoice_payload: String, telegram_payment_charge_id: String, provider_payment_charge_id: String? = nil) {
             self.currency = currency
             self.total_amount = total_amount
             self.invoice_payload = invoice_payload
@@ -6217,7 +6399,8 @@ extension TelegramAPI {
         public let invoice_payload: String
         /** ShippingAddress | User specified shipping address */
         public let shipping_address: ShippingAddress
-        public init(id: String ,from: User ,invoice_payload: String ,shipping_address: ShippingAddress) {
+
+        public init(id: String, from: User, invoice_payload: String, shipping_address: ShippingAddress) {
             self.id = id
             self.from = from
             self.invoice_payload = invoice_payload
@@ -6246,7 +6429,8 @@ extension TelegramAPI {
         public let shipping_option_id: String?
         /** OrderInfo | Optional. Order information provided by the user */
         public let order_info: OrderInfo?
-        public init(id: String ,from: User ,currency: String ,total_amount: Int ,invoice_payload: String ,shipping_option_id: String? = nil ,order_info: OrderInfo? = nil) {
+
+        public init(id: String, from: User, currency: String, total_amount: Int, invoice_payload: String, shipping_option_id: String? = nil, order_info: OrderInfo? = nil) {
             self.id = id
             self.from = from
             self.currency = currency
@@ -6268,7 +6452,8 @@ extension TelegramAPI {
         public let from: User
         /** String | Bot-specified paid media payload */
         public let paid_media_payload: String
-        public init(from: User ,paid_media_payload: String) {
+
+        public init(from: User, paid_media_payload: String) {
             self.from = from
             self.paid_media_payload = paid_media_payload
         }
@@ -6325,6 +6510,7 @@ extension TelegramAPI {
     public struct RevenueWithdrawalStatePending: Codable {
         /** String | Type of the state, always "pending" */
         public let type: String
+
         public init(type: String) {
             self.type = type
         }
@@ -6343,7 +6529,8 @@ extension TelegramAPI {
         public let date: Int
         /** String | An HTTPS URL that can be used to see transaction details */
         public let url: String
-        public init(type: String ,date: Int ,url: String) {
+
+        public init(type: String, date: Int, url: String) {
             self.type = type
             self.date = date
             self.url = url
@@ -6359,6 +6546,7 @@ extension TelegramAPI {
     public struct RevenueWithdrawalStateFailed: Codable {
         /** String | Type of the state, always "failed" */
         public let type: String
+
         public init(type: String) {
             self.type = type
         }
@@ -6381,7 +6569,8 @@ extension TelegramAPI {
         public let amount: Int
         /** Integer | Optional. The number of 1/1000000000 shares of Telegram Stars received by the affiliate; from -999999999 to 999999999; can be negative for refunds */
         public let nanostar_amount: Int?
-        public init(affiliate_user: User? = nil ,affiliate_chat: Chat? = nil ,commission_per_mille: Int ,amount: Int ,nanostar_amount: Int? = nil) {
+
+        public init(affiliate_user: User? = nil, affiliate_chat: Chat? = nil, commission_per_mille: Int, amount: Int, nanostar_amount: Int? = nil) {
             self.affiliate_user = affiliate_user
             self.affiliate_chat = affiliate_chat
             self.commission_per_mille = commission_per_mille
@@ -6476,7 +6665,8 @@ extension TelegramAPI {
         public let paid_media_payload: String?
         /** Gift | Optional. The gift sent to the user by the bot */
         public let gift: Gift?
-        public init(type: String ,user: User ,affiliate: AffiliateInfo? = nil ,invoice_payload: String? = nil ,subscription_period: Int? = nil ,paid_media: Array<PaidMedia>? = nil ,paid_media_payload: String? = nil ,gift: Gift? = nil) {
+
+        public init(type: String, user: User, affiliate: AffiliateInfo? = nil, invoice_payload: String? = nil, subscription_period: Int? = nil, paid_media: Array<PaidMedia>? = nil, paid_media_payload: String? = nil, gift: Gift? = nil) {
             self.type = type
             self.user = user
             self.affiliate = affiliate
@@ -6501,7 +6691,8 @@ extension TelegramAPI {
         public let sponsor_user: User?
         /** Integer | The number of Telegram Stars received by the bot for each 1000 Telegram Stars received by the affiliate program sponsor from referred users */
         public let commission_per_mille: Int
-        public init(type: String ,sponsor_user: User? = nil ,commission_per_mille: Int) {
+
+        public init(type: String, sponsor_user: User? = nil, commission_per_mille: Int) {
             self.type = type
             self.sponsor_user = sponsor_user
             self.commission_per_mille = commission_per_mille
@@ -6519,7 +6710,8 @@ extension TelegramAPI {
         public let type: String
         /** RevenueWithdrawalState | Optional. State of the transaction if the transaction is outgoing */
         public let withdrawal_state: RevenueWithdrawalState?
-        public init(type: String ,withdrawal_state: RevenueWithdrawalState? = nil) {
+
+        public init(type: String, withdrawal_state: RevenueWithdrawalState? = nil) {
             self.type = type
             self.withdrawal_state = withdrawal_state
         }
@@ -6534,6 +6726,7 @@ extension TelegramAPI {
     public struct TransactionPartnerTelegramAds: Codable {
         /** String | Type of the transaction partner, always "telegram_ads" */
         public let type: String
+
         public init(type: String) {
             self.type = type
         }
@@ -6550,7 +6743,8 @@ extension TelegramAPI {
         public let type: String
         /** Integer | The number of successful requests that exceeded regular limits and were therefore billed */
         public let request_count: Int
-        public init(type: String ,request_count: Int) {
+
+        public init(type: String, request_count: Int) {
             self.type = type
             self.request_count = request_count
         }
@@ -6565,6 +6759,7 @@ extension TelegramAPI {
     public struct TransactionPartnerOther: Codable {
         /** String | Type of the transaction partner, always "other" */
         public let type: String
+
         public init(type: String) {
             self.type = type
         }
@@ -6574,7 +6769,7 @@ extension TelegramAPI {
 extension TelegramAPI {
     /**
      * https://core.telegram.org/bots/api#startransaction  
-     * Describes a Telegram Star transaction.
+     * Describes a Telegram Star transaction. Note that if the buyer initiates a chargeback with the payment provider from whom they acquired Stars (e.g., Apple, Google) following this transaction, the refunded Stars will be deducted from the bot's balance. This is outside of Telegram's control.
     */
     public struct StarTransaction: Codable {
         /** String | Unique identifier of the transaction. Coincides with the identifier of the original transaction for refund transactions. Coincides with SuccessfulPayment.telegram_payment_charge_id for successful incoming payments from users. */
@@ -6589,7 +6784,8 @@ extension TelegramAPI {
         public let source: TransactionPartner?
         /** TransactionPartner | Optional. Receiver of an outgoing transaction (e.g., a user for a purchase refund, Fragment for a withdrawal). Only for outgoing transactions */
         public let receiver: TransactionPartner?
-        public init(id: String ,amount: Int ,nanostar_amount: Int? = nil ,date: Int ,source: TransactionPartner? = nil ,receiver: TransactionPartner? = nil) {
+
+        public init(id: String, amount: Int, nanostar_amount: Int? = nil, date: Int, source: TransactionPartner? = nil, receiver: TransactionPartner? = nil) {
             self.id = id
             self.amount = amount
             self.nanostar_amount = nanostar_amount
@@ -6608,6 +6804,7 @@ extension TelegramAPI {
     public struct StarTransactions: Codable {
         /** Array of StarTransaction | The list of transactions */
         public let transactions: Array<StarTransaction>
+
         public init(transactions: Array<StarTransaction>) {
             self.transactions = transactions
         }
@@ -6624,7 +6821,8 @@ extension TelegramAPI {
         public let data: Array<EncryptedPassportElement>
         /** EncryptedCredentials | Encrypted credentials required to decrypt the data */
         public let credentials: EncryptedCredentials
-        public init(data: Array<EncryptedPassportElement> ,credentials: EncryptedCredentials) {
+
+        public init(data: Array<EncryptedPassportElement>, credentials: EncryptedCredentials) {
             self.data = data
             self.credentials = credentials
         }
@@ -6645,7 +6843,8 @@ extension TelegramAPI {
         public let file_size: Int
         /** Integer | Unix time when the file was uploaded */
         public let file_date: Int
-        public init(file_id: String ,file_unique_id: String ,file_size: Int ,file_date: Int) {
+
+        public init(file_id: String, file_unique_id: String, file_size: Int, file_date: Int) {
             self.file_id = file_id
             self.file_unique_id = file_unique_id
             self.file_size = file_size
@@ -6680,7 +6879,8 @@ extension TelegramAPI {
         public let translation: Array<PassportFile>?
         /** String | Base64-encoded element hash for using in PassportElementErrorUnspecified */
         public let hash: String
-        public init(type: String ,data: String? = nil ,phone_number: String? = nil ,email: String? = nil ,files: Array<PassportFile>? = nil ,front_side: PassportFile? = nil ,reverse_side: PassportFile? = nil ,selfie: PassportFile? = nil ,translation: Array<PassportFile>? = nil ,hash: String) {
+
+        public init(type: String, data: String? = nil, phone_number: String? = nil, email: String? = nil, files: Array<PassportFile>? = nil, front_side: PassportFile? = nil, reverse_side: PassportFile? = nil, selfie: PassportFile? = nil, translation: Array<PassportFile>? = nil, hash: String) {
             self.type = type
             self.data = data
             self.phone_number = phone_number
@@ -6707,7 +6907,8 @@ extension TelegramAPI {
         public let hash: String
         /** String | Base64-encoded secret, encrypted with the bot's public RSA key, required for data decryption */
         public let secret: String
-        public init(data: String ,hash: String ,secret: String) {
+
+        public init(data: String, hash: String, secret: String) {
             self.data = data
             self.hash = hash
             self.secret = secret
@@ -6815,7 +7016,8 @@ extension TelegramAPI {
         public let data_hash: String
         /** String | Error message */
         public let message: String
-        public init(source: String ,type: String ,field_name: String ,data_hash: String ,message: String) {
+
+        public init(source: String, type: String, field_name: String, data_hash: String, message: String) {
             self.source = source
             self.type = type
             self.field_name = field_name
@@ -6839,7 +7041,8 @@ extension TelegramAPI {
         public let file_hash: String
         /** String | Error message */
         public let message: String
-        public init(source: String ,type: String ,file_hash: String ,message: String) {
+
+        public init(source: String, type: String, file_hash: String, message: String) {
             self.source = source
             self.type = type
             self.file_hash = file_hash
@@ -6862,7 +7065,8 @@ extension TelegramAPI {
         public let file_hash: String
         /** String | Error message */
         public let message: String
-        public init(source: String ,type: String ,file_hash: String ,message: String) {
+
+        public init(source: String, type: String, file_hash: String, message: String) {
             self.source = source
             self.type = type
             self.file_hash = file_hash
@@ -6885,7 +7089,8 @@ extension TelegramAPI {
         public let file_hash: String
         /** String | Error message */
         public let message: String
-        public init(source: String ,type: String ,file_hash: String ,message: String) {
+
+        public init(source: String, type: String, file_hash: String, message: String) {
             self.source = source
             self.type = type
             self.file_hash = file_hash
@@ -6908,7 +7113,8 @@ extension TelegramAPI {
         public let file_hash: String
         /** String | Error message */
         public let message: String
-        public init(source: String ,type: String ,file_hash: String ,message: String) {
+
+        public init(source: String, type: String, file_hash: String, message: String) {
             self.source = source
             self.type = type
             self.file_hash = file_hash
@@ -6931,7 +7137,8 @@ extension TelegramAPI {
         public let file_hashes: Array<String>
         /** String | Error message */
         public let message: String
-        public init(source: String ,type: String ,file_hashes: Array<String> ,message: String) {
+
+        public init(source: String, type: String, file_hashes: Array<String>, message: String) {
             self.source = source
             self.type = type
             self.file_hashes = file_hashes
@@ -6954,7 +7161,8 @@ extension TelegramAPI {
         public let file_hash: String
         /** String | Error message */
         public let message: String
-        public init(source: String ,type: String ,file_hash: String ,message: String) {
+
+        public init(source: String, type: String, file_hash: String, message: String) {
             self.source = source
             self.type = type
             self.file_hash = file_hash
@@ -6977,7 +7185,8 @@ extension TelegramAPI {
         public let file_hashes: Array<String>
         /** String | Error message */
         public let message: String
-        public init(source: String ,type: String ,file_hashes: Array<String> ,message: String) {
+
+        public init(source: String, type: String, file_hashes: Array<String>, message: String) {
             self.source = source
             self.type = type
             self.file_hashes = file_hashes
@@ -7000,7 +7209,8 @@ extension TelegramAPI {
         public let element_hash: String
         /** String | Error message */
         public let message: String
-        public init(source: String ,type: String ,element_hash: String ,message: String) {
+
+        public init(source: String, type: String, element_hash: String, message: String) {
             self.source = source
             self.type = type
             self.element_hash = element_hash
@@ -7027,7 +7237,8 @@ extension TelegramAPI {
         public let text_entities: Array<MessageEntity>?
         /** Animation | Optional. Animation that will be displayed in the game message in chats. Upload via BotFather */
         public let animation: Animation?
-        public init(title: String ,description: String ,photo: Array<PhotoSize> ,text: String? = nil ,text_entities: Array<MessageEntity>? = nil ,animation: Animation? = nil) {
+
+        public init(title: String, description: String, photo: Array<PhotoSize>, text: String? = nil, text_entities: Array<MessageEntity>? = nil, animation: Animation? = nil) {
             self.title = title
             self.description = description
             self.photo = photo
@@ -7044,6 +7255,7 @@ extension TelegramAPI {
      * A placeholder, currently holds no information. Use BotFather to set up your game.
     */
     public struct CallbackGame: Codable {
+
         public init() {
         }
     }
@@ -7061,7 +7273,8 @@ extension TelegramAPI {
         public let user: User
         /** Integer | Score */
         public let score: Int
-        public init(position: Int ,user: User ,score: Int) {
+
+        public init(position: Int, user: User, score: Int) {
             self.position = position
             self.user = user
             self.score = score
@@ -7096,7 +7309,8 @@ extension TelegramAPI {
         public let timeout: Int?
         /** Array of String | A JSON-serialized list of the update types you want your bot to receive. For example, specify ["message", "edited_channel_post", "callback_query"] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member, message_reaction, and message_reaction_count (default). If not specified, the previous setting will be used. Please note that this parameter doesn't affect updates created before the call to getUpdates, so unwanted updates may be received for a short period of time. */
         public let allowed_updates: Array<String>?
-        public init(offset: Int? = nil ,limit: Int? = nil ,timeout: Int? = nil ,allowed_updates: Array<String>? = nil) {
+        
+        public init(offset: Int? = nil, limit: Int? = nil, timeout: Int? = nil, allowed_updates: Array<String>? = nil) {
             self.offset = offset
             self.limit = limit
             self.timeout = timeout
@@ -7136,7 +7350,8 @@ extension TelegramAPI {
         public let drop_pending_updates: Bool?
         /** String | A secret token to be sent in a header "X-Telegram-Bot-Api-Secret-Token" in every webhook request, 1-256 characters. Only characters A-Z, a-z, 0-9, _ and - are allowed. The header is useful to ensure that the request comes from a webhook set by you. */
         public let secret_token: String?
-        public init(url: String ,certificate: InputFile? = nil ,ip_address: String? = nil ,max_connections: Int? = nil ,allowed_updates: Array<String>? = nil ,drop_pending_updates: Bool? = nil ,secret_token: String? = nil) {
+        
+        public init(url: String, certificate: InputFile? = nil, ip_address: String? = nil, max_connections: Int? = nil, allowed_updates: Array<String>? = nil, drop_pending_updates: Bool? = nil, secret_token: String? = nil) {
             self.url = url
             self.certificate = certificate
             self.ip_address = ip_address
@@ -7168,6 +7383,7 @@ extension TelegramAPI {
     public struct DeleteWebhookParams: Codable {
         /** Boolean | Pass True to drop all pending updates */
         public let drop_pending_updates: Bool?
+        
         public init(drop_pending_updates: Bool? = nil) {
             self.drop_pending_updates = drop_pending_updates
         }
@@ -7273,7 +7489,8 @@ extension TelegramAPI {
         public let reply_parameters: ReplyParameters?
         /** InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply | Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user */
         public let reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>?
-        public init(business_connection_id: String? = nil ,chat_id: Either2<Int, String> ,message_thread_id: Int? = nil ,text: String ,parse_mode: ParseMode? = nil ,entities: Array<MessageEntity>? = nil ,link_preview_options: LinkPreviewOptions? = nil ,disable_notification: Bool? = nil ,protect_content: Bool? = nil ,allow_paid_broadcast: Bool? = nil ,message_effect_id: String? = nil ,reply_parameters: ReplyParameters? = nil ,reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>? = nil) {
+        
+        public init(business_connection_id: String? = nil, chat_id: Either2<Int, String>, message_thread_id: Int? = nil, text: String, parse_mode: ParseMode? = nil, entities: Array<MessageEntity>? = nil, link_preview_options: LinkPreviewOptions? = nil, disable_notification: Bool? = nil, protect_content: Bool? = nil, allow_paid_broadcast: Bool? = nil, message_effect_id: String? = nil, reply_parameters: ReplyParameters? = nil, reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>? = nil) {
             self.business_connection_id = business_connection_id
             self.chat_id = chat_id
             self.message_thread_id = message_thread_id
@@ -7320,7 +7537,8 @@ extension TelegramAPI {
         public let protect_content: Bool?
         /** Integer | Message identifier in the chat specified in from_chat_id */
         public let message_id: Int
-        public init(chat_id: Either2<Int, String> ,message_thread_id: Int? = nil ,from_chat_id: Either2<Int, String> ,disable_notification: Bool? = nil ,protect_content: Bool? = nil ,message_id: Int) {
+        
+        public init(chat_id: Either2<Int, String>, message_thread_id: Int? = nil, from_chat_id: Either2<Int, String>, disable_notification: Bool? = nil, protect_content: Bool? = nil, message_id: Int) {
             self.chat_id = chat_id
             self.message_thread_id = message_thread_id
             self.from_chat_id = from_chat_id
@@ -7360,7 +7578,8 @@ extension TelegramAPI {
         public let disable_notification: Bool?
         /** Boolean | Protects the contents of the forwarded messages from forwarding and saving */
         public let protect_content: Bool?
-        public init(chat_id: Either2<Int, String> ,message_thread_id: Int? = nil ,from_chat_id: Either2<Int, String> ,message_ids: Array<Int> ,disable_notification: Bool? = nil ,protect_content: Bool? = nil) {
+        
+        public init(chat_id: Either2<Int, String>, message_thread_id: Int? = nil, from_chat_id: Either2<Int, String>, message_ids: Array<Int>, disable_notification: Bool? = nil, protect_content: Bool? = nil) {
             self.chat_id = chat_id
             self.message_thread_id = message_thread_id
             self.from_chat_id = from_chat_id
@@ -7414,7 +7633,8 @@ extension TelegramAPI {
         public let reply_parameters: ReplyParameters?
         /** InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply | Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user */
         public let reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>?
-        public init(chat_id: Either2<Int, String> ,message_thread_id: Int? = nil ,from_chat_id: Either2<Int, String> ,message_id: Int ,caption: String? = nil ,parse_mode: String? = nil ,caption_entities: Array<MessageEntity>? = nil ,show_caption_above_media: Bool? = nil ,disable_notification: Bool? = nil ,protect_content: Bool? = nil ,allow_paid_broadcast: Bool? = nil ,reply_parameters: ReplyParameters? = nil ,reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>? = nil) {
+        
+        public init(chat_id: Either2<Int, String>, message_thread_id: Int? = nil, from_chat_id: Either2<Int, String>, message_id: Int, caption: String? = nil, parse_mode: String? = nil, caption_entities: Array<MessageEntity>? = nil, show_caption_above_media: Bool? = nil, disable_notification: Bool? = nil, protect_content: Bool? = nil, allow_paid_broadcast: Bool? = nil, reply_parameters: ReplyParameters? = nil, reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>? = nil) {
             self.chat_id = chat_id
             self.message_thread_id = message_thread_id
             self.from_chat_id = from_chat_id
@@ -7463,7 +7683,8 @@ extension TelegramAPI {
         public let protect_content: Bool?
         /** Boolean | Pass True to copy the messages without their captions */
         public let remove_caption: Bool?
-        public init(chat_id: Either2<Int, String> ,message_thread_id: Int? = nil ,from_chat_id: Either2<Int, String> ,message_ids: Array<Int> ,disable_notification: Bool? = nil ,protect_content: Bool? = nil ,remove_caption: Bool? = nil) {
+        
+        public init(chat_id: Either2<Int, String>, message_thread_id: Int? = nil, from_chat_id: Either2<Int, String>, message_ids: Array<Int>, disable_notification: Bool? = nil, protect_content: Bool? = nil, remove_caption: Bool? = nil) {
             self.chat_id = chat_id
             self.message_thread_id = message_thread_id
             self.from_chat_id = from_chat_id
@@ -7522,7 +7743,8 @@ extension TelegramAPI {
         public let reply_parameters: ReplyParameters?
         /** InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply | Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user */
         public let reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>?
-        public init(business_connection_id: String? = nil ,chat_id: Either2<Int, String> ,message_thread_id: Int? = nil ,photo: Either2<InputFile, String> ,caption: String? = nil ,parse_mode: String? = nil ,caption_entities: Array<MessageEntity>? = nil ,show_caption_above_media: Bool? = nil ,has_spoiler: Bool? = nil ,disable_notification: Bool? = nil ,protect_content: Bool? = nil ,allow_paid_broadcast: Bool? = nil ,message_effect_id: String? = nil ,reply_parameters: ReplyParameters? = nil ,reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>? = nil) {
+        
+        public init(business_connection_id: String? = nil, chat_id: Either2<Int, String>, message_thread_id: Int? = nil, photo: Either2<InputFile, String>, caption: String? = nil, parse_mode: String? = nil, caption_entities: Array<MessageEntity>? = nil, show_caption_above_media: Bool? = nil, has_spoiler: Bool? = nil, disable_notification: Bool? = nil, protect_content: Bool? = nil, allow_paid_broadcast: Bool? = nil, message_effect_id: String? = nil, reply_parameters: ReplyParameters? = nil, reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>? = nil) {
             self.business_connection_id = business_connection_id
             self.chat_id = chat_id
             self.message_thread_id = message_thread_id
@@ -7593,7 +7815,8 @@ extension TelegramAPI {
         public let reply_parameters: ReplyParameters?
         /** InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply | Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user */
         public let reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>?
-        public init(business_connection_id: String? = nil ,chat_id: Either2<Int, String> ,message_thread_id: Int? = nil ,audio: Either2<InputFile, String> ,caption: String? = nil ,parse_mode: String? = nil ,caption_entities: Array<MessageEntity>? = nil ,duration: Int? = nil ,performer: String? = nil ,title: String? = nil ,thumbnail: Either2<InputFile, String>? = nil ,disable_notification: Bool? = nil ,protect_content: Bool? = nil ,allow_paid_broadcast: Bool? = nil ,message_effect_id: String? = nil ,reply_parameters: ReplyParameters? = nil ,reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>? = nil) {
+        
+        public init(business_connection_id: String? = nil, chat_id: Either2<Int, String>, message_thread_id: Int? = nil, audio: Either2<InputFile, String>, caption: String? = nil, parse_mode: String? = nil, caption_entities: Array<MessageEntity>? = nil, duration: Int? = nil, performer: String? = nil, title: String? = nil, thumbnail: Either2<InputFile, String>? = nil, disable_notification: Bool? = nil, protect_content: Bool? = nil, allow_paid_broadcast: Bool? = nil, message_effect_id: String? = nil, reply_parameters: ReplyParameters? = nil, reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>? = nil) {
             self.business_connection_id = business_connection_id
             self.chat_id = chat_id
             self.message_thread_id = message_thread_id
@@ -7663,7 +7886,8 @@ extension TelegramAPI {
         public let reply_parameters: ReplyParameters?
         /** InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply | Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user */
         public let reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>?
-        public init(business_connection_id: String? = nil ,chat_id: Either2<Int, String> ,message_thread_id: Int? = nil ,document: Either2<InputFile, String> ,thumbnail: Either2<InputFile, String>? = nil ,caption: String? = nil ,parse_mode: String? = nil ,caption_entities: Array<MessageEntity>? = nil ,disable_content_type_detection: Bool? = nil ,disable_notification: Bool? = nil ,protect_content: Bool? = nil ,allow_paid_broadcast: Bool? = nil ,message_effect_id: String? = nil ,reply_parameters: ReplyParameters? = nil ,reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>? = nil) {
+        
+        public init(business_connection_id: String? = nil, chat_id: Either2<Int, String>, message_thread_id: Int? = nil, document: Either2<InputFile, String>, thumbnail: Either2<InputFile, String>? = nil, caption: String? = nil, parse_mode: String? = nil, caption_entities: Array<MessageEntity>? = nil, disable_content_type_detection: Bool? = nil, disable_notification: Bool? = nil, protect_content: Bool? = nil, allow_paid_broadcast: Bool? = nil, message_effect_id: String? = nil, reply_parameters: ReplyParameters? = nil, reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>? = nil) {
             self.business_connection_id = business_connection_id
             self.chat_id = chat_id
             self.message_thread_id = message_thread_id
@@ -7740,7 +7964,8 @@ extension TelegramAPI {
         public let reply_parameters: ReplyParameters?
         /** InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply | Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user */
         public let reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>?
-        public init(business_connection_id: String? = nil ,chat_id: Either2<Int, String> ,message_thread_id: Int? = nil ,video: Either2<InputFile, String> ,duration: Int? = nil ,width: Int? = nil ,height: Int? = nil ,thumbnail: Either2<InputFile, String>? = nil ,caption: String? = nil ,parse_mode: String? = nil ,caption_entities: Array<MessageEntity>? = nil ,show_caption_above_media: Bool? = nil ,has_spoiler: Bool? = nil ,supports_streaming: Bool? = nil ,disable_notification: Bool? = nil ,protect_content: Bool? = nil ,allow_paid_broadcast: Bool? = nil ,message_effect_id: String? = nil ,reply_parameters: ReplyParameters? = nil ,reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>? = nil) {
+        
+        public init(business_connection_id: String? = nil, chat_id: Either2<Int, String>, message_thread_id: Int? = nil, video: Either2<InputFile, String>, duration: Int? = nil, width: Int? = nil, height: Int? = nil, thumbnail: Either2<InputFile, String>? = nil, caption: String? = nil, parse_mode: String? = nil, caption_entities: Array<MessageEntity>? = nil, show_caption_above_media: Bool? = nil, has_spoiler: Bool? = nil, supports_streaming: Bool? = nil, disable_notification: Bool? = nil, protect_content: Bool? = nil, allow_paid_broadcast: Bool? = nil, message_effect_id: String? = nil, reply_parameters: ReplyParameters? = nil, reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>? = nil) {
             self.business_connection_id = business_connection_id
             self.chat_id = chat_id
             self.message_thread_id = message_thread_id
@@ -7820,7 +8045,8 @@ extension TelegramAPI {
         public let reply_parameters: ReplyParameters?
         /** InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply | Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user */
         public let reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>?
-        public init(business_connection_id: String? = nil ,chat_id: Either2<Int, String> ,message_thread_id: Int? = nil ,animation: Either2<InputFile, String> ,duration: Int? = nil ,width: Int? = nil ,height: Int? = nil ,thumbnail: Either2<InputFile, String>? = nil ,caption: String? = nil ,parse_mode: String? = nil ,caption_entities: Array<MessageEntity>? = nil ,show_caption_above_media: Bool? = nil ,has_spoiler: Bool? = nil ,disable_notification: Bool? = nil ,protect_content: Bool? = nil ,allow_paid_broadcast: Bool? = nil ,message_effect_id: String? = nil ,reply_parameters: ReplyParameters? = nil ,reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>? = nil) {
+        
+        public init(business_connection_id: String? = nil, chat_id: Either2<Int, String>, message_thread_id: Int? = nil, animation: Either2<InputFile, String>, duration: Int? = nil, width: Int? = nil, height: Int? = nil, thumbnail: Either2<InputFile, String>? = nil, caption: String? = nil, parse_mode: String? = nil, caption_entities: Array<MessageEntity>? = nil, show_caption_above_media: Bool? = nil, has_spoiler: Bool? = nil, disable_notification: Bool? = nil, protect_content: Bool? = nil, allow_paid_broadcast: Bool? = nil, message_effect_id: String? = nil, reply_parameters: ReplyParameters? = nil, reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>? = nil) {
             self.business_connection_id = business_connection_id
             self.chat_id = chat_id
             self.message_thread_id = message_thread_id
@@ -7889,7 +8115,8 @@ extension TelegramAPI {
         public let reply_parameters: ReplyParameters?
         /** InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply | Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user */
         public let reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>?
-        public init(business_connection_id: String? = nil ,chat_id: Either2<Int, String> ,message_thread_id: Int? = nil ,voice: Either2<InputFile, String> ,caption: String? = nil ,parse_mode: String? = nil ,caption_entities: Array<MessageEntity>? = nil ,duration: Int? = nil ,disable_notification: Bool? = nil ,protect_content: Bool? = nil ,allow_paid_broadcast: Bool? = nil ,message_effect_id: String? = nil ,reply_parameters: ReplyParameters? = nil ,reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>? = nil) {
+        
+        public init(business_connection_id: String? = nil, chat_id: Either2<Int, String>, message_thread_id: Int? = nil, voice: Either2<InputFile, String>, caption: String? = nil, parse_mode: String? = nil, caption_entities: Array<MessageEntity>? = nil, duration: Int? = nil, disable_notification: Bool? = nil, protect_content: Bool? = nil, allow_paid_broadcast: Bool? = nil, message_effect_id: String? = nil, reply_parameters: ReplyParameters? = nil, reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>? = nil) {
             self.business_connection_id = business_connection_id
             self.chat_id = chat_id
             self.message_thread_id = message_thread_id
@@ -7951,7 +8178,8 @@ extension TelegramAPI {
         public let reply_parameters: ReplyParameters?
         /** InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply | Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user */
         public let reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>?
-        public init(business_connection_id: String? = nil ,chat_id: Either2<Int, String> ,message_thread_id: Int? = nil ,video_note: Either2<InputFile, String> ,duration: Int? = nil ,length: Int? = nil ,thumbnail: Either2<InputFile, String>? = nil ,disable_notification: Bool? = nil ,protect_content: Bool? = nil ,allow_paid_broadcast: Bool? = nil ,message_effect_id: String? = nil ,reply_parameters: ReplyParameters? = nil ,reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>? = nil) {
+        
+        public init(business_connection_id: String? = nil, chat_id: Either2<Int, String>, message_thread_id: Int? = nil, video_note: Either2<InputFile, String>, duration: Int? = nil, length: Int? = nil, thumbnail: Either2<InputFile, String>? = nil, disable_notification: Bool? = nil, protect_content: Bool? = nil, allow_paid_broadcast: Bool? = nil, message_effect_id: String? = nil, reply_parameters: ReplyParameters? = nil, reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>? = nil) {
             self.business_connection_id = business_connection_id
             self.chat_id = chat_id
             self.message_thread_id = message_thread_id
@@ -8014,7 +8242,8 @@ extension TelegramAPI {
         public let reply_parameters: ReplyParameters?
         /** InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply | Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user */
         public let reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>?
-        public init(business_connection_id: String? = nil ,chat_id: Either2<Int, String> ,star_count: Int ,media: Array<InputPaidMedia> ,payload: String? = nil ,caption: String? = nil ,parse_mode: String? = nil ,caption_entities: Array<MessageEntity>? = nil ,show_caption_above_media: Bool? = nil ,disable_notification: Bool? = nil ,protect_content: Bool? = nil ,allow_paid_broadcast: Bool? = nil ,reply_parameters: ReplyParameters? = nil ,reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>? = nil) {
+        
+        public init(business_connection_id: String? = nil, chat_id: Either2<Int, String>, star_count: Int, media: Array<InputPaidMedia>, payload: String? = nil, caption: String? = nil, parse_mode: String? = nil, caption_entities: Array<MessageEntity>? = nil, show_caption_above_media: Bool? = nil, disable_notification: Bool? = nil, protect_content: Bool? = nil, allow_paid_broadcast: Bool? = nil, reply_parameters: ReplyParameters? = nil, reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>? = nil) {
             self.business_connection_id = business_connection_id
             self.chat_id = chat_id
             self.star_count = star_count
@@ -8068,7 +8297,8 @@ extension TelegramAPI {
         public let message_effect_id: String?
         /** ReplyParameters | Description of the message to reply to */
         public let reply_parameters: ReplyParameters?
-        public init(business_connection_id: String? = nil ,chat_id: Either2<Int, String> ,message_thread_id: Int? = nil ,media: Either4<Array<InputMediaAudio>, Array<InputMediaDocument>, Array<InputMediaPhoto>, Array<InputMediaVideo>> ,disable_notification: Bool? = nil ,protect_content: Bool? = nil ,allow_paid_broadcast: Bool? = nil ,message_effect_id: String? = nil ,reply_parameters: ReplyParameters? = nil) {
+        
+        public init(business_connection_id: String? = nil, chat_id: Either2<Int, String>, message_thread_id: Int? = nil, media: Either4<Array<InputMediaAudio>, Array<InputMediaDocument>, Array<InputMediaPhoto>, Array<InputMediaVideo>>, disable_notification: Bool? = nil, protect_content: Bool? = nil, allow_paid_broadcast: Bool? = nil, message_effect_id: String? = nil, reply_parameters: ReplyParameters? = nil) {
             self.business_connection_id = business_connection_id
             self.chat_id = chat_id
             self.message_thread_id = message_thread_id
@@ -8129,7 +8359,8 @@ extension TelegramAPI {
         public let reply_parameters: ReplyParameters?
         /** InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply | Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user */
         public let reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>?
-        public init(business_connection_id: String? = nil ,chat_id: Either2<Int, String> ,message_thread_id: Int? = nil ,latitude: Float ,longitude: Float ,horizontal_accuracy: Float? = nil ,live_period: Int? = nil ,heading: Int? = nil ,proximity_alert_radius: Int? = nil ,disable_notification: Bool? = nil ,protect_content: Bool? = nil ,allow_paid_broadcast: Bool? = nil ,message_effect_id: String? = nil ,reply_parameters: ReplyParameters? = nil ,reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>? = nil) {
+        
+        public init(business_connection_id: String? = nil, chat_id: Either2<Int, String>, message_thread_id: Int? = nil, latitude: Float, longitude: Float, horizontal_accuracy: Float? = nil, live_period: Int? = nil, heading: Int? = nil, proximity_alert_radius: Int? = nil, disable_notification: Bool? = nil, protect_content: Bool? = nil, allow_paid_broadcast: Bool? = nil, message_effect_id: String? = nil, reply_parameters: ReplyParameters? = nil, reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>? = nil) {
             self.business_connection_id = business_connection_id
             self.chat_id = chat_id
             self.message_thread_id = message_thread_id
@@ -8200,7 +8431,8 @@ extension TelegramAPI {
         public let reply_parameters: ReplyParameters?
         /** InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply | Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user */
         public let reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>?
-        public init(business_connection_id: String? = nil ,chat_id: Either2<Int, String> ,message_thread_id: Int? = nil ,latitude: Float ,longitude: Float ,title: String ,address: String ,foursquare_id: String? = nil ,foursquare_type: String? = nil ,google_place_id: String? = nil ,google_place_type: String? = nil ,disable_notification: Bool? = nil ,protect_content: Bool? = nil ,allow_paid_broadcast: Bool? = nil ,message_effect_id: String? = nil ,reply_parameters: ReplyParameters? = nil ,reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>? = nil) {
+        
+        public init(business_connection_id: String? = nil, chat_id: Either2<Int, String>, message_thread_id: Int? = nil, latitude: Float, longitude: Float, title: String, address: String, foursquare_id: String? = nil, foursquare_type: String? = nil, google_place_id: String? = nil, google_place_type: String? = nil, disable_notification: Bool? = nil, protect_content: Bool? = nil, allow_paid_broadcast: Bool? = nil, message_effect_id: String? = nil, reply_parameters: ReplyParameters? = nil, reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>? = nil) {
             self.business_connection_id = business_connection_id
             self.chat_id = chat_id
             self.message_thread_id = message_thread_id
@@ -8265,7 +8497,8 @@ extension TelegramAPI {
         public let reply_parameters: ReplyParameters?
         /** InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply | Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user */
         public let reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>?
-        public init(business_connection_id: String? = nil ,chat_id: Either2<Int, String> ,message_thread_id: Int? = nil ,phone_number: String ,first_name: String ,last_name: String? = nil ,vcard: String? = nil ,disable_notification: Bool? = nil ,protect_content: Bool? = nil ,allow_paid_broadcast: Bool? = nil ,message_effect_id: String? = nil ,reply_parameters: ReplyParameters? = nil ,reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>? = nil) {
+        
+        public init(business_connection_id: String? = nil, chat_id: Either2<Int, String>, message_thread_id: Int? = nil, phone_number: String, first_name: String, last_name: String? = nil, vcard: String? = nil, disable_notification: Bool? = nil, protect_content: Bool? = nil, allow_paid_broadcast: Bool? = nil, message_effect_id: String? = nil, reply_parameters: ReplyParameters? = nil, reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>? = nil) {
             self.business_connection_id = business_connection_id
             self.chat_id = chat_id
             self.message_thread_id = message_thread_id
@@ -8346,7 +8579,8 @@ extension TelegramAPI {
         public let reply_parameters: ReplyParameters?
         /** InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply | Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user */
         public let reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>?
-        public init(business_connection_id: String? = nil ,chat_id: Either2<Int, String> ,message_thread_id: Int? = nil ,question: String ,question_parse_mode: String? = nil ,question_entities: Array<MessageEntity>? = nil ,options: Array<InputPollOption> ,is_anonymous: Bool? = nil ,type: String? = nil ,allows_multiple_answers: Bool? = nil ,correct_option_id: Int? = nil ,explanation: String? = nil ,explanation_parse_mode: String? = nil ,explanation_entities: Array<MessageEntity>? = nil ,open_period: Int? = nil ,close_date: Int? = nil ,is_closed: Bool? = nil ,disable_notification: Bool? = nil ,protect_content: Bool? = nil ,allow_paid_broadcast: Bool? = nil ,message_effect_id: String? = nil ,reply_parameters: ReplyParameters? = nil ,reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>? = nil) {
+        
+        public init(business_connection_id: String? = nil, chat_id: Either2<Int, String>, message_thread_id: Int? = nil, question: String, question_parse_mode: String? = nil, question_entities: Array<MessageEntity>? = nil, options: Array<InputPollOption>, is_anonymous: Bool? = nil, type: String? = nil, allows_multiple_answers: Bool? = nil, correct_option_id: Int? = nil, explanation: String? = nil, explanation_parse_mode: String? = nil, explanation_entities: Array<MessageEntity>? = nil, open_period: Int? = nil, close_date: Int? = nil, is_closed: Bool? = nil, disable_notification: Bool? = nil, protect_content: Bool? = nil, allow_paid_broadcast: Bool? = nil, message_effect_id: String? = nil, reply_parameters: ReplyParameters? = nil, reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>? = nil) {
             self.business_connection_id = business_connection_id
             self.chat_id = chat_id
             self.message_thread_id = message_thread_id
@@ -8411,7 +8645,8 @@ extension TelegramAPI {
         public let reply_parameters: ReplyParameters?
         /** InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply | Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user */
         public let reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>?
-        public init(business_connection_id: String? = nil ,chat_id: Either2<Int, String> ,message_thread_id: Int? = nil ,emoji: String? = nil ,disable_notification: Bool? = nil ,protect_content: Bool? = nil ,allow_paid_broadcast: Bool? = nil ,message_effect_id: String? = nil ,reply_parameters: ReplyParameters? = nil ,reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>? = nil) {
+        
+        public init(business_connection_id: String? = nil, chat_id: Either2<Int, String>, message_thread_id: Int? = nil, emoji: String? = nil, disable_notification: Bool? = nil, protect_content: Bool? = nil, allow_paid_broadcast: Bool? = nil, message_effect_id: String? = nil, reply_parameters: ReplyParameters? = nil, reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>? = nil) {
             self.business_connection_id = business_connection_id
             self.chat_id = chat_id
             self.message_thread_id = message_thread_id
@@ -8451,7 +8686,8 @@ extension TelegramAPI {
         public let message_thread_id: Int?
         /** ChatAction | Type of action to broadcast. Choose one, depending on what the user is about to receive: typing for text messages, upload_photo for photos, record_video or upload_video for videos, record_voice or upload_voice for voice notes, upload_document for general files, choose_sticker for stickers, find_location for location data, record_video_note or upload_video_note for video notes. */
         public let action: ChatAction
-        public init(business_connection_id: String? = nil ,chat_id: Either2<Int, String> ,message_thread_id: Int? = nil ,action: ChatAction) {
+        
+        public init(business_connection_id: String? = nil, chat_id: Either2<Int, String>, message_thread_id: Int? = nil, action: ChatAction) {
             self.business_connection_id = business_connection_id
             self.chat_id = chat_id
             self.message_thread_id = message_thread_id
@@ -8486,7 +8722,8 @@ extension TelegramAPI {
         public let reaction: Array<ReactionType>?
         /** Boolean | Pass True to set the reaction with a big animation */
         public let is_big: Bool?
-        public init(chat_id: Either2<Int, String> ,message_id: Int ,reaction: Array<ReactionType>? = nil ,is_big: Bool? = nil) {
+        
+        public init(chat_id: Either2<Int, String>, message_id: Int, reaction: Array<ReactionType>? = nil, is_big: Bool? = nil) {
             self.chat_id = chat_id
             self.message_id = message_id
             self.reaction = reaction
@@ -8518,7 +8755,8 @@ extension TelegramAPI {
         public let offset: Int?
         /** Integer | Limits the number of photos to be retrieved. Values between 1-100 are accepted. Defaults to 100. */
         public let limit: Int?
-        public init(user_id: Int ,offset: Int? = nil ,limit: Int? = nil) {
+        
+        public init(user_id: Int, offset: Int? = nil, limit: Int? = nil) {
             self.user_id = user_id
             self.offset = offset
             self.limit = limit
@@ -8549,7 +8787,8 @@ extension TelegramAPI {
         public let emoji_status_custom_emoji_id: String?
         /** Integer | Expiration date of the emoji status, if any */
         public let emoji_status_expiration_date: Int?
-        public init(user_id: Int ,emoji_status_custom_emoji_id: String? = nil ,emoji_status_expiration_date: Int? = nil) {
+        
+        public init(user_id: Int, emoji_status_custom_emoji_id: String? = nil, emoji_status_expiration_date: Int? = nil) {
             self.user_id = user_id
             self.emoji_status_custom_emoji_id = emoji_status_custom_emoji_id
             self.emoji_status_expiration_date = emoji_status_expiration_date
@@ -8576,6 +8815,7 @@ extension TelegramAPI {
     public struct GetFileParams: Codable {
         /** String | File identifier to get information about */
         public let file_id: String
+        
         public init(file_id: String) {
             self.file_id = file_id
         }
@@ -8608,7 +8848,8 @@ extension TelegramAPI {
         public let until_date: Int?
         /** Boolean | Pass True to delete all messages from the chat for the user that is being removed. If False, the user will be able to see messages in the group that were sent before the user was removed. Always True for supergroups and channels. */
         public let revoke_messages: Bool?
-        public init(chat_id: Either2<Int, String> ,user_id: Int ,until_date: Int? = nil ,revoke_messages: Bool? = nil) {
+        
+        public init(chat_id: Either2<Int, String>, user_id: Int, until_date: Int? = nil, revoke_messages: Bool? = nil) {
             self.chat_id = chat_id
             self.user_id = user_id
             self.until_date = until_date
@@ -8640,7 +8881,8 @@ extension TelegramAPI {
         public let user_id: Int
         /** Boolean | Do nothing if the user is not banned */
         public let only_if_banned: Bool?
-        public init(chat_id: Either2<Int, String> ,user_id: Int ,only_if_banned: Bool? = nil) {
+        
+        public init(chat_id: Either2<Int, String>, user_id: Int, only_if_banned: Bool? = nil) {
             self.chat_id = chat_id
             self.user_id = user_id
             self.only_if_banned = only_if_banned
@@ -8675,7 +8917,8 @@ extension TelegramAPI {
         public let use_independent_chat_permissions: Bool?
         /** Integer | Date when restrictions will be lifted for the user; Unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever */
         public let until_date: Int?
-        public init(chat_id: Either2<Int, String> ,user_id: Int ,permissions: ChatPermissions ,use_independent_chat_permissions: Bool? = nil ,until_date: Int? = nil) {
+        
+        public init(chat_id: Either2<Int, String>, user_id: Int, permissions: ChatPermissions, use_independent_chat_permissions: Bool? = nil, until_date: Int? = nil) {
             self.chat_id = chat_id
             self.user_id = user_id
             self.permissions = permissions
@@ -8736,7 +8979,8 @@ extension TelegramAPI {
         public let can_pin_messages: Bool?
         /** Boolean | Pass True if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only */
         public let can_manage_topics: Bool?
-        public init(chat_id: Either2<Int, String> ,user_id: Int ,is_anonymous: Bool? = nil ,can_manage_chat: Bool? = nil ,can_delete_messages: Bool? = nil ,can_manage_video_chats: Bool? = nil ,can_restrict_members: Bool? = nil ,can_promote_members: Bool? = nil ,can_change_info: Bool? = nil ,can_invite_users: Bool? = nil ,can_post_stories: Bool? = nil ,can_edit_stories: Bool? = nil ,can_delete_stories: Bool? = nil ,can_post_messages: Bool? = nil ,can_edit_messages: Bool? = nil ,can_pin_messages: Bool? = nil ,can_manage_topics: Bool? = nil) {
+        
+        public init(chat_id: Either2<Int, String>, user_id: Int, is_anonymous: Bool? = nil, can_manage_chat: Bool? = nil, can_delete_messages: Bool? = nil, can_manage_video_chats: Bool? = nil, can_restrict_members: Bool? = nil, can_promote_members: Bool? = nil, can_change_info: Bool? = nil, can_invite_users: Bool? = nil, can_post_stories: Bool? = nil, can_edit_stories: Bool? = nil, can_delete_stories: Bool? = nil, can_post_messages: Bool? = nil, can_edit_messages: Bool? = nil, can_pin_messages: Bool? = nil, can_manage_topics: Bool? = nil) {
             self.chat_id = chat_id
             self.user_id = user_id
             self.is_anonymous = is_anonymous
@@ -8781,7 +9025,8 @@ extension TelegramAPI {
         public let user_id: Int
         /** String | New custom title for the administrator; 0-16 characters, emoji are not allowed */
         public let custom_title: String
-        public init(chat_id: Either2<Int, String> ,user_id: Int ,custom_title: String) {
+        
+        public init(chat_id: Either2<Int, String>, user_id: Int, custom_title: String) {
             self.chat_id = chat_id
             self.user_id = user_id
             self.custom_title = custom_title
@@ -8810,7 +9055,8 @@ extension TelegramAPI {
         public let chat_id: Either2<Int, String>
         /** Integer | Unique identifier of the target sender chat */
         public let sender_chat_id: Int
-        public init(chat_id: Either2<Int, String> ,sender_chat_id: Int) {
+        
+        public init(chat_id: Either2<Int, String>, sender_chat_id: Int) {
             self.chat_id = chat_id
             self.sender_chat_id = sender_chat_id
         }
@@ -8838,7 +9084,8 @@ extension TelegramAPI {
         public let chat_id: Either2<Int, String>
         /** Integer | Unique identifier of the target sender chat */
         public let sender_chat_id: Int
-        public init(chat_id: Either2<Int, String> ,sender_chat_id: Int) {
+        
+        public init(chat_id: Either2<Int, String>, sender_chat_id: Int) {
             self.chat_id = chat_id
             self.sender_chat_id = sender_chat_id
         }
@@ -8868,7 +9115,8 @@ extension TelegramAPI {
         public let permissions: ChatPermissions
         /** Boolean | Pass True if chat permissions are set independently. Otherwise, the can_send_other_messages and can_add_web_page_previews permissions will imply the can_send_messages, can_send_audios, can_send_documents, can_send_photos, can_send_videos, can_send_video_notes, and can_send_voice_notes permissions; the can_send_polls permission will imply the can_send_messages permission. */
         public let use_independent_chat_permissions: Bool?
-        public init(chat_id: Either2<Int, String> ,permissions: ChatPermissions ,use_independent_chat_permissions: Bool? = nil) {
+        
+        public init(chat_id: Either2<Int, String>, permissions: ChatPermissions, use_independent_chat_permissions: Bool? = nil) {
             self.chat_id = chat_id
             self.permissions = permissions
             self.use_independent_chat_permissions = use_independent_chat_permissions
@@ -8895,6 +9143,7 @@ extension TelegramAPI {
     public struct ExportChatInviteLinkParams: Codable {
         /** Integer or String | Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
         public let chat_id: Either2<Int, String>
+        
         public init(chat_id: Either2<Int, String>) {
             self.chat_id = chat_id
         }
@@ -8928,7 +9177,8 @@ extension TelegramAPI {
         public let member_limit: Int?
         /** Boolean | True, if users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified */
         public let creates_join_request: Bool?
-        public init(chat_id: Either2<Int, String> ,name: String? = nil ,expire_date: Int? = nil ,member_limit: Int? = nil ,creates_join_request: Bool? = nil) {
+        
+        public init(chat_id: Either2<Int, String>, name: String? = nil, expire_date: Int? = nil, member_limit: Int? = nil, creates_join_request: Bool? = nil) {
             self.chat_id = chat_id
             self.name = name
             self.expire_date = expire_date
@@ -8967,7 +9217,8 @@ extension TelegramAPI {
         public let member_limit: Int?
         /** Boolean | True, if users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified */
         public let creates_join_request: Bool?
-        public init(chat_id: Either2<Int, String> ,invite_link: String ,name: String? = nil ,expire_date: Int? = nil ,member_limit: Int? = nil ,creates_join_request: Bool? = nil) {
+        
+        public init(chat_id: Either2<Int, String>, invite_link: String, name: String? = nil, expire_date: Int? = nil, member_limit: Int? = nil, creates_join_request: Bool? = nil) {
             self.chat_id = chat_id
             self.invite_link = invite_link
             self.name = name
@@ -9003,7 +9254,8 @@ extension TelegramAPI {
         public let subscription_period: Int
         /** Integer | The amount of Telegram Stars a user must pay initially and after each subsequent subscription period to be a member of the chat; 1-2500 */
         public let subscription_price: Int
-        public init(chat_id: Either2<Int, String> ,name: String? = nil ,subscription_period: Int ,subscription_price: Int) {
+        
+        public init(chat_id: Either2<Int, String>, name: String? = nil, subscription_period: Int, subscription_price: Int) {
             self.chat_id = chat_id
             self.name = name
             self.subscription_period = subscription_period
@@ -9035,7 +9287,8 @@ extension TelegramAPI {
         public let invite_link: String
         /** String | Invite link name; 0-32 characters */
         public let name: String?
-        public init(chat_id: Either2<Int, String> ,invite_link: String ,name: String? = nil) {
+        
+        public init(chat_id: Either2<Int, String>, invite_link: String, name: String? = nil) {
             self.chat_id = chat_id
             self.invite_link = invite_link
             self.name = name
@@ -9064,7 +9317,8 @@ extension TelegramAPI {
         public let chat_id: Either2<Int, String>
         /** String | The invite link to revoke */
         public let invite_link: String
-        public init(chat_id: Either2<Int, String> ,invite_link: String) {
+        
+        public init(chat_id: Either2<Int, String>, invite_link: String) {
             self.chat_id = chat_id
             self.invite_link = invite_link
         }
@@ -9092,7 +9346,8 @@ extension TelegramAPI {
         public let chat_id: Either2<Int, String>
         /** Integer | Unique identifier of the target user */
         public let user_id: Int
-        public init(chat_id: Either2<Int, String> ,user_id: Int) {
+        
+        public init(chat_id: Either2<Int, String>, user_id: Int) {
             self.chat_id = chat_id
             self.user_id = user_id
         }
@@ -9120,7 +9375,8 @@ extension TelegramAPI {
         public let chat_id: Either2<Int, String>
         /** Integer | Unique identifier of the target user */
         public let user_id: Int
-        public init(chat_id: Either2<Int, String> ,user_id: Int) {
+        
+        public init(chat_id: Either2<Int, String>, user_id: Int) {
             self.chat_id = chat_id
             self.user_id = user_id
         }
@@ -9148,7 +9404,8 @@ extension TelegramAPI {
         public let chat_id: Either2<Int, String>
         /** InputFile | New chat photo, uploaded using multipart/form-data */
         public let photo: InputFile
-        public init(chat_id: Either2<Int, String> ,photo: InputFile) {
+        
+        public init(chat_id: Either2<Int, String>, photo: InputFile) {
             self.chat_id = chat_id
             self.photo = photo
         }
@@ -9174,6 +9431,7 @@ extension TelegramAPI {
     public struct DeleteChatPhotoParams: Codable {
         /** Integer or String | Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
         public let chat_id: Either2<Int, String>
+        
         public init(chat_id: Either2<Int, String>) {
             self.chat_id = chat_id
         }
@@ -9201,7 +9459,8 @@ extension TelegramAPI {
         public let chat_id: Either2<Int, String>
         /** String | New chat title, 1-128 characters */
         public let title: String
-        public init(chat_id: Either2<Int, String> ,title: String) {
+        
+        public init(chat_id: Either2<Int, String>, title: String) {
             self.chat_id = chat_id
             self.title = title
         }
@@ -9229,7 +9488,8 @@ extension TelegramAPI {
         public let chat_id: Either2<Int, String>
         /** String | New chat description, 0-255 characters */
         public let description: String?
-        public init(chat_id: Either2<Int, String> ,description: String? = nil) {
+        
+        public init(chat_id: Either2<Int, String>, description: String? = nil) {
             self.chat_id = chat_id
             self.description = description
         }
@@ -9261,7 +9521,8 @@ extension TelegramAPI {
         public let message_id: Int
         /** Boolean | Pass True if it is not necessary to send a notification to all chat members about the new pinned message. Notifications are always disabled in channels and private chats. */
         public let disable_notification: Bool?
-        public init(business_connection_id: String? = nil ,chat_id: Either2<Int, String> ,message_id: Int ,disable_notification: Bool? = nil) {
+        
+        public init(business_connection_id: String? = nil, chat_id: Either2<Int, String>, message_id: Int, disable_notification: Bool? = nil) {
             self.business_connection_id = business_connection_id
             self.chat_id = chat_id
             self.message_id = message_id
@@ -9293,7 +9554,8 @@ extension TelegramAPI {
         public let chat_id: Either2<Int, String>
         /** Integer | Identifier of the message to unpin. Required if business_connection_id is specified. If not specified, the most recent pinned message (by sending date) will be unpinned. */
         public let message_id: Int?
-        public init(business_connection_id: String? = nil ,chat_id: Either2<Int, String> ,message_id: Int? = nil) {
+        
+        public init(business_connection_id: String? = nil, chat_id: Either2<Int, String>, message_id: Int? = nil) {
             self.business_connection_id = business_connection_id
             self.chat_id = chat_id
             self.message_id = message_id
@@ -9320,6 +9582,7 @@ extension TelegramAPI {
     public struct UnpinAllChatMessagesParams: Codable {
         /** Integer or String | Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
         public let chat_id: Either2<Int, String>
+        
         public init(chat_id: Either2<Int, String>) {
             self.chat_id = chat_id
         }
@@ -9345,6 +9608,7 @@ extension TelegramAPI {
     public struct LeaveChatParams: Codable {
         /** Integer or String | Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername) */
         public let chat_id: Either2<Int, String>
+        
         public init(chat_id: Either2<Int, String>) {
             self.chat_id = chat_id
         }
@@ -9370,6 +9634,7 @@ extension TelegramAPI {
     public struct GetChatParams: Codable {
         /** Integer or String | Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername) */
         public let chat_id: Either2<Int, String>
+        
         public init(chat_id: Either2<Int, String>) {
             self.chat_id = chat_id
         }
@@ -9395,6 +9660,7 @@ extension TelegramAPI {
     public struct GetChatAdministratorsParams: Codable {
         /** Integer or String | Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername) */
         public let chat_id: Either2<Int, String>
+        
         public init(chat_id: Either2<Int, String>) {
             self.chat_id = chat_id
         }
@@ -9420,6 +9686,7 @@ extension TelegramAPI {
     public struct GetChatMemberCountParams: Codable {
         /** Integer or String | Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername) */
         public let chat_id: Either2<Int, String>
+        
         public init(chat_id: Either2<Int, String>) {
             self.chat_id = chat_id
         }
@@ -9447,7 +9714,8 @@ extension TelegramAPI {
         public let chat_id: Either2<Int, String>
         /** Integer | Unique identifier of the target user */
         public let user_id: Int
-        public init(chat_id: Either2<Int, String> ,user_id: Int) {
+        
+        public init(chat_id: Either2<Int, String>, user_id: Int) {
             self.chat_id = chat_id
             self.user_id = user_id
         }
@@ -9475,7 +9743,8 @@ extension TelegramAPI {
         public let chat_id: Either2<Int, String>
         /** String | Name of the sticker set to be set as the group sticker set */
         public let sticker_set_name: String
-        public init(chat_id: Either2<Int, String> ,sticker_set_name: String) {
+        
+        public init(chat_id: Either2<Int, String>, sticker_set_name: String) {
             self.chat_id = chat_id
             self.sticker_set_name = sticker_set_name
         }
@@ -9501,6 +9770,7 @@ extension TelegramAPI {
     public struct DeleteChatStickerSetParams: Codable {
         /** Integer or String | Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
         public let chat_id: Either2<Int, String>
+        
         public init(chat_id: Either2<Int, String>) {
             self.chat_id = chat_id
         }
@@ -9546,7 +9816,8 @@ extension TelegramAPI {
         public let icon_color: Int?
         /** String | Unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers. */
         public let icon_custom_emoji_id: String?
-        public init(chat_id: Either2<Int, String> ,name: String ,icon_color: Int? = nil ,icon_custom_emoji_id: String? = nil) {
+        
+        public init(chat_id: Either2<Int, String>, name: String, icon_color: Int? = nil, icon_custom_emoji_id: String? = nil) {
             self.chat_id = chat_id
             self.name = name
             self.icon_color = icon_color
@@ -9580,7 +9851,8 @@ extension TelegramAPI {
         public let name: String?
         /** String | New unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers. Pass an empty string to remove the icon. If not specified, the current icon will be kept */
         public let icon_custom_emoji_id: String?
-        public init(chat_id: Either2<Int, String> ,message_thread_id: Int ,name: String? = nil ,icon_custom_emoji_id: String? = nil) {
+        
+        public init(chat_id: Either2<Int, String>, message_thread_id: Int, name: String? = nil, icon_custom_emoji_id: String? = nil) {
             self.chat_id = chat_id
             self.message_thread_id = message_thread_id
             self.name = name
@@ -9610,7 +9882,8 @@ extension TelegramAPI {
         public let chat_id: Either2<Int, String>
         /** Integer | Unique identifier for the target message thread of the forum topic */
         public let message_thread_id: Int
-        public init(chat_id: Either2<Int, String> ,message_thread_id: Int) {
+        
+        public init(chat_id: Either2<Int, String>, message_thread_id: Int) {
             self.chat_id = chat_id
             self.message_thread_id = message_thread_id
         }
@@ -9638,7 +9911,8 @@ extension TelegramAPI {
         public let chat_id: Either2<Int, String>
         /** Integer | Unique identifier for the target message thread of the forum topic */
         public let message_thread_id: Int
-        public init(chat_id: Either2<Int, String> ,message_thread_id: Int) {
+        
+        public init(chat_id: Either2<Int, String>, message_thread_id: Int) {
             self.chat_id = chat_id
             self.message_thread_id = message_thread_id
         }
@@ -9666,7 +9940,8 @@ extension TelegramAPI {
         public let chat_id: Either2<Int, String>
         /** Integer | Unique identifier for the target message thread of the forum topic */
         public let message_thread_id: Int
-        public init(chat_id: Either2<Int, String> ,message_thread_id: Int) {
+        
+        public init(chat_id: Either2<Int, String>, message_thread_id: Int) {
             self.chat_id = chat_id
             self.message_thread_id = message_thread_id
         }
@@ -9694,7 +9969,8 @@ extension TelegramAPI {
         public let chat_id: Either2<Int, String>
         /** Integer | Unique identifier for the target message thread of the forum topic */
         public let message_thread_id: Int
-        public init(chat_id: Either2<Int, String> ,message_thread_id: Int) {
+        
+        public init(chat_id: Either2<Int, String>, message_thread_id: Int) {
             self.chat_id = chat_id
             self.message_thread_id = message_thread_id
         }
@@ -9722,7 +9998,8 @@ extension TelegramAPI {
         public let chat_id: Either2<Int, String>
         /** String | New topic name, 1-128 characters */
         public let name: String
-        public init(chat_id: Either2<Int, String> ,name: String) {
+        
+        public init(chat_id: Either2<Int, String>, name: String) {
             self.chat_id = chat_id
             self.name = name
         }
@@ -9748,6 +10025,7 @@ extension TelegramAPI {
     public struct CloseGeneralForumTopicParams: Codable {
         /** Integer or String | Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
         public let chat_id: Either2<Int, String>
+        
         public init(chat_id: Either2<Int, String>) {
             self.chat_id = chat_id
         }
@@ -9773,6 +10051,7 @@ extension TelegramAPI {
     public struct ReopenGeneralForumTopicParams: Codable {
         /** Integer or String | Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
         public let chat_id: Either2<Int, String>
+        
         public init(chat_id: Either2<Int, String>) {
             self.chat_id = chat_id
         }
@@ -9798,6 +10077,7 @@ extension TelegramAPI {
     public struct HideGeneralForumTopicParams: Codable {
         /** Integer or String | Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
         public let chat_id: Either2<Int, String>
+        
         public init(chat_id: Either2<Int, String>) {
             self.chat_id = chat_id
         }
@@ -9823,6 +10103,7 @@ extension TelegramAPI {
     public struct UnhideGeneralForumTopicParams: Codable {
         /** Integer or String | Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
         public let chat_id: Either2<Int, String>
+        
         public init(chat_id: Either2<Int, String>) {
             self.chat_id = chat_id
         }
@@ -9848,6 +10129,7 @@ extension TelegramAPI {
     public struct UnpinAllGeneralForumTopicMessagesParams: Codable {
         /** Integer or String | Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername) */
         public let chat_id: Either2<Int, String>
+        
         public init(chat_id: Either2<Int, String>) {
             self.chat_id = chat_id
         }
@@ -9881,7 +10163,8 @@ extension TelegramAPI {
         public let url: String?
         /** Integer | The maximum amount of time in seconds that the result of the callback query may be cached client-side. Telegram apps will support caching starting in version 3.14. Defaults to 0. */
         public let cache_time: Int?
-        public init(callback_query_id: String ,text: String? = nil ,show_alert: Bool? = nil ,url: String? = nil ,cache_time: Int? = nil) {
+        
+        public init(callback_query_id: String, text: String? = nil, show_alert: Bool? = nil, url: String? = nil, cache_time: Int? = nil) {
             self.callback_query_id = callback_query_id
             self.text = text
             self.show_alert = show_alert
@@ -9912,7 +10195,8 @@ extension TelegramAPI {
         public let chat_id: Either2<Int, String>
         /** Integer | Unique identifier of the target user */
         public let user_id: Int
-        public init(chat_id: Either2<Int, String> ,user_id: Int) {
+        
+        public init(chat_id: Either2<Int, String>, user_id: Int) {
             self.chat_id = chat_id
             self.user_id = user_id
         }
@@ -9938,6 +10222,7 @@ extension TelegramAPI {
     public struct GetBusinessConnectionParams: Codable {
         /** String | Unique identifier of the business connection */
         public let business_connection_id: String
+        
         public init(business_connection_id: String) {
             self.business_connection_id = business_connection_id
         }
@@ -9967,7 +10252,8 @@ extension TelegramAPI {
         public let scope: BotCommandScope?
         /** String | A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands */
         public let language_code: String?
-        public init(commands: Array<BotCommand> ,scope: BotCommandScope? = nil ,language_code: String? = nil) {
+        
+        public init(commands: Array<BotCommand>, scope: BotCommandScope? = nil, language_code: String? = nil) {
             self.commands = commands
             self.scope = scope
             self.language_code = language_code
@@ -9996,7 +10282,8 @@ extension TelegramAPI {
         public let scope: BotCommandScope?
         /** String | A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands */
         public let language_code: String?
-        public init(scope: BotCommandScope? = nil ,language_code: String? = nil) {
+        
+        public init(scope: BotCommandScope? = nil, language_code: String? = nil) {
             self.scope = scope
             self.language_code = language_code
         }
@@ -10024,7 +10311,8 @@ extension TelegramAPI {
         public let scope: BotCommandScope?
         /** String | A two-letter ISO 639-1 language code or an empty string */
         public let language_code: String?
-        public init(scope: BotCommandScope? = nil ,language_code: String? = nil) {
+        
+        public init(scope: BotCommandScope? = nil, language_code: String? = nil) {
             self.scope = scope
             self.language_code = language_code
         }
@@ -10052,7 +10340,8 @@ extension TelegramAPI {
         public let name: String?
         /** String | A two-letter ISO 639-1 language code. If empty, the name will be shown to all users for whose language there is no dedicated name. */
         public let language_code: String?
-        public init(name: String? = nil ,language_code: String? = nil) {
+        
+        public init(name: String? = nil, language_code: String? = nil) {
             self.name = name
             self.language_code = language_code
         }
@@ -10078,6 +10367,7 @@ extension TelegramAPI {
     public struct GetMyNameParams: Codable {
         /** String | A two-letter ISO 639-1 language code or an empty string */
         public let language_code: String?
+        
         public init(language_code: String? = nil) {
             self.language_code = language_code
         }
@@ -10105,7 +10395,8 @@ extension TelegramAPI {
         public let description: String?
         /** String | A two-letter ISO 639-1 language code. If empty, the description will be applied to all users for whose language there is no dedicated description. */
         public let language_code: String?
-        public init(description: String? = nil ,language_code: String? = nil) {
+        
+        public init(description: String? = nil, language_code: String? = nil) {
             self.description = description
             self.language_code = language_code
         }
@@ -10131,6 +10422,7 @@ extension TelegramAPI {
     public struct GetMyDescriptionParams: Codable {
         /** String | A two-letter ISO 639-1 language code or an empty string */
         public let language_code: String?
+        
         public init(language_code: String? = nil) {
             self.language_code = language_code
         }
@@ -10158,7 +10450,8 @@ extension TelegramAPI {
         public let short_description: String?
         /** String | A two-letter ISO 639-1 language code. If empty, the short description will be applied to all users for whose language there is no dedicated short description. */
         public let language_code: String?
-        public init(short_description: String? = nil ,language_code: String? = nil) {
+        
+        public init(short_description: String? = nil, language_code: String? = nil) {
             self.short_description = short_description
             self.language_code = language_code
         }
@@ -10184,6 +10477,7 @@ extension TelegramAPI {
     public struct GetMyShortDescriptionParams: Codable {
         /** String | A two-letter ISO 639-1 language code or an empty string */
         public let language_code: String?
+        
         public init(language_code: String? = nil) {
             self.language_code = language_code
         }
@@ -10211,7 +10505,8 @@ extension TelegramAPI {
         public let chat_id: Int?
         /** MenuButton | A JSON-serialized object for the bot's new menu button. Defaults to MenuButtonDefault */
         public let menu_button: MenuButton?
-        public init(chat_id: Int? = nil ,menu_button: MenuButton? = nil) {
+        
+        public init(chat_id: Int? = nil, menu_button: MenuButton? = nil) {
             self.chat_id = chat_id
             self.menu_button = menu_button
         }
@@ -10237,6 +10532,7 @@ extension TelegramAPI {
     public struct GetChatMenuButtonParams: Codable {
         /** Integer | Unique identifier for the target private chat. If not specified, default bot's menu button will be returned */
         public let chat_id: Int?
+        
         public init(chat_id: Int? = nil) {
             self.chat_id = chat_id
         }
@@ -10264,7 +10560,8 @@ extension TelegramAPI {
         public let rights: ChatAdministratorRights?
         /** Boolean | Pass True to change the default administrator rights of the bot in channels. Otherwise, the default administrator rights of the bot for groups and supergroups will be changed. */
         public let for_channels: Bool?
-        public init(rights: ChatAdministratorRights? = nil ,for_channels: Bool? = nil) {
+        
+        public init(rights: ChatAdministratorRights? = nil, for_channels: Bool? = nil) {
             self.rights = rights
             self.for_channels = for_channels
         }
@@ -10290,6 +10587,7 @@ extension TelegramAPI {
     public struct GetMyDefaultAdministratorRightsParams: Codable {
         /** Boolean | Pass True to get default administrator rights of the bot in channels. Otherwise, default administrator rights of the bot for groups and supergroups will be returned. */
         public let for_channels: Bool?
+        
         public init(for_channels: Bool? = nil) {
             self.for_channels = for_channels
         }
@@ -10331,7 +10629,8 @@ extension TelegramAPI {
         public let link_preview_options: LinkPreviewOptions?
         /** InlineKeyboardMarkup | A JSON-serialized object for an inline keyboard. */
         public let reply_markup: InlineKeyboardMarkup?
-        public init(business_connection_id: String? = nil ,chat_id: Either2<Int, String>? = nil ,message_id: Int? = nil ,inline_message_id: String? = nil ,text: String ,parse_mode: String? = nil ,entities: Array<MessageEntity>? = nil ,link_preview_options: LinkPreviewOptions? = nil ,reply_markup: InlineKeyboardMarkup? = nil) {
+        
+        public init(business_connection_id: String? = nil, chat_id: Either2<Int, String>? = nil, message_id: Int? = nil, inline_message_id: String? = nil, text: String, parse_mode: String? = nil, entities: Array<MessageEntity>? = nil, link_preview_options: LinkPreviewOptions? = nil, reply_markup: InlineKeyboardMarkup? = nil) {
             self.business_connection_id = business_connection_id
             self.chat_id = chat_id
             self.message_id = message_id
@@ -10380,7 +10679,8 @@ extension TelegramAPI {
         public let show_caption_above_media: Bool?
         /** InlineKeyboardMarkup | A JSON-serialized object for an inline keyboard. */
         public let reply_markup: InlineKeyboardMarkup?
-        public init(business_connection_id: String? = nil ,chat_id: Either2<Int, String>? = nil ,message_id: Int? = nil ,inline_message_id: String? = nil ,caption: String? = nil ,parse_mode: String? = nil ,caption_entities: Array<MessageEntity>? = nil ,show_caption_above_media: Bool? = nil ,reply_markup: InlineKeyboardMarkup? = nil) {
+        
+        public init(business_connection_id: String? = nil, chat_id: Either2<Int, String>? = nil, message_id: Int? = nil, inline_message_id: String? = nil, caption: String? = nil, parse_mode: String? = nil, caption_entities: Array<MessageEntity>? = nil, show_caption_above_media: Bool? = nil, reply_markup: InlineKeyboardMarkup? = nil) {
             self.business_connection_id = business_connection_id
             self.chat_id = chat_id
             self.message_id = message_id
@@ -10423,7 +10723,8 @@ extension TelegramAPI {
         public let media: InputMedia
         /** InlineKeyboardMarkup | A JSON-serialized object for a new inline keyboard. */
         public let reply_markup: InlineKeyboardMarkup?
-        public init(business_connection_id: String? = nil ,chat_id: Either2<Int, String>? = nil ,message_id: Int? = nil ,inline_message_id: String? = nil ,media: InputMedia ,reply_markup: InlineKeyboardMarkup? = nil) {
+        
+        public init(business_connection_id: String? = nil, chat_id: Either2<Int, String>? = nil, message_id: Int? = nil, inline_message_id: String? = nil, media: InputMedia, reply_markup: InlineKeyboardMarkup? = nil) {
             self.business_connection_id = business_connection_id
             self.chat_id = chat_id
             self.message_id = message_id
@@ -10473,7 +10774,8 @@ extension TelegramAPI {
         public let proximity_alert_radius: Int?
         /** InlineKeyboardMarkup | A JSON-serialized object for a new inline keyboard. */
         public let reply_markup: InlineKeyboardMarkup?
-        public init(business_connection_id: String? = nil ,chat_id: Either2<Int, String>? = nil ,message_id: Int? = nil ,inline_message_id: String? = nil ,latitude: Float ,longitude: Float ,live_period: Int? = nil ,horizontal_accuracy: Float? = nil ,heading: Int? = nil ,proximity_alert_radius: Int? = nil ,reply_markup: InlineKeyboardMarkup? = nil) {
+        
+        public init(business_connection_id: String? = nil, chat_id: Either2<Int, String>? = nil, message_id: Int? = nil, inline_message_id: String? = nil, latitude: Float, longitude: Float, live_period: Int? = nil, horizontal_accuracy: Float? = nil, heading: Int? = nil, proximity_alert_radius: Int? = nil, reply_markup: InlineKeyboardMarkup? = nil) {
             self.business_connection_id = business_connection_id
             self.chat_id = chat_id
             self.message_id = message_id
@@ -10516,7 +10818,8 @@ extension TelegramAPI {
         public let inline_message_id: String?
         /** InlineKeyboardMarkup | A JSON-serialized object for a new inline keyboard. */
         public let reply_markup: InlineKeyboardMarkup?
-        public init(business_connection_id: String? = nil ,chat_id: Either2<Int, String>? = nil ,message_id: Int? = nil ,inline_message_id: String? = nil ,reply_markup: InlineKeyboardMarkup? = nil) {
+        
+        public init(business_connection_id: String? = nil, chat_id: Either2<Int, String>? = nil, message_id: Int? = nil, inline_message_id: String? = nil, reply_markup: InlineKeyboardMarkup? = nil) {
             self.business_connection_id = business_connection_id
             self.chat_id = chat_id
             self.message_id = message_id
@@ -10553,7 +10856,8 @@ extension TelegramAPI {
         public let inline_message_id: String?
         /** InlineKeyboardMarkup | A JSON-serialized object for an inline keyboard. */
         public let reply_markup: InlineKeyboardMarkup?
-        public init(business_connection_id: String? = nil ,chat_id: Either2<Int, String>? = nil ,message_id: Int? = nil ,inline_message_id: String? = nil ,reply_markup: InlineKeyboardMarkup? = nil) {
+        
+        public init(business_connection_id: String? = nil, chat_id: Either2<Int, String>? = nil, message_id: Int? = nil, inline_message_id: String? = nil, reply_markup: InlineKeyboardMarkup? = nil) {
             self.business_connection_id = business_connection_id
             self.chat_id = chat_id
             self.message_id = message_id
@@ -10588,7 +10892,8 @@ extension TelegramAPI {
         public let message_id: Int
         /** InlineKeyboardMarkup | A JSON-serialized object for a new message inline keyboard. */
         public let reply_markup: InlineKeyboardMarkup?
-        public init(business_connection_id: String? = nil ,chat_id: Either2<Int, String> ,message_id: Int ,reply_markup: InlineKeyboardMarkup? = nil) {
+        
+        public init(business_connection_id: String? = nil, chat_id: Either2<Int, String>, message_id: Int, reply_markup: InlineKeyboardMarkup? = nil) {
             self.business_connection_id = business_connection_id
             self.chat_id = chat_id
             self.message_id = message_id
@@ -10618,7 +10923,8 @@ extension TelegramAPI {
         public let chat_id: Either2<Int, String>
         /** Integer | Identifier of the message to delete */
         public let message_id: Int
-        public init(chat_id: Either2<Int, String> ,message_id: Int) {
+        
+        public init(chat_id: Either2<Int, String>, message_id: Int) {
             self.chat_id = chat_id
             self.message_id = message_id
         }
@@ -10655,7 +10961,8 @@ extension TelegramAPI {
         public let chat_id: Either2<Int, String>
         /** Array of Integer | A JSON-serialized list of 1-100 identifiers of messages to delete. See deleteMessage for limitations on which messages can be deleted */
         public let message_ids: Array<Int>
-        public init(chat_id: Either2<Int, String> ,message_ids: Array<Int>) {
+        
+        public init(chat_id: Either2<Int, String>, message_ids: Array<Int>) {
             self.chat_id = chat_id
             self.message_ids = message_ids
         }
@@ -10701,7 +11008,8 @@ extension TelegramAPI {
         public let reply_parameters: ReplyParameters?
         /** InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply | Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user */
         public let reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>?
-        public init(business_connection_id: String? = nil ,chat_id: Either2<Int, String> ,message_thread_id: Int? = nil ,sticker: Either2<InputFile, String> ,emoji: String? = nil ,disable_notification: Bool? = nil ,protect_content: Bool? = nil ,allow_paid_broadcast: Bool? = nil ,message_effect_id: String? = nil ,reply_parameters: ReplyParameters? = nil ,reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>? = nil) {
+        
+        public init(business_connection_id: String? = nil, chat_id: Either2<Int, String>, message_thread_id: Int? = nil, sticker: Either2<InputFile, String>, emoji: String? = nil, disable_notification: Bool? = nil, protect_content: Bool? = nil, allow_paid_broadcast: Bool? = nil, message_effect_id: String? = nil, reply_parameters: ReplyParameters? = nil, reply_markup: Either4<InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply>? = nil) {
             self.business_connection_id = business_connection_id
             self.chat_id = chat_id
             self.message_thread_id = message_thread_id
@@ -10736,6 +11044,7 @@ extension TelegramAPI {
     public struct GetStickerSetParams: Codable {
         /** String | Name of the sticker set */
         public let name: String
+        
         public init(name: String) {
             self.name = name
         }
@@ -10761,6 +11070,7 @@ extension TelegramAPI {
     public struct GetCustomEmojiStickersParams: Codable {
         /** Array of String | A JSON-serialized list of custom emoji identifiers. At most 200 custom emoji identifiers can be specified. */
         public let custom_emoji_ids: Array<String>
+        
         public init(custom_emoji_ids: Array<String>) {
             self.custom_emoji_ids = custom_emoji_ids
         }
@@ -10790,7 +11100,8 @@ extension TelegramAPI {
         public let sticker: InputFile
         /** String | Format of the sticker, must be one of "static", "animated", "video" */
         public let sticker_format: String
-        public init(user_id: Int ,sticker: InputFile ,sticker_format: String) {
+        
+        public init(user_id: Int, sticker: InputFile, sticker_format: String) {
             self.user_id = user_id
             self.sticker = sticker
             self.sticker_format = sticker_format
@@ -10827,7 +11138,8 @@ extension TelegramAPI {
         public let sticker_type: String?
         /** Boolean | Pass True if stickers in the sticker set must be repainted to the color of text when used in messages, the accent color if used as emoji status, white on chat photos, or another appropriate color based on context; for custom emoji sticker sets only */
         public let needs_repainting: Bool?
-        public init(user_id: Int ,name: String ,title: String ,stickers: Array<InputSticker> ,sticker_type: String? = nil ,needs_repainting: Bool? = nil) {
+        
+        public init(user_id: Int, name: String, title: String, stickers: Array<InputSticker>, sticker_type: String? = nil, needs_repainting: Bool? = nil) {
             self.user_id = user_id
             self.name = name
             self.title = title
@@ -10861,7 +11173,8 @@ extension TelegramAPI {
         public let name: String
         /** InputSticker | A JSON-serialized object with information about the added sticker. If exactly the same sticker had already been added to the set, then the set isn't changed. */
         public let sticker: InputSticker
-        public init(user_id: Int ,name: String ,sticker: InputSticker) {
+        
+        public init(user_id: Int, name: String, sticker: InputSticker) {
             self.user_id = user_id
             self.name = name
             self.sticker = sticker
@@ -10890,7 +11203,8 @@ extension TelegramAPI {
         public let sticker: String
         /** Integer | New sticker position in the set, zero-based */
         public let position: Int
-        public init(sticker: String ,position: Int) {
+        
+        public init(sticker: String, position: Int) {
             self.sticker = sticker
             self.position = position
         }
@@ -10916,6 +11230,7 @@ extension TelegramAPI {
     public struct DeleteStickerFromSetParams: Codable {
         /** String | File identifier of the sticker */
         public let sticker: String
+        
         public init(sticker: String) {
             self.sticker = sticker
         }
@@ -10947,7 +11262,8 @@ extension TelegramAPI {
         public let old_sticker: String
         /** InputSticker | A JSON-serialized object with information about the added sticker. If exactly the same sticker had already been added to the set, then the set remains unchanged. */
         public let sticker: InputSticker
-        public init(user_id: Int ,name: String ,old_sticker: String ,sticker: InputSticker) {
+        
+        public init(user_id: Int, name: String, old_sticker: String, sticker: InputSticker) {
             self.user_id = user_id
             self.name = name
             self.old_sticker = old_sticker
@@ -10977,7 +11293,8 @@ extension TelegramAPI {
         public let sticker: String
         /** Array of String | A JSON-serialized list of 1-20 emoji associated with the sticker */
         public let emoji_list: Array<String>
-        public init(sticker: String ,emoji_list: Array<String>) {
+        
+        public init(sticker: String, emoji_list: Array<String>) {
             self.sticker = sticker
             self.emoji_list = emoji_list
         }
@@ -11005,7 +11322,8 @@ extension TelegramAPI {
         public let sticker: String
         /** Array of String | A JSON-serialized list of 0-20 search keywords for the sticker with total length of up to 64 characters */
         public let keywords: Array<String>?
-        public init(sticker: String ,keywords: Array<String>? = nil) {
+        
+        public init(sticker: String, keywords: Array<String>? = nil) {
             self.sticker = sticker
             self.keywords = keywords
         }
@@ -11033,7 +11351,8 @@ extension TelegramAPI {
         public let sticker: String
         /** MaskPosition | A JSON-serialized object with the position where the mask should be placed on faces. Omit the parameter to remove the mask position. */
         public let mask_position: MaskPosition?
-        public init(sticker: String ,mask_position: MaskPosition? = nil) {
+        
+        public init(sticker: String, mask_position: MaskPosition? = nil) {
             self.sticker = sticker
             self.mask_position = mask_position
         }
@@ -11061,7 +11380,8 @@ extension TelegramAPI {
         public let name: String
         /** String | Sticker set title, 1-64 characters */
         public let title: String
-        public init(name: String ,title: String) {
+        
+        public init(name: String, title: String) {
             self.name = name
             self.title = title
         }
@@ -11093,7 +11413,8 @@ extension TelegramAPI {
         public let thumbnail: Either2<InputFile, String>?
         /** String | Format of the thumbnail, must be one of "static" for a .WEBP or .PNG image, "animated" for a .TGS animation, or "video" for a .WEBM video */
         public let format: String
-        public init(name: String ,user_id: Int ,thumbnail: Either2<InputFile, String>? = nil ,format: String) {
+        
+        public init(name: String, user_id: Int, thumbnail: Either2<InputFile, String>? = nil, format: String) {
             self.name = name
             self.user_id = user_id
             self.thumbnail = thumbnail
@@ -11123,7 +11444,8 @@ extension TelegramAPI {
         public let name: String
         /** String | Custom emoji identifier of a sticker from the sticker set; pass an empty string to drop the thumbnail and use the first sticker as the thumbnail. */
         public let custom_emoji_id: String?
-        public init(name: String ,custom_emoji_id: String? = nil) {
+        
+        public init(name: String, custom_emoji_id: String? = nil) {
             self.name = name
             self.custom_emoji_id = custom_emoji_id
         }
@@ -11149,6 +11471,7 @@ extension TelegramAPI {
     public struct DeleteStickerSetParams: Codable {
         /** String | Sticker set name */
         public let name: String
+        
         public init(name: String) {
             self.name = name
         }
@@ -11198,7 +11521,8 @@ extension TelegramAPI {
         public let text_parse_mode: String?
         /** Array of MessageEntity | A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of text_parse_mode. Entities other than "bold", "italic", "underline", "strikethrough", "spoiler", and "custom_emoji" are ignored. */
         public let text_entities: Array<MessageEntity>?
-        public init(user_id: Int ,gift_id: String ,pay_for_upgrade: Bool? = nil ,text: String? = nil ,text_parse_mode: String? = nil ,text_entities: Array<MessageEntity>? = nil) {
+        
+        public init(user_id: Int, gift_id: String, pay_for_upgrade: Bool? = nil, text: String? = nil, text_parse_mode: String? = nil, text_entities: Array<MessageEntity>? = nil) {
             self.user_id = user_id
             self.gift_id = gift_id
             self.pay_for_upgrade = pay_for_upgrade
@@ -11230,7 +11554,8 @@ extension TelegramAPI {
         public let user_id: Int
         /** String | Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description. */
         public let custom_description: String?
-        public init(user_id: Int ,custom_description: String? = nil) {
+        
+        public init(user_id: Int, custom_description: String? = nil) {
             self.user_id = user_id
             self.custom_description = custom_description
         }
@@ -11258,7 +11583,8 @@ extension TelegramAPI {
         public let chat_id: Either2<Int, String>
         /** String | Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description. */
         public let custom_description: String?
-        public init(chat_id: Either2<Int, String> ,custom_description: String? = nil) {
+        
+        public init(chat_id: Either2<Int, String>, custom_description: String? = nil) {
             self.chat_id = chat_id
             self.custom_description = custom_description
         }
@@ -11284,6 +11610,7 @@ extension TelegramAPI {
     public struct RemoveUserVerificationParams: Codable {
         /** Integer | Unique identifier of the target user */
         public let user_id: Int
+        
         public init(user_id: Int) {
             self.user_id = user_id
         }
@@ -11309,6 +11636,7 @@ extension TelegramAPI {
     public struct RemoveChatVerificationParams: Codable {
         /** Integer or String | Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
         public let chat_id: Either2<Int, String>
+        
         public init(chat_id: Either2<Int, String>) {
             self.chat_id = chat_id
         }
@@ -11344,7 +11672,8 @@ extension TelegramAPI {
         public let next_offset: String?
         /** InlineQueryResultsButton | A JSON-serialized object describing a button to be shown above inline query results */
         public let button: InlineQueryResultsButton?
-        public init(inline_query_id: String ,results: Array<InlineQueryResult> ,cache_time: Int? = nil ,is_personal: Bool? = nil ,next_offset: String? = nil ,button: InlineQueryResultsButton? = nil) {
+        
+        public init(inline_query_id: String, results: Array<InlineQueryResult>, cache_time: Int? = nil, is_personal: Bool? = nil, next_offset: String? = nil, button: InlineQueryResultsButton? = nil) {
             self.inline_query_id = inline_query_id
             self.results = results
             self.cache_time = cache_time
@@ -11377,7 +11706,8 @@ extension TelegramAPI {
         public let web_app_query_id: String
         /** InlineQueryResult | A JSON-serialized object describing the message to be sent */
         public let result: InlineQueryResult
-        public init(web_app_query_id: String ,result: InlineQueryResult) {
+        
+        public init(web_app_query_id: String, result: InlineQueryResult) {
             self.web_app_query_id = web_app_query_id
             self.result = result
         }
@@ -11413,7 +11743,8 @@ extension TelegramAPI {
         public let allow_group_chats: Bool?
         /** Boolean | Pass True if the message can be sent to channel chats */
         public let allow_channel_chats: Bool?
-        public init(user_id: Int ,result: InlineQueryResult ,allow_user_chats: Bool? = nil ,allow_bot_chats: Bool? = nil ,allow_group_chats: Bool? = nil ,allow_channel_chats: Bool? = nil) {
+        
+        public init(user_id: Int, result: InlineQueryResult, allow_user_chats: Bool? = nil, allow_bot_chats: Bool? = nil, allow_group_chats: Bool? = nil, allow_channel_chats: Bool? = nil) {
             self.user_id = user_id
             self.result = result
             self.allow_user_chats = allow_user_chats
@@ -11499,7 +11830,8 @@ extension TelegramAPI {
         public let reply_parameters: ReplyParameters?
         /** InlineKeyboardMarkup | A JSON-serialized object for an inline keyboard. If empty, one 'Pay total price' button will be shown. If not empty, the first button must be a Pay button. */
         public let reply_markup: InlineKeyboardMarkup?
-        public init(chat_id: Either2<Int, String> ,message_thread_id: Int? = nil ,title: String ,description: String ,payload: String ,provider_token: String? = nil ,currency: String ,prices: Array<LabeledPrice> ,max_tip_amount: Int? = nil ,suggested_tip_amounts: Array<Int>? = nil ,start_parameter: String? = nil ,provider_data: String? = nil ,photo_url: String? = nil ,photo_size: Int? = nil ,photo_width: Int? = nil ,photo_height: Int? = nil ,need_name: Bool? = nil ,need_phone_number: Bool? = nil ,need_email: Bool? = nil ,need_shipping_address: Bool? = nil ,send_phone_number_to_provider: Bool? = nil ,send_email_to_provider: Bool? = nil ,is_flexible: Bool? = nil ,disable_notification: Bool? = nil ,protect_content: Bool? = nil ,allow_paid_broadcast: Bool? = nil ,message_effect_id: String? = nil ,reply_parameters: ReplyParameters? = nil ,reply_markup: InlineKeyboardMarkup? = nil) {
+        
+        public init(chat_id: Either2<Int, String>, message_thread_id: Int? = nil, title: String, description: String, payload: String, provider_token: String? = nil, currency: String, prices: Array<LabeledPrice>, max_tip_amount: Int? = nil, suggested_tip_amounts: Array<Int>? = nil, start_parameter: String? = nil, provider_data: String? = nil, photo_url: String? = nil, photo_size: Int? = nil, photo_width: Int? = nil, photo_height: Int? = nil, need_name: Bool? = nil, need_phone_number: Bool? = nil, need_email: Bool? = nil, need_shipping_address: Bool? = nil, send_phone_number_to_provider: Bool? = nil, send_email_to_provider: Bool? = nil, is_flexible: Bool? = nil, disable_notification: Bool? = nil, protect_content: Bool? = nil, allow_paid_broadcast: Bool? = nil, message_effect_id: String? = nil, reply_parameters: ReplyParameters? = nil, reply_markup: InlineKeyboardMarkup? = nil) {
             self.chat_id = chat_id
             self.message_thread_id = message_thread_id
             self.title = title
@@ -11594,7 +11926,8 @@ extension TelegramAPI {
         public let send_email_to_provider: Bool?
         /** Boolean | Pass True if the final price depends on the shipping method. Ignored for payments in Telegram Stars. */
         public let is_flexible: Bool?
-        public init(business_connection_id: String? = nil ,title: String ,description: String ,payload: String ,provider_token: String? = nil ,currency: String ,prices: Array<LabeledPrice> ,subscription_period: Int? = nil ,max_tip_amount: Int? = nil ,suggested_tip_amounts: Array<Int>? = nil ,provider_data: String? = nil ,photo_url: String? = nil ,photo_size: Int? = nil ,photo_width: Int? = nil ,photo_height: Int? = nil ,need_name: Bool? = nil ,need_phone_number: Bool? = nil ,need_email: Bool? = nil ,need_shipping_address: Bool? = nil ,send_phone_number_to_provider: Bool? = nil ,send_email_to_provider: Bool? = nil ,is_flexible: Bool? = nil) {
+        
+        public init(business_connection_id: String? = nil, title: String, description: String, payload: String, provider_token: String? = nil, currency: String, prices: Array<LabeledPrice>, subscription_period: Int? = nil, max_tip_amount: Int? = nil, suggested_tip_amounts: Array<Int>? = nil, provider_data: String? = nil, photo_url: String? = nil, photo_size: Int? = nil, photo_width: Int? = nil, photo_height: Int? = nil, need_name: Bool? = nil, need_phone_number: Bool? = nil, need_email: Bool? = nil, need_shipping_address: Bool? = nil, send_phone_number_to_provider: Bool? = nil, send_email_to_provider: Bool? = nil, is_flexible: Bool? = nil) {
             self.business_connection_id = business_connection_id
             self.title = title
             self.description = description
@@ -11646,7 +11979,8 @@ extension TelegramAPI {
         public let shipping_options: Array<ShippingOption>?
         /** String | Required if ok is False. Error message in human readable form that explains why it is impossible to complete the order (e.g. "Sorry, delivery to your desired address is unavailable"). Telegram will display this message to the user. */
         public let error_message: String?
-        public init(shipping_query_id: String ,ok: Bool ,shipping_options: Array<ShippingOption>? = nil ,error_message: String? = nil) {
+        
+        public init(shipping_query_id: String, ok: Bool, shipping_options: Array<ShippingOption>? = nil, error_message: String? = nil) {
             self.shipping_query_id = shipping_query_id
             self.ok = ok
             self.shipping_options = shipping_options
@@ -11678,7 +12012,8 @@ extension TelegramAPI {
         public let ok: Bool
         /** String | Required if ok is False. Error message in human readable form that explains the reason for failure to proceed with the checkout (e.g. "Sorry, somebody just bought the last of our amazing black T-shirts while you were busy filling out your payment details. Please choose a different color or garment!"). Telegram will display this message to the user. */
         public let error_message: String?
-        public init(pre_checkout_query_id: String ,ok: Bool ,error_message: String? = nil) {
+        
+        public init(pre_checkout_query_id: String, ok: Bool, error_message: String? = nil) {
             self.pre_checkout_query_id = pre_checkout_query_id
             self.ok = ok
             self.error_message = error_message
@@ -11707,7 +12042,8 @@ extension TelegramAPI {
         public let offset: Int?
         /** Integer | The maximum number of transactions to be retrieved. Values between 1-100 are accepted. Defaults to 100. */
         public let limit: Int?
-        public init(offset: Int? = nil ,limit: Int? = nil) {
+        
+        public init(offset: Int? = nil, limit: Int? = nil) {
             self.offset = offset
             self.limit = limit
         }
@@ -11735,7 +12071,8 @@ extension TelegramAPI {
         public let user_id: Int
         /** String | Telegram payment identifier */
         public let telegram_payment_charge_id: String
-        public init(user_id: Int ,telegram_payment_charge_id: String) {
+        
+        public init(user_id: Int, telegram_payment_charge_id: String) {
             self.user_id = user_id
             self.telegram_payment_charge_id = telegram_payment_charge_id
         }
@@ -11765,7 +12102,8 @@ extension TelegramAPI {
         public let telegram_payment_charge_id: String
         /** Boolean | Pass True to cancel extension of the user subscription; the subscription must be active up to the end of the current subscription period. Pass False to allow the user to re-enable a subscription that was previously canceled by the bot. */
         public let is_canceled: Bool
-        public init(user_id: Int ,telegram_payment_charge_id: String ,is_canceled: Bool) {
+        
+        public init(user_id: Int, telegram_payment_charge_id: String, is_canceled: Bool) {
             self.user_id = user_id
             self.telegram_payment_charge_id = telegram_payment_charge_id
             self.is_canceled = is_canceled
@@ -11794,7 +12132,8 @@ extension TelegramAPI {
         public let user_id: Int
         /** Array of PassportElementError | A JSON-serialized array describing the errors */
         public let errors: Array<PassportElementError>
-        public init(user_id: Int ,errors: Array<PassportElementError>) {
+        
+        public init(user_id: Int, errors: Array<PassportElementError>) {
             self.user_id = user_id
             self.errors = errors
         }
@@ -11839,7 +12178,8 @@ extension TelegramAPI {
         public let reply_parameters: ReplyParameters?
         /** InlineKeyboardMarkup | A JSON-serialized object for an inline keyboard. If empty, one 'Play game_title' button will be shown. If not empty, the first button must launch the game. */
         public let reply_markup: InlineKeyboardMarkup?
-        public init(business_connection_id: String? = nil ,chat_id: Int ,message_thread_id: Int? = nil ,game_short_name: String ,disable_notification: Bool? = nil ,protect_content: Bool? = nil ,allow_paid_broadcast: Bool? = nil ,message_effect_id: String? = nil ,reply_parameters: ReplyParameters? = nil ,reply_markup: InlineKeyboardMarkup? = nil) {
+        
+        public init(business_connection_id: String? = nil, chat_id: Int, message_thread_id: Int? = nil, game_short_name: String, disable_notification: Bool? = nil, protect_content: Bool? = nil, allow_paid_broadcast: Bool? = nil, message_effect_id: String? = nil, reply_parameters: ReplyParameters? = nil, reply_markup: InlineKeyboardMarkup? = nil) {
             self.business_connection_id = business_connection_id
             self.chat_id = chat_id
             self.message_thread_id = message_thread_id
@@ -11885,7 +12225,8 @@ extension TelegramAPI {
         public let message_id: Int?
         /** String | Required if chat_id and message_id are not specified. Identifier of the inline message */
         public let inline_message_id: String?
-        public init(user_id: Int ,score: Int ,force: Bool? = nil ,disable_edit_message: Bool? = nil ,chat_id: Int? = nil ,message_id: Int? = nil ,inline_message_id: String? = nil) {
+        
+        public init(user_id: Int, score: Int, force: Bool? = nil, disable_edit_message: Bool? = nil, chat_id: Int? = nil, message_id: Int? = nil, inline_message_id: String? = nil) {
             self.user_id = user_id
             self.score = score
             self.force = force
@@ -11922,7 +12263,8 @@ extension TelegramAPI {
         public let message_id: Int?
         /** String | Required if chat_id and message_id are not specified. Identifier of the inline message */
         public let inline_message_id: String?
-        public init(user_id: Int ,chat_id: Int? = nil ,message_id: Int? = nil ,inline_message_id: String? = nil) {
+        
+        public init(user_id: Int, chat_id: Int? = nil, message_id: Int? = nil, inline_message_id: String? = nil) {
             self.user_id = user_id
             self.chat_id = chat_id
             self.message_id = message_id
